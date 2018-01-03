@@ -28,6 +28,20 @@ Route::get('/get_module_training','TrainingController@get_module_training');
 
 Route::get('/get_training/{id}','TrainingController@get_trainings');
 
+Route::get('/material/{id}', 'TrainingController@get_material');
+
+Route::get('/file', function(){
+	return view('material_file');
+});
+
+Route::get('/finish_chapter/{id_chapter}','TrainingController@finish_chapter');
+
+Route::get('/test/{id_chapter}','TrainingController@get_test');
+
+Route::post('/test_submit', 'TrainingController@submit_test');
+
+Route::get('/review_test/{id_chapter}','TrainingController@review_test');
+
 /*
 |--------------------------------------------------------------------------
 | News Routes

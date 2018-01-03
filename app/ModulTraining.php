@@ -52,49 +52,49 @@ class ModulTraining extends Model
     	
     	function getTraining($super_module){
 
-    		// mendapatkan material pada chapter
-    		function getMaterial ( $chapter ) {
+    // 		// mendapatkan material pada chapter
+    // 		function getMaterial ( $chapter ) {
 
-	    		function getFileMaterial ( $material ) {
-	    			$file_materials = FilesMaterial::where( "id_material" , $material->id )->get();
-	    			if ( $file_materials == null ) {
-	    				return "";
-	    			} else {
-	    				return $file_materials;
-	    			}
-	    		}
+	   //  		function getFileMaterial ( $material ) {
+	   //  			$file_materials = FilesMaterial::where( "id_material" , $material->id )->get();
+	   //  			if ( $file_materials == null ) {
+	   //  				return "";
+	   //  			} else {
+	   //  				return $file_materials;
+	   //  			}
+	   //  		}
 
-	    		$material = Material::where( "id_chapter" , $chapter->id )->first();
-				$material["files_material"] = getFileMaterial( $material );
+	   //  		$material = Material::where( "id_chapter" , $chapter->id )->first();
+				// $material["files_material"] = getFileMaterial( $material );
 
-				return $material;
-	    	}
+				// return $material;
+	   //  	}
 
-	    	// mendapatkan test pada chapter
-	    	function getTest ( $chapter ) {
+	   //  	// mendapatkan test pada chapter
+	   //  	function getTest ( $chapter ) {
 	    		
-	    		function get_question_option( $question ) {
-	    			$options = QuestionOption::where( 'id_question' , $question->id )->get();
-	    			if ( count($options) == 0) {
-	    				return "tidak ada opsi";
-	    			} else {
-	    				return $options;
-	    			}
-	    		}
+	   //  		function get_question_option( $question ) {
+	   //  			$options = QuestionOption::where( 'id_question' , $question->id )->get();
+	   //  			if ( count($options) == 0) {
+	   //  				return "tidak ada opsi";
+	   //  			} else {
+	   //  				return $options;
+	   //  			}
+	   //  		}
 
-	    		$test = Test::where( 'id_chapter' , $chapter->id )->first();
-	    		$questions = Question::where( 'id_test' , $test->id )->get();
-	    		if ( count($questions) == 0 ) {
-	    			$test['questions'] = " tidak ada pertanyaan";
-	    		} else {
-	    			foreach ($questions as $question) {
-		    			$question['option'] = get_question_option( $question );
-		    		}	
-		    		$test['questions'] = $questions;
-	    		}
+	   //  		$test = Test::where( 'id_chapter' , $chapter->id )->first();
+	   //  		$questions = Question::where( 'id_test' , $test->id )->get();
+	   //  		if ( count($questions) == 0 ) {
+	   //  			$test['questions'] = " tidak ada pertanyaan";
+	   //  		} else {
+	   //  			foreach ($questions as $question) {
+		  //   			$question['option'] = get_question_option( $question );
+		  //   		}	
+		  //   		$test['questions'] = $questions;
+	   //  		}
 	    		
-	    		return $test;
-	    	}
+	   //  		return $test;
+	   //  	}
 
 
 	    	// --------------MAIN-------------------
@@ -103,16 +103,16 @@ class ModulTraining extends Model
     		if ( count($chapters) == 0 ) {
     			return "belum ada chapter";
     		} else {
-    			foreach ( $chapters as $chapter ) {
-    				//check apakah chapter berupa konten atau test
-    				if ($chapter->category == 0) {
-    					// materials
-    					$chapter['material'] = getMaterial ( $chapter );
-    				} else {
-    					// test
-    					$chapter['test'] = getTest ( $chapter );
-    				}
-    			}
+    			// foreach ( $chapters as $chapter ) {
+    			// 	//check apakah chapter berupa konten atau test
+    			// 	if ($chapter->category == 0) {
+    			// 		// materials
+    			// 		$chapter['material'] = getMaterial ( $chapter );
+    			// 	} else {
+    			// 		// test
+    			// 		$chapter['test'] = getTest ( $chapter );
+    			// 	}
+    			// }
     		}
     		return $chapters;
 
