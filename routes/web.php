@@ -1,7 +1,5 @@
 <?php
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,16 +15,6 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/test', 'HomeController@test');
 
-/*
-|--------------------------------------------------------------------------
-| USER Routes
-|--------------------------------------------------------------------------
-|
-| Bagian route tentang user
-|
-*/
-
-Route::get('/profile', 'UserController@get_profile');
 
 Route::post('change_password', 'UserController@change_password');
 
@@ -112,3 +100,9 @@ Route::get('/get_forum/{id}','ForumController@get_forum');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Front End by Luthfi
+
+Route::get('/home2', 'HomeController@index2')->name('home');
+
+//End of Front End by Luthfi
