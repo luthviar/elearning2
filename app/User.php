@@ -74,4 +74,18 @@ class User extends Authenticatable
 
         return $user;
     }
+
+    public function change_password ( $new_password) {
+        $user = User::find(\Auth::user()->id);
+        if ($user == null) {
+            $user['status'] = 'error';
+            $user['message'] = 'user not found';
+            return $user;
+        }
+        $user->password = bcrypt($new_password);
+        $user->save();
+
+        $user['status'] = 'success';
+        return $user;        
+    }
 }
