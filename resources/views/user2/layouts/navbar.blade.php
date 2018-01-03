@@ -23,7 +23,7 @@
 
                     <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <img alt="" src="{{ url('assets/img/avatar1_small.jpg') }}"/>
-                        <span class="username hidden-1024">{{Auth::user()->get_nama()}}</span>
+                        <span class="username hidden-1024">{{Auth::user()->name}}</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
 
@@ -58,10 +58,10 @@
         <!-- BEGIN HORIZANTAL MENU -->
         <div class="hor-menu hidden-sm hidden-xs navbar-collapse collapse pull-right">
             <ul class="nav navbar-nav" style="margin-right:0px !important;">
-                <li class="classic-menu-dropdown {{ Request::is('/') ? 'active' : '' }}">
+                <li class="classic-menu-dropdown {{ Request::is('/home2' or '/') ? 'active' : '' }}">
                     <a href="{{ url('/') }}">
                         Home
-                        <span class="{{ Request::is('/') ? 'selected' : '' }}"></span>
+                        <span class="{{ Request::is('/' or 'home2') ? 'selected' : '' }}"></span>
                     </a>
                 </li>
                 <li class="classic-menu-dropdown {{ Request::is('news-board') ? 'active' : '' }}">

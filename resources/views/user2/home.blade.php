@@ -18,7 +18,7 @@
                             <div class="slide-holder">
                                 <div class="slide-info">
                                     <h1>{{$slide->title}}</h1>
-                                    <p>{!! html_entity_decode(str_limit($slide->content, $limit = 360, $end = '...')) !!}</p>
+                                    <p>{!! html_entity_decode(str_limit($slide->content, $limit = 360, $end = '...')) !!} ajsdfkldasf klsadf lkas fklsad fklds akfldas klf asdklf akdslf adsklf adkslf klsaf klasdf klsda fkldakf</p>
                                     <div class="top-left">
                                         <a class="btn btn-ghost"  href="/slider/{{$slide->id}}">Read More</a>
                                     </div>
