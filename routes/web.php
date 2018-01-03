@@ -110,9 +110,3 @@ Route::get('/get_forum/{id}','ForumController@get_forum');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-//Front End by Luthfi
-
-Route::get('/home2', 'HomeController@index2')->name('home');
-
-//End of Front End by Luthfi
