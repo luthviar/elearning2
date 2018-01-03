@@ -12,16 +12,6 @@
 
 	<a href="{{ URL::previous() }}" class="btn btn-success">back</a>
 </div>
-<script type="text/javascript">
-document.ready( function(){
-	$('#iframe').ready(function() {
-	   setTimeout(function() {
-	      $('#iframe').contents().find('#download').remove();
-	   }, 100);
-	});
-});
-
-</script>
 
 @endsection
 

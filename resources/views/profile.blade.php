@@ -85,6 +85,8 @@
 
 
         <div role="tabpanel" class="tab-pane" id="profile">
+          <form action="{{url('/change_password')}}" method="post">
+          {{ csrf_field() }}
           <div class="col-xs-12 col-md-6 col-md-offset-3">
             <table class="table">
               <tbody>
@@ -92,28 +94,30 @@
                   <td width="50%">Username</td>
                   <td>{{ $profile['personal_data']->username }}</td>
                 </tr>
+                
                 <tr>
                   <td>Change Password</td>
-                  <td><input type="password" class="form-control" name="password" placeholder="password"></td>
+                  <td><input id="change_password" type="password" class="form-control" name="change_password" placeholder="password"><span id="change_password_msg"></span></td>
                 </tr>
                 <tr>
                   <td>Confirm Password</td>
-                  <td><input type="password" class="form-control" name="confirm_password" placeholder="confirm password"></td>
+                  <td><input id="confirm_password" type="password" class="form-control" name="confirm_password" placeholder="confirm password"></td>
                 </tr>
               </tbody>
             </table>
-            <a href="#" class="btn btn-success" style="width: 100%;">change password</a>
+            <button type="submit"  class="btn btn-success" style="width: 100%;">change password</button>
           </div>
+          </form>
         </div>
         <div role="tabpanel" class="tab-pane" id="messages">
           <div class="col-xs-12 col-md-12 text-center">
             <div class="col-xs-12 col-md-6">
               <h4>Training Included</h4>
-              <h1 style="font-size: 40px">10</h1>
+              <h1 style="font-size: 40px">{{ count($training_record['records']) }}</h1>
             </div>
             <div class="col-xs-12 col-md-6 green_color">
               <h4>Training Finished</h4>
-              <h1 style="font-size: 40px">10</h1>
+              <h1 style="font-size: 40px">{{ $training_record['total_finish'] }}</h1>
             </div>
             <div class="col-xs-12 col-md-12">
               <table class="table">
@@ -124,14 +128,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Training 1</td>
-                    <td>Finished</td>
-                  </tr>
-                  <tr>
-                    <td>Training 1</td>
-                    <td>Finished</td>
-                  </tr>
+                  @if (count($training_record['records']) == 0)
+                    <tr>
+                      <td>no training record</td>
+                    </tr>
+                  @else
+                    @foreach ( $training_record['records']  as $record)
+                    <tr>
+                      <td><a href="{{ url('/get_training',  $record['module']->id)}}">{{ $record['module']->modul_name}}</a></td>
+                      <td>{{ $record['status']}}</td>
+                    </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

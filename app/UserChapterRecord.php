@@ -95,4 +95,26 @@ class UserChapterRecord extends Model
 
     	return $record;
     }
+
+    public function get_user_training_record( $id_user ){
+    	$records = UserChapterRecord::where('id_user', $id_user)->distinct()->get(['id_module_training']);
+    	$tot_finish = 0;
+    	if (count($records) != null) {
+    		foreach ($records as $key => $record) {
+    			$rec = UserChapterRecord::where('id_user', $id_user)->where('id_module_training', $record->id_module_training)->where('is_finish', 0)->get();
+    			if (count($rec) == 0) {
+    				$record['status'] = 'Finished';
+    				$tot_finish +=1;
+    			} else {
+    				$record['status'] = 'Not Finish';
+    			}
+    			$module_training = ModulTraining::find($record->id_module_training);
+    			$record['module'] = $module_training;
+    		}
+    	}
+    	$output['records'] = $records;
+    	$output['total_finish'] = $tot_finish;
+
+    	return $output;
+    }
 }

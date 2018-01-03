@@ -28,6 +28,8 @@ Route::get('/test', 'HomeController@test');
 
 Route::get('/profile', 'UserController@get_profile');
 
+Route::post('change_password', 'UserController@change_password');
+
 /*
 |--------------------------------------------------------------------------
 | Training Routes

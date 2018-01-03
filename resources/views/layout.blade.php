@@ -99,7 +99,7 @@
                 <li><a href="{{ route('register') }}">Register</a></li>
             @else
                 <li class="dropdown">
-                    <a href="#" > {{ Auth::user()->name }} </a>
+                    <a href="{{ url('/profile') }}" > {{ Auth::user()->name }} </a>
                 </li>
                     
                 <li>
