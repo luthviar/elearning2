@@ -20,6 +20,17 @@ Route::post('change_password', 'UserController@change_password');
 
 /*
 |--------------------------------------------------------------------------
+| USER Routes
+|--------------------------------------------------------------------------
+|
+| Bagian route tentang user
+|
+*/
+
+Route::get('/profile', 'UserController@get_profile');
+
+/*
+|--------------------------------------------------------------------------
 | Training Routes
 |--------------------------------------------------------------------------
 |
@@ -99,7 +110,7 @@ Route::get('/get_forum/{id}','ForumController@get_forum');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home1');
 
 //Front End by Luthfi
 

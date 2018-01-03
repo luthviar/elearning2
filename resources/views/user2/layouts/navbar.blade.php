@@ -88,13 +88,17 @@
                         </a>
                         <span class="{{ Request::is('module/*') ? 'selected' : '' }}"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            @foreach ($module as $modul)
-                                <li>
-                                    {{--<a href="/module/{{$modul->id}}">{{$modul->nama}}</a>--}}
-                                    <a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>
-
-                                </li>
+                            @foreach ( $module as $modul)
+                                <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>
                             @endforeach
+
+                            {{--@foreach ($module as $modul)--}}
+                                {{--<li>--}}
+                                    {{--<a href="/module/{{$modul->id}}">{{$modul->nama}}</a>--}}
+                                    {{--<a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>--}}
+
+                                {{--</li>--}}
+                            {{--@endforeach--}}
                         </ul>
                     </li>
                     @if(Request::is('raport/*'))
