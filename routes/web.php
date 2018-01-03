@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/test', 'HomeController@test');
 
@@ -110,10 +110,10 @@ Route::get('/get_forum/{id}','ForumController@get_forum');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home1');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 //Front End by Luthfi
 
-Route::get('/home2', 'HomeController@index2')->name('home');
+Route::get('/home2', 'HomeController@index2')->name('home2');
 
 //End of Front End by Luthfi

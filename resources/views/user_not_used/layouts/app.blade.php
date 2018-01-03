@@ -8,16 +8,16 @@
     <!-- ********************************************** -->
     <!--                  HEAD IMPORT CSS DLL           -->
     <!-- ********************************************** -->
-    @include('user2.layouts.header')
+    @include('user.layouts.header')
         @yield('header')
 </head>
-<body class="page-header-fixed page-full-width">
+<body>
 
 <!-- ********************************************** -->
 <!--                  NAVBAR                        -->
 <!-- ********************************************** -->
 
-@include('user2.layouts.navbar')
+@include('user.layouts.navbar')
 
 <!-- ********************************************** -->
 <!--                  CONTENT                       -->
@@ -30,7 +30,7 @@
         <!--                  FOOTER                        -->
         <!-- ********************************************** -->
 
-        @include('user2.layouts.footer')
+        @include('user.layouts.footer')
 </main>
 
 
@@ -40,7 +40,7 @@
 <!-- ********************************************** -->
 
 {{-- this include is required for all page--}}
-@include('user2.layouts.script')
+@include('user.layouts.script')
 
 {{-- if you need script only to a page, yield this --}}
 @yield('script')

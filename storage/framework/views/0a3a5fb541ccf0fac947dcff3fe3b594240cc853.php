@@ -1,6 +1,6 @@
 <footer id="footer" class="col-lg-12 text-center">
-    <div class="text-center">
-        <div class="footer-frame text-center">
+
+        <div class="page-footer-fixed text-center">
             <div class="footer-content text-center">
                 <div class="col-holder">
                     <div class="col">
@@ -38,37 +38,10 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <div class="col-lg-12">
+                <div class="holder">
                     <p>Copyright 2017 Aerofood. All rights reserved.</p>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
 
-{{--<!-- Footer--}}
-{{--================================================== -->--}}
-{{--<footer class="bs-docs-footer" role="contentinfo">--}}
-    {{--<div class="container">--}}
-        {{--<p>Bootstrap ships with vanilla CSS, but its source code utilizes<br> the two most popular CSS preprocessors, Less and Sass. Quickly get started with precompiled CSS or build on the source.</p>--}}
-        {{--<ul class="bs-docs-footer-links text-muted">--}}
-            {{--<li>Aerofood ACS</li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="https://github.com/twbs/bootstrap">Facebook</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="getting-started/#examples">Twitter</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="2.3.2/">Instagram</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="about/">Google+</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="http://expo.getbootstrap.com">Expo</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="http://blog.getbootstrap.com">Blog</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="https://github.com/twbs/bootstrap/issues">Issues</a></li>--}}
-            {{--<li>&middot;</li>--}}
-            {{--<li><a href="https://github.com/twbs/bootstrap/releases">Releases</a></li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-{{--</footer>--}}
+</footer>

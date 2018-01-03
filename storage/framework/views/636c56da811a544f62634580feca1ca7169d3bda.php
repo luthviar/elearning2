@@ -1,6 +1,4 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
     <div class="clearfix"></div>
@@ -14,21 +12,21 @@
             <!-- ********************************************** -->
             <div class="promo" >
                 <ul class="slider">
-                    @foreach ($sliders as $slide)
+                    <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                        <li style="background: url({{$slide->image or 'Elegantic/images/ALS.jpg'}}) no-repeat 100% 100%; width:100% !important;">
+                        <li style="background: url(<?php echo e(isset($slide->image) ? $slide->image : 'Elegantic/images/ALS.jpg'); ?>) no-repeat 100% 100%; width:100% !important;">
 
                             <div class="slide-holder">
                                 <div class="slide-info">
-                                    <h1>{{$slide->title}}</h1>
-                                    <p>{!! html_entity_decode(str_limit($slide->content, $limit = 360, $end = '...')) !!} ajsdfkldasf klsadf lkas fklsad fklds akfldas klf asdklf akdslf adsklf adkslf klsaf klasdf klsda fkldakf</p>
+                                    <h1><?php echo e($slide->title); ?></h1>
+                                    <p><?php echo html_entity_decode(str_limit($slide->content, $limit = 360, $end = '...')); ?> ajsdfkldasf klsadf lkas fklsad fklds akfldas klf asdklf akdslf adsklf adkslf klsaf klasdf klsda fkldakf</p>
                                     <div class="top-left">
-                                        <a class="btn btn-ghost"  href="/slider/{{$slide->id}}">Read More</a>
+                                        <a class="btn btn-ghost"  href="/slider/<?php echo e($slide->id); ?>">Read More</a>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
 
             </div>
@@ -46,20 +44,21 @@
 
                             </p>
 
-                            @foreach ($newses as $news)
+                            <?php $__currentLoopData = $newses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $news): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="row" >
                                     <div class="col-md-4 blog-img blog-tag-data">
-                                        @if(empty($news->image))
+                                        <?php if(empty($news->image)): ?>
 
-                                            <img class="img-responsive" src="{{ url('/Elegantic/images/ALS.jpg') }}" alt="" style="width:100%;height:150px;">
-                                        @else
-                                            <img class="img-responsive" src="{{$news->image or 'Elegantic/images/ALS.jpg'}}" alt="" style="width:100%;height:150px;">
-                                        @endif
+                                            <img class="img-responsive" src="<?php echo e(url('/Elegantic/images/ALS.jpg')); ?>" alt="" style="width:100%;height:150px;">
+                                        <?php else: ?>
+                                            <img class="img-responsive" src="<?php echo e(isset($news->image) ? $news->image : 'Elegantic/images/ALS.jpg'); ?>" alt="" style="width:100%;height:150px;">
+                                        <?php endif; ?>
                                         <ul class="list-inline">
                                             <li>
                                                 <i class="fa fa-calendar"></i>
                                                 <a href="#">
-                                                    {{ $news->created_at }}
+                                                    <?php echo e($news->created_at); ?>
+
                                                 </a>
                                             </li>
                                         </ul>
@@ -67,23 +66,25 @@
                                     </div>
                                     <div class="col-md-8 blog-article">
                                         <h3>
-                                            <a href="/news/{{$news->id}}">
-                                                {{ str_limit($news->title, $limit = 50, $end = '...') }}
+                                            <a href="/news/<?php echo e($news->id); ?>">
+                                                <?php echo e(str_limit($news->title, $limit = 50, $end = '...')); ?>
+
                                             </a>
                                         </h3>
                                         <p>
-                                            {{ strip_tags(str_limit($news->content, $limit = 360, $end = '...')) }}
+                                            <?php echo e(strip_tags(str_limit($news->content, $limit = 360, $end = '...'))); ?>
+
                                         </p>
-                                        <a href="{{ url('/news/'.$news->id) }}" class="btn hijau-muda">
+                                        <a href="<?php echo e(url('/news/'.$news->id)); ?>" class="btn hijau-muda">
                                             Read more <i class="m-icon-swapright m-icon-white"></i>
                                         </a>
                                     </div>
                                 </div>
                                 <hr>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             <ul class="pagination pull-right">
-                                <a href="{{ url('/news-board') }}" class="btn hijau-muda">
+                                <a href="<?php echo e(url('/news-board')); ?>" class="btn hijau-muda">
                                     More News <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </ul>
@@ -173,4 +174,5 @@
     </div>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

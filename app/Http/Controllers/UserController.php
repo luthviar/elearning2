@@ -22,7 +22,7 @@ class UserController extends Controller
     	$training_record = new UserChapterRecord();
     	$training_record = $training_record->get_user_training_record(\Auth::user()->id);
 
-    	return view('profile')->with('profile', $profile)->with('training_record', $training_record)->with('module', $modul);
+    	return view('user.profile')->with('profile', $profile)->with('training_record', $training_record)->with('module', $modul);
     }
 
     public function change_password ( Request $request) {

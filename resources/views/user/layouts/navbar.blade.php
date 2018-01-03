@@ -1,88 +1,186 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Carousel</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+<div class="header navbar navbar-fixed-top mega-menu">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner">
+        <!-- BEGIN LOGO -->
+        <a class="navbar-brand" href="/">
+            <img src="{{URL::asset('Elegantic/images/ALC.png')}}" class="img-responsive"/>
+        </a>
+        <!-- END LOGO -->
+        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <!-- <img src="assets/img/menu-toggler.png" alt=""/> -->
+            <i class="fa fa-bars"></i>
+        </a>
+        <!-- END HORIZANTAL MENU -->
+
+
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right" style="cursor: pointer; margin-right:0px !important;">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            @if (Auth::guest())
+                <li><a class="btn btn-small btn-sm pull-right bg-secondary" href="{{ route('login') }}" style="padding-top:20px; padding-bottom:20px; background-color:#ccc !important;"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;Login</a></li>
+            @else
+                <li class="dropdown user">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="" src="{{ url('assets/img/avatar1_small.jpg') }}"/>
+                        <span class="username hidden-1024">{{Auth::user()->name}}</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="login">
+                            @if(Auth::user()->is_admin == 1)
+                                <a href="{{ url('/personnel') }}">
+                                    Acting As Admin
+                                </a>
+                            @endif
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();"
+                               style="
+                                    :hover{
+                                        background-color: red;
+                                    }"
+                            >
+                                Logout
+                            </a>
+
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+            @endif
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+        <!-- BEGIN HORIZANTAL MENU -->
+        <div class="hor-menu hidden-sm hidden-xs navbar-collapse collapse pull-right">
+            <ul class="nav navbar-nav" style="margin-right:0px !important;">
+                <li class="classic-menu-dropdown {{ Request::is('/') ? 'active' : '' }}">
+                    <a href="{{ url('/') }}">
+                        Home
+                        <span class="{{ Request::is('/') ? 'selected' : '' }}"></span>
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                <li class="classic-menu-dropdown {{ Request::is('news-board') ? 'active' : '' }}">
+                    <a href="{{ url('/news-board') }}">News</a>
+                    <span class="{{ Request::is('news-board') ? 'selected' : '' }}"></span>
                 </li>
+                @if(Auth::user())
+                    <li class="classic-menu-dropdown {{ Request::is('forum') ? 'active' : '' }}">
+                        <a href="{{url('/forum')}}">Forum</a>
+                        <span class="{{ Request::is('forum') ? 'selected' : '' }}"></span>
+                    </li>
+
+
+
+                    <li class="classic-menu-dropdown {{ Request::is('module/*') ? 'active' : '' }}">
+                        <a data-toggle="dropdown"
+                           data-hover="dropdown"
+                           data-close-others="true"
+                           href="#"
+                           id="dropdownMenuButton"
+                           class="dropdown-toggle"
+                        >
+                            My Modules <i class="fa fa-angle-down"></i>
+                        </a>
+                        <span class="{{ Request::is('module/*') ? 'selected' : '' }}"></span>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach ( $module as $modul)
+                                <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    @if(Request::is('profile'))
+                        <li class="classic-menu-dropdown {{ Request::is('profile') ? 'active' : '' }}">
+
+                            <a href="{{ url('profile') }}">My Profile</a>
+                            <span class="{{ Request::is('profile') ? 'selected' : '' }}"></span>
+                            <span class="{{ Request::is('reset-password/*') ? 'selected' : '' }}"></span>
+                        </li>
+                    @else
+                        <li class="classic-menu-dropdown {{ Request::is('reset-password') ? 'active' : '' }}">
+
+                            <a href="{{ url('profile') }}">My Profile</a>
+
+                            <span class="{{ Request::is('reset-password') ? 'selected' : '' }}"></span>
+                        </li>
+                    @endif
+                @endif
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
-    </nav>
-</header>
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
 
-{{--<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">--}}
-    {{--<div class="container">--}}
-        {{--<div class="navbar-header">--}}
-            {{--<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">--}}
-                {{--<span class="sr-only">Toggle navigation</span>--}}
-                {{--<span class="icon-bar"></span>--}}
-                {{--<span class="icon-bar"></span>--}}
-                {{--<span class="icon-bar"></span>--}}
-            {{--</button>--}}
-            {{--<a href="{{ url('/') }}" class="navbar-brand">Elearning</a>--}}
-        {{--</div>--}}
-        {{--<nav id="bs-navbar" class="collapse navbar-collapse">--}}
-            {{--<ul class="nav navbar-nav">--}}
-                {{--<li>--}}
-                    {{--<a href="{{ url('/get_active_news') }}">News</a>--}}
-                {{--</li>--}}
-                {{--@guest--}}
-                {{--@else--}}
-                    {{--<li>--}}
-                        {{--<a href="{{ url('/get_forum', 'public') }}">Forum</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="dropdown">--}}
+<!-- Responsive Toogle -->
+<div class="page-sidebar navbar-collapse collapse">
 
-                        {{--<a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Module Training <span class="caret"></span></a>--}}
-                        {{--<ul class="dropdown-menu">--}}
-                            {{--@foreach ( $module as $modul)--}}
-                                {{--<li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>--}}
-                            {{--@endforeach--}}
-                        {{--</ul>--}}
+    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+        <li class="selected">
+            <a href="/">
+                Home
+                {{--<span class="selected"></span>--}}
+            </a>
+        </li>
+        <li class=""><a href="{{ url('news-board') }}">News</a></li>
+        @if(Auth::user())
+            <li class=""><a href="{{url('/forum')}}">Forum</a></li>
+            <li class="classic-menu-dropdown">
+                <a>
+                    My Modules <i class="arrow fa fa-angle-down"></i>
+                </a>
+                <ul class="sub-menu">
+                    @foreach ($module as $modul)
+                        <li>
+                            <a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>
+                        </li>
+                    @endforeach
+                </ul>
 
-                        {{--<!-- <a href="components/">Components</a> -->--}}
-                    {{--</li>--}}
-                    {{--@endguest--}}
-            {{--</ul>--}}
-            {{--<ul class="nav navbar-nav navbar-right">--}}
-                {{--@guest--}}
-                {{--<li><a href="{{ route('login') }}">Login</a></li>--}}
-                {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
-                {{--@else--}}
-                    {{--<li class="dropdown">--}}
-                        {{--<a href="#" > {{ Auth::user()->name }} </a>--}}
-                    {{--</li>--}}
+            </li>
 
-                    {{--<li>--}}
-                        {{--<a href="{{ route('logout') }}"--}}
-                           {{--onclick="event.preventDefault();--}}
-                                 {{--document.getElementById('logout-form').submit();">--}}
-                            {{--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>--}}
-                        {{--</a>--}}
+            @if(Request::is('profile/*'))
+                <li class="classic-menu-dropdown {{ Request::is('profile/*') ? 'active' : '' }}">
 
-                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                            {{--{{ csrf_field() }}--}}
-                        {{--</form>--}}
-                    {{--</li>--}}
+                    <a href="{{ url('profile') }}">My Profile</a>
+                    <span class="{{ Request::is('profile/*') ? 'selected' : '' }}"></span>
+                    <span class="{{ Request::is('reset-password/*') ? 'selected' : '' }}"></span>
+                </li>
+            @else
+                <li class="classic-menu-dropdown {{ Request::is('reset-password') ? 'active' : '' }}">
+
+                    <a href="{{ url('/raport/'.Auth::user()->id) }}">My Profile</a>
+
+                    <span class="{{ Request::is('reset-password') ? 'selected' : '' }}"></span>
+                </li>
+            @endif
+
+            <li class="login">
+                @if(Auth::user()->is_admin == 1)
+                    <a href="{{ url('personnel') }}">
+                        Acting As Admin
+                    </a>
+                @endif
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();"
+                   style="
+                                    :hover{
+                                        background-color: red;
+                                    }"
+                >
+                    Logout
+                </a>
 
 
-                    {{--@endguest--}}
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+        @endif
+    </ul>
 
-            {{--</ul>--}}
-        {{--</nav>--}}
-    {{--</div>--}}
-{{--</header>--}}
+</div>

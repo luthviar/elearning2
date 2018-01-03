@@ -1,9 +1,9 @@
-@extends('user.layouts.app') @section('content')
+ <?php $__env->startSection('content'); ?>
 
   <div class="container" style="padding-top: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
-      <img src="{{ URL::asset('gambar.png') }}" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
-      <h3 class="green_color"><strong>{{$profile['personal_data']->name}}</strong></h3>
+      <img src="<?php echo e(URL::asset('gambar.png')); ?>" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
+      <h3 class="green_color"><strong><?php echo e($profile['personal_data']->name); ?></strong></h3>
       <h4>Department Human Capital . Aerofood ACS Head Office</h4>
     </div>
     <div class="col-xs-12 col-md-12" style="padding-top: 10px;">
@@ -25,23 +25,23 @@
               <tbody>
               <tr>
                 <td width="50%">Name</td>
-                <td>{{ $profile['personal_data']->name}}</td>
+                <td><?php echo e($profile['personal_data']->name); ?></td>
               </tr>
               <tr>
                 <td width="50%">Email</td>
-                <td>{{ $profile['personal_data']->email}}</td>
+                <td><?php echo e($profile['personal_data']->email); ?></td>
               </tr>
               <tr>
                 <td>Birtdate</td>
-                <td>{{ $profile['personal_data']->birtdate}}</td>
+                <td><?php echo e($profile['personal_data']->birtdate); ?></td>
               </tr>
               <tr>
                 <td width="50%">Age</td>
-                <td>{{ $profile['personal_data']->age}}</td>
+                <td><?php echo e($profile['personal_data']->age); ?></td>
               </tr>
               <tr>
                 <td width="50%">Education</td>
-                <td>{{ $profile['personal_data']->education}}</td>
+                <td><?php echo e($profile['personal_data']->education); ?></td>
               </tr>
               </tbody>
             </table>
@@ -52,27 +52,27 @@
               <tbody>
               <tr>
                 <td width="50%">Employee Status</td>
-                <td>{{$profile['employee_data']['employee_status']->name}}</td>
+                <td><?php echo e($profile['employee_data']['employee_status']->name); ?></td>
               </tr>
               <tr>
                 <td width="50%">Years of working</td>
-                <td>{{$profile['personal_data']->years_of_working}} years</td>
+                <td><?php echo e($profile['personal_data']->years_of_working); ?> years</td>
               </tr>
               <tr>
                 <td width="50%">Division</td>
-                <td>{{$profile['employee_data']['division']->division_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['division']->division_name) ? $profile['employee_data']['division']->division_name : null); ?></td>
               </tr>
               <tr>
                 <td>Unit</td>
-                <td>{{$profile['employee_data']['unit']->unit_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['unit']->unit_name) ? $profile['employee_data']['unit']->unit_name : null); ?></td>
               </tr>
               <tr>
                 <td width="50%">Department</td>
-                <td>{{$profile['employee_data']['department']->department_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['department']->department_name) ? $profile['employee_data']['department']->department_name : null); ?></td>
               </tr>
               <tr>
                 <td>Section</td>
-                <td>{{$profile['employee_data']['section']->section_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></td>
               </tr>
               </tbody>
             </table>
@@ -80,14 +80,15 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="profile">
-          <form action="{{url('/change_password')}}" method="post">
-            {{ csrf_field() }}
+          <form action="<?php echo e(url('/change_password')); ?>" method="post">
+            <?php echo e(csrf_field()); ?>
+
             <div class="col-xs-12 col-md-6 col-md-offset-3">
               <table class="table">
                 <tbody>
                 <tr>
                   <td width="50%">Username</td>
-                  <td>{{ $profile['personal_data']->username }}</td>
+                  <td><?php echo e($profile['personal_data']->username); ?></td>
                 </tr>
 
                 <tr>
@@ -111,11 +112,11 @@
           <div class="col-xs-12 col-md-12 text-center">
             <div class="col-xs-12 col-md-6">
               <h4>Training Included</h4>
-              <h1 style="font-size: 40px">{{ count($training_record['records']) }}</h1>
+              <h1 style="font-size: 40px"><?php echo e(count($training_record['records'])); ?></h1>
             </div>
             <div class="col-xs-12 col-md-6 green_color">
               <h4>Training Finished</h4>
-              <h1 style="font-size: 40px">{{ $training_record['total_finish'] }}</h1>
+              <h1 style="font-size: 40px"><?php echo e($training_record['total_finish']); ?></h1>
             </div>
 
             <div class="col-xs-6 col-md-6 col-lg-offset-3 text-center">
@@ -130,17 +131,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if (count($training_record['records']) == 0)
+                <?php if(count($training_record['records']) == 0): ?>
                   <tr>
                     <th scope="row">no training record</th>
                   </tr>
-                @else @foreach ( $training_record['records'] as $key=>$record)
+                <?php else: ?> <?php $__currentLoopData = $training_record['records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
-                    <th scope="row">{{ ++$key }}</th>
-                    <td><a href="{{ url('/get_training',  $record['module']->id)}}">{{ $record['module']->modul_name}}</a></td>
-                    <td>{{ $record['status']}}</td>
+                    <th scope="row"><?php echo e(++$key); ?></th>
+                    <td><a href="<?php echo e(url('/get_training',  $record['module']->id)); ?>"><?php echo e($record['module']->modul_name); ?></a></td>
+                    <td><?php echo e($record['status']); ?></td>
                   </tr>
-                @endforeach @endif
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?>
 
                 </tbody>
               </table>
@@ -151,7 +152,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="container text-center">
-            <iframe id="iframe" src="{{URL::to('/ViewerJS/index.html#../files/situs.pdf')}}" width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            <iframe id="iframe" src="<?php echo e(URL::to('/ViewerJS/index.html#../files/situs.pdf')); ?>" width='100%' height='600' allowfullscreen webkitallowfullscreen>
             </iframe>
           </div>
         </div>
@@ -160,4 +161,5 @@
     </div>
   </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
