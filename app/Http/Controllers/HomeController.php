@@ -57,7 +57,7 @@ class HomeController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-        return view('online_test_review')
+        return view('profile')
                     ->with( 'newses' , $news )
                     ->with( 'sliders' , $sliders )
                     ->with( 'module' , $modul );   
