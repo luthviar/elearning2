@@ -26,7 +26,7 @@
                                 style="height: 400px;">
 
                                 <div class="card h-100">
-                                    <a href="#">
+                                    <a href="<?php echo e(url('news/'.$news->id)); ?>">
                                         <img
                                             class="card-img-top img-fluid"
                                             src="<?php echo e(isset($news->url_image) ? $news->url_image : url('Elegantic/images/ALS.jpg')); ?>"
@@ -34,7 +34,7 @@
                                     </a>
                                     <div class="card-block">
                                         <h4 class="card-title">
-                                            <a href="/news/<?php echo e($news->id); ?>">
+                                            <a href="<?php echo e(url('news/'.$news->id)); ?>">
                                                 <?php echo e(str_limit($news->title, $limit = 20, $end = '...')); ?>
 
                                             </a>

@@ -3,51 +3,127 @@
 @section('content')
 
     <div class="page-container" id="wrapper">
-        <div class="page-sidebar navbar-collapse collapse">
 
-            <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-                <li class="">
-                    <a href="/">
-                        Home
-                    </a>
-                </li>
-                <li class="active"><a href="/news-board">News</a><span class="selected">
-						</span></li>
-            </ul>
-
-        </div>
         <div class="page-content-wrapper" style="padding:30px">
             <div class ="col-md-8">
                 <div class ="col-md-8">
                     <div class="col-md-3">
                         <br>
-                        <img src="http://localhost/code_alc2/public/Uploads/KTP.png" alt="Card image cap" style="width:100%;height:60px;">
+                        @if(empty($news->image))
+                            <img src="{{URL::asset('Elegantic/images/ALS.jpg')}}" alt="Card image cap" style="width:100%;height:60px;">
+                        @else
+                            <img src="{{URL::asset($news['image'])}}" alt="Card image cap" style="width:100%;height:60px;">
+                        @endif
                     </div>
                     <div class ="col-md-9">
-                        <h3>qwerty qwerty</h3>
-                        <h6>Thursday 4th of January 2018</h6>
+                        <h3>{{ $news['title'] }}</h3>
+                        <h6>{{ \Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')}}</h6>
                     </div>
                 </div>
                 <div class ="col-md-12">
                     <hr class="style14">
                     <p align="justify" class="big">
-                    <p><strong style="margin: 0px; padding: 0px; font-family: "Open Sans", Arial, sans-serif; text-align: justify;">Lorem Ipsum</strong><span style="font-family: "Open Sans", Arial, sans-serif; text-align: justify;"> adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an, saat seorang tukang cetak yang tidak dikenal mengambil sebuah kumpulan teks dan mengacaknya untuk menjadi sebuah buku contoh huruf. Ia tidak hanya bertahan selama 5 abad, tapi</span></p><p><span style="font-family: "Open Sans", Arial, sans-serif; text-align: justify;"><br></span></p><p><strong style="margin: 0px; padding: 0px; font-family: "Open Sans", Arial, sans-serif; text-align: justify;">Lorem Ipsum</strong><span style="font-family: "Open Sans", Arial, sans-serif; text-align: justify;"> adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an, saat seorang tukang cetak yang tidak dikenal mengambil sebuah kumpulan teks dan mengacaknya untuk menjadi sebuah buku contoh huruf. Ia tidak hanya bertahan selama 5 abad, tapi</span><span style="font-family: "Open Sans", Arial, sans-serif; text-align: justify;"><br></span><br></p><p><iframe frameborder="0" src="//www.youtube.com/embed/7UzgC3KFfaE" width="640" height="360" class="note-video-clip"></iframe><br></p>
+                        {!! html_entity_decode($news['content']) !!}
 
                     </p>
                     <hr class="style14">
                     <div class='pull-right'>
-                        Attachments : <br>
-                        <a href="http://localhost/code_alc2/public/Uploads/1491912992_cloud.png"><i class="fa fa-paperclip" aria-hidden="true"></i>1491912992_cloud.png </a><br>
-                        <a href="http://localhost/code_alc2/public/Uploads/1491912582_Mercedes_Coach.png"><i class="fa fa-paperclip" aria-hidden="true"></i>1491912582_Mercedes_Coach.png </a><br>
+                        @if(!empty($news['file_pendukung'][0]))
+                            Attachments : <br>
+                            @foreach($news['file_pendukung'] as $file)
+                                <a href="{{URL::asset($file->url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->name}} </a><br>
+                            @endforeach
+                        @endif
                     </div>
                     <br><br><br><br>
 
-                    <div class="block-advice">
-                        <h3>Comments(0)</h3>
-                        <br>
+                    @if($news->can_reply == 1)
+                        <div class="block-advice">
+                            <h3>Comments({{count($replies)}})</h3>
+                            <br>
+                            @foreach($replies as $reply)
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><strong>{{ $reply['title'] }}</strong><br>
+                                        {{$reply['user']->fname}} {{$reply['user']->lname}}, {{ \Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')}}</div>
+                                    <div class="panel-body">
+
+                                        {!! html_entity_decode($reply['content']) !!}
+                                        <br>
+                                        <div class ="pull-right">
+
+                                            @if(!empty($reply['file_pendukung'][0]))
+                                                Attachments : <br>
+                                                @foreach($reply['file_pendukung'] as $file)
+                                                    <a href="{{URL::asset($file->url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->name}}</a><br>
+                                                @endforeach
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                            @endforeach
+
+                            @if(Auth::user() == null)
+
+                            @else
+                                <form id="myform" class="form-horizontal" role="form" method="POST" action="{{ URL::action('NewsReplieController@store') }}" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
+                                    <input type="hidden" name="id_news" value="{{$news->id}}">
+                                    <div class="form-group">
+                                        <label for="title" class="col-md-2 control-label">Title</label>
+
+                                        <div class="col-md-8">
+                                            <input id="title" type="text" class="form-control" name="title" required  value="[RE:] {{$news['title']}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content" class="col-md-2 control-label">Content</label>
+
+                                        <div class="col-md-8">
+                                            <textarea id="summernote" name="content"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="image" class="col-md-2 control-label">Upload attachment</label>
+
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+													<span class="input-group-btn">
+														<span class="btn btn-default btn-file">
+															Browse..
+															<input type="file"
+                                                                   id="file"
+                                                                   onchange="javascript:updateList()"
+                                                                   name="file_pendukung[]"
+                                                                   multiple/>
+															</span>
+													</span>
+                                                <input type="text" class="form-control" value="select file(s)" readonly>
+                                            </div></br>
+                                            <div class='file-uploaded'>
+                                                <p>
+                                                <div id="fileList"></div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <button type="submit" class="btn btn-info">
+                                                Comment
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -58,12 +134,9 @@
                             <div class="well">
                                 <h4>Recent News</h4>
                                 <hr class="style14">
-                                <a href="/news/9"><p>qwerty qwerty</p></a>
-                                <a href="/news/8"><p>fsdf</p></a>
-                                <a href="/news/7"><p>wqewq</p></a>
-                                <a href="/news/6"><p>efer</p></a>
-                                <a href="/news/5"><p>trewq</p></a>
-                                <a href="/news/4"><p>news</p></a>
+                                @foreach($last_news as $brt)
+                                    <a href="/news/{{$brt->id}}"><p>{{$brt->title}}</p></a>
+                                @endforeach
                                 <br>
                             </div>
                             <!--Links -->
@@ -72,29 +145,67 @@
                             </p>
                             <div class="row">
                                 <div class="col-md-12 clearfix">
-                                    <a href="#" class="btn btn-lg default" style="margin:5px 1px">
+                                    <a href="https://oms.aerofood.co.id"
+                                       class="btn btn-lg default"
+                                       style="margin:5px 1px"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
+                                       target="_blank"
+                                    >
+                                        OMS
+                                    </a>
+
+                                    <a href="https://oms.aerofood.co.id"
+                                       class="btn btn-lg red"
+                                       style="margin:5px 1px"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
+                                       target="_blank"
+                                    >
                                         IMS
                                     </a>
-                                    <a href="#" class="btn btn-lg red" style="margin:5px 1px">
-                                        IMS
+                                    <a href="https://oms.aerofood.co.id"
+                                       class="btn btn-lg blue"
+                                       style="margin:5px 1px"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
+                                       target="_blank"
+                                    >
+                                        GLP-ICGB
                                     </a>
-                                    <a href="#" class="btn btn-lg blue" style="margin:5px 1px">
-                                        IMS
-                                    </a>
-                                    <a href="#" class="btn btn-lg green" style="margin:5px 1px">
-                                        IMS
+                                    <a href="https://oms.aerofood.co.id"
+                                       class="btn btn-lg green"
+                                       style="margin:5px 1px"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
+                                       target="_blank"
+                                    >
+                                        Proline
                                     </a>
                                     <a href="#" class="btn btn-lg yellow" style="margin:5px 1px">
-                                        IMS
+                                        eProc
                                     </a>
                                     <a href="#" class="btn btn-lg purple" style="margin:5px 1px">
-                                        IMS
+                                        eLearning
                                     </a>
                                     <a href="#" class="btn btn-lg green" style="margin:5px 1px">
-                                        IMS
+                                        eRecruitment
                                     </a>
                                     <a href="#" class="btn btn-lg dark" style="margin:5px 1px">
-                                        IMS
+                                        Simpreman
+                                    </a>
+                                    <a href="#" class="btn btn-lg purple" style="margin:5px 1px">
+                                        ePireq
+                                    </a>
+                                    <a href="#" class="btn btn-lg green" style="margin:5px 1px">
+                                        eBudgeting
+                                    </a>
+                                    <a href="#" class="btn btn-lg blue" style="margin:5px 1px">
+                                        SOB
                                     </a>
                                 </div>
                             </div>
@@ -105,4 +216,76 @@
         </div>
 
 
+        <div id="stopHere"></div>
+    </div>
+
+@endsection
+
+@section('script')
+    <script>
+        updateList = function() {
+            var input = document.getElementById('file');
+            var output = document.getElementById('fileList');
+
+            output.innerHTML = 'Selected file(s) <br><ul>';
+            for (var i = 0; i < input.files.length; ++i) {
+                output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
+
+            }
+            output.innerHTML += '</ul>';
+        }
+
+        var navWrap = $('#navWrap'),
+            nav = $('nav'),
+            startPosition = navWrap.offset().top,
+            stopPosition = $('#stopHere').offset().top - nav.outerHeight();
+
+        $(document).scroll(function () {
+            //stick nav to top of page
+            var y = $(this).scrollTop()
+
+            if (y > startPosition) {
+                nav.addClass('sticky');
+                if (y > stopPosition) {
+                    nav.css('top', stopPosition - y);
+                } else {
+                    nav.css('top', 80);
+                }
+            } else {
+                nav.removeClass('sticky');
+            }
+        });
+    </script>
+
+    <script>
+        $(window).load(function(){
+
+            setTimeout(function() {
+                    $("#loading").fadeOut(function(){
+
+                        $(this).remove();
+                        $('body').removeAttr('style');
+                    })
+                }
+                , 300);
+        });
+
+
+        jQuery(document).ready(function() {
+            // initiate layout and plugins
+            App.init();
+
+        });
+    </script>
+
+    <style>
+        .sticky {
+            position: fixed;
+            top:200px;
+        }
+        p.big {
+            line-height: 300%;
+            font-size : 15px;
+        }
+    </style>
 @endsection

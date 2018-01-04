@@ -48,7 +48,7 @@ class NewsController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-    	return view('news')
+    	return view('user.news.view_news')
                     ->with( 'news' , $newses )
                     ->with( 'last_news' , $last_six_news)
                     ->with( 'module', $modul);

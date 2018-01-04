@@ -27,7 +27,7 @@
                                 style="height: 400px;">
 
                                 <div class="card h-100">
-                                    <a href="#">
+                                    <a href="{{ url('news/'.$news->id) }}">
                                         <img
                                             class="card-img-top img-fluid"
                                             src="{{$news->url_image or url('Elegantic/images/ALS.jpg')}}"
@@ -35,7 +35,7 @@
                                     </a>
                                     <div class="card-block">
                                         <h4 class="card-title">
-                                            <a href="/news/{{$news->id}}">
+                                            <a href="{{ url('news/'.$news->id) }}">
                                                 {{ str_limit($news->title, $limit = 20, $end = '...') }}
                                             </a>
                                         </h4>

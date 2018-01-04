@@ -76,7 +76,7 @@ Route::get('/nonactivate_news/{id}','NewsController@nonactivate_news');
 
 Route::get('/news-board','NewsController@index');
 
-Route::get('/news/1','NewsController@viewnews');
+Route::get('/news/{id}','NewsController@get_news');
 
 /*
 |--------------------------------------------------------------------------
