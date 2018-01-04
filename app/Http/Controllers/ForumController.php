@@ -8,7 +8,10 @@ use App\ModulTraining;
 
 class ForumController extends Controller
 {
-    
+    public function index() {
+        return view('user.forum');
+    }
+
     public function get_all_forum () {
     	$forum = new Forum();
     	$forum = $forum->get_all_forum();

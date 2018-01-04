@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\News;
 use App\Slider;
 use App\ModulTraining;
+use Session;
 
 class HomeController extends Controller
 {
@@ -38,30 +39,12 @@ class HomeController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
+        Session::put('module',$modul);
+
         return view('user.home')
                     ->with( 'newses' , $news )
                     ->with( 'sliders' , $sliders )
                     ->with( 'module' , $modul );
-    }
-
-    public function index2()
-    {
-        //get 6 news
-        $news = new News();
-        $news = $news->get_active_news();
-
-        //get active sliders
-        $sliders = new Slider();
-        $sliders = $sliders->get_active_slider();
-
-        //get modul training
-        $modul = new ModulTraining();
-        $modul = $modul->get_module_training();
-
-        return view('home')
-            ->with( 'newses' , $news )
-            ->with( 'sliders' , $sliders )
-            ->with( 'module' , $modul );
     }
 
     public function test(){

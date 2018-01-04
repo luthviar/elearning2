@@ -8,7 +8,18 @@ use App\ModulTraining;
 
 class NewsController extends Controller
 {
-    
+
+    public function index(){
+        $news = new News();
+        $news = $news->get_all_news();
+
+        return view('user.newsboard')->with('newses',$news);
+    }
+
+    public function viewnews(){
+        return view('user.news.view_news');
+    }
+
     public function get_all_news(){
 
     	$news = new News();

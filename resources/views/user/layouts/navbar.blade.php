@@ -100,7 +100,7 @@
                          ? 'selected' : ''
                         }}"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            @foreach ( $module as $modul)
+                            @foreach (Session::get('module') as $modul)
                                 <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>
                             @endforeach
                         </ul>
@@ -145,7 +145,7 @@
                     My Modules <i class="arrow fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    @foreach ($module as $modul)
+                    @foreach (Session::get('module') as $modul)
                         <li>
                             <a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>
                         </li>
