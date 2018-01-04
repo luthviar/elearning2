@@ -1,19 +1,17 @@
-@extends('layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <div class="row" style="padding-top: 20px;">
     <div class="container">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a href="{{url('/get_forum/public')}}">Public Forum</a>
+          <a href="<?php echo e(url('/get_forum/public')); ?>">Public Forum</a>
         </li>
         <li role="presentation">
-          <a href="{{url('/get_forum/job_family')}}">Job Family Forum</a>
+          <a href="<?php echo e(url('/get_forum/job_family')); ?>">Job Family Forum</a>
         </li>
         <li role="department">
-          <a href="{{url('/get_forum/department')}}">Department Forum</a>
+          <a href="<?php echo e(url('/get_forum/department')); ?>">Department Forum</a>
         </li>
       </ul>
 
@@ -39,19 +37,19 @@
       </div>
     </div>
   </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#forum_public').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('forum_public') }}",
+                     "url": "<?php echo e(url('forum_public')); ?>",
                      "dataType": "json",
                      "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
+                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "title" },
@@ -64,4 +62,5 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

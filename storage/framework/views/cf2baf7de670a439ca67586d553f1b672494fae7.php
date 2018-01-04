@@ -18,17 +18,17 @@
 
 <!-- Bootstrap core CSS -->
 
-<link href="{{ URL::asset('dist/css/bootstrap.css')}}" rel="stylesheet">
+<link href="<?php echo e(URL::asset('dist/css/bootstrap.css')); ?>" rel="stylesheet">
 
 
 
 <!-- Documentation extras -->
 
-<link href="{{ URL::asset('assets/css/src/pygments-manni.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('assets/css/src/docs.css')}}" rel="stylesheet">
+<link href="<?php echo e(URL::asset('assets/css/src/pygments-manni.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(URL::asset('assets/css/src/docs.css')); ?>" rel="stylesheet">
 
 <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-<script src="{{ URL::asset('assets/js/ie-emulation-modes-warning.js')}}"></script>
+<script src="<?php echo e(URL::asset('assets/js/ie-emulation-modes-warning.js')); ?>"></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -37,14 +37,14 @@
 <![endif]-->
 
 <!-- Favicons -->
-<link rel="apple-touch-icon" href="{{ URL::asset('/apple-touch-icon.png')}}">
-<link rel="icon" href="{{ URL::asset('/favicon.ico')}}">
+<link rel="apple-touch-icon" href="<?php echo e(URL::asset('/apple-touch-icon.png')); ?>">
+<link rel="icon" href="<?php echo e(URL::asset('/favicon.ico')); ?>">
 
 <!-- Datatables -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
 
 <!-- My css -->
-<link href="{{ URL::asset('css/style.css')}}" rel="stylesheet">
+<link href="<?php echo e(URL::asset('css/style.css')); ?>" rel="stylesheet">
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -71,54 +71,55 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="{{ url('/') }}" class="navbar-brand">Elearning</a>
+        <a href="<?php echo e(url('/')); ?>" class="navbar-brand">Elearning</a>
       </div>
       <nav id="bs-navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li>
-            <a href="{{ url('/get_active_news') }}">News</a>
+            <a href="<?php echo e(url('/get_active_news')); ?>">News</a>
           </li>
-          @guest
-          @else
+          <?php if(auth()->guard()->guest()): ?>
+          <?php else: ?>
           <li>
-            <a href="{{ url('/get_forum', 'public') }}">Forum</a>
+            <a href="<?php echo e(url('/get_forum', 'public')); ?>">Forum</a>
           </li>
           <li class="dropdown">
             
               <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Module Training <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              @foreach ( $module as $modul)
-                <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>
-              @endforeach
+              <?php $__currentLoopData = $module; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li><a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a></li>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             
             <!-- <a href="components/">Components</a> -->
           </li>
-          @endguest
+          <?php endif; ?>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            @guest
-                <li><a href="{{ route('login') }}">Login</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
-            @else
+            <?php if(auth()->guard()->guest()): ?>
+                <li><a href="<?php echo e(route('login')); ?>">Login</a></li>
+                <li><a href="<?php echo e(route('register')); ?>">Register</a></li>
+            <?php else: ?>
                 <li class="dropdown">
-                    <a href="{{ url('/profile') }}" > {{ Auth::user()->name }} </a>
+                    <a href="<?php echo e(url('/profile')); ?>" > <?php echo e(Auth::user()->name); ?> </a>
                 </li>
                     
                 <li>
-                    <a href="{{ route('logout') }}"
+                    <a href="<?php echo e(route('logout')); ?>"
                         onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
+                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                        <?php echo e(csrf_field()); ?>
+
                     </form>
                 </li>
                     
                 
-            @endguest
+            <?php endif; ?>
           
         </ul>
       </nav>
@@ -130,7 +131,7 @@
 <!-- ********************************************** -->
 
   <div>
-    @yield('content')
+    <?php echo $__env->yieldContent('content'); ?>
   </div>
 
 <!-- ********************************************** -->
@@ -172,20 +173,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 
-  <script src="{{ URL::asset('dist/js/bootstrap.js')}}"></script>
+  <script src="<?php echo e(URL::asset('dist/js/bootstrap.js')); ?>"></script>
 
-  <script src="{{ URL::asset('assets/js/vendor/holder.min.js')}}"></script>
+  <script src="<?php echo e(URL::asset('assets/js/vendor/holder.min.js')); ?>"></script>
   
-  <script src="{{ URL::asset('assets/js/vendor/ZeroClipboard.min.js')}}"></script>
+  <script src="<?php echo e(URL::asset('assets/js/vendor/ZeroClipboard.min.js')); ?>"></script>
   
-  <script src="{{ URL::asset('assets/js/vendor/anchor.js')}}"></script>
+  <script src="<?php echo e(URL::asset('assets/js/vendor/anchor.js')); ?>"></script>
   
-  <script src="{{ URL::asset('assets/js/src/application.js')}}"></script>
+  <script src="<?php echo e(URL::asset('assets/js/src/application.js')); ?>"></script>
 
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
   
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="{{ URL::asset('assets/js/ie10-viewport-bug-workaround.js')}}"></script>
+  <script src="<?php echo e(URL::asset('assets/js/ie10-viewport-bug-workaround.js')); ?>"></script>
 
 
 <script>
@@ -212,7 +213,7 @@
   })();
 </script>
 
-@yield('script')
+<?php echo $__env->yieldContent('script'); ?>
 
   </body>
 </html>

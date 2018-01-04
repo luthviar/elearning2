@@ -106,6 +106,8 @@ Route::get('/get_forum/{forum_type}', 'ForumController@get_user_forum');
 
 Route::get('/get_forum/{id}','ForumController@get_forum');
 
+Route::post('/forum_public', 'ForumController@forum_public');
+
 
 
 Auth::routes();
@@ -117,3 +119,17 @@ Auth::routes();
 Route::get('/home2', 'HomeController@index2')->name('home2');
 
 //End of Front End by Luthfi
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN AREA Routes
+|--------------------------------------------------------------------------
+|
+| Bagian route tentang news
+|
+*/
+
+Route::get('/admin', function(){
+	return view('admin.layout_admin	');
+});

@@ -25,7 +25,7 @@ class Forum extends Model
         function get_last_seen ( $forum ) {
             $comment = ForumComment::where('id_forum' , $forum->id)->orderBy('created_at', 'desc')->first();
             if ( $comment == null) {
-                return "no activity";
+                return null;
             }
             $user = User::find($comment->created_by);
             if ( $user == null) {
@@ -55,6 +55,44 @@ class Forum extends Model
 
         
     	return $forums;
+    }
+
+
+    public function get_forum_public_server_side($limit, $start, $order, $dir) {
+        
+        function get_last_seen ( $forum ) {
+            $comment = ForumComment::where('id_forum' , $forum->id)->orderBy('created_at', 'desc')->first();
+            if ( $comment == null) {
+                return null;
+            }
+            $user = User::find($comment->created_by);
+            if ( $user == null) {
+                $comment['user'] = "error when loading user";
+            }
+            $comment['user'] = $user;
+            return $comment;
+        }
+
+        $forums = Forum::where( 'category' , 0 )->limit($limit)->offset($start)->orderBy($order, $dir)->get();
+        if ( count($forums) == 0 ) {
+            return "no forum found";
+        }
+
+
+        
+        foreach ($forums as $forum) {
+            $user = User::find($forum->created_by);
+            if ( $user == null) {
+                $forum['user'] = "error when loading user";
+            }
+            $comment = ForumComment::where('id_forum', $forum->id)->get();
+            $forum['comments_count'] = count($comment);
+            $forum['user'] = $user;
+            $forum['last_seen'] = get_last_seen( $forum );
+        }
+
+        
+        return $forums;
     }
 
     public function get_forum_by_job_family( $job_family ) {
