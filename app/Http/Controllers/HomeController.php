@@ -58,7 +58,7 @@ class HomeController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-        return view('user.home')
+        return view('home')
             ->with( 'newses' , $news )
             ->with( 'sliders' , $sliders )
             ->with( 'module' , $modul );

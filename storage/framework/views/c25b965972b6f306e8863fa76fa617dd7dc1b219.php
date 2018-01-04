@@ -1,12 +1,10 @@
-@extends('layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="row" style="padding-top: 20px;">
   <div class="container">
 
     
-      @php
+      <?php
         function prints($print_data , $indent) {
               if ( count ($print_data['children']) > 0) {
                 echo "<div class='col-xs-". (12- $indent)." col-md-". (12- $indent)." col-md-offset-".$indent." col-xs-offset-".$indent." '>
@@ -41,7 +39,7 @@
             
           }
           prints( $trainings , 0);
-      @endphp
+      ?>
 
    
 <!--
@@ -72,4 +70,5 @@
   </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

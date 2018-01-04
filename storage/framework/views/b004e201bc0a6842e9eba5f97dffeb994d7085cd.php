@@ -99,3 +99,9 @@
 
     });
 </script>
+
+
+<link rel="stylesheet" type="text/css" href="<?php echo e(url('css/tabs.css')); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo e(url('css/tabstyles.css')); ?>" />
+<script src="<?php echo e(url('js/tabs/modernizr.custom.js')); ?>"></script>
+

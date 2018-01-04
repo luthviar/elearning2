@@ -30,7 +30,7 @@
                                 <strong>Modul Training Parent</strong>
                               </span>
                               <span class='pull-right' style='color: red;'>
-                                <a href='#' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>
+                                <a href='".url('/get_training/2')."' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>
                               </span>
                             </div>
                           </div>

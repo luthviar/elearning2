@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/test', 'HomeController@test');
+//Route::get('/test', 'HomeController@test');
 
 
 Route::post('change_password', 'UserController@change_password');

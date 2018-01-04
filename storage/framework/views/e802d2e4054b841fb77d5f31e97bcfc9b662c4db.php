@@ -1,10 +1,10 @@
 
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.bxslider.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.placeholder.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.uniform.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/fancySelect.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/main.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/app.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.bxslider.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.placeholder.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.uniform.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/fancySelect.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/main.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/app.js')); ?>"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -99,7 +99,7 @@
 </script>
 
 
-{{--view-forum.blade script--}}
+
 <script>
     $(document).ready(function() {
         $('.summernote').summernote({
@@ -112,7 +112,7 @@
     });
 </script>
 
-{{--modal edit forum--}}
+
 
 
 <script>
@@ -165,7 +165,7 @@
     }
 </script>
 
-{{--edit forum script--}}
+
 <script>
     function editForum($id_edit,$title,$can_reply,$content,$attachments) {
         window.location.href = '...';
@@ -182,7 +182,7 @@
     }
 </script>
 
-{{--end of view-forum.blade script--}}
+
 
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
@@ -195,5 +195,3 @@
     });
 </script>
 <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-
-<script src="{{ url('js/tabs/cbpFWTabs.js') }}"></script>
