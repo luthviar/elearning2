@@ -1,7 +1,7 @@
 <footer id="footer" class="col-lg-12 text-center">
 
-        <div class="page-footer-fixed text-center">
-            <div class="footer-content text-center">
+        <div class="page-footer-fixed text-center" id="div2">
+            <div class="footer-content text-center" id="p2">
                 <div class="col-holder">
                     <div class="col">
                         <div class="heading">

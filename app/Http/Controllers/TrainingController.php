@@ -10,6 +10,7 @@ use App\Material;
 use App\Chapter;
 use App\Test;
 use App\UserTestRecord;
+use Session;
 
 class TrainingController extends Controller
 {
@@ -50,8 +51,14 @@ class TrainingController extends Controller
             }
         }
         $count_finish_chapter = $user_chapter_record->check_finish_chapter( 1, $id_training);
-        
-        return view('user.training.intro_training')->with('training', $trainings)->with('module', $modul)->with('finish_chapter', $count_finish_chapter);
+
+        Session::put('training', $trainings);
+        Session::put('finish_chapter', $count_finish_chapter);
+
+        $trainings2 = Session::get('training');
+        $finish_chapter2 = Session::get('finish_chapter');
+
+        return view('user.training.intro_training')->with('training', $trainings2)->with('module', $modul)->with('finish_chapter', $finish_chapter2);
     	
 
     }
@@ -60,6 +67,8 @@ class TrainingController extends Controller
         //get modul training
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
+
+//        $trainings = Session::get('trainings');
 
         $material = new Material();
         $material_training = $material->get_material ( $id_chapter);
