@@ -1,10 +1,12 @@
-<?php $__env->startSection('content'); ?>
+@extends('user.layouts.app')
+
+@section('content')
 
 <div class="row" style="padding-top: 100px;">
   <div class="container">
 
     
-      <?php
+      @php
         function prints($print_data , $indent) {
               if ( count ($print_data['children']) > 0) {
                 echo "<div class='col-xs-". (12- $indent)." col-md-". (12- $indent)." col-md-offset-".$indent." col-xs-offset-".$indent." '>
@@ -30,7 +32,7 @@
                                 <strong>Modul Training Parent</strong>
                               </span>
                               <span class='pull-right' style='color: red;'>
-                                <a href='#' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>
+                                <a href='".url('/get_training/2')."' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>
                               </span>
                             </div>
                           </div>
@@ -39,7 +41,7 @@
 
           }
           prints( $trainings , 0);
-      ?>
+      @endphp
 
    
 <!--
@@ -70,5 +72,4 @@
   </div>
 </div>
 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+@endsection

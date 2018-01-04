@@ -99,3 +99,9 @@
 
     });
 </script>
+
+{{-- STYLE UNTUK TABS DI MODULE TRAINING --}}
+<link rel="stylesheet" type="text/css" href="{{ url('css/tabs.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url('css/tabstyles.css') }}" />
+<script src="{{ url('js/tabs/modernizr.custom.js') }}"></script>
+{{-- END OF STYLE UNTUK TABS DI MODULE TRAINING --}}
