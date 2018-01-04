@@ -133,3 +133,34 @@ Route::get('/home2', 'HomeController@index2')->name('home2');
 Route::get('/admin', function(){
 	return view('admin.layout_admin	');
 });
+
+Route::get('/personnel', 'UserController@personnel_list');
+
+Route::post('/personnel', 'UserController@personnel_list_serverside');
+
+Route::get('/personnel/{id}', 'UserController@profile_view');
+
+Route::get('/personnel_add', function(){
+	return view('admin.personnel_add');
+});
+
+
+// ----------------------------------
+// NEWS
+// -----------------------------------
+
+Route::get('/news_add', function(){
+	return view('admin.news_add');
+});
+
+Route::get('admin_news','NewsController@news_list');
+
+Route::post('admin_news','NewsController@news_list_serverside');
+
+// -------------------------------------
+// SLIDER
+// -------------------------------------
+
+Route::get('admin_slider','SliderController@slider_list');
+
+Route::post('admin_slider','SliderController@slider_list_serverside');

@@ -195,3 +195,5 @@
     });
 </script>
 <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
+<script src="<?php echo e(url('js/tabs/cbpFWTabs.js')); ?>"></script>

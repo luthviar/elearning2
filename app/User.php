@@ -33,6 +33,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function get_user($id_user){
+        $user = User::find($id_user);
+        if ($user == null) {
+            $user['status'] ='error';
+            $user['message'] ='error : user not found';
+            return $user;
+        }
+        $user['status'] ='success';
+        return $user;
+    }
+
     public function get_user_profile (){
         function get_personal_data(){
             $data = \Auth::user();
@@ -87,5 +98,56 @@ class User extends Authenticatable
 
         $user['status'] = 'success';
         return $user;        
+    }
+
+    public function profile_view ($id_user){
+        function get_personal_data( $id_user){
+            $data = User::find($id_user);
+            if ($data == null) {
+                $data['status'] = 'error';
+                $data['message'] = 'user not found';
+                return $data;
+            }
+            return $data;
+        }
+
+        function get_employee_data ($user) {
+            $data['employee_status'] = EmployeeStatus::find($user->id_employee_status);
+            $org_structure = OrganizationalStructure::find($user->position);
+            if ($org_structure != null) {
+                if ($org_structure->id_department != null) {
+                    $data['department'] = OsDepartment::find($org_structure->id_department);
+                } else {
+                    $data['department'] = null;
+                }
+                if ($org_structure->id_unit != null) {
+                    $data['unit'] = OsUnit::find($org_structure->id_unit);
+                }else{
+                    $data['unit'] = null;
+                }
+                if ($org_structure->id_section != null) {
+                    $data['section'] = OsSection::find($org_structure->id_section);
+                } else {
+                    $data['section'] = null;
+                }
+                if ($org_structure->id_division != null) {
+                    $data['division'] = OsDivision::find($org_structure->id_division);
+                } else {
+                    $data['division'] = null;
+                }
+            }
+            
+            
+            return $data;
+        }
+
+        $user['personal_data'] = get_personal_data($id_user);
+        if ($user['personal_data']->status == 'error') {
+            return $user['personal_data'];
+        }
+        $data = User::find($id_user);
+        $user['employee_data'] = get_employee_data($data);
+
+        return $user;
     }
 }
