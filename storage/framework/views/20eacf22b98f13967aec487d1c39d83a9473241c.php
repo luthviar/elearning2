@@ -1,4 +1,4 @@
-<?php $__env->startSection('content'); ?>
+<?php $__env->startSection('content_training'); ?>
 
 <div class="container" style="padding-top: 20px;">
 	<div class="text-center" style="border-bottom: 1px solid green;">
@@ -29,4 +29,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('user.training.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

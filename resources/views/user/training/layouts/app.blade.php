@@ -26,9 +26,9 @@
                 </div><!-- /tabs -->
             </div>
 
-            <div class="text-center">
-                <a href="#" class="btn btn-success">Finish Training</a>
-            </div>
+            {{--<div class="text-center">--}}
+                {{--<a href="#" class="btn btn-success">Finish Training</a>--}}
+            {{--</div>--}}
         </div>
     </div>
 

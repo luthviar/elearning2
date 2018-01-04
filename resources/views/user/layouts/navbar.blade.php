@@ -76,7 +76,13 @@
 
 
 
-                    <li class="classic-menu-dropdown {{ Request::is('get_training/*') ? 'active' : '' }}">
+                    <li class="classic-menu-dropdown {{
+                        Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'active' : ''
+                        }}">
                         <a data-toggle="dropdown"
                            data-hover="dropdown"
                            data-close-others="true"
@@ -86,7 +92,13 @@
                         >
                             My Modules <i class="fa fa-angle-down"></i>
                         </a>
-                        <span class="{{ Request::is('get_training/*') ? 'selected' : '' }}"></span>
+                        <span class="{{
+                        Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'selected' : ''
+                        }}"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @foreach ( $module as $modul)
                                 <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>

@@ -77,7 +77,11 @@
 
 
 
-                    <li class="classic-menu-dropdown <?php echo e(Request::is('get_training/*') ? 'active' : ''); ?>">
+                    <li class="classic-menu-dropdown <?php echo e(Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'active' : ''); ?>">
                         <a data-toggle="dropdown"
                            data-hover="dropdown"
                            data-close-others="true"
@@ -87,7 +91,11 @@
                         >
                             My Modules <i class="fa fa-angle-down"></i>
                         </a>
-                        <span class="<?php echo e(Request::is('get_training/*') ? 'selected' : ''); ?>"></span>
+                        <span class="<?php echo e(Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'selected' : ''); ?>"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <?php $__currentLoopData = $module; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li><a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a></li>

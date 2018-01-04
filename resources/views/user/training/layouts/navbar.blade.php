@@ -1,6 +1,8 @@
 <ul>
-    <li class="tab-current">
-        <a href="#" class="icon">
+    <li class="{{ Request::is('get_training/*') ? 'tab-current' : '' }}">
+        <a
+            href="{{ url('get_training/'.Session::get('child_id')) }}"
+            class="icon">
               <span>
                   <i class="glyphicon glyphicon-th-list"></i>
                    List of Chapters
@@ -13,7 +15,7 @@
         @if ($key < Session::get('finish_chapter'))
 
             @if ($chapter->category == 0)
-                <li class="">
+                <li class="{{ Request::is('material/*') ? 'tab-current' : '' }}">
                     <a href="{{ url('/material', $chapter->id) }}" class="icon">
                       <span>
                           <i class="glyphicon glyphicon-book"></i>
@@ -23,7 +25,13 @@
                 </li>
 
             @else
-                <li>
+
+                @if(Request::is('review_test/*'))
+                <li class="{{ Request::is('review_test/*') ? 'tab-current' : '' }}">
+                @else
+                <li class="{{ Request::is('test/*') ? 'tab-current' : '' }}">
+                @endif
+
                     <a
                         {{--onclick="window.open('{{ url('/test', $chapter->id) }}','popup','width=1366,height=669');"--}}
                         href="{{ url('/test', $chapter->id) }}"
@@ -37,10 +45,11 @@
                     </a>
                 </li>
 
+
             @endif
 
         @else
-            <li>
+            <li class="{{ Request::is('test/*') ? 'tab-current' : '' }}">
                 <a href="#" class="icon">
                   <span>
                       <i class="glyphicon glyphicon-pencil"></i>

@@ -1,6 +1,8 @@
 <ul>
-    <li class="tab-current">
-        <a href="#" class="icon">
+    <li class="<?php echo e(Request::is('get_training/*') ? 'tab-current' : ''); ?>">
+        <a
+            href="<?php echo e(url('get_training/'.Session::get('child_id'))); ?>"
+            class="icon">
               <span>
                   <i class="glyphicon glyphicon-th-list"></i>
                    List of Chapters
@@ -13,7 +15,7 @@
         <?php if($key < Session::get('finish_chapter')): ?>
 
             <?php if($chapter->category == 0): ?>
-                <li class="">
+                <li class="<?php echo e(Request::is('material/*') ? 'tab-current' : ''); ?>">
                     <a href="<?php echo e(url('/material', $chapter->id)); ?>" class="icon">
                       <span>
                           <i class="glyphicon glyphicon-book"></i>
@@ -24,7 +26,13 @@
                 </li>
 
             <?php else: ?>
-                <li>
+
+                <?php if(Request::is('review_test/*')): ?>
+                <li class="<?php echo e(Request::is('review_test/*') ? 'tab-current' : ''); ?>">
+                <?php else: ?>
+                <li class="<?php echo e(Request::is('test/*') ? 'tab-current' : ''); ?>">
+                <?php endif; ?>
+
                     <a
                         
                         href="<?php echo e(url('/test', $chapter->id)); ?>"
@@ -39,10 +47,11 @@
                     </a>
                 </li>
 
+
             <?php endif; ?>
 
         <?php else: ?>
-            <li>
+            <li class="<?php echo e(Request::is('test/*') ? 'tab-current' : ''); ?>">
                 <a href="#" class="icon">
                   <span>
                       <i class="glyphicon glyphicon-pencil"></i>

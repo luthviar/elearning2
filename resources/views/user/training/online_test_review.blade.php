@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('user.training.layouts.app')
 
-@section('content')
+@section('content_training')
 
 <div class="container" style="padding-top: 20px;">
 	<div class="text-center" style="border-bottom: 1px solid green;">
