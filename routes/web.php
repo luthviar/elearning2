@@ -74,6 +74,10 @@ Route::get('/activate_news/{id}','NewsController@activate_news');
 
 Route::get('/nonactivate_news/{id}','NewsController@nonactivate_news');
 
+Route::get('/news-board','NewsController@index');
+
+Route::get('/news/{id}','NewsController@get_news');
+
 /*
 |--------------------------------------------------------------------------
 | Slider Routes
@@ -108,7 +112,7 @@ Route::get('/get_forum/{id}','ForumController@get_forum');
 
 Route::post('/forum_public', 'ForumController@forum_public');
 
-
+Route::get('forum','ForumController@index');
 
 Auth::routes();
 

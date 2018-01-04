@@ -9,7 +9,18 @@ use App\User;
 
 class NewsController extends Controller
 {
-    
+
+    public function index(){
+        $news = new News();
+        $news = $news->get_all_news();
+
+        return view('user.newsboard')->with('newses',$news);
+    }
+
+    public function viewnews(){
+        return view('user.news.view_news');
+    }
+
     public function get_all_news(){
 
     	$news = new News();
@@ -38,7 +49,7 @@ class NewsController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-    	return view('news')
+    	return view('user.news.view_news')
                     ->with( 'news' , $newses )
                     ->with( 'last_news' , $last_six_news)
                     ->with( 'module', $modul);

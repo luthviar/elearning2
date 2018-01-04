@@ -1,13 +1,11 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container"
      style="padding-top: 100px;
      padding-bottom: 100px;">
   <div class="row">
     <div class="text-center" style="border-bottom: 1px solid green;">
-      <h3 class="green_color">{{ $chapter->chapter_name}}</h3>
+      <h3 class="green_color"><?php echo e($chapter->chapter_name); ?></h3>
     </div>
     <div style="padding-top: 5px;">
       <!-- TEST TIME -->
@@ -22,23 +20,25 @@
       <!-- TEST Question -->
       <div class="col-xs-12 col-md-9">
         <h4><strong class="green_color">Answer all question below.</strong></h4>
-        <input type="hidden" id="total_question" value="{{count($test['questions'])}}">
-        <form  id="test_form" action="{{ url('/test_submit') }}" method="post">
+        <input type="hidden" id="total_question" value="<?php echo e(count($test['questions'])); ?>">
+        <form  id="test_form" action="<?php echo e(url('/test_submit')); ?>" method="post">
 
-        <input type="hidden" name="id_chapter" value="{{ $chapter->id }}">
+        <input type="hidden" name="id_chapter" value="<?php echo e($chapter->id); ?>">
 
-          {{ csrf_field() }}
+          <?php echo e(csrf_field()); ?>
+
 
           <ul>
-            @foreach( $test['questions'] as $key => $question)
-            <li style="list-style-type: none;">{{ $key+1 }}. {{ $question->question_text }}
+            <?php $__currentLoopData = $test['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li style="list-style-type: none;"><?php echo e($key+1); ?>. <?php echo e($question->question_text); ?>
+
               <ul>
-                @foreach ($question['option'] as $option)
-                  <li style="list-style-type: none;"><input type="radio" onclick="count_answer({{$key}})" name="{{$question->id}}" value="{{$option['id']}}"> {{ $option['option_text'] }}</li>
-                @endforeach
+                <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <li style="list-style-type: none;"><input type="radio" onclick="count_answer(<?php echo e($key); ?>)" name="<?php echo e($question->id); ?>" value="<?php echo e($option['id']); ?>"> <?php echo e($option['option_text']); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </ul>
             </li>
-          @endforeach
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           
           </ul>
           <div class="text-center">
@@ -61,7 +61,7 @@
         <h4 class="modal-title" id="myModalLabel">Are you serious to submit ?</h4>
       </div>
       <div class="modal-body text-center">
-        <h5>Total Question : {{ count($test['questions']) }}</h5>
+        <h5>Total Question : <?php echo e(count($test['questions'])); ?></h5>
         <h5 id="total_answered"></h5>
         <h5 id="not_answered"></h5>
       </div>
@@ -75,9 +75,9 @@
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
 var answered = new Array();
@@ -112,14 +112,15 @@ function submit_test(){
 </script>
 
 <script>
-  {{--script menghapus navbar--}}
+  
     var parent = document.getElementById("div1");
     var child = document.getElementById("p1");
     parent.removeChild(child);
 
-  {{--script menghapus footer--}}
+  
   var parent2 = document.getElementById("div2");
   var child2 = document.getElementById("p2");
   parent2.removeChild(child2);
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

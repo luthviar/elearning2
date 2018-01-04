@@ -1,4 +1,4 @@
-<div class="header navbar navbar-fixed-top mega-menu">
+<div class="header navbar navbar-fixed-top mega-menu" id="p1">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN LOGO -->
@@ -65,9 +65,14 @@
                         <span class="<?php echo e(Request::is('/') ? 'selected' : ''); ?>"></span>
                     </a>
                 </li>
-                <li class="classic-menu-dropdown <?php echo e(Request::is('news-board') ? 'active' : ''); ?>">
+                <li
+                        class="classic-menu-dropdown <?php echo e(Request::is('news-board') ||
+                                    Request::is('news/*')
+                                     ? 'active' : ''); ?>">
                     <a href="<?php echo e(url('/news-board')); ?>">News</a>
-                    <span class="<?php echo e(Request::is('news-board') ? 'selected' : ''); ?>"></span>
+                    <span class="<?php echo e(Request::is('news-board') ||
+                                    Request::is('news/*')
+                                     ? 'selected' : ''); ?>"></span>
                 </li>
                 <?php if(Auth::user()): ?>
                     <li class="classic-menu-dropdown <?php echo e(Request::is('forum') ? 'active' : ''); ?>">
@@ -77,7 +82,11 @@
 
 
 
-                    <li class="classic-menu-dropdown <?php echo e(Request::is('get_training/*') ? 'active' : ''); ?>">
+                    <li class="classic-menu-dropdown <?php echo e(Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'active' : ''); ?>">
                         <a data-toggle="dropdown"
                            data-hover="dropdown"
                            data-close-others="true"
@@ -87,9 +96,13 @@
                         >
                             My Modules <i class="fa fa-angle-down"></i>
                         </a>
-                        <span class="<?php echo e(Request::is('get_training/*') ? 'selected' : ''); ?>"></span>
+                        <span class="<?php echo e(Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'selected' : ''); ?>"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?php $__currentLoopData = $module; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = Session::get('module'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li><a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a></li>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
@@ -134,7 +147,7 @@
                     My Modules <i class="arrow fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <?php $__currentLoopData = $module; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = Session::get('module'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li>
                             <a href="<?php echo e(url('/module/'.$modul->id)); ?>"><?php echo e($modul->nama); ?></a>
                         </li>

@@ -34,12 +34,12 @@ class UserController extends Controller
     	$confirm_password = $request->confirm_password;
     	if ($change_password != $confirm_password) {
     		$error['message'] = 'new password and confirm password different';
-    		return view('error')->with('error', $error)->with('module', $modul);
+    		return view('user.error')->with('error', $error)->with('module', $modul);
     	}
     	$user = new User();
     	$user = $user->change_password($confirm_password);
     	if ($user['status'] == 'error') {
-    		return view('error')->with('error', $user)->with('module', $modul);
+    		return view('user.error')->with('error', $user)->with('module', $modul);
     	}
     	return redirect('/profile');
     }

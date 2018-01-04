@@ -11,7 +11,7 @@
     @include('user.layouts.header')
         @yield('header')
 </head>
-<body class="page-header-fixed page-full-width">
+<body class="page-header-fixed page-full-width" id="div1">
 
 <!-- ********************************************** -->
 <!--                  NAVBAR                        -->
@@ -26,13 +26,12 @@
 <main role="main">
     @yield('content')
 
-        <!-- ********************************************** -->
-        <!--                  FOOTER                        -->
-        <!-- ********************************************** -->
-
 
 </main>
 
+<!-- ********************************************** -->
+<!--                  FOOTER                        -->
+<!-- ********************************************** -->
 @include('user.layouts.footer')
 
 
@@ -44,7 +43,7 @@
 @include('user.layouts.script')
 
 {{-- if you need script only to a page, yield this --}}
-@yield('script')
+    @yield('script')
 
 
 

@@ -1,4 +1,4 @@
- <?php $__env->startSection('content'); ?>
+<?php $__env->startSection('content'); ?>
 
   <div class="container" style="padding-top: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">

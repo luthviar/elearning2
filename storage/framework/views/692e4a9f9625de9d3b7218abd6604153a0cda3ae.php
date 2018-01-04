@@ -40,6 +40,9 @@
 <link rel="apple-touch-icon" href="<?php echo e(URL::asset('/apple-touch-icon.png')); ?>">
 <link rel="icon" href="<?php echo e(URL::asset('/favicon.ico')); ?>">
 
+<!-- Datatables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
+
 <!-- My css -->
 <link href="<?php echo e(URL::asset('css/style.css')); ?>" rel="stylesheet">
 
@@ -179,6 +182,8 @@
   <script src="<?php echo e(URL::asset('assets/js/vendor/anchor.js')); ?>"></script>
   
   <script src="<?php echo e(URL::asset('assets/js/src/application.js')); ?>"></script>
+
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
   
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <script src="<?php echo e(URL::asset('assets/js/ie10-viewport-bug-workaround.js')); ?>"></script>

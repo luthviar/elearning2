@@ -1,4 +1,4 @@
-<div class="header navbar navbar-fixed-top mega-menu">
+<div class="header navbar navbar-fixed-top mega-menu" id="p1">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN LOGO -->
@@ -64,9 +64,16 @@
                         <span class="{{ Request::is('/') ? 'selected' : '' }}"></span>
                     </a>
                 </li>
-                <li class="classic-menu-dropdown {{ Request::is('news-board') ? 'active' : '' }}">
+                <li
+                        class="classic-menu-dropdown {{
+                                    Request::is('news-board') ||
+                                    Request::is('news/*')
+                                     ? 'active' : '' }}">
                     <a href="{{ url('/news-board') }}">News</a>
-                    <span class="{{ Request::is('news-board') ? 'selected' : '' }}"></span>
+                    <span class="{{
+                                    Request::is('news-board') ||
+                                    Request::is('news/*')
+                                     ? 'selected' : '' }}"></span>
                 </li>
                 @if(Auth::user())
                     <li class="classic-menu-dropdown {{ Request::is('forum') ? 'active' : '' }}">
@@ -76,7 +83,13 @@
 
 
 
-                    <li class="classic-menu-dropdown {{ Request::is('get_training/*') ? 'active' : '' }}">
+                    <li class="classic-menu-dropdown {{
+                        Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'active' : ''
+                        }}">
                         <a data-toggle="dropdown"
                            data-hover="dropdown"
                            data-close-others="true"
@@ -86,9 +99,15 @@
                         >
                             My Modules <i class="fa fa-angle-down"></i>
                         </a>
-                        <span class="{{ Request::is('get_training/*') ? 'selected' : '' }}"></span>
+                        <span class="{{
+                        Request::is('get_training/*') ||
+                        Request::is('material/*') ||
+                        Request::is('test/*') ||
+                        Request::is('review_test/*')
+                         ? 'selected' : ''
+                        }}"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            @foreach ( $module as $modul)
+                            @foreach (Session::get('module') as $modul)
                                 <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>
                             @endforeach
                         </ul>
@@ -133,7 +152,7 @@
                     My Modules <i class="arrow fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    @foreach ($module as $modul)
+                    @foreach (Session::get('module') as $modul)
                         <li>
                             <a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>
                         </li>
