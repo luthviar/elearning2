@@ -5,11 +5,72 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Forum;
 use App\ModulTraining;
+use Auth;
 
 class ForumController extends Controller
 {
     public function index() {
+        //user information
+//        $id_user = Auth::user()->id;
+//        $personnel = Personnel::where('id_user',$id_user)->first();
+//        $employee = Employee::where('id_personnel',$personnel->id)->first();
+//        $struktur = StrukturOrganisasi::find($employee->struktur);
+//        $department = null;
+//        $job_family = null;
+//        if (!empty($struktur)) {
+//            $department = Department::where('id_department', $struktur->id_department)->first();
+//            $job_family = JobFamily::find($department->id_job_family);
+//        }
+//        $forum_umum = Forum::where('id_department', null)->where('id_job_family', null)->get();
+//        foreach ($forum_umum as $key => $value) {
+//            $value['personnel'] = Personnel::where('id_user',$value->id_user)->first();
+//            $value['replie'] = Replie::where('id_forum',$value->id)->get();
+//            if(empty($value['replie'][0])){
+//                $value['last_reply'] = null;
+//            }else{
+//                $value['last_reply'] = DB::table('replies')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
+//                $value['last_reply_personnel'] = Personnel::where('id_user', $value['last_reply'][0]->id_user)->first();
+//            }
+//        }
+//        $forum_department = null;
+//        $forum_job_family = null;
+//        if ($department != null) {
+//            $forum_department = Forum::where('id_department',$department->id_department)->get();
+//            foreach ($forum_department as $key => $value) {
+//                $value['personnel'] = Personnel::where('id_user',$value->id_user)->first();
+//                $value['replie'] = Replie::where('id_forum',$value->id)->get();
+//                if(empty($value['replie'][0])){
+//                    $value['last_reply'] = null;
+//                }else{
+//                    $value['last_reply'] = DB::table('replies')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
+//                    $value['last_reply_personnel'] = Personnel::where('id_user', $value['last_reply'][0]->id_user)->first();
+//                }
+//            }
+//
+//            $forum_job_family = Forum::where('id_job_family',$department->id_job_family)->get();
+//            foreach ($forum_job_family as $key => $value) {
+//                $value['personnel'] = Personnel::where('id_user',$value->id_user)->first();
+//                $value['replie'] = Replie::where('id_forum',$value->id)->get();
+//                if(empty($value['replie'][0])){
+//                    $value['last_reply'] = null;
+//                }else{
+//                    $value['last_reply'] = DB::table('replies')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
+//
+//                    $value['last_reply_personnel'] = Personnel::where('id_user', $value['last_reply'][0]->id_user)->first();
+//
+//                }
+//            }
+//        }
+
+//        $module = Module::all();
         return view('user.forum');
+//            ->with('module',$module)
+//            ->with('forum_umum', $forum_umum)
+//            ->with('forum_department',$forum_department)
+//            ->with('forum_job_family',$forum_job_family)
+//            ->with('department',$department)
+//            ->with('job_family',$job_family);
+
     }
 
     public function get_all_forum () {
