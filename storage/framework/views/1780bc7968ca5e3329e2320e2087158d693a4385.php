@@ -65,9 +65,14 @@
                         <span class="<?php echo e(Request::is('/') ? 'selected' : ''); ?>"></span>
                     </a>
                 </li>
-                <li class="classic-menu-dropdown <?php echo e(Request::is('news-board') ? 'active' : ''); ?>">
+                <li
+                        class="classic-menu-dropdown <?php echo e(Request::is('news-board') ||
+                                    Request::is('news/*')
+                                     ? 'active' : ''); ?>">
                     <a href="<?php echo e(url('/news-board')); ?>">News</a>
-                    <span class="<?php echo e(Request::is('news-board') ? 'selected' : ''); ?>"></span>
+                    <span class="<?php echo e(Request::is('news-board') ||
+                                    Request::is('news/*')
+                                     ? 'selected' : ''); ?>"></span>
                 </li>
                 <?php if(Auth::user()): ?>
                     <li class="classic-menu-dropdown <?php echo e(Request::is('forum') ? 'active' : ''); ?>">
