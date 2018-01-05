@@ -55,6 +55,8 @@ Route::post('/test_submit', 'TrainingController@submit_test');
 
 Route::get('/review_test/{id_chapter}','TrainingController@review_test');
 
+Route::get('/get_chapter/{id}', 'TrainingController@next_chapter');
+
 /*
 |--------------------------------------------------------------------------
 | News Routes

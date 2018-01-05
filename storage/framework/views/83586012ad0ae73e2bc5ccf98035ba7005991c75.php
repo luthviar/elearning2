@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
-<div class="row" style="padding-top: 100px;">
-  <div class="container">
+<div class="container" style="padding-top: 100px;">
+  <div class="row">
 
     
       <?php
@@ -27,46 +27,23 @@
                           <div class='panel panel-default'>
                             <div class='panel-body'>
                               <span class='pull-left'>
-                                <strong><a href='".url('get_training',$print_data->id)."'>Modul Training Parent</strong>
+                                <strong>Modul Training Parent</strong>
                               </span>
                               <span class='pull-right' style='color: red;'>
-                                <a href='".url('/get_training/2')."' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>
+<!--                                <a href='".url('/get_training/'.$print_data->id)."' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>--!>
+                                <a href='".url('/get_training/'.$print_data->id)."' class='btn btn-info' > Access</a>
+                                ".Session::put('child_id', $print_data->id)."
                               </span>
                             </div>
                           </div>
                         </div>";
+
               }
 
           }
           prints( $trainings , 0);
       ?>
 
-   
-<!--
-    <div class="col-xs-11 col-md-11 col-md-offset-1 col-xs-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <span class="pull-left">
-            <strong>Modul Training Children</strong>
-          </span>
-          <span class="pull-right" style="color: green;">
-            You can acces this training <i  class="glyphicon glyphicon-ok"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-11 col-md-11 col-md-offset-1 col-xs-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <span class="pull-left">
-            <strong>Modul Training Children 2</strong>
-          </span>
-          <span class="pull-right" style="color: red;">
-              <a href="#" class="btn btn-danger" >Request Access</a> <i  class="glyphicon glyphicon-remove"></i>
-          </span>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
 

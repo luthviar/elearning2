@@ -117,4 +117,6 @@ class UserChapterRecord extends Model
 
     	return $output;
     }
+
+   
 }

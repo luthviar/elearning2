@@ -16,7 +16,7 @@
         </a>
       </div>
       @endforeach
-      <a href="{{ url('/test', $chapter->id) }}" class="btn btn-success">Finish this chapter</a>
+      <a href="{{ url('/finish_chapter', $chapter->id) }}" class="btn btn-success">Finish this chapter</a>
     </div>
   </div>
 </div>

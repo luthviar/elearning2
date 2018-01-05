@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="text-center">
-		<a href="{{ url('/get_training',$chapter->id_module) }}" class="btn btn-success">finish review</a>	
+		<a href="{{ url('/get_chapter',$chapter->id) }}" class="btn btn-success">finish review</a>	
 	</div>
 
 	

@@ -44,13 +44,13 @@ class TrainingController extends Controller
         } 
 
         $user_chapter_record = new UserChapterRecord();
-        if ( $user_chapter_record->is_user_has_record(1,$id_training) == 'no') {
-            $initiate = $user_chapter_record->add_user_chapter_record_initiate(1, $id_training);
+        if ( $user_chapter_record->is_user_has_record(\Auth::user()->id,$id_training) == 'no') {
+            $initiate = $user_chapter_record->add_user_chapter_record_initiate(\Auth::user()->id, $id_training);
             if ($initiate != 'selesai') {
                 return view('user.error')->with('error', $initiate);
             }
         }
-        $count_finish_chapter = $user_chapter_record->check_finish_chapter( 1, $id_training);
+        $count_finish_chapter = $user_chapter_record->check_finish_chapter( \Auth::user()->id, $id_training);
 
         Session::put('training', $trainings);
         Session::put('finish_chapter', $count_finish_chapter);
@@ -91,12 +91,26 @@ class TrainingController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-        $record = new UserChapterRecord();
-        $record = $record->record_chapter( 1, $id_chapter);
+        $records = new UserChapterRecord();
+        $record = $records->record_chapter( \Auth::user()->id, $id_chapter);
         if ($record['status'] == "error") {
             return view('user.error')->with('error', $record)->with('module', $modul);
         }
-        return redirect('get_training/'.$record->id_module_training);
+        $chapter = new Chapter();
+        $next_chapter = $chapter->next_chapter( $id_chapter );
+        if ($next_chapter['status'] == 'error') {
+            return view('user.error')->with('error', $next_chapter)->with('module', $modul);
+        }
+        if ($next_chapter['chapter'] == null) {
+            return redirect('get_training/'.$record->id_module_training);
+        }
+        if ($next_chapter['chapter']->category == 0) {
+            return redirect('/material/'.$next_chapter['chapter']->id);
+        } else {
+            return redirect('/test/'.$next_chapter['chapter']->id);
+        }
+        
+        
     }
 
     public function get_test ( $id_chapter ) {
@@ -117,20 +131,20 @@ class TrainingController extends Controller
         }
         // check test record 
         $user_test_record = new UserTestRecord();
-        $record = $user_test_record->is_user_record_exist(1, $test->id);
+        $record = $user_test_record->is_user_record_exist( \Auth::user()->id, $test->id);
         if ( $record == 'yes') {
             // return review test page
             return redirect('review_test/'.$id_chapter);
         }
         // initiate test record
-        $user_test_record = $user_test_record->initiate_user_test_record(1,$test);
+        $user_test_record = $user_test_record->initiate_user_test_record(\Auth::user()->id,$test);
         if ($user_test_record['status'] == 'error') {
             return view('user.error')->with('error', $user_test_record)->with('module', $modul);
         }
 
         // update finish record 
         $record_chapter = new UserChapterRecord();
-        $record_chapter = $record_chapter->record_chapter( 1, $id_chapter);
+        $record_chapter = $record_chapter->record_chapter( \Auth::user()->id, $id_chapter);
         if ($record_chapter['status'] == "error") {
             return view('user.error')->with('error', $record_chapter)->with('module', $modul);
         }
@@ -159,7 +173,7 @@ class TrainingController extends Controller
             $option = $request->$id_question;
 
             $record = new UserTestRecord();
-            $record = $record->submit_answer(1, $question->id, $option);
+            $record = $record->submit_answer(\Auth::user()->id, $question->id, $option);
             if ($record['message'] == 'error') {
                 return view('user.error')->with('error', $record)->with('module', $modul);
             }
@@ -181,13 +195,30 @@ class TrainingController extends Controller
         $test = Test::where('id_chapter', $id_chapter)->first();
 
         $user_record = new UserTestRecord();
-        $user_record = $user_record->review_test(1, $test->id);
+        $user_record = $user_record->review_test(\Auth::user()->id, $test->id);
         if ($user_record['status'] == 'error') {
             return view('user.error')->with('error', $user_record)->with('module', $modul);
         }
         
 
         return view('user.training.online_test_review')->with('chapter', $chapter)->with('record', $user_record)->with('module', $modul);
+    }
+
+    public function next_chapter($id_chapter){
+        $chapter = new Chapter();
+        $next_chapter = $chapter->next_chapter( $id_chapter );
+        if ($next_chapter['status'] == 'error') {
+            return view('user.error')->with('error', $next_chapter)->with('module', $modul);
+        }
+        if ($next_chapter['chapter'] == null) {
+            $this_chapter = Chapter::find($id_chapter);
+            return redirect('get_training/'.$this_chapter->id_module);
+        }
+        if ($next_chapter['chapter']->category == 0) {
+            return redirect('/material/'.$next_chapter['chapter']->id);
+        } else {
+            return redirect('/test/'.$next_chapter['chapter']->id);
+        }
     }
 
 }
