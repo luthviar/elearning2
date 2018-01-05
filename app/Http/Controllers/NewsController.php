@@ -11,10 +11,19 @@ class NewsController extends Controller
 {
 
     public function index(){
-        $news = new News();
-        $news = $news->get_all_news();
+//        $news = new News();
+//        $news = $news->get_all_news();
 
-        return view('user.newsboard')->with('newses',$news);
+        $news = new News();
+        $news = $news->get_all_active_news();
+
+        //get modul training
+        $modul = new ModulTraining();
+        $modul = $modul->get_module_training();
+
+        return view('user.newsboard')->with('newses', $news)->with('module',$modul);
+
+//        return view('user.newsboard')->with('newses',$news);
     }
 
     public function viewnews(){
