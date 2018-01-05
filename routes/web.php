@@ -163,6 +163,8 @@ Route::get('admin_news','NewsController@news_list');
 
 Route::post('admin_news','NewsController@news_list_serverside');
 
+Route::get('admin_news/{id}','NewsController@admin_news_view');
+
 // -------------------------------------
 // SLIDER
 // -------------------------------------
@@ -170,3 +172,21 @@ Route::post('admin_news','NewsController@news_list_serverside');
 Route::get('admin_slider','SliderController@slider_list');
 
 Route::post('admin_slider','SliderController@slider_list_serverside');
+
+// -------------------------------------
+// FORUM
+// -------------------------------------
+
+Route::get('admin_forum_public','ForumController@forum_public_list');
+
+Route::post('admin_forum_public','ForumController@forum_public_list_serverside');
+
+Route::get('admin_forum_department','ForumController@forum_department_list');
+
+Route::post('admin_forum_department','ForumController@forum_department_list_serverside');
+
+Route::get('admin_forum_job_family','ForumController@forum_job_family_list');
+
+Route::post('admin_forum_job_family','ForumController@forum_job_family_list_serverside');
+
+Route::get('admin_forum/{id_forum}','ForumController@forum_admin_view');

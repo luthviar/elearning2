@@ -167,4 +167,14 @@ class NewsController extends Controller
             
         echo json_encode($json_data); 
     }
+
+    public function admin_news_view($id_news){
+        $news = new News();
+        $news = $news->get_news($id_news);
+
+        if ($news == null) {
+            echo "error: news not found";
+        }
+        return view('admin.news_view')->with('news',$news);
+    }
 }

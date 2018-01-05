@@ -133,7 +133,7 @@
 
               
               <!-- /.form-group -->
-              <div class="form-group">
+              <div class="form-group col-md-6 col-xs-6">
                 <label>Level Position</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
                   <option selected="selected">staff</option>
@@ -146,8 +146,18 @@
                 </select>
               </div>
 
+               <!-- /.form-group -->
+              <div class="form-group col-md-6 col-xs-6">
+                <label>Role</label>
+                <select class="form-control select2" name="role" style="width: 100%;">
+                  <option selected="selected">user</option>
+                  <option>Administrator</option>
+                </select>
+              </div>
               <!-- /.form-group -->
-              <div class="form-group">
+
+              <!-- /.form-group -->
+              <div class="form-group col-md-6 col-xs-6">
                 <label>Division</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
                   <option selected="selected">staff</option>
@@ -161,7 +171,7 @@
               </div>
 
               <!-- /.form-group -->
-              <div class="form-group">
+              <div class="form-group col-md-6 col-xs-6">
                 <label>Unit</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
                   <option selected="selected">staff</option>
@@ -175,7 +185,7 @@
               </div>
 
               <!-- /.form-group -->
-              <div class="form-group">
+              <div class="form-group col-md-6 col-xs-6">
                 <label>Department</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
                   <option selected="selected">staff</option>
@@ -189,7 +199,7 @@
               </div>
 
               <!-- /.form-group -->
-              <div class="form-group">
+              <div class="form-group col-md-6 col-xs-6">
                 <label>Section</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
                   <option selected="selected">staff</option>
@@ -203,15 +213,7 @@
               </div>
 
 
-              <!-- /.form-group -->
-              <div class="form-group">
-                <label>Role</label>
-                <select class="form-control select2" name="role" style="width: 100%;">
-                  <option selected="selected">user</option>
-                  <option>Administratoe</option>
-                </select>
-              </div>
-              <!-- /.form-group -->
+             
 
             </div>
             <!-- /.box-body -->

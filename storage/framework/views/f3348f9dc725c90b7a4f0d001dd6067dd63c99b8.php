@@ -211,9 +211,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Public Forum</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Department Forum</a></li>
+            <li><a href="<?php echo e(url('admin_forum_public')); ?>"><i class="fa fa-circle-o"></i> Public Forum</a></li>
+            <li><a href="<?php echo e(url('admin_forum_job_family')); ?>"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
+            <li><a href="<?php echo e(url('admin_forum_department')); ?>"><i class="fa fa-circle-o"></i> Department Forum</a></li>
           </ul>
         </li>
       </ul>

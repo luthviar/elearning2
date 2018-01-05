@@ -157,11 +157,14 @@ class Forum extends Model
     	//---------Main-------------------
     	$forum = Forum::find( $forum_id );
     	if ( $forum == null ) {
-    		return "forum not found";
+            $forum['status'] = 'error';
+            $forum['message'] = 'forum not found';
+    		return $forum;
     	}
     	$forum['viewer'] = get_forum_viewer($forum);
     	$forum['attachment'] = get_forum_attachment($forum);
     	$forum['comment'] = get_forum_comment($forum);
+        $forum['status'] = 'success';
 
     	return $forum;
     }

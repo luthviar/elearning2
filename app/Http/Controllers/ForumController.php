@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Forum;
 use App\ModulTraining;
+use App\User;
+use DB;
 use Auth;
 
 class ForumController extends Controller
@@ -178,5 +180,276 @@ class ForumController extends Controller
                     );
             
         echo json_encode($json_data); 
+    }
+
+    // ----------------------------------------
+    // ADMIN AREA
+    // ----------------------------------------
+
+    public function forum_public_list(){
+        return view('admin.forum_public');
+    }
+
+    public function forum_public_list_serverside(Request $request){
+        $columns = array( 
+                            0 =>    'title', 
+                            1 =>    'created_by',
+                            2 =>    'content',
+                            3 =>    'created_at',
+                            
+                        );
+  
+        $totalData = Forum::count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+            
+        if(empty($request->input('search.value')))
+        {   
+            $forums = Forum::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->where('category',0)
+                         ->get();
+        } else {
+            $search = $request->input('search.value'); 
+
+            $forums =  DB::table('forums')
+                            ->where('forums.category','=',0)
+                            ->where(function($query) use ($search){
+                                $query->where('forums.content', 'LIKE',"%{$search}%");
+                                $query->orWhere('forums.title','LIKE',"%{$search}%");
+                            })
+                            ->orderBy($order,$dir)
+                            ->limit($limit)
+                            ->offset($start)
+                            ->get();
+
+            $totalFiltered = DB::table('forums')
+                             ->where('forums.category','=',0)
+                             ->where(function($query) use ($search){
+                                $query->where('forums.content', 'LIKE',"%{$search}%");
+                                $query->orWhere('forums.title','LIKE',"%{$search}%");
+                             })
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($forums))
+        {
+            foreach ($forums as $forum)
+            {
+
+                $nestedData['title'] = "<a href='".url('/admin_forum',$forum->id)."'>".$forum->title."</a>";
+
+                $user = new User();
+                $user = $user->get_user($forum->created_by);
+                if ($user['status'] == 'error') {
+                    return "";
+                }
+                $nestedData['created_by'] = $user->name;
+                $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
+                $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
+                
+                $data[] = $nestedData;
+
+            }
+        }
+          
+        $json_data = array(
+                    "draw"            => intval($request->input('draw')),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data   
+                    );
+            
+        echo json_encode($json_data); 
+    }
+
+
+    public function forum_job_family_list(){
+        return view('admin.forum_job_family');
+    }
+
+    public function forum_job_family_list_serverside(Request $request){
+        $columns = array( 
+                            0 =>    'title', 
+                            1 =>    'created_by',
+                            2 =>    'content',
+                            3 =>    'id_job_family',
+                            4 =>    'created_at',
+                            
+                        );
+  
+        $totalData = Forum::count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+            
+        if(empty($request->input('search.value')))
+        {   
+            $forums = Forum::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->where('category',1)
+                         ->get();
+        } else {
+            $search = $request->input('search.value'); 
+
+            $forums =  DB::table('forums')
+                            ->where('forums.category','=',1)
+                            ->where(function($query) use ($search){
+                                $query->where('forums.content', 'LIKE',"%{$search}%");
+                                $query->orWhere('forums.title','LIKE',"%{$search}%");
+                            })
+                            ->orderBy($order,$dir)
+                            ->limit($limit)
+                            ->offset($start)
+                            ->get();
+
+            $totalFiltered = DB::table('forums')
+                             ->where('forums.category','=',1)
+                             ->where(function($query) use ($search){
+                                $query->where('forums.content', 'LIKE',"%{$search}%");
+                                $query->orWhere('forums.title','LIKE',"%{$search}%");
+                             })
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($forums))
+        {
+            foreach ($forums as $forum)
+            {
+
+                $nestedData['title'] = "<a href='".url('/admin_forum',$forum->id)."'>".$forum->title."</a>";
+
+                $user = new User();
+                $user = $user->get_user($forum->created_by);
+                if ($user['status'] == 'error') {
+                    return "";
+                }
+                $nestedData['created_by'] = $user->name;
+                $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
+                $nestedData['job_family'] = $forum->id_job_family;
+                $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
+                
+                $data[] = $nestedData;
+
+            }
+        }
+          
+        $json_data = array(
+                    "draw"            => intval($request->input('draw')),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data   
+                    );
+            
+        echo json_encode($json_data); 
+    }
+
+
+    public function forum_department_list(){
+        return view('admin.forum_department');
+    }
+
+    public function forum_department_list_serverside(Request $request){
+        $columns = array( 
+                            0 =>    'title', 
+                            1 =>    'created_by',
+                            2 =>    'content',
+                            3 =>    'id_department',
+                            4 =>    'created_at',
+                            
+                        );
+  
+        $totalData = Forum::count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+            
+        if(empty($request->input('search.value')))
+        {   
+            $forums = Forum::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->where('category',2)
+                         ->get();
+        } else {
+            $search = $request->input('search.value'); 
+
+            $forums =  DB::table('forums')
+                            ->where('forums.category','=',2)
+                            ->where(function($query) use ($search){
+                                $query->where('forums.content', 'LIKE',"%{$search}%");
+                                $query->orWhere('forums.title','LIKE',"%{$search}%");
+                            })
+                            ->orderBy($order,$dir)
+                            ->limit($limit)
+                            ->offset($start)
+                            ->get();
+
+            $totalFiltered = DB::table('forums')
+                             ->where('forums.category','=',2)
+                             ->where(function($query) use ($search){
+                                $query->where('forums.content', 'LIKE',"%{$search}%");
+                                $query->orWhere('forums.title','LIKE',"%{$search}%");
+                             })
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($forums))
+        {
+            foreach ($forums as $forum)
+            {
+
+                $nestedData['title'] = "<a href='".url('/admin_forum',$forum->id)."'>".$forum->title."</a>";
+
+                $user = new User();
+                $user = $user->get_user($forum->created_by);
+                if ($user['status'] == 'error') {
+                    return "";
+                }
+                $nestedData['created_by'] = $user->name;
+                $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
+                $nestedData['department'] = $forum->id_department;
+                $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
+                
+                $data[] = $nestedData;
+
+            }
+        }
+          
+        $json_data = array(
+                    "draw"            => intval($request->input('draw')),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data   
+                    );
+            
+        echo json_encode($json_data); 
+    }
+
+    public function forum_admin_view ( $id_forum ) {
+        $forum = new Forum();
+        $forum = $forum->get_forum($id_forum);
+        if ($forum['status'] == 'error') {
+            echo $forum['message'];
+        }
+        return view('admin.forum_view')->with('forum', $forum);
     }
 }
