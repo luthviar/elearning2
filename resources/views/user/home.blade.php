@@ -50,10 +50,13 @@
                                 <div class="row" >
                                     <div class="col-md-4 blog-img blog-tag-data">
                                         @if(empty($news->image))
-
-                                            <img class="img-responsive" src="{{ url('/Elegantic/images/ALS.jpg') }}" alt="" style="width:100%;height:150px;">
+                                            <a href="{{ url('/news/'.$news->id) }}" >
+                                                <img class="img-responsive" src="{{ url('/Elegantic/images/ALS.jpg') }}" alt="" style="width:100%;height:150px;">
+                                            </a>
                                         @else
-                                            <img class="img-responsive" src="{{$news->image or 'Elegantic/images/ALS.jpg'}}" alt="" style="width:100%;height:150px;">
+                                            <a href="{{ url('/news/'.$news->id) }}" >
+                                                <img class="img-responsive" src="{{$news->image or 'Elegantic/images/ALS.jpg'}}" alt="" style="width:100%;height:150px;">
+                                            </a>
                                         @endif
                                         <ul class="list-inline">
                                             <li>
@@ -67,7 +70,7 @@
                                     </div>
                                     <div class="col-md-8 blog-article">
                                         <h3>
-                                            <a href="/news/{{$news->id}}">
+                                            <a href="{{ url('/news/'.$news->id) }}" >
                                                 {{ str_limit($news->title, $limit = 50, $end = '...') }}
                                             </a>
                                         </h3>

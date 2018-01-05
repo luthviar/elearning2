@@ -26,7 +26,7 @@
     <div class="row">
       <div class="container">
         <div style="text-align: center;">
-          {{ $newses->links() }}  
+          {{ $newses->links() }}
         </div>
       </div>
     </div>

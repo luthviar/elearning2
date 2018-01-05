@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 @section('content')
 
-  <div class="container" style="padding-top: 100px;">
+  <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
       <img src="{{ URL::asset('gambar.png') }}" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
       <h3 class="green_color"><strong>{{$profile['personal_data']->name}}</strong></h3>
