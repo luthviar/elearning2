@@ -150,9 +150,10 @@ class TrainingController extends Controller
         }
 
         $chapter['test'] = $test;
+        $char = 'A';
 
         // start test of training
-        return view('user.training.online_test')->with('chapter', $chapter)->with('test',$test)->with('module',$modul);
+        return view('user.training.online_test')->with('chapter', $chapter)->with('test',$test)->with('module',$modul)->with('char',$char);
 
     }
 

@@ -105,3 +105,10 @@
 <link rel="stylesheet" type="text/css" href="{{ url('css/tabstyles.css') }}" />
 <script src="{{ url('js/tabs/modernizr.custom.js') }}"></script>
 {{-- END OF STYLE UNTUK TABS DI MODULE TRAINING --}}
+
+{{-- My Style --}}
+<style>
+    .color-std {
+        background-color: #13B795 !important;
+    }
+</style>

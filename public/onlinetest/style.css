@@ -1,0 +1,257 @@
+body
+{
+    padding-top: 96px;    
+}
+
+hr 
+{
+    border-top: 1px solid #AAA !important;
+}
+
+label
+{
+    cursor: pointer;
+}
+
+input
+{
+    display: none;
+}
+
+.nav-table tr td 
+{
+    padding: 4px 12px;
+}
+
+.inline-block
+{
+    display: inline-block;
+}
+
+.main-container
+{
+    padding-bottom: 54px !important; 
+}
+
+.navbar
+{
+    width: 100% !important;
+    border-radius: 0 !important;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.navbar-default
+{
+    background-color: #13B795 !important;
+    border-color: #13B795 !important;
+}
+
+.font-24
+{
+    font-size: 24px;
+}
+
+.font-16
+{
+    font-size: 16px;
+}
+
+.text-white
+{
+    color: #FFF !important;
+}
+
+.text-black
+{
+    color: #000 !important;
+}
+
+.text-grey
+{
+    color: #D0D0D0 !important;   
+}
+
+.text-blue
+{
+    color: #243352 !important;
+}
+
+.text-yellow
+{
+    color: #EDA728 !important;
+}
+
+.text-red
+{
+    color: #F5334D !important;
+}
+
+.text-grey
+{
+    color: #D0D0D0 !important;   
+}
+
+.bg-grey
+{
+    background-color: #D0D0D0 !important;   
+}
+
+.bg-blue
+{
+    background-color: #243352 !important;
+}
+
+.bg-yellow
+{
+    background-color: #EDA728 !important;
+}
+
+.bg-red
+{
+    background-color: #F5334D !important;
+}
+
+.btn-logout
+{
+    border-radius: 0 !important;
+    border: none !important;
+    text-align: left !important;
+}
+
+.only-button-form
+{
+    display: inline-block !important;
+}
+
+.question-list
+{
+    /*list-style: none;*/
+}
+
+.question-list-item
+{
+    margin-bottom: 48px;
+}
+
+#next-slide
+{
+    font-size: 24px;
+}
+
+.page-navigation
+{
+    padding-top: 24px;
+    padding-bottom: 24px;
+    background-color: #4DAFE0;
+}
+
+.circle 
+{
+    width: 60px;
+    height: 60px;
+    /*background: #EDA728;*/
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    text-align: center;  
+    cursor: pointer; 
+}
+
+.choice-circle
+{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    /*background: #EDA728;*/
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    text-align: center;  
+    cursor: pointer; 
+}
+
+input + label:hover > .choice-circle
+{
+    background-color: #F5334D !important;
+}
+
+input:checked + label > .choice-circle
+{
+    background-color: #F5334D !important;
+}
+
+.question-number-circle
+{
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    /*background: #EDA728;*/
+    -moz-border-radius: 18px;
+    -webkit-border-radius: 18px;
+    border-radius: 18px;
+    text-align: center;  
+    cursor: pointer; 
+}
+
+.circle:hover
+{
+    background: #F5334D;
+}
+
+.v-align-text-top
+{
+    vertical-align: text-top;
+}
+
+.v-align-middle
+{
+    vertical-align: middle;
+}
+
+.v-align-super
+{
+    vertical-align: super;
+}
+
+.v-align-sub
+{
+    vertical-align: sub;
+}
+
+#next-slide:hover 
+{
+    background-color: #F5334D !important;
+}
+
+#next-slide.bg-red:hover
+{
+    background-color: #243352 !important;
+}
+
+.question img
+{
+    /*width: 100%;*/
+}
+
+.jst-hours 
+{
+    float: left;
+}
+.jst-minutes 
+{
+    float: left;
+}
+.jst-seconds 
+{
+    float: left;
+}
+.jst-clearDiv 
+{
+    clear: both;
+}
+
+.jst-timeout 
+{
+    color: red;
+}
