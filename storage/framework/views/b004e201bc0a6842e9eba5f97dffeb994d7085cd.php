@@ -10,20 +10,21 @@
 <link rel="stylesheet" href="<?php echo e(URL::asset('Elegantic/css/uniform.css')); ?>" />
 <link rel="stylesheet" href="<?php echo e(URL::asset('Elegantic/css/all.css')); ?>" />
 <link media="screen" rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('Elegantic/css/screen.css')); ?>" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
+<link rel="stylesheet" href="<?php echo e(url('css/bootstrap3.min.css')); ?>">
+<script type="text/javascript" src="<?php echo e(url('js/jquery-1.11.1.min.js')); ?>"></script>
+<script src="<?php echo e(url('js/bootstrap3.min.js')); ?>"></script>
+<link rel="stylesheet" href="<?php echo e(url('css/font-awesome.css')); ?>">
+<link href="<?php echo e(url('css/summernote.css')); ?>" rel="stylesheet">
+<script src="<?php echo e(url('js/summernote.js')); ?>"></script>
 <link rel="stylesheet" href="<?php echo e(URL::asset('css/Upload.css')); ?>" />
 <script type="text/javascript" src="<?php echo e(URL::asset('js/UpoladImg.js')); ?>"></script>
 
 
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css"/>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"/>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+<link href="<?php echo e(url('css/fonts.css')); ?>" rel="stylesheet" type="text/css"/>
+
+
 <link href="<?php echo e(URL::asset('Elegantic/css/uniform.css')); ?>" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 
@@ -54,18 +55,18 @@
 </script>
 
 <!-- loading preloader -->
-<div id="loading">
-    <div id="loading-container" class="fullwidth">
-        <div class="spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <p id='loading-text'>Loading...</p>
-    </div>
-</div>
+
+    
+        
+            
+            
+            
+            
+            
+        
+        
+    
+
 <script>
 
     $(window).load(function(){
@@ -95,7 +96,7 @@
     }
 </style>
 <!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<script src="<?php echo e(url('js/html5shiv.js')); ?>"></script>
 
 <![endif]-->
 

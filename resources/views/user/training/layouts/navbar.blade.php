@@ -42,13 +42,14 @@
                         class="icon"
                         style="margin-right: 0px; cursor: pointer;"
                     >
+                        {{--belum pernah test masuk tidak yes--}}
                         @elseif(Session::get('record') != 'yes')
                     <a
-                            onclick="window.open('{{ url('/test',$chapter->id) }}','_self')"
-                            target="_self"
-                            class="icon"
-                            style="margin-right: 0px; cursor: pointer;"
-                            data-toggle="modal" data-target="#TestStart"
+                        onclick="window.open('{{ url('/test',$chapter->id) }}','_self')"
+                        target="_self"
+                        class="icon"
+                        style="margin-right: 0px; cursor: pointer;"
+                        data-toggle="modal" data-target="#TestStart"
                     >
                         @endif
                       <span>
@@ -63,7 +64,7 @@
             @endif
 
         @else
-            <li class="{{ Request::is('test/*') ? 'tab-current' : '' }}">
+            <li class="{{ Request::is('test/*') || Request::is('material/*') || Request::is('review_test/*') ? 'tab-current' : '' }}">
                 <a href="#" class="icon">
                   <span>
                       <i class="glyphicon glyphicon-pencil"></i>

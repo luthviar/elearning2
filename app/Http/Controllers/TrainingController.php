@@ -132,6 +132,7 @@ class TrainingController extends Controller
         // check test record 
         $user_test_record = new UserTestRecord();
         $record = $user_test_record->is_user_record_exist( \Auth::user()->id, $test->id);
+        $record_session = Session::put('record',$record);
 
         if ( $record == 'yes') {
             // return review test page
@@ -153,9 +154,9 @@ class TrainingController extends Controller
         $chapter['test'] = $test;
         $char = 'A';
 
-        $record_session = Session::put('record',$record);
 
-        dd(Session::get('record'));
+
+//        dd(Session::get('record'));
         // start test of training
         return view('user.training.online_test')
             ->with('chapter', $chapter)->with('test',$test)->with('module',$modul)->with('char',$char)->with('record',$record_session);
