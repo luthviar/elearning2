@@ -7,11 +7,17 @@
           <div style="padding-bottom: 10px;">
               {{--<h1>ajlj</h1>--}}
               @if ($chapter->category == 0)
-                  <a href="{{ url('/material', $chapter->id) }}" class="btn btn-default" style="width: 100%;text-align: left;">{{$chapter->chapter_name}}</a>
+                  <a
+                    {{--href="{{ url('/material', $chapter->id) }}"--}}
+                     onclick="window.open('{{ url('/material',$chapter->id) }}','_self')"
+                     class="btn btn-default" style="width: 100%;text-align: left;">
+                      {{$chapter->chapter_name}}
+                  </a>
               @else
                   <a
                      {{--onclick="window.open('{{ url('/test', $chapter->id) }}','popup','width=1366,height=669');"--}}
-                     href="{{ url('/test', $chapter->id) }}"
+                     {{--href="{{ url('/test', $chapter->id) }}"--}}
+                     onclick="window.open('{{ url('/test',$chapter->id) }}','_self')"
                      class="btn btn-default"
                      style="width: 100%;text-align: left;">{{$chapter->chapter_name}}</a>
               @endif

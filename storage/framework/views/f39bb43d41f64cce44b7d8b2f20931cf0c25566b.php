@@ -5,11 +5,18 @@
           <div style="padding-bottom: 10px;">
               
               <?php if($chapter->category == 0): ?>
-                  <a href="<?php echo e(url('/material', $chapter->id)); ?>" class="btn btn-default" style="width: 100%;text-align: left;"><?php echo e($chapter->chapter_name); ?></a>
+                  <a
+                    
+                     onclick="window.open('<?php echo e(url('/material',$chapter->id)); ?>','_self')"
+                     class="btn btn-default" style="width: 100%;text-align: left;">
+                      <?php echo e($chapter->chapter_name); ?>
+
+                  </a>
               <?php else: ?>
                   <a
                      
-                     href="<?php echo e(url('/test', $chapter->id)); ?>"
+                     
+                     onclick="window.open('<?php echo e(url('/test',$chapter->id)); ?>','_self')"
                      class="btn btn-default"
                      style="width: 100%;text-align: left;"><?php echo e($chapter->chapter_name); ?></a>
               <?php endif; ?>

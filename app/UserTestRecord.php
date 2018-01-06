@@ -65,7 +65,11 @@ class UserTestRecord extends Model
     	}
     	$true_answer = UserTestRecord::where('id_user', $id_user)->where('id_test', $id_test)->where('is_true', 1)->get();
 
-    	$skor = (int) (count($true_answer)/count($record_test) ) * 100;
+    	$count_true = count($true_answer);
+    	$count_record_test = count($record_test);
+
+    	$skor = (int) (($count_true/$count_record_test)*100);
+
     	$record['skor'] = $skor;
     	$record['true_answer'] = count($true_answer);
     	$record['total_question'] = count($record_test);

@@ -16,7 +16,12 @@
         </a>
       </div>
       @endforeach
-      <a href="{{ url('/finish_chapter', $chapter->id) }}" class="btn color-std">Finish this chapter</a>
+      <a
+        {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
+        onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
+        class="btn color-std">
+        Finish this chapter
+      </a>
     </div>
   </div>
 </div>
