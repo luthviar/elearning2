@@ -7,32 +7,32 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/bootstrap/css/bootstrap.min.css')); ?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.css')); ?>">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/dist/css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/dist/css/AdminLTE.min.css')); ?>">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/dist/css/skins/_all-skins.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/dist/css/skins/_all-skins.min.css')); ?>">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/iCheck/flat/blue.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/iCheck/flat/blue.css')); ?>">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css')); ?>">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/datepicker/datepicker3.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/datepicker/datepicker3.css')); ?>">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/daterangepicker/daterangepicker.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/daterangepicker/daterangepicker.css')); ?>">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')); ?>">
   <!-- Select2 -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/select2/select2.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/select2/select2.min.css')); ?>">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')); ?>">
   <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 
 
@@ -67,16 +67,17 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{URL::asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{Auth::user()->name}}</span>
+              <img src="<?php echo e(URL::asset('AdminLTE/dist/img/user2-160x160.jpg')); ?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?php echo e(Auth::user()->name); ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{URL::asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                <img src="<?php echo e(URL::asset('AdminLTE/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  {{Auth::user()->name}}
+                  <?php echo e(Auth::user()->name); ?>
+
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -117,10 +118,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{URL::asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+          <img src="<?php echo e(URL::asset('AdminLTE/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{Auth::user()->name}}</p>
+          <p><?php echo e(Auth::user()->name); ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -136,7 +137,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/personnel')}}"><i class="fa fa-circle-o"></i> View Personnel</a></li>
+            <li><a href="<?php echo e(url('/personnel')); ?>"><i class="fa fa-circle-o"></i> View Personnel</a></li>
             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Add Personnel</a></li>
           </ul>
         </li>
@@ -186,7 +187,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/admin_slider')}}"><i class="fa fa-circle-o"></i> View Slider</a></li>
+            <li><a href="<?php echo e(url('/admin_slider')); ?>"><i class="fa fa-circle-o"></i> View Slider</a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Add Slider</a></li>
           </ul>
         </li>
@@ -198,7 +199,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('admin_news')}}"><i class="fa fa-circle-o"></i> View News</a></li>
+            <li><a href="<?php echo e(url('admin_news')); ?>"><i class="fa fa-circle-o"></i> View News</a></li>
             <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Add News</a></li>
           </ul>
         </li>
@@ -210,9 +211,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('admin_forum_public')}}"><i class="fa fa-circle-o"></i> Public Forum</a></li>
-            <li><a href="{{url('admin_forum_job_family')}}"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
-            <li><a href="{{url('admin_forum_department')}}"><i class="fa fa-circle-o"></i> Department Forum</a></li>
+            <li><a href="<?php echo e(url('admin_forum_public')); ?>"><i class="fa fa-circle-o"></i> Public Forum</a></li>
+            <li><a href="<?php echo e(url('admin_forum_job_family')); ?>"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
+            <li><a href="<?php echo e(url('admin_forum_department')); ?>"><i class="fa fa-circle-o"></i> Department Forum</a></li>
           </ul>
         </li>
       </ul>
@@ -222,7 +223,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    @yield('content')
+    <?php echo $__env->yieldContent('content'); ?>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -239,36 +240,36 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="{{URL::asset('AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')); ?>"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{URL::asset('AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/bootstrap/js/bootstrap.min.js')); ?>"></script>
 <!-- Sparkline -->
-<script src="{{URL::asset('AdminLTE/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/sparkline/jquery.sparkline.min.js')); ?>"></script>
 <!-- jvectormap -->
-<script src="{{URL::asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
-<script src="{{URL::asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')); ?>"></script>
 <!-- jQuery Knob Chart -->
-<script src="{{URL::asset('AdminLTE/plugins/knob/jquery.knob.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/knob/jquery.knob.js')); ?>"></script>
 <!-- daterangepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{URL::asset('AdminLTE/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/daterangepicker/daterangepicker.js')); ?>"></script>
 <!-- datepicker -->
-<script src="{{URL::asset('AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/datepicker/bootstrap-datepicker.js')); ?>"></script>
 <!-- Bootstrap WYSIHTML5 -->
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <!-- Slimscroll -->
-<script src="{{URL::asset('AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js')); ?>"></script>
 <!-- FastClick -->
-<script src="{{URL::asset('AdminLTE/plugins/fastclick/fastclick.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/fastclick/fastclick.js')); ?>"></script>
 <!-- AdminLTE App -->
-<script src="{{URL::asset('AdminLTE/dist/js/app.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/dist/js/app.min.js')); ?>"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{URL::asset('AdminLTE/dist/js/demo.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/dist/js/demo.js')); ?>"></script>
 <!-- DataTables -->
-<script src="{{URL::asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')); ?>"></script>
 <!-- Select2 -->
-<script src="{{URL::asset('AdminLTE/plugins/select2/select2.full.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/select2/select2.full.min.js')); ?>"></script>
  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
  <script>
       $('#summernote').summernote({
@@ -279,6 +280,6 @@
     </script>
 
 
-@yield('script')
+<?php echo $__env->yieldContent('script'); ?>
 </body>
 </html>

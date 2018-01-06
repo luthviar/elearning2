@@ -1,6 +1,4 @@
-@extends('admin.layout_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -9,7 +7,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">News</a></li>
+        <li><a href="<?php echo e(url('/personnel')); ?>">News</a></li>
         <li class="active">Add News</li>
       </ol>
     </section>
@@ -65,7 +63,7 @@
                 <!-- CONTENT -->
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img src="{{ URL::asset('gambar.png')}}" style="width: 100%; height: 100px;">
+                    <img src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-8">
                     <h3><strong id="preview_news_title">News Title</strong></h3>
@@ -95,10 +93,10 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -146,4 +144,5 @@ $(document).ready(function(){
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
