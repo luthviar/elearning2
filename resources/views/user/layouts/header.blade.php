@@ -66,18 +66,6 @@
         <p id='loading-text'>Loading...</p>
     </div>
 </div>
-
-<style>
-    .card a img {
-        border: 0;
-        width: 100%;
-    }
-</style>
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-
-<![endif]-->
-
 <script>
 
     $(window).load(function(){
@@ -99,6 +87,19 @@
 
     });
 </script>
+
+<style>
+    .card a img {
+        border: 0;
+        width: 100%;
+    }
+</style>
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+
+<![endif]-->
+
+
 
 {{-- STYLE UNTUK TABS DI MODULE TRAINING --}}
 <link rel="stylesheet" type="text/css" href="{{ url('css/tabs.css') }}" />

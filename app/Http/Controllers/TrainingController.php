@@ -132,6 +132,7 @@ class TrainingController extends Controller
         // check test record 
         $user_test_record = new UserTestRecord();
         $record = $user_test_record->is_user_record_exist( \Auth::user()->id, $test->id);
+
         if ( $record == 'yes') {
             // return review test page
             return redirect('review_test/'.$id_chapter);
@@ -152,8 +153,12 @@ class TrainingController extends Controller
         $chapter['test'] = $test;
         $char = 'A';
 
+        $record_session = Session::put('record',$record);
+
+        dd(Session::get('record'));
         // start test of training
-        return view('user.training.online_test')->with('chapter', $chapter)->with('test',$test)->with('module',$modul)->with('char',$char);
+        return view('user.training.online_test')
+            ->with('chapter', $chapter)->with('test',$test)->with('module',$modul)->with('char',$char)->with('record',$record_session);
 
     }
 
@@ -209,7 +214,7 @@ class TrainingController extends Controller
         $chapter = new Chapter();
         $next_chapter = $chapter->next_chapter( $id_chapter );
         if ($next_chapter['status'] == 'error') {
-            return view('user.error')->with('error', $next_chapter)->with('module', $modul);
+            return view('user.error')->with('error', $next_chapter);
         }
         if ($next_chapter['chapter'] == null) {
             $this_chapter = Chapter::find($id_chapter);
