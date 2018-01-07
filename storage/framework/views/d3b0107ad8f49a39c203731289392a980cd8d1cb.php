@@ -15,30 +15,12 @@
         </a>
       </div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      
-      
+      <a
         
-        
-        
-        
-      
-      
-      
-
-              
-              
-              
-              
-      
-      
-          <a
-                  
-                  onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
-                  class="btn color-std">
-            Finish this chapter
-          </a>
-
-
+        onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
+        class="btn color-std">
+        Finish this chapter
+      </a>
     </div>
   </div>
 </div>
