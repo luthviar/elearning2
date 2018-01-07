@@ -5,7 +5,7 @@
             class="icon">
               <span>
                   <i class="glyphicon glyphicon-th-list"></i>
-                   List of Chapters
+                   List of Chaptersa
               </span>
         </a>
     </li>
@@ -16,7 +16,11 @@
 
             @if ($chapter->category == 0)
                 <li class="{{ Request::is('material/*') ? 'tab-current' : '' }}">
-                    <a href="{{ url('/material', $chapter->id) }}" class="icon">
+                    <a
+                        {{--href="{{ url('/material', $chapter->id) }}"--}}
+                        onclick="window.open('{{ url('/material',$chapter->id) }}','_self')"
+                        style="cursor:pointer;"
+                        class="icon">
                       <span>
                           <i class="glyphicon glyphicon-book"></i>
                           {{$chapter->chapter_name}}
@@ -27,17 +31,27 @@
             @else
 
                 @if(Request::is('review_test/*'))
-                <li class="{{ Request::is('review_test/*') ? 'tab-current' : '' }}">
+                <li class="{{ Request::is('review_test/'.$chapter->id) ? 'tab-current' : '' }}">
                 @else
-                <li class="{{ Request::is('test/*') ? 'tab-current' : '' }}">
+                <li class="{{ Request::is('test/'.$chapter->id) ? 'tab-current' : '' }}">
                 @endif
-
+                    @if(Session::get('record') == 'yes')
                     <a
-                        {{--onclick="window.open('{{ url('/test', $chapter->id) }}','popup','width=1366,height=669');"--}}
-                        href="{{ url('/test', $chapter->id) }}"
+                        onclick="window.open('{{ url('/test',$chapter->id) }}','_self')"
+                        target="_self"
                         class="icon"
                         style="margin-right: 0px; cursor: pointer;"
                     >
+                        {{--belum pernah test masuk tidak yes--}}
+                        @elseif(Session::get('record') != 'yes')
+                    <a
+                        onclick="window.open('{{ url('/test',$chapter->id) }}','_self')"
+                        target="_self"
+                        class="icon"
+                        style="margin-right: 0px; cursor: pointer;"
+                        data-toggle="modal" data-target="#TestStart"
+                    >
+                        @endif
                       <span>
                           <i class="glyphicon glyphicon-pencil"></i>
                           {{$chapter->chapter_name}}
@@ -46,10 +60,11 @@
                 </li>
 
 
+
             @endif
 
         @else
-            <li class="{{ Request::is('test/*') ? 'tab-current' : '' }}">
+            <li class="{{ Request::is('test/*') || Request::is('material/*') || Request::is('review_test/*') ? 'tab-current' : '' }}">
                 <a href="#" class="icon">
                   <span>
                       <i class="glyphicon glyphicon-pencil"></i>

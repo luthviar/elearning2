@@ -17,7 +17,7 @@ class Test extends Model
 			return $options;
 		}
 
-    	$error;
+    	$error = '';
     	$test = Test::where('id_chapter', $id_chapter)->first();
     	if ($test == null) {
     		$error['status'] = 'error';

@@ -16,7 +16,30 @@
         </a>
       </div>
       @endforeach
-      <a href="{{ url('/finish_chapter', $chapter->id) }}" class="btn color-std">Finish this chapter</a>
+      {{--@if(Session::get('record') == 'yes')--}}
+      {{--<a--}}
+        {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
+        {{--onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"--}}
+        {{--class="btn color-std">--}}
+        {{--Finish this chapter--}}
+      {{--</a>--}}
+      {{--@elseif(Session::get('record') != 'yes')--}}
+      {{--<a--}}
+
+              {{--target="_self"--}}
+              {{--class="icon"--}}
+              {{--style="margin-right: 0px; cursor: pointer;"--}}
+              {{--data-toggle="modal" data-target="#TestStart"--}}
+      {{-->--}}
+      {{--@endif--}}
+          <a
+                  {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
+                  onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
+                  class="btn color-std">
+            Finish this chapter
+          </a>
+
+
     </div>
   </div>
 </div>

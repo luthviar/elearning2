@@ -23,7 +23,12 @@
 
 	<div class="row" style="padding-top: 50px;">
 		<div class="text-center" >
-			<a style="padding-top: 10px;" href="{{ url('/get_chapter',$chapter->id) }}" class="btn color-std">Finish Review</a>
+			<a style="padding-top: 10px;"
+			   {{--href="{{ url('/get_chapter',$chapter->id) }}"--}}
+			   onclick="window.open('{{ url('/get_chapter',$chapter->id) }}','_self')"
+			   class="btn color-std">
+				Finish Review
+			</a>
 		</div>
 	</div>
 </div>

@@ -2,7 +2,7 @@
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN LOGO -->
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
             <img src="<?php echo e(URL::asset('Elegantic/images/ALC.png')); ?>" class="img-responsive"/>
         </a>
         <!-- END LOGO -->

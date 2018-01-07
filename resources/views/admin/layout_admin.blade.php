@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/select2/select2.min.css')}}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+
   <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="{{URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')}}">
 
@@ -42,6 +43,9 @@
     }
 
   </style>
+
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+
 
 
 
@@ -236,7 +240,6 @@
 
 <!-- jQuery 2.2.3 -->
 <script src="{{URL::asset('AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
-
 <!-- Bootstrap 3.3.6 -->
 <script src="{{URL::asset('AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Sparkline -->
@@ -266,10 +269,19 @@
 <script src="{{URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
 <!-- Select2 -->
 <script src="{{URL::asset('AdminLTE/plugins/select2/select2.full.min.js')}}"></script>
+
 <!-- bootstrap time picker -->
 <script src="{{URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 
 
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+ <script>
+      $('#summernote').summernote({
+        placeholder: 'Hello bootstrap 4',
+        tabsize: 2,
+        height: 100
+      });
+</script>
 
 
 @yield('script')
