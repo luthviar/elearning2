@@ -4,6 +4,11 @@
 
   @foreach ( Session::get('training')['chapter'] as $key => $chapter)
       @if ($key < $finish_chapter)
+@if($modal)
+{{ 'muncul' }}
+@else
+    {{ 'gamuncul' }}
+@endif
           <div style="padding-bottom: 10px;">
               {{--<h1>ajlj</h1>--}}
               @if ($chapter->category == 0)

@@ -38,7 +38,6 @@ class TrainingController extends Controller
         $modul = $modul->get_module_training();
 
 
-
         if ( $trainings['status'] == "parent") {
             return view('user.training.module_training')->with( 'trainings', $trainings)->with('module', $modul);
         } 
@@ -58,7 +57,28 @@ class TrainingController extends Controller
         $trainings2 = Session::get('training');
         $finish_chapter2 = Session::get('finish_chapter');
 
-        return view('user.training.intro_training')->with('training', $trainings2)->with('module', $modul)->with('finish_chapter', $finish_chapter2);
+        // handling modal
+        $modal = false;
+        $chapter_modal = new Chapter();
+        $next_chapter = Chapter::where('id_module',$id_training)->where('sequence',0)->first();
+        if ($next_chapter == null) {
+            $this_chapter = Chapter::find($next_chapter->id);
+            return redirect('get_training/'.$this_chapter->id_module);
+        }
+        if ($next_chapter->category == 1) {
+            $next_test = Test::where('id_chapter',$next_chapter->id)->first();
+            // check test record
+            $user_test_record = new UserTestRecord();
+            $record = $user_test_record->is_user_record_exist( \Auth::user()->id, $next_test->id);
+            if ( $record != 'yes') {
+                $modal = true;
+            }
+        }
+        // end of handling modal
+
+        return view('user.training.intro_training')
+            ->with('training', $trainings2)->with('module', $modul)
+            ->with('finish_chapter', $finish_chapter2)->with('modal', $modal);
     	
 
     }
@@ -83,7 +103,30 @@ class TrainingController extends Controller
             return view('user.error')->with('error', $chapter)->with('module', $modul);
         }
         $chapter['material'] = $material_training;
-        return view('user.training.material')->with('chapter', $chapter)->with('module', $modul);
+
+        // handling modal
+        $modal = false;
+        $chapter_modal = new Chapter();
+        $next_chapter = $chapter_modal->next_chapter( $id_chapter );
+        if ($next_chapter['status'] == 'error') {
+            return view('user.error')->with('error', $next_chapter)->with('module', $modul);
+        }
+        if ($next_chapter['chapter'] == null) {
+            $this_chapter = Chapter::find($id_chapter);
+            return redirect('get_training/'.$this_chapter->id_module);
+        }
+        if ($next_chapter['chapter']->category == 1) {
+            $next_test = Test::where('id_chapter',$next_chapter['chapter']->id)->first();
+            // check test record
+            $user_test_record = new UserTestRecord();
+            $record = $user_test_record->is_user_record_exist( \Auth::user()->id, $next_test->id);
+            if ( $record != 'yes') {
+                $modal = true;
+            }
+        }
+        // end of handling modal
+
+        return view('user.training.material')->with('chapter', $chapter)->with('module', $modul)->with('modal', $modal);
     }
 
     public function finish_chapter( $id_chapter ) {
@@ -154,12 +197,34 @@ class TrainingController extends Controller
         $chapter['test'] = $test;
         $char = 'A';
 
+        // handling modal
+        $modal = false;
+        $chapter_modal = new Chapter();
+        $next_chapter = $chapter_modal->next_chapter( $id_chapter );
+        if ($next_chapter['status'] == 'error') {
+            return view('user.error')->with('error', $next_chapter)->with('module', $modul);
+        }
+        if ($next_chapter['chapter'] == null) {
+            $this_chapter = Chapter::find($id_chapter);
+            return redirect('get_training/'.$this_chapter->id_module);
+        }
+        if ($next_chapter['chapter']->category == 1) {
+            $next_test = Test::where('id_chapter',$next_chapter['chapter']->id)->first();
+            // check test record
+            $user_test_record = new UserTestRecord();
+            $record = $user_test_record->is_user_record_exist( \Auth::user()->id, $next_test->id);
+            if ( $record != 'yes') {
+                $modal = true;
+            }
+        }
+        // end of handling modal
 
 
 //        dd(Session::get('record'));
         // start test of training
         return view('user.training.online_test')
-            ->with('chapter', $chapter)->with('test',$test)->with('module',$modul)->with('char',$char)->with('record',$record_session);
+            ->with('chapter', $chapter)->with('test',$test)
+            ->with('module',$modul)->with('char',$char)->with('record',$record_session)->with('modal', $modal);
 
     }
 
