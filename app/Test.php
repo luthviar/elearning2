@@ -43,6 +43,30 @@ class Test extends Model
     	return $test;
     }
 
+    public function get_manage_test ( $id_chapter ) {
+
+        function get_question_option( $question ) {
+            $options = QuestionOption::where( 'id_question' , $question->id )->get();
+            return $options;
+        }
+
+        $error;
+        $test = Test::where('id_chapter', $id_chapter)->first();
+        if ($test == null) {
+            $error['status'] = 'error';
+            $error['message'] = 'test not found';
+            return $error;
+        }
+        $questions = Question::where( 'id_test' , $test->id )->get();
+        
+        foreach ($questions as $question) {
+            $question['option'] = get_question_option( $question );
+        }   
+        $test['questions'] = $questions;
+        
+        return $test;
+    }
+
     
 
 

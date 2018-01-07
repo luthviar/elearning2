@@ -33,7 +33,15 @@
   <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/select2/select2.min.css')); ?>">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')); ?>">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')); ?>">
 
+  <style type="text/css">
+    .hidden {
+      display: none;
+    }
+
+  </style>
 
 
 
@@ -138,7 +146,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo e(url('/personnel')); ?>"><i class="fa fa-circle-o"></i> View Personnel</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Add Personnel</a></li>
+            <li><a href="<?php echo e(url('/personnel_add')); ?>"><i class="fa fa-circle-o"></i> Add Personnel</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -169,18 +177,6 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Employee Score</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> View Employee Score</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Add Employee Score</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
             <i class="fa fa-table"></i> <span>Slider</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -200,7 +196,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo e(url('admin_news')); ?>"><i class="fa fa-circle-o"></i> View News</a></li>
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Add News</a></li>
+            <li><a href="<?php echo e(url('news_add')); ?>"><i class="fa fa-circle-o"></i> Add News</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -271,6 +267,9 @@
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')); ?>"></script>
 <!-- Select2 -->
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/select2/select2.full.min.js')); ?>"></script>
+<!-- bootstrap time picker -->
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')); ?>"></script>
+
 
 
 

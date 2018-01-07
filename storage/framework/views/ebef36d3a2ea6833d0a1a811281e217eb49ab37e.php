@@ -115,7 +115,7 @@
 		                <tbody>
 		                <?php $__currentLoopData = $training_record['records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
-		                	<td><?php echo e($key); ?>1</td>
+		                	<td><?php echo e($key+1); ?></td>
 		                	<td><?php echo e($record['module']->modul_name); ?></td>
 		                	<td><?php echo e($record['status']); ?></td>
 		                	<td>1</td>
@@ -145,12 +145,13 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                
+		                <?php $__currentLoopData = $employee_record; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
-		                	<td>1</td>
-		                	<td>1</td>
-		                	<td>1</td>
+		                	<td><?php echo e($key+1); ?></td>
+		                	<td><a href="<?php echo e($record->attachment_url); ?>"><?php echo e($record->attachment_name); ?></a></td>
+		                	<td><?php echo e($record->created_at); ?></td>
 		                </tr>	
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 		                </tbody>
 		              </table>
 		            </div>

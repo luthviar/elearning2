@@ -15,7 +15,7 @@
         </a>
       </div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      <a href="<?php echo e(url('/finish_chapter', $chapter->id)); ?>" class="btn btn-success">Finish this chapter</a>
+      <a href="<?php echo e(url('/finish_chapter', $chapter->id)); ?>" class="btn color-std">Finish this chapter</a>
     </div>
   </div>
 </div>

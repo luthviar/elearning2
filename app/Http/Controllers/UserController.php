@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\ModulTraining;
 use App\UserChapterRecord;
+use App\EmployeeScore;
 
 class UserController extends Controller
 {
@@ -139,6 +140,8 @@ class UserController extends Controller
         $training_record = new UserChapterRecord();
         $training_record = $training_record->get_user_training_record($id_user);
 
-        return view('admin.personnel_view')->with('profile', $profile)->with('training_record', $training_record);
+        $employee_record = EmployeeScore::where('id_user', $id_user)->orderBy('id','desc')->get();
+
+        return view('admin.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
     }
 }

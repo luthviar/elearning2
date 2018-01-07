@@ -117,7 +117,7 @@
 		                <tbody>
 		                @foreach ( $training_record['records']  as $key => $record)
 		                <tr>
-		                	<td>{{ $key}}1</td>
+		                	<td>{{ $key+1}}</td>
 		                	<td>{{ $record['module']->modul_name}}</td>
 		                	<td>{{ $record['status']}}</td>
 		                	<td>1</td>
@@ -147,12 +147,13 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                
+		                @foreach($employee_record as $key => $record)
 		                <tr>
-		                	<td>1</td>
-		                	<td>1</td>
-		                	<td>1</td>
+		                	<td>{{$key+1}}</td>
+		                	<td><a href="{{$record->attachment_url}}">{{$record->attachment_name}}</a></td>
+		                	<td>{{$record->created_at}}</td>
 		                </tr>	
+                    @endforeach
 		                </tbody>
 		              </table>
 		            </div>

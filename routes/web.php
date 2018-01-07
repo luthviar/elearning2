@@ -110,11 +110,12 @@ Route::get('/get_all_forum','ForumController@get_all_forum');
 
 Route::get('/get_forum/{forum_type}', 'ForumController@get_user_forum');
 
-Route::get('/get_forum/{id}','ForumController@get_forum');
+Route::get('/forum/{id}','ForumController@get_forum');
 
 Route::post('/forum_public', 'ForumController@forum_public');
 
 Route::get('forum','ForumController@index');
+
 
 Auth::routes();
 
@@ -190,3 +191,29 @@ Route::get('admin_forum_job_family','ForumController@forum_job_family_list');
 Route::post('admin_forum_job_family','ForumController@forum_job_family_list_serverside');
 
 Route::get('admin_forum/{id_forum}','ForumController@forum_admin_view');
+
+// -------------------------------------
+// TRAINING
+// -------------------------------------
+
+Route::get('add_training', function(){
+	return view('admin.training_add');
+});
+
+Route::get('manage_training/{id}', 'TrainingController@manage_training');
+
+Route::get('add_chapter', function(){
+	return view('admin.training_add_chapter');
+});
+
+Route::get('add_training','TrainingController@add_training');
+
+Route::post('add_training','TrainingController@add_training_submit');
+
+Route::get('add_chapter/{id_module}','TrainingController@add_chapter');
+
+Route::get('manage_chapter/{id_chapter}','TrainingController@manage_chapter');
+
+Route::post('add_chapter_submit','TrainingController@add_chapter_submit');
+
+Route::post('add_question_submit','TrainingController@add_question_submit');
