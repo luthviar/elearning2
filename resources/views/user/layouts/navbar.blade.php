@@ -2,7 +2,7 @@
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN LOGO -->
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="/">
             <img src="{{URL::asset('Elegantic/images/ALC.png')}}" class="img-responsive"/>
         </a>
         <!-- END LOGO -->

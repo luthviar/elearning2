@@ -79,8 +79,8 @@
     }
 </script>
 
-<link rel="stylesheet" href="<?php echo e(url('css/jquery.dataTables.min.css')); ?>">
-<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table_training').DataTable({
@@ -185,8 +185,8 @@
 
 
 
-<link rel="stylesheet" href="<?php echo e(url('css/jquery.dataTables.min.css')); ?>">
-<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.detailTable').DataTable({
@@ -194,6 +194,6 @@
         });
     });
 </script>
-<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
+<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 
 <script src="<?php echo e(url('js/tabs/cbpFWTabs.js')); ?>"></script>

@@ -2,6 +2,13 @@
 
   <?php $__currentLoopData = Session::get('training')['chapter']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php if($key < $finish_chapter): ?>
+<?php if($modal): ?>
+<?php echo e('muncul'); ?>
+
+<?php else: ?>
+    <?php echo e('gamuncul'); ?>
+
+<?php endif; ?>
           <div style="padding-bottom: 10px;">
               
               <?php if($chapter->category == 0): ?>

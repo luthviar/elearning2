@@ -43,14 +43,13 @@
                         class="icon"
                         style="margin-right: 0px; cursor: pointer;"
                     >
-                        
                         <?php elseif(Session::get('record') != 'yes'): ?>
                     <a
-                        onclick="window.open('<?php echo e(url('/test',$chapter->id)); ?>','_self')"
-                        target="_self"
-                        class="icon"
-                        style="margin-right: 0px; cursor: pointer;"
-                        data-toggle="modal" data-target="#TestStart"
+                            onclick="window.open('<?php echo e(url('/test',$chapter->id)); ?>','_self')"
+                            target="_self"
+                            class="icon"
+                            style="margin-right: 0px; cursor: pointer;"
+                            data-toggle="modal" data-target="#TestStart"
                     >
                         <?php endif; ?>
                       <span>
@@ -66,7 +65,7 @@
             <?php endif; ?>
 
         <?php else: ?>
-            <li class="<?php echo e(Request::is('test/*') || Request::is('material/*') || Request::is('review_test/*') ? 'tab-current' : ''); ?>">
+            <li class="<?php echo e(Request::is('test/*') ? 'tab-current' : ''); ?>">
                 <a href="#" class="icon">
                   <span>
                       <i class="glyphicon glyphicon-pencil"></i>

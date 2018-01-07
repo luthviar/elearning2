@@ -154,6 +154,7 @@ class TrainingController extends Controller
         $chapter['test'] = $test;
         $char = 'A';
 
+        $record_session = Session::put('record',$record);
 
 
 //        dd(Session::get('record'));
