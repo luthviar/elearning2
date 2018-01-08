@@ -290,8 +290,9 @@
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content" >
-                <form class="form-horizontal" role="form" method="POST"
-                      action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
+                <form id="summernote_form"class="form-horizontal" role="form" method="POST"
+                      action="{{ URL::action('ForumController@storeByUser') }}"
+                      enctype="multipart/form-data">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">New Thread</h4>
@@ -312,7 +313,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="padding-bottom: 50px;">
                             <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                             <div class="col-md-6">
                                 <select name="can_reply" class="form-control pull-left">
@@ -379,7 +380,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
+                    <form id="summernote_form"class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Thread</h4>
@@ -466,7 +467,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
+                    <form id="summernote_form"class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Thread</h4>
@@ -833,7 +834,7 @@
         {{--<div class="modal-dialog modal-lg">--}}
             {{--<!-- Modal content-->--}}
             {{--<div class="modal-content" >--}}
-                {{--<form class="form-horizontal" role="form" method="POST" action="{{ url('forum/store') }}" enctype="multipart/form-data">--}}
+                {{--<form id="summernote_form"class="form-horizontal" role="form" method="POST" action="{{ url('forum/store') }}" enctype="multipart/form-data">--}}
                     {{--{{ csrf_field() }}--}}
                     {{--<div class="modal-header">--}}
                         {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
@@ -921,7 +922,7 @@
         {{--<div class="modal-dialog modal-lg">--}}
             {{--<!-- Modal content-->--}}
             {{--<div class="modal-content" >--}}
-                {{--<form class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">--}}
+                {{--<form id="summernote_form"class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">--}}
                     {{--<div class="modal-header">--}}
                         {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
                         {{--<h4 class="modal-title">New Thread</h4>--}}
@@ -1006,7 +1007,7 @@
         {{--<div class="modal-dialog modal-lg">--}}
             {{--<!-- Modal content-->--}}
             {{--<div class="modal-content" >--}}
-                {{--<form class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">--}}
+                {{--<form id="summernote_form"class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">--}}
                     {{--<div class="modal-header">--}}
                         {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
                         {{--<h4 class="modal-title">New Thread</h4>--}}

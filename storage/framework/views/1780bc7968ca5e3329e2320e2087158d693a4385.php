@@ -29,7 +29,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
-                            <?php if(Auth::user()->is_admin == 1): ?>
+                            <?php if(Auth::user()->role == 1): ?>
                                 <a href="<?php echo e(url('/personnel')); ?>">
                                     Acting As Admin
                                 </a>
@@ -173,7 +173,7 @@
             <?php endif; ?>
 
             <li class="login">
-                <?php if(Auth::user()->is_admin == 1): ?>
+                <?php if(Auth::user()->role == 1): ?>
                     <a href="<?php echo e(url('personnel')); ?>">
                         Acting As Admin
                     </a>
