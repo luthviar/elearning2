@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/select2/select2.min.css')); ?>">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')); ?>">
+
   <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="<?php echo e(URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')); ?>">
 
@@ -42,6 +43,9 @@
     }
 
   </style>
+
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+
 
 
 
@@ -158,8 +162,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> View Training</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Add Training</a></li>
+            <li><a href="<?php echo e(url('admin_training')); ?>"><i class="fa fa-circle-o"></i> View Training</a></li>
+            <li><a href="<?php echo e(url('add_training')); ?>"><i class="fa fa-circle-o"></i> Add Training</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -237,7 +241,6 @@
 
 <!-- jQuery 2.2.3 -->
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')); ?>"></script>
-
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo e(URL::asset('AdminLTE/bootstrap/js/bootstrap.min.js')); ?>"></script>
 <!-- Sparkline -->
@@ -267,10 +270,12 @@
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')); ?>"></script>
 <!-- Select2 -->
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/select2/select2.full.min.js')); ?>"></script>
+
 <!-- bootstrap time picker -->
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')); ?>"></script>
 
 
+ 
 
 
 <?php echo $__env->yieldContent('script'); ?>

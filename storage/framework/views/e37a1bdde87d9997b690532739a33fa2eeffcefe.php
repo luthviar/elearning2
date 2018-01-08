@@ -98,7 +98,7 @@
                 <?php endif; ?>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               <?php endif; ?>
-              <li><a href="<?php echo e(url('add_chapter')); ?>"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+              <li><a href="<?php echo e(url('add_chapter',$training->id)); ?>"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="chapter_list">
@@ -151,7 +151,7 @@
               <div class="tab-pane" id="material<?php echo e($chapter->id); ?>">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right" style="color: red"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i> <i class="fa fa-times" aria-hidden="true">remove</i></span>
+                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right"> <a href="<?php echo e(url('manage_chapter',$chapter->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
@@ -172,7 +172,7 @@
               <div class="tab-pane" id="test<?php echo e($chapter->id); ?>">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right" style="color: red"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i> <i class="fa fa-times" aria-hidden="true">remove</i></span>
+                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right"> <a href="<?php echo e(url('manage_chapter',$chapter->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
@@ -182,14 +182,14 @@
                   
                     <div class="box box-success text-left">
                     <div class="box-header">
-                      <h3 class="box-title">Test Question</h3>  <span class="pull-right"><i style="color: green;" class="fa fa-plus" aria-hidden="true">add question</i></span>
+                      <h3 class="box-title">Test Question</h3>                     
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                       <ul style="list-style-type: none;">
                         <?php if(count($chapter['test']['questions']) >0): ?>
                         <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key+1); ?>. <?php echo e($question->question_text); ?> <span class="pull-right" style="color: red"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i> <i class="fa fa-times" aria-hidden="true">remove</i></span>
+                        <li><?php echo e($key+1); ?>. <?php echo e($question->question_text); ?> 
                           <ul style="list-style-type: none;">
                             <?php if(count($question['option']) >0): ?>
                             <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

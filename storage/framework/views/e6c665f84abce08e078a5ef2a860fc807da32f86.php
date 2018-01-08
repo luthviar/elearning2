@@ -20,7 +20,14 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Manage Chapter</h3>
+              <h3 class="box-title">Manage Chapter</h3> <span class="pull-right">
+                          <a href="<?php echo e(url('edit_chapter',$chapter->id)); ?>">
+                            <i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit_chapter_overview</i>
+                            </a> 
+                          <a href="<?php echo e(url('remove_chapter',$chapter->id)); ?>">
+                            <i class="fa fa-times" style="color: red" aria-hidden="true">remove_chapter</i>
+                          </a></span>
+
             </div>
             <div class="box-body">
             <div class="text-center">
@@ -32,6 +39,7 @@
                   <p><?php echo html_entity_decode($chapter['material']->description); ?></p>
                   <?php else: ?>
                   <h5>Chapter Type : Test</h5>
+                  <h5>Test Time : <?php echo e($chapter['test']->time); ?> minutes</h5>
                   <p><?php echo html_entity_decode($chapter['test']->description); ?></p>
                   <?php endif; ?>
             </div>
@@ -102,7 +110,14 @@
                         no question
                         <?php else: ?>
                         <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key + 1); ?>. <?php echo e($question->question_text); ?> <span class="pull-right" style="color: red"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i> <i class="fa fa-times" aria-hidden="true">remove</i></span>
+                        <li><?php echo e($key + 1); ?>. <?php echo e($question->question_text); ?> 
+                        <span class="pull-right">
+                          <a href="<?php echo e(url('edit_question',$question->id)); ?>">
+                            <i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i>
+                            </a> 
+                          <a href="<?php echo e(url('remove_question',$question->id)); ?>">
+                            <i class="fa fa-times" style="color: red" aria-hidden="true">remove</i>
+                          </a></span>
                           <ul style="list-style-type: none;">
                             <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($option->is_true == 1): ?>
@@ -112,7 +127,7 @@
                                 <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
                             <?php else: ?>
                             <li><input type="radio" name="<?php echo e($question->id); ?>" value="option1">
-                                <?php echo html_entity_decode($option->option_text); ?></li>
+                               <?php echo html_entity_decode($option->option_text); ?></li>
                             <?php endif; ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </ul>
@@ -135,7 +150,7 @@
                           <textarea class="textarea" name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                       </div>
                       <!-- Option -->
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <div class="form-group">
                           <label for="title">Option 1</label>
                           <input type="text" class="form-control" name="option1" placeholder="Option 1">
@@ -154,16 +169,7 @@
                         </div>
                         
                       </div>
-                      <div class="col-md-6">
-                        <!-- select -->
-                        <div class="form-group col-md-12">
-                          <label>Select True Answer</label>
-                          <select class="form-control" id="add_chapter_type">
-                            <option value="0">Material</option>
-                            <option value="1">Test</option>
-                          </select>
-                        </div>
-                      </div>
+                      
                       <div class="col-md-12 text-center">
                        <input type="submit" name="submit" class="btn btn-default">
                       </div>
@@ -177,7 +183,7 @@
 
 
                   <div class="row text-center">
-                    <button class="btn btn-success">Save Chapter</button>
+                    <a href="<?php echo e(url('manage_training',$chapter->id_module)); ?>" class="btn btn-success">Save Chapter</a>
                   </div>
 
             </div>
@@ -227,32 +233,6 @@
 </script>
 
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
-<script>
-
-  $(function () {
-    
-    //bootstrap WYSIHTML5 - text editor
-  var editor =  $(".textarea").wysihtml5({
-      toolbar: {
-        "font-styles": true, // Font styling, e.g. h1, h2, etc.
-        "emphasis": true, // Italics, bold, etc.
-        "lists": false, // (Un)ordered lists, e.g. Bullets, Numbers.
-        "html": false, // Button which allows you to edit the generated HTML.
-        "link": true, // Button to insert a link.
-        "image": false, // Button to insert an image.
-        "color": true, // Button to change color of font
-        "blockquote": false, // Blockquote
-        
-      }
-    });
-
-  
-  
-  
-  
-  });
-
-</script>
 
 <script type="text/javascript">
 $(document).ready(function(){

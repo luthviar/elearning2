@@ -97,6 +97,10 @@ Route::get('/activate_slider/{id}','SliderController@activate_slider');
 
 Route::get('/nonactivate_slider/{id}','SliderController@nonactivate_slider');
 
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Forum Routes
@@ -166,6 +170,16 @@ Route::post('admin_news','NewsController@news_list_serverside');
 
 Route::get('admin_news/{id}','NewsController@admin_news_view');
 
+Route::post('news_add_submit', 'NewsController@news_add_submit');
+
+Route::get('news_edit/{id}', 'NewsController@news_edit');
+
+Route::post('news_edit_submit', 'NewsController@news_edit_submit');
+
+Route::get('news_remove/{id}', 'NewsController@news_remove');
+
+Route::get('news_publish/{id}', 'NewsController@publish_news');
+
 // -------------------------------------
 // SLIDER
 // -------------------------------------
@@ -173,6 +187,22 @@ Route::get('admin_news/{id}','NewsController@admin_news_view');
 Route::get('admin_slider','SliderController@slider_list');
 
 Route::post('admin_slider','SliderController@slider_list_serverside');
+
+Route::get('/add_slider', 'SliderController@add_slider');
+
+Route::post('/slider_add_submit', 'SliderController@slider_add_submit');
+
+Route::get('admin_slider/{id}', 'SliderController@view_slider');
+
+Route::get('slider_edit/{id}', 'SliderController@edit_slider');
+
+Route::post('slider_edit_submit', 'SliderController@edit_slider_submit');
+
+Route::get('slider_activate/{id}', 'SliderController@activate');
+
+Route::get('slider_nonactivate/{id}', 'SliderController@nonactivate');
+
+Route::get('slider_remove/{id}', 'SliderController@delete_slider');
 
 // -------------------------------------
 // FORUM
@@ -206,6 +236,10 @@ Route::get('add_chapter', function(){
 	return view('admin.training_add_chapter');
 });
 
+Route::get('admin_training', 'TrainingController@admin_training');
+
+Route::post('admin_training', 'TrainingController@admin_training_serverside');
+
 Route::get('add_training','TrainingController@add_training');
 
 Route::post('add_training','TrainingController@add_training_submit');
@@ -217,3 +251,19 @@ Route::get('manage_chapter/{id_chapter}','TrainingController@manage_chapter');
 Route::post('add_chapter_submit','TrainingController@add_chapter_submit');
 
 Route::post('add_question_submit','TrainingController@add_question_submit');
+
+Route::get('select_answer/{id_question}','TrainingController@select_answer');
+
+Route::post('select_answer_submit','TrainingController@select_answer_submit');
+
+Route::get('remove_question/{id}', 'TrainingController@remove_question' );
+
+Route::get('edit_question/{id}','TrainingController@edit_question');
+
+Route::post('edit_question_submit','TrainingController@edit_question_submit');
+
+Route::get('edit_chapter/{id}', 'TrainingController@edit_chapter');
+
+Route::post('edit_chapter_submit', 'TrainingController@edit_chapter_submit');
+
+Route::get('remove_chapter/{id}', 'TrainingController@remove_chapter');

@@ -121,7 +121,7 @@
 
 </script>
 
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<<!-- script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script>
 
   $(function () {
@@ -147,7 +147,7 @@
   
   });
 
-</script>
+</script> -->
 
 <script type="text/javascript">
 $(document).ready(function(){

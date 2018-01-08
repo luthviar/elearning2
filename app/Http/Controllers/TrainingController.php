@@ -377,7 +377,239 @@ class TrainingController extends Controller
         $option4->is_true     = 0;
         $option4->save();
 
+        return redirect('select_answer/'. $id);
+    }
+
+    public function select_answer ($id_question) {
+        $question = Question::find($id_question);
+        if ($question == null) {
+            return "error: question not found";
+        }
+        $question['option'] = QuestionOption::where('id_question',$id_question)->get();
+
+        return view('admin.training_select_option_true')->with('question',$question);
+    }
+
+    public function select_answer_submit (Request $request) {
+        $id_true_answer = $request->true_answer;
+        $option = QuestionOption::find($id_true_answer);
+        $option->is_true = 1;
+        $option->save();
+
+        $question = Question::find($option->id_question);
+        $test = Test::find($question->id_test);
+        return redirect('manage_chapter/'.$test->id_chapter);
+    }
+
+    public function remove_question ($id_question) {
+        $question = Question::find($id_question);
+        if ($question == null) {
+            return "error : question not found";
+        }
+        $test = Test::find($question->id_test);
+        DB::table('question_options')->where('id_question','=',$id_question)->delete();
+        DB::table('questions')->where('id','=',$id_question)->delete();
+
+        return redirect('manage_chapter/'.$test->id_chapter);
+    }
+
+    public function edit_question($id_question) {
+        $question = Question::find($id_question);
+        if ($question== null) {
+            return "error : question not found";
+        }
+        $question['option'] = QuestionOption::where('id_question',$id_question)->get();
+
+        return view('admin.training_edit_question')->with('question',$question);
+    }
+
+    public function edit_question_submit (Request $request) {
+        $question = Question::find($request->question_id);
+        if ($question == null) {
+            return "error : question not found";
+        }
+        DB::table('question_options')->where('id_question','=',$question->id)->delete();
+        $question->question_text = $request->question_text;
+        $question->save();
+
+        $option1 = new QuestionOption;
+        $option1->id_question = $question->id;
+        $option1->option_text = $request->option1;
+        $option1->is_true     = 0;
+        $option1->save();
+
+        $option2 = new QuestionOption;
+        $option2->id_question = $question->id;
+        $option2->option_text = $request->option2;
+        $option2->is_true     = 0;
+        $option2->save();
+
+        $option3 = new QuestionOption;
+        $option3->id_question = $question->id;
+        $option3->option_text = $request->option3;
+        $option3->is_true     = 0;
+        $option3->save();
+
+        $option4 = new QuestionOption;
+        $option4->id_question = $question->id;
+        $option4->option_text = $request->option4;
+        $option4->is_true     = 0;
+        $option4->save();
+
+        return redirect('select_answer/'. $question->id);
+    }
+
+    public function edit_chapter ( $id_chapter){
+        $chapter = Chapter::find($id_chapter);
+        if ($chapter== null) {
+            return "error : chapter not found";
+        }
+        if ($chapter->category == 0) {
+            $chapter['material'] = Material::where('id_chapter', $id_chapter)->first();
+            if ($chapter['material'] == null) {
+                return "error: material not found";
+            }
+        } else {
+            $chapter['test'] = Test::where('id_chapter', $id_chapter)->first();
+            if ($chapter['test'] == null) {
+                return "error: test not found";
+            }
+        }
+
+        return view('admin.training_edit_chapter_overview')->with('chapter', $chapter);
+
+    }
+
+    public function edit_chapter_submit (Request $request) {
+        $chapter = Chapter::find($request->id_chapter);
+        if ($chapter == null) {
+            return "error : chapter not found";
+        }
+        $chapter->chapter_name = $request->chapter_name;
+        $chapter->category      = $request->category;
+        $chapter->save();
+
+        if ($request->category == 0) {
+            $material = Material::where('id_chapter', $request->id_chapter)->first();
+            if ($material == null) {
+                $material = new Material;
+                $material->id_chapter = $request->id_chapter;
+                $material->description = $request->description;
+                $material->save();
+            }else{
+                $material->description = $request->description;
+                $material->save();
+            }
+        } else {
+            $test = Test::where('id_chapter', $request->id_chapter)->first();
+            if ($test == null) {
+                $test = new Test;
+                $test->id_chapter = $request->id_chapter;
+                $test->description = $request->description;
+                $test->save();
+            } else {
+                $test->description = $request->description;
+                $test->save();
+            }
+        }
+
         return redirect('manage_chapter/'. $request->id_chapter);
     }
 
+    public function remove_chapter ($id_chapter){
+        $chapter = Chapter::find($id_chapter);
+        if ($chapter== null) {
+            return "error:chapter not found";
+        }
+        $id_module = $chapter->id_module;
+        DB::table('chapters')->where('id','=',$id_chapter)->delete();
+
+        return redirect('manage_training/'.$id_module);
+    }
+
+    public function admin_training () {
+        return view('admin.training');
+    }
+
+    public function admin_training_serverside( Request $request) {
+        $columns = array( 
+                            0 =>'modul_name', 
+                            1 =>'id_parent',
+                            2 => 'description',
+                            3 => 'date',
+                            4 => 'time',
+                            5 => 'is_publish',
+                            6 => 'created_at'
+                        );
+  
+        $totalData = ModulTraining::where('is_child', 1)->count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+            
+        if(empty($request->input('search.value')))
+        {   
+            $ModulTraining = ModulTraining::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->where('is_child',1)
+                         ->get();
+        } else {
+            $search = $request->input('search.value'); 
+
+            $ModulTraining =  ModulTraining::where('modul_name','LIKE',"%{$search}%")
+                            ->orWhere('description', 'LIKE',"%{$search}%")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderBy($order,$dir)
+                            ->get();
+
+            $totalFiltered = ModulTraining::where('modul_name','LIKE',"%{$search}%")
+                             ->orWhere('description', 'LIKE',"%{$search}%")
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($ModulTraining))
+        {
+            foreach ($ModulTraining as $module)
+            {
+
+                $nestedData['modul_name'] = "<a href='".url('/manage_training',$module->id)."'>".$module->modul_name."</a>";
+
+                $parent = ModulTraining::find($module->id_parent);
+                $nestedData['parent'] = $parent->modul_name;
+                $nestedData['snippet'] = substr(strip_tags($module->description),0,50)."...";
+                $nestedData['date'] = date('j M Y',strtotime($module->date));
+                $nestedData['time'] = $module->time;
+                if ($module->is_publish == 1) {
+                    $nestedData['is_publish'] = "published";
+                } else {
+                    $nestedData['is_publish'] = "not published";
+                }
+                $nestedData['created_at'] = date('j M Y',strtotime($module->created_at));
+                
+                
+                
+                $data[] = $nestedData;
+
+            }
+        }
+          
+        $json_data = array(
+                    "draw"            => intval($request->input('draw')),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data   
+                    );
+            
+        echo json_encode($json_data); 
+    }
+
 }
+
+

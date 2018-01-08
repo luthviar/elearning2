@@ -33,9 +33,6 @@ class News extends Model
     	// get news attachment
     	function get_news_attachment ( $news ) {
     		$attachments = NewsAttachment::where( 'id_news' , $news->id )->get();
-    		if ( count( $attachments ) == 0 ) {
-    			return "no attachments";
-    		} 
     		return $attachments;
     	}
 

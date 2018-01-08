@@ -161,8 +161,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> View Training</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Add Training</a></li>
+            <li><a href="{{url('admin_training')}}"><i class="fa fa-circle-o"></i> View Training</a></li>
+            <li><a href="{{url('add_training')}}"><i class="fa fa-circle-o"></i> Add Training</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -274,14 +274,7 @@
 <script src="{{URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 
 
- <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
- <script>
-      $('#summernote').summernote({
-        placeholder: 'Hello bootstrap 4',
-        tabsize: 2,
-        height: 100
-      });
-</script>
+ 
 
 
 @yield('script')

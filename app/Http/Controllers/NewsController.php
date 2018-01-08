@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\News;
+use DB;
+use App\NewsAttachment;
 use App\ModulTraining;
 use App\User;
 
@@ -185,5 +187,116 @@ class NewsController extends Controller
             echo "error: news not found";
         }
         return view('admin.news_view')->with('news',$news);
+    }
+
+    public function news_add_submit(Request $request) {
+
+        $image = $request->file('image');
+        $url = null;
+        if (!empty($image)) {
+            $destinationPath = 'file_img';
+            $movea = $image->move($destinationPath,$image->getClientOriginalName());
+            $url = "file_img/{$image->getClientOriginalName()}";
+        }
+        
+        $id = DB::table('newses')->insertGetId(
+            [
+            'title'         => $request->title, 
+            'created_by'    => \Auth::user()->id,
+            'content'       => $request->content,
+            'is_publish'    => 1,
+            'flag_active'   => 1,
+            'url_image'     => $url,
+            'is_reply'     => $request->can_reply,
+            ]
+        );
+
+        $files = $request->file('attachment');
+        if (!empty($files)) {
+            foreach ($files as $key => $file) {
+                $destinationPath = 'file_attachment';
+                $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                $url = "file_attachment/{$file->getClientOriginalName()}";
+
+                $attachment = new NewsAttachment;
+                $attachment->id_news = $id;
+                $attachment->attachment_name = $file->getClientOriginalName();
+                $attachment->attachment_url = $url;
+                $attachment->save();
+            }
+        }
+        
+        return redirect('admin_news');
+    }
+
+    public function news_edit($id_news){
+        $news = News::find($id_news);
+        if ($news == null) {
+            return 'error : news not found';
+        }
+        $news['attachments'] = NewsAttachment::where('id_news', $id_news)->get();
+        return view('admin.news_edit')->with('news', $news);
+    }
+
+    public function news_edit_submit(Request $request) {
+        $image = $request->file('image');
+        $url = null;
+        if (!empty($image)) {
+            $destinationPath = 'file_img';
+            $movea = $image->move($destinationPath,$image->getClientOriginalName());
+            $url = "file_img/{$image->getClientOriginalName()}";
+        }
+
+        $news = News::find($request->id_news);
+        $news->title = $request->title;
+        $news->content = $request->content;
+        if ($url != null) {
+            $news->url_image = $url;
+        }
+        $news->save();
+
+
+        $files = $request->file('attachment');
+        if (!empty($files)) {
+            $attachment = NewsAttachment::where('id_news', $request->id_news)->get();
+            foreach ($attachment as $key => $value) {
+                DB::table('news_attachments')->where('id','=',$value->id)->delete();
+            }
+            foreach ($files as $key => $file) {
+                $destinationPath = 'file_attachment';
+                $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                $url = "file_attachment/{$file->getClientOriginalName()}";
+
+                $attachment = new NewsAttachment;
+                $attachment->id_news = $request->id_news;
+                $attachment->attachment_name = $file->getClientOriginalName();
+                $attachment->attachment_url = $url;
+                $attachment->save();
+            }
+        }
+
+        return redirect('admin_news/'.$request->id_news);
+        
+    } 
+
+    public function news_remove ($id_news){
+        $news = News::find($id_news);
+        if ($news == null) {
+            return 'error: news not found';
+        }
+        DB::table('newses')->where('id','=',$id_news)->delete();
+
+        return redirect('admin_news');
+    }
+
+    public function publish_news ($id_news){
+        $news = News::find($id_news);
+        if ($news == null) {
+            return 'error: news not found';
+        }
+        $news->is_publish = 1;
+        $news->save();
+
+        return redirect('admin_news/'.$id_news);
     }
 }

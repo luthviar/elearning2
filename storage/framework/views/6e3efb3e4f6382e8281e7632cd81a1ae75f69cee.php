@@ -1,6 +1,4 @@
-@extends('admin.layout_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -43,9 +41,9 @@
     </section>
     <!-- /.content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -53,10 +51,10 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('admin_training') }}",
+                     "url": "<?php echo e(url('admin_training')); ?>",
                      "dataType": "json",
                      "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
+                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "modul_name" },
@@ -73,4 +71,5 @@
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\Slider;
 
 class SliderController extends Controller
@@ -110,5 +111,113 @@ class SliderController extends Controller
                     );
             
         echo json_encode($json_data); 
+    }
+
+    public function add_slider (){
+        return view('admin.slider_add');
+    }
+
+    public function slider_add_submit (Request $request) {
+        $image = $request->file('image');
+        $url = null;
+        if (!empty($image)) {
+            $destinationPath = 'file_img';
+            $movea = $image->move($destinationPath,$image->getClientOriginalName());
+            $url = "/file_img/{$image->getClientOriginalName()}";
+        }
+        
+
+
+        $slider = new Slider;
+        $slider->created_by = \Auth::user()->id;
+        $slider->title = $request->title;
+        $slider->second_title = $request->second_title;
+        $slider->url_image = $url;
+        $slider->save();
+
+        return redirect('admin_slider');
+    }
+
+    public function view_slider ($id_slider) {
+        $slider = Slider::find($id_slider);
+        if ($slider == null) {
+            return "error : slider not found";
+        }
+        $count_slider_active = Slider::where('flag_active',1)->count();
+        return view('admin.slider_view')->with('slider', $slider)->with('count', $count_slider_active);
+    }
+
+    public function edit_slider ($id_slider) {
+        $slider = Slider::find($id_slider);
+        if ($slider == null) {
+            return "error : slider not found";
+        }
+        return view('admin.slider_edit')->with('slider', $slider);
+    }
+
+    public function edit_slider_submit(Request $request) {
+        $image = $request->file('image');
+        $url = null;
+        if (!empty($image)) {
+            $destinationPath = 'file_img';
+            $movea = $image->move($destinationPath,$image->getClientOriginalName());
+            $url = "/file_img/{$image->getClientOriginalName()}";
+        }
+
+
+        $slider = Slider::find($request->id_slider);
+        if ($slider == null) {
+            return 'error: slider not found';
+        }
+        $slider->title = $request->title;
+        $slider->second_title = $request->second_title;
+        if ($url != null) {
+            $slider->url_image  = $url;
+        }
+        $slider->save();
+
+        return redirect('admin_slider/'. $request->id_slider);
+        
+
+    }  
+
+    public function activate ($id_slider) {
+        $slider = Slider::find($id_slider);
+        if ($slider == null) {
+            return "error: slider not found";
+        }
+        $count_slider_active = Slider::where('flag_active',1)->count();
+        if ($count_slider_active >= 5) {
+            return "error: amound of slider active exceeded the limit";
+        }
+        $slider->flag_active = 1;
+        $slider->save();
+        return redirect('admin_slider/'. $id_slider);
+
+    }
+
+    public function nonactivate ($id_slider) {
+        $slider = Slider::find($id_slider);
+        if ($slider == null) {
+            return "error: slider not found";
+        }
+        $count_slider_active = Slider::where('flag_active',1)->count();
+        if ($count_slider_active == 1) {
+            return "error: amound of slider active exceeded the limit";
+        }
+        $slider->flag_active = 0;
+        $slider->save();
+        return redirect('admin_slider/'. $id_slider);
+
+    }
+
+    public function delete_slider($id_slider) {
+        $slider = Slider::find($id_slider);
+        if ($slider == null) {
+            return "error: slider not found";
+        }
+        DB::table('sliders')->where('id','=',$id_slider)->delete();
+
+        return redirect('admin_slider');
     }
 }
