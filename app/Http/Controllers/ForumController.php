@@ -69,7 +69,7 @@ class ForumController extends Controller
         }
 
 //        $module = Module::all();
-        return view('user.forum')
+        return view('user.forum.index')
             ->with('forum_umum', $forum_umum)
             ->with('forum_department',$forum_department)
             ->with('forum_job_family',$forum_job_family)
@@ -85,7 +85,7 @@ class ForumController extends Controller
     	echo $forum;
     }
 
-    public function storeUser(Request $request)
+    public function storeByUser(Request $request)
     {
         $id_user = Auth::user()->id;
 
@@ -124,6 +124,76 @@ class ForumController extends Controller
                 $new_file_pendukung->save();
             }
         }
+
+        return redirect('forum');
+    }
+
+    public function editByUser($id_forum) {
+        $forum = Forum::find($id_forum);
+        $forum['file_pendukung'] = ForumAttachment::where('id_forum', $id_forum)->get();
+
+        return view('user.forum.edit')
+            ->with('forum',$forum);
+    }
+
+    public function updateByUser(Request $request) {
+        $this -> validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $file = $request->file('image');
+        if (empty($file)) {
+            $forum = Forum::find($request->id_forum);
+            $forum->title = $request->title;
+            $forum->content = $request->content;
+            $forum->is_reply = $request->can_reply;
+            $forum->save();
+
+            $file_pendukung = $request->file('file_pendukung');
+            if (!empty($file_pendukung)) {
+
+                foreach ($file_pendukung as $key => $file) {
+                    $destinationPath = 'Uploads';
+                    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                    $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                    $new_file_pendukung = new ForumAttachment;
+                    $new_file_pendukung->id_forum = $request->id_forum;
+                    $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                    $new_file_pendukung->attachment_url = $url_file;
+                    $new_file_pendukung->save();
+                }
+            }
+        }else{
+            $destinationPath = 'uploads';
+            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+            $url = "uploads/{$file->getClientOriginalName()}";
+
+            $forum = Forum::find($request->id_forum);
+            $forum->title = $request->title;
+            $forum->content = $request->content;
+            $forum->is_reply = $request->can_reply;
+            $forum->image = $url;
+            $forum->save();
+
+            $file_pendukung = $request->file('file_pendukung');
+            if (!empty($file_pendukung)) {
+
+                foreach ($file_pendukung as $key => $file) {
+                    $destinationPath = 'Uploads';
+                    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                    $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                    $new_file_pendukung = new ForumAttachment;
+                    $new_file_pendukung->id_forum = $request->id_forum;
+                    $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                    $new_file_pendukung->attachment_url = $url_file;
+                    $new_file_pendukung->save();
+                }
+            }
+        }
+
 
         return redirect('forum');
     }
@@ -234,7 +304,7 @@ class ForumController extends Controller
             return view('user.error')->with('error', $forum)->with('module',$modul);
         }
         $last_six = $forums->get_last_six_forum();
-        return view('user.forum_view')->with('forum', $forum)->with('last_six',$last_six);
+        return view('user.forum.view')->with('forum', $forum)->with('last_six',$last_six);
     }
 
     // ----------------------------------------

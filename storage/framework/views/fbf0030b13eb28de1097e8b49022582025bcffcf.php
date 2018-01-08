@@ -5,7 +5,7 @@
             class="icon">
               <span>
                   <i class="glyphicon glyphicon-th-list"></i>
-                   List of Chapters
+                   List of Chaptersa
               </span>
         </a>
     </li>

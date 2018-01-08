@@ -52,7 +52,7 @@
                                                     </a>
                                                     <?php if($forum->created_by == Auth::user()->id): ?>
                                                         <a
-                                                        href="<?php echo e(url('forum/'.$forum->id.'/user/edit')); ?>"
+                                                        href="<?php echo e(url('forum/user/edit/'.$forum->id)); ?>"
                                                         data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                         >
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -102,10 +102,13 @@
                                             <?php $__currentLoopData = $forum_job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td>
-                                                        <a href="/forum/<?php echo e($forum->id); ?>"><?php echo e($forum->title); ?></a>
-                                                        <?php if($forum->id_user === Auth::user()->id): ?>
+                                                        <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
+                                                            <?php echo e($forum->title); ?>
+
+                                                        </a>
+                                                        <?php if($forum->created_by === Auth::user()->id): ?>
                                                             <a
-                                                                    href="forum/<?php echo e($forum->id); ?>/user/edit"
+                                                                    href="<?php echo e(url('forum/user/edit/'.$forum->id)); ?>"
                                                                     data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                             >
 
@@ -152,20 +155,21 @@
 
                                             <?php $__currentLoopData = $forum_department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
-                                                    <td><a href="/forum/<?php echo e($forum->id); ?>">
+                                                    <td>
+                                                        <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
                                                             <?php echo e($forum->title); ?>
 
-                                                            <?php if($forum->id_user === Auth::user()->id): ?>
+                                                        </a>
+                                                            <?php if($forum->created_by === Auth::user()->id): ?>
                                                                 <a
-                                                                        href="forum/<?php echo e($forum->id); ?>/user/edit"
-                                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                                >
-
+                                                                href="<?php echo e(url('forum/user/edit/'.$forum->id)); ?>"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="Edit Your Thread">
                                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
                                                                 </a>
                                                             <?php endif; ?>
-                                                        </a>
+
                                                     </td>
                                                     <td><?php echo e($forum['personnel']->name); ?></td>
                                                     <td><?php echo e(count($forum['replie'])); ?></td>
@@ -289,7 +293,8 @@
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content" >
-                <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeUser')); ?>" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" method="POST"
+                      action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">New Thread</h4>
@@ -378,7 +383,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeUser')); ?>" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Thread</h4>
@@ -466,7 +471,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeUser')); ?>" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Thread</h4>

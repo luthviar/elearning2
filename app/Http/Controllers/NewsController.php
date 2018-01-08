@@ -21,13 +21,13 @@ class NewsController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-        return view('user.newsboard')->with('newses', $news)->with('module',$modul);
+        return view('user.news.index')->with('newses', $news)->with('module',$modul);
 
 //        return view('user.newsboard')->with('newses',$news);
     }
 
     public function viewnews(){
-        return view('user.news.view_news');
+        return view('user.news.view');
     }
 
     public function get_all_news(){
@@ -58,7 +58,7 @@ class NewsController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
-    	return view('user.news.view_news')
+    	return view('user.news.view')
                     ->with( 'news' , $newses )
                     ->with( 'last_news' , $last_six_news)
                     ->with( 'module', $modul);

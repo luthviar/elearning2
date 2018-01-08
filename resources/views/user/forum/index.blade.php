@@ -53,7 +53,7 @@
                                                     </a>
                                                     @if($forum->created_by == Auth::user()->id)
                                                         <a
-                                                        href="{{ url('forum/'.$forum->id.'/user/edit') }}"
+                                                        href="{{ url('forum/user/edit/'.$forum->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                         >
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -102,10 +102,12 @@
                                             @foreach($forum_job_family as $forum)
                                                 <tr>
                                                     <td>
-                                                        <a href="/forum/{{$forum->id}}">{{$forum->title}}</a>
-                                                        @if($forum->id_user === Auth::user()->id)
+                                                        <a href="{{ url('forum/'.$forum->id) }}">
+                                                            {{$forum->title}}
+                                                        </a>
+                                                        @if($forum->created_by === Auth::user()->id)
                                                             <a
-                                                                    href="forum/{{$forum->id}}/user/edit"
+                                                                    href="{{ url('forum/user/edit/'.$forum->id) }}"
                                                                     data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                             >
 
@@ -152,19 +154,20 @@
 
                                             @foreach($forum_department as $forum)
                                                 <tr>
-                                                    <td><a href="/forum/{{$forum->id}}">
+                                                    <td>
+                                                        <a href="{{ url('forum/'.$forum->id) }}">
                                                             {{$forum->title}}
-                                                            @if($forum->id_user === Auth::user()->id)
+                                                        </a>
+                                                            @if($forum->created_by === Auth::user()->id)
                                                                 <a
-                                                                        href="forum/{{$forum->id}}/user/edit"
-                                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                                >
-
+                                                                href="{{ url('forum/user/edit/'.$forum->id) }}"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="Edit Your Thread">
                                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
                                                                 </a>
                                                             @endif
-                                                        </a>
+
                                                     </td>
                                                     <td>{{$forum['personnel']->name}}</td>
                                                     <td>{{count($forum['replie'])}}</td>
@@ -287,7 +290,8 @@
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content" >
-                <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeUser') }}" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" method="POST"
+                      action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">New Thread</h4>
@@ -375,7 +379,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeUser') }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Thread</h4>
@@ -462,7 +466,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeUser') }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Thread</h4>

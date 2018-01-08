@@ -116,7 +116,11 @@ Route::post('/forum_public', 'ForumController@forum_public');
 
 Route::get('forum','ForumController@index');
 
-Route::post('forum/store','ForumController@storeUser');
+Route::post('forum/store','ForumController@storeByUser');
+
+Route::get('forum/user/edit/{id}','ForumController@editByUser');
+
+Route::post('forum/user/update','ForumController@updateByUser');
 
 Auth::routes();
 
