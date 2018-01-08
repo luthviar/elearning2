@@ -44,7 +44,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="summernote" name="summer" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
 
 
@@ -137,8 +137,8 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#content').on('input', function(){ 
-    var input = $('#content').val();
+  $('#summernote').on('input', function(){ 
+    var markupStr = $('#summernote').summernote('code');
     $('#preview_news_content').html(input);
 
    });

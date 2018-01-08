@@ -273,7 +273,6 @@
  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
  <script>
       $('#summernote').summernote({
-        placeholder: 'Hello bootstrap 4',
         tabsize: 2,
         height: 100
       });
