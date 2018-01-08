@@ -59,9 +59,10 @@
                     </div>
                     <div class="row" style="text-align: center; padding-top: 50px;">
 
-                            <ul class="pagination" id="page_navigation">
+                            
+                                <?php echo e($newses->links()); ?>
 
-                            </ul>
+                            
 
                     </div>
                 </div>

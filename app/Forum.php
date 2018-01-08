@@ -57,6 +57,11 @@ class Forum extends Model
     	return $forums;
     }
 
+    public function get_last_six_forum () {
+        $forum = Forum::where('category',0)->orderBy('id','desc')->limit(6)->get();
+        return $forum;
+    }
+
 
     public function get_forum_public_server_side($limit, $start, $order, $dir) {
         
@@ -149,8 +154,9 @@ class Forum extends Model
     		} else {
     			foreach ($comments as $comment) {
 	    			$comment['attachments'] = get_forum_comment_attachment($comment);
+                    $comment['user'] = User::find($comment->created_by);
 	    		}
-	    		return $comment;	
+	    		return $comments;	
     		}
     	}
 

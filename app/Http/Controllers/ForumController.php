@@ -82,12 +82,6 @@ class ForumController extends Controller
     	echo $forum;
     }
 
-    public function get_forum ( $id_forum ) {
-    	$forum = new Forum();
-    	$forum = $forum->get_forum( $id_forum );
-
-    	echo $forum;
-    }
 
     public function get_user_forum ( $forum_type ) {
         $forum = new Forum();
@@ -180,6 +174,21 @@ class ForumController extends Controller
                     );
             
         echo json_encode($json_data); 
+    }
+
+    public function get_forum ( $id_forum ) {
+        //get modul training
+        $modul = new ModulTraining();
+        $modul = $modul->get_module_training();
+
+
+        $forums = new Forum();
+        $forum = $forums->get_forum($id_forum);
+        if ($forum['status'] == 'error') {
+            return view('user.error')->with('error', $forum)->with('module',$modul);
+        }
+        $last_six = $forums->get_last_six_forum();
+        return view('user.forum_view')->with('forum', $forum)->with('last_six',$last_six);
     }
 
     // ----------------------------------------

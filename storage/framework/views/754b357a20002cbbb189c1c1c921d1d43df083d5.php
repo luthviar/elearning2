@@ -48,10 +48,13 @@
                                 <div class="row" >
                                     <div class="col-md-4 blog-img blog-tag-data">
                                         <?php if(empty($news->image)): ?>
-
-                                            <img class="img-responsive" src="<?php echo e(url('/Elegantic/images/ALS.jpg')); ?>" alt="" style="width:100%;height:150px;">
+                                            <a href="<?php echo e(url('/news/'.$news->id)); ?>" >
+                                                <img class="img-responsive" src="<?php echo e(url('/Elegantic/images/ALS.jpg')); ?>" alt="" style="width:100%;height:150px;">
+                                            </a>
                                         <?php else: ?>
-                                            <img class="img-responsive" src="<?php echo e(isset($news->image) ? $news->image : 'Elegantic/images/ALS.jpg'); ?>" alt="" style="width:100%;height:150px;">
+                                            <a href="<?php echo e(url('/news/'.$news->id)); ?>" >
+                                                <img class="img-responsive" src="<?php echo e(isset($news->image) ? $news->image : 'Elegantic/images/ALS.jpg'); ?>" alt="" style="width:100%;height:150px;">
+                                            </a>
                                         <?php endif; ?>
                                         <ul class="list-inline">
                                             <li>
@@ -66,7 +69,7 @@
                                     </div>
                                     <div class="col-md-8 blog-article">
                                         <h3>
-                                            <a href="/news/<?php echo e($news->id); ?>">
+                                            <a href="<?php echo e(url('/news/'.$news->id)); ?>" >
                                                 <?php echo e(str_limit($news->title, $limit = 50, $end = '...')); ?>
 
                                             </a>

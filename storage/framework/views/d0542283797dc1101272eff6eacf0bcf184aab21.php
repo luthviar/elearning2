@@ -105,3 +105,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo e(url('css/tabstyles.css')); ?>" />
 <script src="<?php echo e(url('js/tabs/modernizr.custom.js')); ?>"></script>
 
+
+
+<style>
+    .color-std {
+        background-color: #13B795 !important;
+    }
+</style>

@@ -10,6 +10,9 @@ use App\Material;
 use App\Chapter;
 use App\Test;
 use App\UserTestRecord;
+use App\Question;
+use App\QuestionOption;
+use DB;
 use Session;
 
 class TrainingController extends Controller
@@ -226,6 +229,155 @@ class TrainingController extends Controller
         } else {
             return redirect('/test/'.$next_chapter['chapter']->id);
         }
+    }
+
+    // ----------------------------------
+    // ADMIN AREA
+    // ----------------------------------
+
+    public function add_training (){
+        $parent = ModulTraining::where('is_child',0)->get();
+        return view('admin.training_add')->with('parent',$parent);
+    }
+
+    public function add_training_submit (Request $request) {
+        $time = substr($request->time, 0,5);
+        if (substr($request->time, 6) == 'AM') {
+            $time = $time .':00';
+        }else{
+            $hours = (int) substr($time, 0,2) + 12;
+            $time = $hours . substr($request->time, 2,3) . ':00';
+        }
+
+        $id = DB::table('modul_trainings')->insertGetId(
+            [
+            'modul_name'    => $request->modul_name, 
+            'id_parent'     => $request->id_parent,
+            'description'   => $request->description,
+            'date'          => $request->date,
+            'time'          => $time,
+            'is_active'     => 1,
+            'is_publish'    => 0,
+            'is_child'      => 1,
+            ]
+        );
+
+        return redirect('/manage_training/'. $id);
+    }
+
+    public function manage_training ($id_training){
+        // get parent training
+        $parent = ModulTraining::where('is_child',0)->get();
+
+        $training = ModulTraining::find($id_training);
+        if ($training == null) {
+            return "error";
+        }
+        $chapter = Chapter::where('id_module',$training->id)->get();
+        if (count($chapter) != 0) {
+            foreach ($chapter as  $chaps) {
+                if ($chaps->category == 0) {
+                    $material = new Material();
+                    $chaps['material'] = $material->get_material($chaps->id);
+                }else{
+                    $test = new Test();
+                    $chaps['test'] = $test->get_manage_test($chaps->id);
+                }
+            }
+        }
+        $training['chapter'] = $chapter;
+        return view('admin.training_manage')->with('training',$training)->with('parent',$parent);
+    }
+
+    public function add_chapter ($id_module) {
+        $modul= ModulTraining::find($id_module);
+        if ($modul == null) {
+            return "error : module not found";
+        }
+        return view('admin.training_add_chapter')->with('module',$modul);
+    }
+
+    public function add_chapter_submit (Request $request) {
+        // get sequence from id_module
+        $sequence = Chapter::where('id_module', $request->id_module)->orderBy('sequence','desc')->first();
+        $seq = 0;
+        if ($sequence != null) {
+            $seq = $sequence->sequence + 1;
+        }
+
+        $id = DB::table('chapters')->insertGetId(
+            [
+            'id_module'     => $request->id_module, 
+            'chapter_name'  => $request->chapter_name,
+            'category'      => $request->category,
+            'sequence'      => $seq,
+            ]
+        );
+        if ($request->category == 0) {
+            $material = new Material;
+            $material->id_chapter = $id;
+            $material->description = $request->description;
+            $material->save();
+        } elseif($request->category == 1){
+            $test = new Test;
+            $test->id_chapter = $id;
+            $test->description = $request->description;
+            $test->save();
+        }
+        
+        return redirect('manage_chapter/'.$id);
+
+
+    }
+
+    public function manage_chapter($id_chapter) {
+        $chapter = Chapter::find($id_chapter);
+        if ($chapter == null) {
+            return "error : chapter not found";
+        }
+        if ($chapter->category == 0) {
+            $material = new Material();
+            $chapter['material'] = $material->get_material_admin($id_chapter);
+        } else {
+            $test = new Test();
+            $chapter['test'] = $test->get_manage_test($id_chapter);
+        }
+        return view('admin.training_manage_chapter')->with('chapter',$chapter);
+    }
+
+    public function add_question_submit(Request $request){
+        $id = DB::table('questions')->insertGetId(
+            [
+            'id_test'     => $request->id_test, 
+            'question_text'  => $request->question_text
+            ]
+        );
+
+        $option1 = new QuestionOption;
+        $option1->id_question = $id;
+        $option1->option_text = $request->option1;
+        $option1->is_true     = 0;
+        $option1->save();
+
+        $option2 = new QuestionOption;
+        $option2->id_question = $id;
+        $option2->option_text = $request->option2;
+        $option2->is_true     = 0;
+        $option2->save();
+
+        $option3 = new QuestionOption;
+        $option3->id_question = $id;
+        $option3->option_text = $request->option3;
+        $option3->is_true     = 0;
+        $option3->save();
+
+        $option4 = new QuestionOption;
+        $option4->id_question = $id;
+        $option4->option_text = $request->option4;
+        $option4->is_true     = 0;
+        $option4->save();
+
+        return redirect('manage_chapter/'. $request->id_chapter);
     }
 
 }
