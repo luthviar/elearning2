@@ -1,6 +1,4 @@
-@extends('admin.layout_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -9,7 +7,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">Personnel</a></li>
+        <li><a href="<?php echo e(url('/personnel')); ?>">Personnel</a></li>
         <li class="active">Add Personnel</li>
       </ol>
     </section>
@@ -233,9 +231,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script>
 
   $(function () {
@@ -272,4 +270,5 @@ $(".select2").select2({
 
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
