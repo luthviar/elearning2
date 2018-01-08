@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ForumAttachment;
 use App\ForumComment;
+use App\ForumCommentAttachment;
 use App\OrganizationalStructure;
 use Illuminate\Http\Request;
 use App\Forum;
@@ -119,8 +120,8 @@ class ForumController extends Controller
 
                 $new_file_pendukung = new ForumAttachment;
                 $new_file_pendukung->id_forum = $id_forum;
-                $new_file_pendukung->name = $file->getClientOriginalName();
-                $new_file_pendukung->url = $url_file;
+                $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                $new_file_pendukung->attachment_url = $url_file;
                 $new_file_pendukung->save();
             }
         }
@@ -294,17 +295,73 @@ class ForumController extends Controller
 
     public function get_forum ( $id_forum ) {
         //get modul training
-        $modul = new ModulTraining();
-        $modul = $modul->get_module_training();
+//        $modul = new ModulTraining();
+//        $modul = $modul->get_module_training();
+//
+//
+//        $forums = new Forum();
+//        $forum = $forums->get_forum($id_forum);
+//        if ($forum['status'] == 'error') {
+//            return view('user.error')->with('error', $forum)->with('module',$modul);
+//        }
+//        $last_six = $forums->get_last_six_forum();
 
+//
 
-        $forums = new Forum();
-        $forum = $forums->get_forum($id_forum);
-        if ($forum['status'] == 'error') {
-            return view('user.error')->with('error', $forum)->with('module',$modul);
+        $forum = Forum::find($id_forum);
+        if (empty($forum)) {
+            return view('404');
         }
-        $last_six = $forums->get_last_six_forum();
-        return view('user.forum.view')->with('forum', $forum)->with('last_six',$last_six);
+        $forum['personnel'] = User::where('id',$forum->created_by)->first();
+        $forum['replie'] = ForumComment::where('id_forum',$id_forum)->get();
+        foreach ($forum['replie'] as $key => $value) {
+            $value['personnel'] = User::where('id',$value->created_by)->first();
+            $value['file_pendukung'] = ForumCommentAttachment::where('id_comment', $value->id)->get();
+        }
+        $recent = DB::table('forums')
+            ->where('id_department',$forum->id_department)
+            ->where('id_job_family',$forum->id_job_family)
+            ->orderBy('id', 'desc')->take(6)->get();
+
+        $forum['file_pendukung'] = ForumAttachment::where('id_forum', $id_forum)->get();
+//        $module = Module::all();
+//        dd($forum);
+        return view('user.forum.view')
+            ->with('forum',$forum)->with('recent',$recent);
+
+
+//        return view('user.forum.view')->with('forum', $forum)->with('last_six',$last_six);
+    }
+
+    public function storeCommentByUser(Request $request)
+    {
+        $id_reply = DB::table('forum_comments')-> insertGetId(array(
+            'created_by' => $request->id_user,
+            'id_forum' => $request->id_forum,
+            'title' => $request->title,
+            'content' => $request->content,
+        ));
+
+        $file_pendukung = $request->file('file_pendukung');
+        if (!empty($file_pendukung)) {
+            foreach ($file_pendukung as $key => $file) {
+                $destinationPath = 'Uploads';
+                $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                $new_file_pendukung = new ForumCommentAttachment;
+                $new_file_pendukung->id_comment = $id_reply;
+                $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                $new_file_pendukung->attachment_url = $url_file;
+                $new_file_pendukung->created_at = Carbon::now('Asia/Jakarta');
+                $new_file_pendukung->save();
+            }
+        }
+
+
+        return redirect()->action(
+            'ForumController@get_forum', ['id' => $request->id_forum]
+        );
     }
 
     // ----------------------------------------

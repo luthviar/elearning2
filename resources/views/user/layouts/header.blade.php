@@ -56,6 +56,18 @@
         });
 
     });
+
+    $('#summernote_form').on('submit', function(e) {
+
+        if($('#summernote').summernote('isEmpty')) {
+            alert('Konten tidak boleh kosong');
+
+            e.preventDefault();
+        }
+        else {
+            $('#summernote_form').submit();
+        }
+    })
 </script>
 
 <!-- loading preloader -->

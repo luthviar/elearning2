@@ -122,6 +122,8 @@ Route::get('forum/user/edit/{id}','ForumController@editByUser');
 
 Route::post('forum/user/update','ForumController@updateByUser');
 
+Route::post('forum/comment','ForumController@storeCommentByUser');
+
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

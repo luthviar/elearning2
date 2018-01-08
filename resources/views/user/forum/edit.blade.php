@@ -37,7 +37,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" style="padding-bottom: 50px;">
                                         <label for="can_reply" id="can_reply_edit" class="col-md-3 control-label">Can Reply</label>
                                         <div class="col-md-6">
                                             <select name="can_reply" >

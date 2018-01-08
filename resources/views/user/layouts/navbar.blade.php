@@ -29,7 +29,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
-                            @if(Auth::user()->is_admin == 1)
+                            @if(Auth::user()->role == 1)
                                 <a href="{{ url('/personnel') }}">
                                     Acting As Admin
                                 </a>
@@ -178,7 +178,7 @@
             @endif
 
             <li class="login">
-                @if(Auth::user()->is_admin == 1)
+                @if(Auth::user()->role == 1)
                     <a href="{{ url('personnel') }}">
                         Acting As Admin
                     </a>
