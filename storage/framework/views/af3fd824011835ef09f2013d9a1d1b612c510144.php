@@ -4,7 +4,8 @@
             <div class ="col-md-8">
                 <div class="row">
                     <h3><?php echo e($forum['title']); ?></h3>
-                    <h6><?php echo e($forum['personnel']->fname); ?> <?php echo e($forum['personnel']->lname); ?>, <?php echo e(\Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')); ?></h6>
+                    <h6><?php echo e($forum['personnel']->fname); ?> <?php echo e($forum['personnel']->lname); ?>,
+                        <?php echo e(\Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')); ?></h6>
                     <hr class="style14">
                     <p align="justify" class="big">
                         <?php echo html_entity_decode($forum['content']); ?>
@@ -13,7 +14,7 @@
                     </p><br>
                     <div class='pull-right'>
                         <?php if(!empty($forum['file_pendukung'][0])): ?>
-                            Attachments : <br>
+                            Attachment(s) : <br>
                             <?php $__currentLoopData = $forum['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <a href="<?php echo e(URL::asset($file->url)); ?>"><i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->name); ?> </a><br>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -34,20 +35,21 @@
                                 <div class="panel-body">
                                     <?php echo html_entity_decode($reply['content']); ?>
 
-                                </div>
-                                <div class='pull-right'>
-                                    <?php if(!empty($reply['file_pendukung'][0])): ?>
-                                        Attachments : <br>
-                                        <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
-                                                <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                <?php echo e($file->attachment_name); ?>
+                                    <div class='pull-right'>
+                                        <?php if(!empty($reply['file_pendukung'][0])): ?>
+                                            Attachments : <br>
+                                            <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                    <?php echo e($file->attachment_name); ?>
 
-                                            </a><br>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    <?php endif; ?>
+                                                </a><br>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
 
+                                    </div>
                                 </div>
+
                             </div>
                             <br>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -202,237 +204,6 @@
 
         <div id="stopHere"></div>
     </div>
-    
-
-        
-            
-                
-                    
-                        
-                        
-                    
-                    
-                        
-                        
-                    
-                
-                
-                    
-                    
-                        
-
-                    
-                    
-                    
-                        
-                            
-                            
-                                
-                                    
-                                    
-                                
-                                
-                            
-                        
-                    
-                    
-
-                    
-                        
-                            
-                                
-                            
-                                
-                            
-                            
-                            
-
-                            
-                                
-                                    
-                                        
-                                        
-                                    
-
-                                        
-                                        
-                                        
-
-                                            
-                                                
-                                                
-                                                    
-                                                        
-                                                        
-                                                    
-                                                    
-                                                
-                                            
-
-                                        
-
-                                    
-                                
-                                
-                            
-                            
-
-                            
-
-                            
-                                
-                                      
-                                    
-                                    
-                                    
-                                    
-                                        
-
-                                        
-                                            
-                                        
-                                    
-                                    
-                                        
-
-                                        
-                                            
-                                        
-                                    
-
-                                    
-                                        
-
-                                        
-                                            
-													
-														
-															
-															
-                                                                   
-                                                                   
-                                                                   
-                                                                   
-															
-													
-                                                
-                                            
-                                            
-                                                
-                                                
-                                                
-                                            
-                                        
-                                    
-
-
-                                    
-                                        
-                                            
-                                                
-                                            
-                                        
-                                    
-                                
-                            
-                        
-                    
-                
-            
-
-            
-                
-                    
-                        
-                            
-                                
-                                
-                                    
-                                    
-                                        
-                                    
-                                    
-                                
-                            
-                            
-                            
-                                
-                            
-                            
-                                
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                
-                            
-                        
-                
-            
-
-        
-
-
-        
-    
 
 <?php $__env->stopSection(); ?>
 

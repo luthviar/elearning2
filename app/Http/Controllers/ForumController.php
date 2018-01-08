@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\ForumAttachment;
 use App\ForumComment;
 use App\ForumCommentAttachment;
+use App\JobFamily;
 use App\OrganizationalStructure;
+use App\OsDepartment;
 use Illuminate\Http\Request;
 use App\Forum;
 use App\ModulTraining;
@@ -25,12 +27,12 @@ class ForumController extends Controller
         $department = null;
         $job_family = null;
         if (!empty($struktur)) {
-            $department = Department::where('id_department', $struktur->id_department)->first();
+            $department = OsDepartment::where('id', $struktur->id_department)->first();
             $job_family = JobFamily::find($department->id_job_family);
         }
         $forum_umum = Forum::where('id_department', null)->where('id_job_family', null)->get();
         foreach ($forum_umum as $key => $value) {
-            $value['personnel'] = User::where('id',$value->id_user)->first();
+            $value['personnel'] = User::where('id',$value->created_by)->first();
             $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
             if(empty($value['replie'][0])){
                 $value['last_reply'] = null;
@@ -44,7 +46,7 @@ class ForumController extends Controller
         if ($department != null) {
             $forum_department = Forum::where('id_department',$department->id_department)->get();
             foreach ($forum_department as $key => $value) {
-                $value['personnel'] = User::where('id_user',$value->id_user)->first();
+                $value['personnel'] = User::where('id',$value->created_by)->first();
                 $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
                 if(empty($value['replie'][0])){
                     $value['last_reply'] = null;
@@ -56,7 +58,7 @@ class ForumController extends Controller
 
             $forum_job_family = Forum::where('id_job_family',$department->id_job_family)->get();
             foreach ($forum_job_family as $key => $value) {
-                $value['personnel'] = User::where('id_user',$value->id_user)->first();
+                $value['personnel'] = User::where('id',$value->created_by)->first();
                 $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
                 if(empty($value['replie'][0])){
                     $value['last_reply'] = null;

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\NewsAttachment;
+use App\NewsComment;
+use App\NewsCommentAttachment;
 use Illuminate\Http\Request;
 use App\News;
 use App\ModulTraining;
 use App\User;
+use DB;
+use Carbon\Carbon;
 
 class NewsController extends Controller
 {
@@ -49,19 +54,42 @@ class NewsController extends Controller
     }
 
     public function get_news( $news_id ) {
-    	$news = new News();
-    	$newses = $news->get_news( $news_id );
+//    	$news = new News();
+//    	$newses = $news->get_news( $news_id );
+//
+//        $last_six_news = $news->get_active_news();
+//
+//        //get modul training
+//        $modul = new ModulTraining();
+//        $modul = $modul->get_module_training();
+//
+//    	return view('user.news.view')
+//                    ->with( 'news' , $newses )
+//                    ->with( 'last_news' , $last_six_news)
+//                    ->with( 'module', $modul);
 
-        $last_six_news = $news->get_active_news();
-
-        //get modul training
-        $modul = new ModulTraining();
-        $modul = $modul->get_module_training();
-
-    	return view('user.news.view')
-                    ->with( 'news' , $newses )
-                    ->with( 'last_news' , $last_six_news)
-                    ->with( 'module', $modul);
+        $berita = News::find($news_id);
+        if (empty($berita)) {
+            return view('404');
+        }
+        $berita['user'] = User::where('id',$berita->created_by)->first();
+        $replies = null;
+        if ($berita->is_reply == 1) {
+            $replies = NewsComment::where('id_news',$news_id)->get();
+            if (empty($replies)) {
+                # code...
+            }else{
+                foreach ($replies as $key => $value) {
+                    $value['user'] = User::where('id',$value->created_by)->first();
+                    $value['file_pendukung'] = NewsCommentAttachment::where('id_comment', $value->id)->get();
+                }
+            }
+        }
+        $berita['file_pendukung'] = NewsAttachment::where('id_news', $news_id)->get();
+        $recent = DB::table('newses')->orderBy('id', 'desc')->take(6)->get();
+//        $module = Module::all();
+//        dd($replies);
+        return view('user.news.view')->with('news',$berita)->with('replies',$replies)->with('beritas',$recent);
     }
 
     public function paginate_news ( Request $request ) {
@@ -87,6 +115,48 @@ class NewsController extends Controller
         $news = $news->nonactivate_news($news_id);
 
         echo $news;
+    }
+
+    public function storeCommentByUser(Request $request)
+    {
+        $id_news_reply = 0;
+        if (empty($request->content)) {
+            $id_news_reply = DB::table('news_comments')-> insertGetId(array(
+                'id_news' => $request->id_news,
+                'created_by' => $request->id_user,
+                'title' => $request->title,
+                'content' => "",
+                'created_at' => Carbon::now('Asia/Jakarta'),
+            ));
+        }else{
+            $id_news_reply = DB::table('news_comments')-> insertGetId(array(
+                'id_news' => $request->id_news,
+                'created_by' => $request->id_user,
+                'title' => $request->title,
+                'content' => $request->content,
+                'created_at' => Carbon::now('Asia/Jakarta'),
+            ));
+        }
+
+
+        $file_pendukung = $request->file('file_pendukung');
+        if (!empty($file_pendukung)) {
+
+            foreach ($file_pendukung as $key => $file) {
+                $destinationPath = 'Uploads';
+                $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                $new_file_pendukung = new NewsCommentAttachment;
+                $new_file_pendukung->id_comment = $id_news_reply;
+                $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                $new_file_pendukung->attachment_url = $url_file;
+                $new_file_pendukung->save();
+            }
+        }
+        return redirect()->action(
+            'NewsController@get_news', ['id' => $request->id_news]
+        );
     }
 
 

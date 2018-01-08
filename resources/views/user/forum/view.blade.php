@@ -6,7 +6,8 @@
             <div class ="col-md-8">
                 <div class="row">
                     <h3>{{ $forum['title'] }}</h3>
-                    <h6>{{$forum['personnel']->fname}} {{$forum['personnel']->lname}}, {{ \Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')}}</h6>
+                    <h6>{{$forum['personnel']->fname}} {{$forum['personnel']->lname}},
+                        {{ \Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')}}</h6>
                     <hr class="style14">
                     <p align="justify" class="big">
                         {!! html_entity_decode($forum['content']) !!}
@@ -14,7 +15,7 @@
                     </p><br>
                     <div class='pull-right'>
                         @if(!empty($forum['file_pendukung'][0]))
-                            Attachments : <br>
+                            Attachment(s) : <br>
                             @foreach($forum['file_pendukung'] as $file)
                                 <a href="{{URL::asset($file->url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->name}} </a><br>
                             @endforeach
@@ -34,19 +35,20 @@
                                     {{$reply['personnel']->fname}} {{$reply['personnel']->lname}}, {{ \Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')}}</div>
                                 <div class="panel-body">
                                     {!! html_entity_decode($reply['content']) !!}
-                                </div>
-                                <div class='pull-right'>
-                                    @if(!empty($reply['file_pendukung'][0]))
-                                        Attachments : <br>
-                                        @foreach($reply['file_pendukung'] as $file)
-                                            <a href="{{URL::asset($file->attachment_url)}}">
-                                                <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                {{$file->attachment_name}}
-                                            </a><br>
-                                        @endforeach
-                                    @endif
+                                    <div class='pull-right'>
+                                        @if(!empty($reply['file_pendukung'][0]))
+                                            Attachments : <br>
+                                            @foreach($reply['file_pendukung'] as $file)
+                                                <a href="{{URL::asset($file->attachment_url)}}">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                    {{$file->attachment_name}}
+                                                </a><br>
+                                            @endforeach
+                                        @endif
 
+                                    </div>
                                 </div>
+
                             </div>
                             <br>
                         @endforeach
