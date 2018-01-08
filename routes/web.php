@@ -116,6 +116,7 @@ Route::post('/forum_public', 'ForumController@forum_public');
 
 Route::get('forum','ForumController@index');
 
+Route::post('forum/store','ForumController@storeUser');
 
 Auth::routes();
 

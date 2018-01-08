@@ -2,76 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\ForumAttachment;
+use App\ForumComment;
+use App\OrganizationalStructure;
 use Illuminate\Http\Request;
 use App\Forum;
 use App\ModulTraining;
 use App\User;
 use DB;
 use Auth;
+use Carbon\Carbon;
 
 class ForumController extends Controller
 {
     public function index() {
         //user information
-//        $id_user = Auth::user()->id;
-//        $personnel = Personnel::where('id_user',$id_user)->first();
-//        $employee = Employee::where('id_personnel',$personnel->id)->first();
-//        $struktur = StrukturOrganisasi::find($employee->struktur);
-//        $department = null;
-//        $job_family = null;
-//        if (!empty($struktur)) {
-//            $department = Department::where('id_department', $struktur->id_department)->first();
-//            $job_family = JobFamily::find($department->id_job_family);
-//        }
-//        $forum_umum = Forum::where('id_department', null)->where('id_job_family', null)->get();
-//        foreach ($forum_umum as $key => $value) {
-//            $value['personnel'] = Personnel::where('id_user',$value->id_user)->first();
-//            $value['replie'] = Replie::where('id_forum',$value->id)->get();
-//            if(empty($value['replie'][0])){
-//                $value['last_reply'] = null;
-//            }else{
-//                $value['last_reply'] = DB::table('replies')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
-//                $value['last_reply_personnel'] = Personnel::where('id_user', $value['last_reply'][0]->id_user)->first();
-//            }
-//        }
-//        $forum_department = null;
-//        $forum_job_family = null;
-//        if ($department != null) {
-//            $forum_department = Forum::where('id_department',$department->id_department)->get();
-//            foreach ($forum_department as $key => $value) {
-//                $value['personnel'] = Personnel::where('id_user',$value->id_user)->first();
-//                $value['replie'] = Replie::where('id_forum',$value->id)->get();
-//                if(empty($value['replie'][0])){
-//                    $value['last_reply'] = null;
-//                }else{
-//                    $value['last_reply'] = DB::table('replies')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
-//                    $value['last_reply_personnel'] = Personnel::where('id_user', $value['last_reply'][0]->id_user)->first();
-//                }
-//            }
-//
-//            $forum_job_family = Forum::where('id_job_family',$department->id_job_family)->get();
-//            foreach ($forum_job_family as $key => $value) {
-//                $value['personnel'] = Personnel::where('id_user',$value->id_user)->first();
-//                $value['replie'] = Replie::where('id_forum',$value->id)->get();
-//                if(empty($value['replie'][0])){
-//                    $value['last_reply'] = null;
-//                }else{
-//                    $value['last_reply'] = DB::table('replies')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
-//
-//                    $value['last_reply_personnel'] = Personnel::where('id_user', $value['last_reply'][0]->id_user)->first();
-//
-//                }
-//            }
-//        }
+        $id_user = Auth::user()->id;
+        $user = User::where('id',$id_user)->first();
+
+        $struktur = OrganizationalStructure::find($user->id_organizational_structure);
+        $department = null;
+        $job_family = null;
+        if (!empty($struktur)) {
+            $department = Department::where('id_department', $struktur->id_department)->first();
+            $job_family = JobFamily::find($department->id_job_family);
+        }
+        $forum_umum = Forum::where('id_department', null)->where('id_job_family', null)->get();
+        foreach ($forum_umum as $key => $value) {
+            $value['personnel'] = User::where('id',$value->id_user)->first();
+            $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
+            if(empty($value['replie'][0])){
+                $value['last_reply'] = null;
+            }else{
+                $value['last_reply'] = DB::table('forum_comments')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
+                $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
+            }
+        }
+        $forum_department = null;
+        $forum_job_family = null;
+        if ($department != null) {
+            $forum_department = Forum::where('id_department',$department->id_department)->get();
+            foreach ($forum_department as $key => $value) {
+                $value['personnel'] = User::where('id_user',$value->id_user)->first();
+                $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
+                if(empty($value['replie'][0])){
+                    $value['last_reply'] = null;
+                }else{
+                    $value['last_reply'] = DB::table('forum_comments')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
+                    $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
+                }
+            }
+
+            $forum_job_family = Forum::where('id_job_family',$department->id_job_family)->get();
+            foreach ($forum_job_family as $key => $value) {
+                $value['personnel'] = User::where('id_user',$value->id_user)->first();
+                $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
+                if(empty($value['replie'][0])){
+                    $value['last_reply'] = null;
+                }else{
+                    $value['last_reply'] = DB::table('forum_comments')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
+
+                    $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
+
+                }
+            }
+        }
 
 //        $module = Module::all();
-        return view('user.forum');
-//            ->with('module',$module)
-//            ->with('forum_umum', $forum_umum)
-//            ->with('forum_department',$forum_department)
-//            ->with('forum_job_family',$forum_job_family)
-//            ->with('department',$department)
-//            ->with('job_family',$job_family);
+        return view('user.forum')
+            ->with('forum_umum', $forum_umum)
+            ->with('forum_department',$forum_department)
+            ->with('forum_job_family',$forum_job_family)
+            ->with('department',$department)
+            ->with('job_family',$job_family);
 
     }
 
@@ -80,6 +83,49 @@ class ForumController extends Controller
     	$forum = $forum->get_all_forum();
 
     	echo $forum;
+    }
+
+    public function storeUser(Request $request)
+    {
+        $id_user = Auth::user()->id;
+
+        $content = "";
+//        dd('masuk');
+        if ($request->id_department != null) {
+            $content = $request->content3;
+        }elseif($request->id_job_family != null){
+            $content = $request->content2;
+        }else{
+            $content = $request->content;
+        }
+
+        $id_forum = DB::table('forums')-> insertGetId(array(
+            'created_by' => $id_user,
+            'title' => $request->title,
+            'content' => $content,
+            'is_reply' => $request->can_reply,
+            'id_department' => $request->id_department,
+            'id_job_family' => $request->id_job_family,
+            'created_at' => Carbon::now('Asia/Jakarta'),
+        ));
+
+        $file_pendukung = $request->file('file_pendukung');
+        if (!empty($file_pendukung)) {
+
+            foreach ($file_pendukung as $key => $file) {
+                $destinationPath = 'Uploads';
+                $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                $new_file_pendukung = new ForumAttachment;
+                $new_file_pendukung->id_forum = $id_forum;
+                $new_file_pendukung->name = $file->getClientOriginalName();
+                $new_file_pendukung->url = $url_file;
+                $new_file_pendukung->save();
+            }
+        }
+
+        return redirect('forum');
     }
 
 

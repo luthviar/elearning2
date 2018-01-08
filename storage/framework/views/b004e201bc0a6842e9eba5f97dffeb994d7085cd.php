@@ -14,8 +14,12 @@
 <script type="text/javascript" src="<?php echo e(url('js/jquery-1.11.1.min.js')); ?>"></script>
 <script src="<?php echo e(url('js/bootstrap3.min.js')); ?>"></script>
 <link rel="stylesheet" href="<?php echo e(url('css/font-awesome.css')); ?>">
-<link href="<?php echo e(url('css/summernote.css')); ?>" rel="stylesheet">
-<script src="<?php echo e(url('js/summernote.js')); ?>"></script>
+
+
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
 <link rel="stylesheet" href="<?php echo e(URL::asset('css/Upload.css')); ?>" />
 <script type="text/javascript" src="<?php echo e(URL::asset('js/UpoladImg.js')); ?>"></script>
 

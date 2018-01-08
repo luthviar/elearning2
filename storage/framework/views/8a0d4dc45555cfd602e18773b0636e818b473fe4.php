@@ -11,12 +11,16 @@
                                 <li class="active">
                                     <a  href="#umum" data-toggle="tab">Forum Umum</a>
                                 </li>
-                                <li>
-                                    <a href="#jobfamily" data-toggle="tab">Forum Job Family</a>
-                                </li>
-                                <li>
-                                    <a href="#dept" data-toggle="tab">Forum Department</a>
-                                </li>
+                                <?php if(!empty($job_family)): ?>
+                                    <li>
+                                        <a href="#jobfamily" data-toggle="tab">Forum Job Family</a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if(!empty($department)): ?>
+                                    <li>
+                                        <a href="#dept" data-toggle="tab">Forum Department</a>
+                                    </li>
+                                <?php endif; ?>
                             </ul>
 
                             <div class="tab-content">
@@ -38,78 +42,38 @@
                                         </thead>
                                         <tbody>
 
-                                        <tr>
+                                        <?php $__currentLoopData = $forum_umum; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <tr>
 
-                                            <td>
-                                                <a href="/forum/1">new thread</a>
-                                                <a
-                                                        href="forum/1/user/edit"
+                                                <td>
+                                                    <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
+                                                        <?php echo e($forum->title); ?>
+
+                                                    </a>
+                                                    <?php if($forum->created_by == Auth::user()->id): ?>
+                                                        <a
+                                                        href="<?php echo e(url('forum/'.$forum->id.'user/edit')); ?>"
                                                         data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                >
+                                                        >
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><?php echo e($forum['personnel']['name']); ?> </td>
+                                                <td><?php echo e(count($forum['replie'])); ?></td>
+                                                <?php if(count($forum['replie']) == 0): ?>
+                                                    <td>-</td>
+                                                <?php else: ?>
+                                                    <td>
+                                                        <?php echo e($forum['last_reply_personnel']['name']); ?>,
+                                                        <?php echo e(\Carbon\Carbon::parse($forum['last_reply'][0]
+                                                        ->created_at)->format('l jS \\of F Y')); ?>
 
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                                </a>
-                                            </td>
-                                            <td>don din</td>
-                                            <td>3</td>
-                                            <td>don din, Thursday 4th of January 2018</td>
-                                            <td>2017-08-10 01:38:34</td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <a href="/forum/5">dua</a>
-                                                <a
-                                                        href="forum/5/user/edit"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                >
-
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                                </a>
-                                            </td>
-                                            <td>don din</td>
-                                            <td>0</td>
-                                            <td>-</td>
-                                            <td>2017-08-10 04:53:31</td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <a href="/forum/6">fafsd</a>
-                                                <a
-                                                        href="forum/6/user/edit"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                >
-
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                                </a>
-                                            </td>
-                                            <td>don din</td>
-                                            <td>4</td>
-                                            <td>don din, Thursday 4th of January 2018</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <a href="/forum/7">dasdsad</a>
-                                                <a
-                                                        href="forum/7/user/edit"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                >
-
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                                </a>
-                                            </td>
-                                            <td>don din</td>
-                                            <td>0</td>
-                                            <td>-</td>
-                                            <td></td>
-                                        </tr>
+                                                    </td>
+                                                <?php endif; ?>
+                                                <td><?php echo e($forum->created_at); ?></td>
+                                            </tr>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                         </tbody>
                                     </table>
@@ -117,68 +81,107 @@
 
                                 </div>
 
-                                <div class="tab-pane" id="jobfamily">
-                                    <h1>Forum Sales and Marketing</h1>
-                                    <p>forum ini ditujukan untuk karyawan Sales and Marketing PT Aerofood Indonesia</p>
-                                    <button  class="btn btn-info" data-toggle="modal" data-target="#modal_job_family">New Thread</button><br><br>
+                                <?php if($forum_job_family != null): ?>
+                                    <div class="tab-pane" id="jobfamily">
+                                        <h1>Forum <?php echo e($job_family->name); ?></h1>
+                                        <p>Forum ini ditujukan untuk karyawan <?php echo e($job_family->name); ?> PT Aerofood Indonesia.</p>
+                                        <button  class="btn btn-info" data-toggle="modal" data-target="#modal_job_family">New Thread</button><br><br>
 
-                                    <table  class="table table-striped detailTable text-left">
-                                        <thead>
-                                        <tr>
-                                            <th>Topic Discussion</th>
-                                            <th>Started By</th>
-                                            <th>Replies</th>
-                                            <th>Last Post</th>
-                                            <th>Created At</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                                        <table  class="table table-striped detailTable text-left">
+                                            <thead>
+                                            <tr>
+                                                <th>Topic Discussion</th>
+                                                <th>Started By</th>
+                                                <th>Replies</th>
+                                                <th>Last Post</th>
+                                                <th>Created At</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        <tr>
-                                            <td>
-                                                <a href="/forum/2">haha in ajah</a>
-                                                <a
-                                                        href="forum/2/user/edit"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
-                                                >
+                                            <?php $__currentLoopData = $forum_job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/forum/<?php echo e($forum->id); ?>"><?php echo e($forum->title); ?></a>
+                                                        <?php if($forum->id_user === Auth::user()->id): ?>
+                                                            <a
+                                                                    href="forum/<?php echo e($forum->id); ?>/user/edit"
+                                                                    data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
+                                                            >
 
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                                </a>
-                                            </td>
-                                            <td>don din</td>
-                                            <td>1</td>
-                                            <td>don din, Thursday 10th of August 2017</td>
-                                            <td>2017-08-10 01:45:59</td>
-                                        </tr>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td><?php echo e($forum['personnel']->name); ?></td>
+                                                    <td><?php echo e(count($forum['replie'])); ?></td>
+                                                    <?php if(count($forum['replie']) == 0): ?>
+                                                        <td>-</td>
+                                                    <?php else: ?>
+                                                        <td><?php echo e($forum['last_reply_personnel']['name']); ?> , <?php echo e(\Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')); ?></td>
+                                                    <?php endif; ?>
+                                                    <td><?php echo e($forum->created_at); ?></td>
+                                                </tr>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
 
-                                </div>
-
-
-                                <div class="tab-pane" id="dept">
-                                    <h1>Forum deps d</h1>
-                                    <p>forum ini ditujukan untuk karyawan deps d PT Aerofood Indonesia</p>
-                                    <button  class="btn btn-info" data-toggle="modal" data-target="#modal_department">New Thread</button><br><br>
-
-                                    <table  class="table table-striped detailTable text-left">
-                                        <thead>
-                                        <tr>
-                                            <th>Topic Discussion</th>
-                                            <th>Started By</th>
-                                            <th>Replies</th>
-                                            <th>Last Post</th>
-                                            <th>Created At</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                                    </div>
+                                <?php endif; ?>
 
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <?php if($forum_department != null): ?>
+                                    <div class="tab-pane" id="dept">
+                                        <h1>Forum <?php echo e($department->nama_departmen); ?></h1>
+                                        <p>forum ini ditujukan untuk karyawan <?php echo e($department->nama_departmen); ?> PT Aerofood Indonesia</p>
+                                        <button  class="btn btn-info" data-toggle="modal" data-target="#modal_department">New Thread</button><br><br>
+
+                                        <table  class="table table-striped detailTable text-left">
+                                            <thead>
+                                            <tr>
+                                                <th>Topic Discussion</th>
+                                                <th>Started By</th>
+                                                <th>Replies</th>
+                                                <th>Last Post</th>
+                                                <th>Created At</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <?php $__currentLoopData = $forum_department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr>
+                                                    <td><a href="/forum/<?php echo e($forum->id); ?>">
+                                                            <?php echo e($forum->title); ?>
+
+                                                            <?php if($forum->id_user === Auth::user()->id): ?>
+                                                                <a
+                                                                        href="forum/<?php echo e($forum->id); ?>/user/edit"
+                                                                        data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
+                                                                >
+
+                                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+                                                                </a>
+                                                            <?php endif; ?>
+                                                        </a>
+                                                    </td>
+                                                    <td><?php echo e($forum['personnel']->name); ?></td>
+                                                    <td><?php echo e(count($forum['replie'])); ?></td>
+                                                    <?php if($forum['replie'] == null): ?>
+                                                        <td>-</td>
+                                                    <?php else: ?>
+                                                        <td></td>
+                                                    <?php endif; ?>
+                                                    <td><?php echo e($forum->created_at); ?></td>
+                                                </tr>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -192,7 +195,7 @@
     </div>
 
 
-
+    
     <div class="modal fade" id="modal_edit_forum" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
@@ -208,7 +211,8 @@
                     </div>
 
                     <div class="modal-body">
-                        <input type="hidden" name="_token" value="ccCikyJ5lHKY7OM7JVFlFG8UqAh0vPuERy05Zu0w">
+                        <?php echo e(csrf_field()); ?>
+
 
                         <input type="hidden" id="id_forum_edit" name="id_forum_edit">
 
@@ -285,14 +289,15 @@
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content" >
-                <form class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeUser')); ?>" enctype="multipart/form-data">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">New Thread</h4>
                     </div>
 
                     <div class="modal-body">
-                        <input type="hidden" name="_token" value="ccCikyJ5lHKY7OM7JVFlFG8UqAh0vPuERy05Zu0w">
+                        <?php echo e(csrf_field()); ?>
+
 
                         <input type="hidden" name="id_department" value="">
                         <input type="hidden" name="id_job_family" value="">
@@ -367,54 +372,56 @@
         </div>
     </div>
 
-    <!-- New Thread Department -->
-    <div class="modal fade" id="modal_department" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <!-- Modal content-->
-            <div class="modal-content" >
-                <form class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">New Thread</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <input type="hidden" name="_token" value="ccCikyJ5lHKY7OM7JVFlFG8UqAh0vPuERy05Zu0w">
-
-                        <input type="hidden" name="id_department" value="4">
-                        <input type="hidden" name="id_job_family" value="">
-
-
-                        <div class="form-group">
-                            <label for="title" class="col-md-3 control-label">Title</label>
-
-                            <div class="col-md-6">
-                                <input type="text" name="title"/>
-                            </div>
+    <?php if($department != null): ?>
+        <!-- New Thread Department -->
+        <div class="modal fade" id="modal_department" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content" >
+                    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeUser')); ?>" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">New Thread</h4>
                         </div>
 
-                        <div class="form-group">
-                            <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
-                            <div class="col-md-6">
-                                <select name="can_reply">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
+                        <div class="modal-body">
+                            <?php echo e(csrf_field()); ?>
+
+
+                            <input type="hidden" name="id_department" value="<?php echo e($department->id_department); ?>">
+                            <input type="hidden" name="id_job_family" value="">
+
+
+                            <div class="form-group">
+                                <label for="title" class="col-md-3 control-label">Title</label>
+
+                                <div class="col-md-6">
+                                    <input type="text" name="title"/>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="content" class="col-md-3 control-label">Content</label>
-
-                            <div class="col-md-8">
-                                <textarea class="summernote" name="content3"></textarea>
+                            <div class="form-group">
+                                <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
+                                <div class="col-md-6">
+                                    <select name="can_reply">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="image" class="col-md-3 control-label">Upload attachment</label>
 
-                            <div class="col-md-6">
-                                <div class="input-group">
+                            <div class="form-group">
+                                <label for="content" class="col-md-3 control-label">Content</label>
+
+                                <div class="col-md-8">
+                                    <textarea class="summernote" name="content3"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="image" class="col-md-3 control-label">Upload attachment</label>
+
+                                <div class="col-md-6">
+                                    <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-default btn-file">
                                         Browse..
@@ -425,81 +432,84 @@
                                                multiple/>
                                     </span>
                                 </span>
-                                    <input type="text" class="form-control" value="select file(s)" readonly>
-                                </div></br>
-                                <div class='file-uploaded'>
-                                    <p>
-                                    <div id="fileListdua">
+                                        <input type="text" class="form-control" value="select file(s)" readonly>
+                                    </div></br>
+                                    <div class='file-uploaded'>
+                                        <p>
+                                        <div id="fileListdua">
 
+                                        </div>
+                                        </p>
                                     </div>
-                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 
-    <!-- New Thread Job Family -->
-    <div class="modal fade" id="modal_job_family" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <!-- Modal content-->
-            <div class="modal-content" >
-                <form class="form-horizontal" role="form" method="POST" action="http://localhost/code_alc2/public/forum" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">New Thread</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <input type="hidden" name="_token" value="ccCikyJ5lHKY7OM7JVFlFG8UqAh0vPuERy05Zu0w">
-
-                        <input type="hidden" name="id_department" value="">
-                        <input type="hidden" name="id_job_family" value="2">
-
-
-                        <div class="form-group">
-                            <label for="title" class="col-md-3 control-label">Title</label>
-
-                            <div class="col-md-6">
-                                <input type="text" name="title"/>
-                            </div>
+    <?php if($job_family != null): ?>
+        <!-- New Thread Job Family -->
+        <div class="modal fade" id="modal_job_family" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content" >
+                    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeUser')); ?>" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">New Thread</h4>
                         </div>
 
-                        <div class="form-group">
-                            <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
-                            <div class="col-md-6">
-                                <select name="can_reply" >
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
+                        <div class="modal-body">
+                            <?php echo e(csrf_field()); ?>
+
+
+                            <input type="hidden" name="id_department" value="">
+                            <input type="hidden" name="id_job_family" value="<?php echo e($job_family->id); ?>">
+
+
+                            <div class="form-group">
+                                <label for="title" class="col-md-3 control-label">Title</label>
+
+                                <div class="col-md-6">
+                                    <input type="text" name="title"/>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="content" class="col-md-3 control-label">Content</label>
-
-                            <div class="col-md-8">
-                                <textarea class="summernote" name="content2"></textarea>
+                            <div class="form-group">
+                                <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
+                                <div class="col-md-6">
+                                    <select name="can_reply" >
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="image" class="col-md-3 control-label">Upload attachment</label>
 
-                            <div class="col-md-6">
-                                <div class="input-group">
+                            <div class="form-group">
+                                <label for="content" class="col-md-3 control-label">Content</label>
+
+                                <div class="col-md-8">
+                                    <textarea class="summernote" name="content2"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="image" class="col-md-3 control-label">Upload attachment</label>
+
+                                <div class="col-md-6">
+                                    <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-default btn-file">
                                         Browse..
@@ -510,32 +520,572 @@
                                                multiple/>
                                     </span>
                                 </span>
-                                    <input type="text" class="form-control" value="select file(s)" readonly>
-                                </div></br>
-                                <div class='file-uploaded'>
-                                    <p>
-                                    <div id="fileListtiga">
+                                        <input type="text" class="form-control" value="select file(s)" readonly>
+                                    </div></br>
+                                    <div class='file-uploaded'>
+                                        <p>
+                                        <div id="fileListtiga">
 
+                                        </div>
+                                        </p>
                                     </div>
-                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
+
+
+    
+        
+
+            
+                
+                    
+                        
+                            
+                                
+                                    
+                                
+                                
+                                    
+                                
+                                
+                                    
+                                
+                            
+
+                            
+                                
+
+                                    
+                                    
+                                    
+
+                                    
+                                        
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+                                        
+                                        
+
+                                        
+
+                                            
+                                                
+                                                
+                                                        
+                                                        
+                                                
+
+                                                    
+
+                                                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+                                        
+
+                                            
+                                                
+                                                
+                                                        
+                                                        
+                                                
+
+                                                    
+
+                                                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+                                        
+
+                                            
+                                                
+                                                
+                                                        
+                                                        
+                                                
+
+                                                    
+
+                                                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+                                        
+
+                                            
+                                                
+                                                
+                                                        
+                                                        
+                                                
+
+                                                    
+
+                                                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+
+                                        
+                                    
+
+
+                                
+
+                                
+                                    
+                                    
+                                    
+
+                                    
+                                        
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+                                        
+                                        
+
+                                        
+                                            
+                                                
+                                                
+                                                        
+                                                        
+                                                
+
+                                                    
+
+                                                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+
+                                        
+                                    
+
+                                
+
+
+                                
+                                    
+                                    
+                                    
+
+                                    
+                                        
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        
+                                        
+                                        
+
+
+                                        
+                                    
+                                
+                            
+                        
+                    
+
+
+                
+            
+        
+
+
+    
+
+
+
+    
+        
+            
+            
+                
+                        
+                        
+                        
+                        
+                    
+                        
+                        
+                    
+
+                    
+                        
+
+                        
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+
+                        
+                            
+                            
+                                
+                                    
+                                    
+                                
+                            
+                        
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+                        
+                            
+
+                            
+                                
+                                
+                                    
+                                        
+                                        
+                                               
+                                               
+                                               
+                                               
+                                    
+                                
+                                    
+                                
+                                
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+                                    
+                                
+                            
+                        
+                        
+                            
+                                
+                            
+                        
+                    
+                    
+
+                    
+                
+            
+        
+    
+
+    
+    
+        
+            
+            
+                
+                    
+                    
+                        
+                        
+                    
+
+                    
+                        
+
+                        
+                        
+
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+
+                        
+                            
+                            
+                                
+                                    
+                                    
+                                
+
+                            
+                        
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+
+                        
+                            
+
+                            
+                                
+                                
+                                    
+                                        
+                                        
+                                               
+                                               
+                                               
+                                               
+                                    
+                                
+                                    
+                                
+                                
+                                    
+                                    
+                                    
+                                
+                            
+
+
+                        
+                        
+                    
+                    
+                        
+                            
+                                
+                                    
+                                
+                            
+                        
+                    
+                
+            
+        
+    
+
+    
+    
+        
+            
+            
+                
+                    
+                        
+                        
+                    
+
+                    
+                        
+
+                        
+                        
+
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+
+                        
+                            
+                            
+                                
+                                    
+                                    
+                                
+                            
+                        
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+                        
+                            
+
+                            
+                                
+                                
+                                    
+                                        
+                                        
+                                               
+                                               
+                                               
+                                               
+                                    
+                                
+                                    
+                                
+                                
+                                    
+                                    
+
+                                    
+                                    
+                                
+                            
+                        
+
+                    
+                    
+                        
+                            
+                                
+                                    
+                                
+                            
+                        
+                    
+                
+            
+        
+    
+
+    
+    
+        
+            
+            
+                
+                    
+                        
+                        
+                    
+
+                    
+                        
+
+                        
+                        
+
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+
+                        
+                            
+                            
+                                
+                                    
+                                    
+                                
+                            
+                        
+
+                        
+                            
+
+                            
+                                
+                            
+                        
+                        
+                            
+
+                            
+                                
+                                
+                                    
+                                        
+                                        
+                                               
+                                               
+                                               
+                                               
+                                    
+                                
+                                    
+                                
+                                
+                                    
+                                    
+
+                                    
+                                    
+                                
+                            
+                        
+
+                    
+                    
+                        
+                            
+                                
+                                    
+                                
+                            
+                        
+                    
+                
+            
+        
+    
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
