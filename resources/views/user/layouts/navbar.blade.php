@@ -76,9 +76,9 @@
                                      ? 'selected' : '' }}"></span>
                 </li>
                 @if(Auth::user())
-                    <li class="classic-menu-dropdown {{ Request::is('forum/*') || Request::is('forum') ? 'active' : '' }}">
+                    <li class="classic-menu-dropdown {{ Request::is('forum') ? 'active' : '' }}">
                         <a href="{{url('/forum')}}">Forum</a>
-                        <span class="{{ Request::is('forum/*') || Request::is('forum') ? 'selected' : '' }}"></span>
+                        <span class="{{ Request::is('forum') ? 'selected' : '' }}"></span>
                     </li>
 
 
@@ -153,10 +153,10 @@
                 </a>
                 <ul class="sub-menu">
                     @foreach (Session::get('module') as $modul)
-                        <li>
-                            <a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>
-                        </li>
-                    @endforeach
+                                <li>
+									<a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a>
+								</li>
+                            @endforeach
                 </ul>
 
             </li>
