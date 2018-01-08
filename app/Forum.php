@@ -120,7 +120,7 @@ class Forum extends Model
 
     }
 
-    public function get_forum ( $forum_id ) {
+    public function get_forum( $forum_id ) {
     	
     	function get_forum_viewer ( $forum ) {
     		$forum_viewer = ForumViewer::where( 'id_forum', $forum->id)->get();

@@ -14,8 +14,12 @@
 <script type="text/javascript" src="{{ url('js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ url('js/bootstrap3.min.js') }}"></script>
 <link rel="stylesheet" href="{{ url('css/font-awesome.css') }}">
-<link href="{{ url('css/summernote.css') }}" rel="stylesheet">
-<script src="{{ url('js/summernote.js') }}"></script>
+
+{{--<link href="{{ url('css/summernote.css') }}" rel="stylesheet">--}}
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+{{--<script src="{{ url('js/summernote.js') }}"></script>--}}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
 <link rel="stylesheet" href="{{ URL::asset('css/Upload.css')}}" />
 <script type="text/javascript" src="{{ URL::asset('js/UpoladImg.js')}}"></script>
 
@@ -52,6 +56,18 @@
         });
 
     });
+
+    $('#summernote_form').on('submit', function(e) {
+
+        if($('#summernote').summernote('isEmpty')) {
+            alert('Konten tidak boleh kosong');
+
+            e.preventDefault();
+        }
+        else {
+            $('#summernote_form').submit();
+        }
+    })
 </script>
 
 <!-- loading preloader -->

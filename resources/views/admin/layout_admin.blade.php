@@ -274,7 +274,6 @@
 <script src="{{URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 
 
- 
 
 
 @yield('script')

@@ -275,7 +275,6 @@
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')); ?>"></script>
 
 
- 
 
 
 <?php echo $__env->yieldContent('script'); ?>

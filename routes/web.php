@@ -70,7 +70,7 @@ Route::get('/get_all_news','NewsController@get_all_news');
 
 Route::get('/get_active_news', 'NewsController@get_active_news');
 
-Route::get('/get_news/{id}' , 'NewsController@get_news');
+//Route::get('/get_news/{id}' , 'NewsController@get_news');
 
 Route::get('/activate_news/{id}','NewsController@activate_news');
 
@@ -79,6 +79,10 @@ Route::get('/nonactivate_news/{id}','NewsController@nonactivate_news');
 Route::get('/news-board','NewsController@index');
 
 Route::get('/news/{id}','NewsController@get_news');
+
+//Route::get('/comm/{id}','NewsController@get_news');
+
+Route::post('/news/comment','NewsController@storeCommentByUser');
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +124,13 @@ Route::post('/forum_public', 'ForumController@forum_public');
 
 Route::get('forum','ForumController@index');
 
+Route::post('forum/store','ForumController@storeByUser');
+
+Route::get('forum/user/edit/{id}','ForumController@editByUser');
+
+Route::post('forum/user/update','ForumController@updateByUser');
+
+Route::post('forum/comment','ForumController@storeCommentByUser');
 
 Auth::routes();
 

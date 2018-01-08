@@ -1,6 +1,4 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="page-container" id="wrapper">
 
@@ -9,77 +7,80 @@
                 <div class ="col-md-8">
                     <div class="col-md-3">
                         <br>
-                        <img src="{{URL::asset('Elegantic/images/ALS.jpg')}}" alt="Card image cap" style="width:100%;height:60px;">
+                        <img src="<?php echo e(URL::asset('Elegantic/images/ALS.jpg')); ?>" alt="Card image cap" style="width:100%;height:60px;">
                     </div>
                     <div class ="col-md-9">
-                        <h3>{{ $forum['title'] }}</h3>
-                        <h6>{{ \Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')}}</h6>
+                        <h3><?php echo e($forum['title']); ?></h3>
+                        <h6><?php echo e(\Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')); ?></h6>
                     </div>
                 </div>
                 <div class ="col-md-12">
                     <hr class="style14">
                     <p align="justify" class="big">
-                        {!! html_entity_decode($forum['content']) !!}
+                        <?php echo html_entity_decode($forum['content']); ?>
+
 
                     </p>
                     <hr class="style14">
                     <div class='pull-right'>
-                        @if($forum['attachment'] instanceof Traversable)
+                        <?php if($forum['attachment'] instanceof Traversable): ?>
                             Attachments : <br>
-                            @foreach($forum['attachments'] as $file)
-                                <a href="{{URL::asset($file->attachment_url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}} </a><br>
-                            @endforeach
-                        @endif
+                            <?php $__currentLoopData = $forum['attachments']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>"><i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?> </a><br>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </div>
                     <br><br><br><br>
 
-                    @if(Auth::user())
+                    <?php if(Auth::user()): ?>
                         <div class="block-advice">
-                            @if ($forum['comment'] instanceof Traversable)
-                                <h3>Comments({{count($forum['comment'])}})</h3>
-                            @else
+                            <?php if($forum['comment'] instanceof Traversable): ?>
+                                <h3>Comments(<?php echo e(count($forum['comment'])); ?>)</h3>
+                            <?php else: ?>
                                 <h3>Comments(0)</h3>
-                            @endif
+                            <?php endif; ?>
                             <br>
-                            @if ($forum['comment'] instanceof Traversable)
+                            <?php if($forum['comment'] instanceof Traversable): ?>
 
-                            @foreach($forum['comment'] as $comment)
+                            <?php $__currentLoopData = $forum['comment']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading"><strong>{{ $comment['title'] }}</strong><br>
-                                        {{$comment['user']->name}} , {{ \Carbon\Carbon::parse($comment->create_at)->format('d - m - Y , H:i:s')}}</div>
+                                    <div class="panel-heading"><strong><?php echo e($comment['title']); ?></strong><br>
+                                        <?php echo e($comment['user']->name); ?> , <?php echo e(\Carbon\Carbon::parse($comment->create_at)->format('d - m - Y , H:i:s')); ?></div>
                                     <div class="panel-body">
 
-                                        {!! html_entity_decode($comment['content']) !!}
+                                        <?php echo html_entity_decode($comment['content']); ?>
+
                                         <br>
                                         <div class ="pull-right">
 
-                                            @if($comment['attachment'] instanceof Traversable)
+                                            <?php if($comment['attachment'] instanceof Traversable): ?>
                                                 Attachments : <br>
-                                                @foreach($comment['attachment'] as $file)
-                                                    <a href="{{URL::asset($file->attachment_url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}}</a><br>
-                                                @endforeach
-                                            @endif
+                                                <?php $__currentLoopData = $comment['attachment']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <a href="<?php echo e(URL::asset($file->attachment_url)); ?>"><i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?></a><br>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
 
                                         </div>
 
                                     </div>
                                 </div>
                                 <br>
-                            @endforeach
-                            @endif
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
 
-                            @if(Auth::user() == null)
+                            <?php if(Auth::user() == null): ?>
 
-                            @else
+                            <?php else: ?>
                                 <form id="myform" class="form-horizontal" role="form" method="POST" action="" enctype="multipart/form-data">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
-                                    <input type="hidden" name="id_news" value="{{$forum->id}}">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="id_user" value="<?php echo e(Auth::user()->id); ?>">
+                                    <input type="hidden" name="id_news" value="<?php echo e($forum->id); ?>">
                                     <div class="form-group">
                                         <label for="title" class="col-md-2 control-label">Title</label>
 
                                         <div class="col-md-8">
-                                            <input id="title" type="text" class="form-control" name="title" required  value="[RE:] {{$forum['title']}}">
+                                            <input id="title" type="text" class="form-control" name="title" required  value="[RE:] <?php echo e($forum['title']); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -124,9 +125,9 @@
                                         </div>
                                     </div>
                                 </form>
-                            @endif
+                            <?php endif; ?>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -138,9 +139,9 @@
                                 <h4>Recent News</h4>
                                 <hr class="style14">
                                     <ul>
-                                    @foreach($last_six as $forum)
-                                        <li><a href="{{url('forum',$forum->id)}}">{{$forum->title}}</a></li>
-                                    @endforeach
+                                    <?php $__currentLoopData = $last_six; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <li><a href="<?php echo e(url('forum',$forum->id)); ?>"><?php echo e($forum->title); ?></a></li>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 <br>
                             </div>
@@ -224,9 +225,9 @@
         <div id="stopHere"></div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         updateList = function() {
             var input = document.getElementById('file');
@@ -293,4 +294,5 @@
             font-size : 15px;
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

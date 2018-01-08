@@ -29,7 +29,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
-                            @if(Auth::user()->is_admin == 1)
+                            @if(Auth::user()->role == 1)
                                 <a href="{{ url('/personnel') }}">
                                     Acting As Admin
                                 </a>
@@ -153,10 +153,10 @@
                 </a>
                 <ul class="sub-menu">
                     @foreach (Session::get('module') as $modul)
-                        <li>
-                            <a href="{{ url('/module/'.$modul->id) }}">{{$modul->nama}}</a>
-                        </li>
-                    @endforeach
+                                <li>
+									<a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a>
+								</li>
+                            @endforeach
                 </ul>
 
             </li>
@@ -178,7 +178,7 @@
             @endif
 
             <li class="login">
-                @if(Auth::user()->is_admin == 1)
+                @if(Auth::user()->role == 1)
                     <a href="{{ url('personnel') }}">
                         Acting As Admin
                     </a>
