@@ -293,3 +293,15 @@ Route::post('edit_training_submit','TrainingController@edit_training_submit');
 // -------------------------------------
 
 Route::post('get_unit','OrganizationStructureController@get_unit');
+
+Route::post('get_department','OrganizationStructureController@get_department');
+
+Route::post('get_section','OrganizationStructureController@get_section');
+
+// -------------------------------------
+// USER
+// -------------------------------------
+
+Route::get('user_add','UserController@user_add');
+
+Route::post('user_add','UserController@user_add_submit');

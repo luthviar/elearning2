@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use App\ModulTraining;
 use App\UserChapterRecord;
+use App\OrganizationalStructure;
 use App\EmployeeScore;
+use App\LevelPosition;
+use App\EmployeeStatus;
+use App\OsDivision;
 
 class UserController extends Controller
 {
@@ -142,6 +146,49 @@ class UserController extends Controller
 
         $employee_record = EmployeeScore::where('id_user', $id_user)->orderBy('id','desc')->get();
 
+        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
+
         return view('admin.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
+    }
+
+    // ---------------------------------
+    // ADMIN
+    // ---------------------------------
+
+    public function user_add (){
+        $level_position = LevelPosition::all();
+        $division = OsDivision::all();
+        $status = EmployeeStatus::all();
+
+        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status);
+    }
+
+    public function user_add_submit (Request $request){
+        $structure = OrganizationalStructure::where('id_division',$request->division)->where('id_unit',$request->unit)->where('id_department',$request->department)->where('id_section',$request->section)->first();
+        if ($structure == null) {
+            return "error: organization structure not found";
+        }
+
+        echo $structure;
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->education = $request->education;
+        $user->gender = $request->gender;
+        $user->birtdate = $request->birtdate;
+        $user->date_join_acs = $request->date_join_acs;
+        $user->position_name = $request->position;
+        $user->flag_active = 1;
+        $user->position = $request->level_position;
+        $user->id_employee_status = $request->id_employee_status;
+        $user->id_organizational_structure = $structure->id;
+        $user->save();
+
+        return redirect('personnel');
+
     }
 }

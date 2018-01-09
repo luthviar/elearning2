@@ -43,7 +43,7 @@
                   <b>Email</b> <a class="pull-right">{{$profile['personal_data']->email}}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Level</b> <a class="pull-right">13,287</a>
+                  <b>Level</b> <a class="pull-right">{{$profile['level']->nama_level}}</a>
                 </li>
                 <li class="list-group-item">
                   <b>Employee Status</b> <a class="pull-right">{{$profile['employee_data']['employee_status']->name}}</a>
