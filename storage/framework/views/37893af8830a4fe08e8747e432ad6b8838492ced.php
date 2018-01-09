@@ -159,35 +159,24 @@
               <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Division</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;">
-                  <option selected="selected">staff</option>
-                  <option>Alaska</option>
-                  <option disabled="disabled">California (disabled)</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+                <select class="form-control select2" name="division" id="division" style="width: 100%;">
+                  <option >staff</option>
+                  <option value="1">Alaska</option>
                 </select>
               </div>
 
               <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Unit</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;">
-                  <option selected="selected">staff</option>
-                  <option>Alaska</option>
-                  <option disabled="disabled">California (disabled)</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+                <select class="form-control select2" name="unit" id="unit" style="width: 100%;">
+                  <option >staff</option>
                 </select>
               </div>
 
               <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Department</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;">
+                <select class="form-control select2" name="department" id="department" style="width: 100%;">
                   <option selected="selected">staff</option>
                   <option>Alaska</option>
                   <option disabled="disabled">California (disabled)</option>
@@ -201,7 +190,7 @@
               <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Section</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;">
+                <select class="form-control select2" name="section" id="section" style="width: 100%;">
                   <option selected="selected">staff</option>
                   <option>Alaska</option>
                   <option disabled="disabled">California (disabled)</option>
@@ -234,6 +223,42 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('script'); ?>
+<script type="text/javascript">
+
+    $('#division').click(function() {
+      var id_division = $('#division').val();
+      console.log($id_division);
+      $.ajax({
+        type:"POST",
+        url:"/get_unit",
+        dataType: 'json',
+        data:{id_division:id_division,_token: '<?php echo e(csrf_token()); ?>'},
+        beforeSend: function (xhr) {
+            var token = $('meta[name="csrf_token"]').attr('content');
+
+            if (token) {
+                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+            }
+        },
+        success: function(units) {
+          console.log(value.units);
+            var html = '';
+            $.each(units.units, function(key, value){
+                html += '<option value="'+value.id+'">'+value.unit_name+'</option>';               
+                
+            });
+            $('#unit').html(html);        
+            
+            
+        },
+        error: function(data){
+            console.log(data);
+        },
+      });
+      
+    });
+
+</script>
 <script>
 
   $(function () {
@@ -267,6 +292,86 @@ $(".select2").select2({
     });
 
   });
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    $('#MyUnit').click(function() {
+      var id_divisi = $('#MyDivisi').val();
+      var id_unit = $('#MyUnit').val();
+      $.ajax({
+        type:"POST",
+        url:"/get-department",
+        dataType: 'json',
+        data:{id_unit:id_unit,id_divisi:id_divisi,_token: '<?php echo e(csrf_token()); ?>'},
+        beforeSend: function (xhr) {
+            var token = $('meta[name="csrf_token"]').attr('content');
+
+            if (token) {
+                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+            }
+        },
+        success: function(departments) {
+            var html = '';
+            $.each(departments.departments, function(key, value){               
+                html += '<option value="'+value.id_department+'">'+value.nama_departmen+'</option>';
+                
+            });
+            $('#MyDepartment').html(html);  
+                
+            
+            
+        },
+        error: function(data){
+            console.log(data);
+        },
+      });
+      
+    });
+
+
+</script>
+
+<script type="text/javascript">
+
+
+    $('#MyDepartment').click(function() {
+      var id_divisi = $('#MyDivisi').val();
+      var id_unit = $('#MyUnit').val();
+      var id_department = $('#MyDepartment').val();
+      $.ajax({
+        type:"POST",
+        url:"/get-section",
+        dataType: 'json',
+        data:{id_department:id_department,id_unit:id_unit,id_divisi:id_divisi,_token: '<?php echo e(csrf_token()); ?>'},
+        beforeSend: function (xhr) {
+            var token = $('meta[name="csrf_token"]').attr('content');
+
+            if (token) {
+                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+            }
+        },
+        success: function(sections) {
+            var html = '';
+            $.each(sections.sections, function(key, value){             
+                html += '<option value="'+value.id_section+'">'+value.nama_section+'</option>';
+                
+            });
+            $('#MySection').html(html); 
+                
+            
+            
+        },
+        error: function(data){
+            console.log(data);
+        },
+      });
+      
+    });
+
 
 </script>
 

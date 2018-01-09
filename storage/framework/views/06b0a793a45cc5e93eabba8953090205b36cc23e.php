@@ -29,7 +29,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
-                            <?php if(Auth::user()->is_admin == 1): ?>
+                            <?php if(Auth::user()->role == 1): ?>
                                 <a href="<?php echo e(url('/personnel')); ?>">
                                     Acting As Admin
                                 </a>
@@ -75,9 +75,9 @@
                                      ? 'selected' : ''); ?>"></span>
                 </li>
                 <?php if(Auth::user()): ?>
-                    <li class="classic-menu-dropdown <?php echo e(Request::is('forum') ? 'active' : ''); ?>">
+                    <li class="classic-menu-dropdown <?php echo e(Request::is('forum') || Request::is('forum/*') ? 'active' : ''); ?>">
                         <a href="<?php echo e(url('/forum')); ?>">Forum</a>
-                        <span class="<?php echo e(Request::is('forum') ? 'selected' : ''); ?>"></span>
+                        <span class="<?php echo e(Request::is('forum') || Request::is('forum/*') ? 'selected' : ''); ?>"></span>
                     </li>
 
 
@@ -173,7 +173,7 @@
             <?php endif; ?>
 
             <li class="login">
-                <?php if(Auth::user()->is_admin == 1): ?>
+                <?php if(Auth::user()->role == 1): ?>
                     <a href="<?php echo e(url('personnel')); ?>">
                         Acting As Admin
                     </a>

@@ -471,12 +471,11 @@
 
         $(document).scroll(function () {
             //stick nav to top of page
-            var y = $(this).scrollTop()
+            var y = $(this).scrollTop();
 
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
-                    nav.css('top', stopPosition - y);
                 } else {
                     nav.css('top', 80);
                 }
@@ -485,32 +484,9 @@
             }
         });
     </script>
-
-    <script>
-        $(window).load(function(){
-
-            setTimeout(function() {
-                    $("#loading").fadeOut(function(){
-
-                        $(this).remove();
-                        $('body').removeAttr('style');
-                    })
-                }
-                , 300);
-        });
-
-
-        jQuery(document).ready(function() {
-            // initiate layout and plugins
-            App.init();
-
-        });
-    </script>
-
     <style>
         .sticky {
             position: fixed;
-            top:200px;
         }
         p.big {
             line-height: 300%;

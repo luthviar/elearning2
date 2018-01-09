@@ -26,24 +26,29 @@
 
                     </p>
                     <hr class="style14">
-                    <div class='pull-right'>
+                    <div class=''>
                         <?php if(!empty($news['file_pendukung'][0])): ?>
                             Attachments : <br>
                             <?php $__currentLoopData = $news['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <a href="<?php echo e(URL::asset($file->url)); ?>"><i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->name); ?> </a><br>
+                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?>
+
+                                </a><br>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php endif; ?>
                     </div>
-                    <br><br><br><br>
+                    <hr class="style14">
+                    <br><br><br>
 
-                    <?php if($news->can_reply == 1): ?>
+                    <?php if($news->is_reply == 1): ?>
                         <div class="block-advice">
                             <h3>Comments(<?php echo e(count($replies)); ?>)</h3>
                             <br>
                             <?php $__currentLoopData = $replies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><strong><?php echo e($reply['title']); ?></strong><br>
-                                        <?php echo e($reply['user']->fname); ?> <?php echo e($reply['user']->lname); ?>, <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')); ?></div>
+                                        <?php echo e($reply['user']->name); ?> ,
+                                        <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')); ?></div>
                                     <div class="panel-body">
 
                                         <?php echo html_entity_decode($reply['content']); ?>
@@ -54,7 +59,11 @@
                                             <?php if(!empty($reply['file_pendukung'][0])): ?>
                                                 Attachments : <br>
                                                 <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <a href="<?php echo e(URL::asset($file->url)); ?>"><i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->name); ?></a><br>
+                                                    <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                        <?php echo e($file->attachment_name); ?>
+
+                                                    </a><br>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             <?php endif; ?>
 
@@ -68,7 +77,9 @@
                             <?php if(Auth::user() == null): ?>
 
                             <?php else: ?>
-                                <form id="myform" class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('NewsReplieController@store')); ?>" enctype="multipart/form-data">
+                                <form id="myform" class="form-horizontal" role="form" method="POST"
+                                      action="<?php echo e(URL::action('NewsController@storeCommentByUser')); ?>"
+                                      enctype="multipart/form-data">
                                     <?php echo e(csrf_field()); ?>
 
                                     <input type="hidden" name="id_user" value="<?php echo e(Auth::user()->id); ?>">
@@ -77,7 +88,8 @@
                                         <label for="title" class="col-md-2 control-label">Title</label>
 
                                         <div class="col-md-8">
-                                            <input id="title" type="text" class="form-control" name="title" required  value="[RE:] <?php echo e($news['title']); ?>">
+                                            <input id="title" type="text" class="form-control"
+                                                   name="title" required  value="[RE:] <?php echo e($news['title']); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -135,8 +147,10 @@
                             <div class="well">
                                 <h4>Recent News</h4>
                                 <hr class="style14">
-                                <?php $__currentLoopData = $last_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="/news/<?php echo e($brt->id); ?>"><p><?php echo e($brt->title); ?></p></a>
+                                <?php $__currentLoopData = $beritas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <a href="<?php echo e(url('news/'.$brt->id)); ?>">
+                                        <p><?php echo e($brt->title); ?></p>
+                                    </a>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <br>
                             </div>
@@ -211,14 +225,231 @@
                                 </div>
                             </div>
                         </div>
+                    </nav>
                 </div>
             </div>
 
         </div>
 
-
         <div id="stopHere"></div>
     </div>
+
+    
+
+        
+            
+                
+                    
+                        
+                        
+                            
+                        
+                            
+                        
+                    
+                    
+                        
+                        
+                    
+                
+                
+                    
+                    
+                        
+
+                    
+                    
+                    
+                        
+                            
+                            
+                                
+                            
+                        
+                    
+                    
+
+                    
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        
+                                    
+
+                                        
+                                        
+                                        
+
+                                            
+                                                
+                                                
+                                                    
+                                                
+                                            
+
+                                        
+
+                                    
+                                
+                                
+                            
+
+                            
+
+                            
+                                
+                                    
+                                    
+                                    
+                                    
+                                        
+
+                                        
+                                            
+                                        
+                                    
+                                    
+                                        
+
+                                        
+                                            
+                                        
+                                    
+
+                                    
+                                        
+
+                                        
+                                            
+													
+														
+															
+															
+                                                                   
+                                                                   
+                                                                   
+                                                                   
+															
+													
+                                                
+                                            
+                                            
+                                                
+                                                
+                                                
+                                            
+                                        
+                                    
+
+
+                                    
+                                        
+                                            
+                                                
+                                            
+                                        
+                                    
+                                
+                            
+                        
+                    
+                
+            
+
+            
+                
+                    
+                        
+                            
+                                
+                                
+                                
+                                    
+                                
+                                
+                            
+                            
+                            
+                                
+                            
+                            
+                                
+                                    
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                    
+                                        
+                                    
+
+                                    
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                    
+                                        
+                                    
+                                    
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                    
+                                        
+                                    
+                                    
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                    
+                                        
+                                    
+                                
+                            
+                        
+                
+            
+
+        
+
+
+        
+    
 
 <?php $__env->stopSection(); ?>
 
@@ -243,12 +474,11 @@
 
         $(document).scroll(function () {
             //stick nav to top of page
-            var y = $(this).scrollTop()
+            var y = $(this).scrollTop();
 
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
-                    nav.css('top', stopPosition - y);
                 } else {
                     nav.css('top', 80);
                 }
@@ -257,32 +487,9 @@
             }
         });
     </script>
-
-    <script>
-        $(window).load(function(){
-
-            setTimeout(function() {
-                    $("#loading").fadeOut(function(){
-
-                        $(this).remove();
-                        $('body').removeAttr('style');
-                    })
-                }
-                , 300);
-        });
-
-
-        jQuery(document).ready(function() {
-            // initiate layout and plugins
-            App.init();
-
-        });
-    </script>
-
     <style>
         .sticky {
             position: fixed;
-            top:200px;
         }
         p.big {
             line-height: 300%;

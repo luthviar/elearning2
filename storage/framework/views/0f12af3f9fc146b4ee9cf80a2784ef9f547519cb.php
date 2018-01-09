@@ -8,7 +8,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="<?php echo e(url('/personnel')); ?>">News</a></li>
-        <li class="active">Add News</li>
+        <li class="active">Edit News</li>
       </ol>
     </section>
 
@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="<?php echo e(url('news_add_submit')); ?>" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url('news_edit_submit')); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
@@ -30,36 +30,44 @@
               <?php echo e(csrf_field()); ?>
 
 
-            
+              <input type="hidden" name="id_news" value="<?php echo e($news->id); ?>">
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="News title">
+                <input type="text" class="form-control" id="title" value="<?php echo e($news->title); ?>" name="title" placeholder="News title">
               </div>
 
-
+              <div class="col-md-12">
               <!-- Image -->
               <div class="form-group col-md-6">
                   <label for="exampleInputFile">Image Thumbnail</label>
+                  <p style="color: red;">* your previous image will deleted if you choose image again</p>
                   <input type="file" id="img" name="image">
               </div>
 
               <div class="form-group col-md-6">
                   <label>Can Reply ?</label>
                   <select class="form-control" name="can_reply">
-                    <option value="1">Ya</option>
+                    <?php if($news->is_reply == 1): ?>
+                    <option value="1" selected="true">Ya</option>
                     <option value="0">Tidak</option>
+                    <?php else: ?>
+                    <option value="1">Ya</option>
+                    <option value="0" selected="true">Tidak</option>
+                    <?php endif; ?>
                   </select>
+              </div>
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($news->content); ?></textarea>
               </div>
 
               <div class="form-group">
                   <label>Attachment</label>
+                  <p style="color: red">* your previous attachment will deleted if you choose attachment again</p>
                   <input type="file" name="attachment[]" id="file" multiple 
                       onchange="javascript:updateList()" />
               </div>
@@ -84,20 +92,27 @@
                 <!-- CONTENT -->
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img id="img_prev" src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
+                    <img id="img_prev" src="<?php echo e(URL::asset($news->url_image)); ?>" style="width: 100%; height: 100px;">
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-8">
-                    <h3><strong id="preview_news_title">News Title</strong></h3>
+                    <h3><strong id="preview_news_title"><?php echo e($news->title); ?></strong></h3>
                   </div>
                   
                   <div id="preview_news_content">
-                    Waiting for input content
+                    <?php echo html_entity_decode($news->content); ?>
+
                   </div>
 
                   <!-- Attachments -->
                   <div>
                     <h5><strong>Attachments : </strong></h5>
-                        <div id="file_list"></div>
+                        <div id="file_list">
+                          <ul>
+                          <?php $__currentLoopData = $news['attachments']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><a href="<?php echo e(url::asset($file->attachment_url)); ?>"><?php echo e($file->attachment_name); ?></a></li>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                          </ul>
+                        </div>
                   </div>
                 </div>
               
@@ -173,9 +188,7 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
-
   function readURL(input) {
-
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();

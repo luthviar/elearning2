@@ -3,12 +3,12 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add News
+        Edit Slider
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo e(url('/personnel')); ?>">News</a></li>
-        <li class="active">Add News</li>
+        <li><a href="<?php echo e(url('/admin_slider')); ?>">Slider</a></li>
+        <li class="active">Edit Slider</li>
       </ol>
     </section>
 
@@ -17,54 +17,41 @@
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="<?php echo e(url('news_add_submit')); ?>" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url('slider_edit_submit')); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add News</h3>
+              <h3 class="box-title">Edit Slider</h3>
             </div>
             <div class="box-body">
               <?php echo e(csrf_field()); ?>
 
 
+              <input type="hidden" name="id_slider" value="<?php echo e($slider->id); ?>">
+
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="News title">
+                <input type="text" class="form-control" id="title" name="title" value="<?php echo e($slider->title); ?>">
               </div>
 
 
               <!-- Image -->
-              <div class="form-group col-md-6">
-                  <label for="exampleInputFile">Image Thumbnail</label>
+              <div class="form-group">
+                  <label for="exampleInputFile">New Image background</label>
+                  <p style="color: red">* select if you want to change image</p>
                   <input type="file" id="img" name="image">
-              </div>
-
-              <div class="form-group col-md-6">
-                  <label>Can Reply ?</label>
-                  <select class="form-control" name="can_reply">
-                    <option value="1">Ya</option>
-                    <option value="0">Tidak</option>
-                  </select>
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="second_title" name="second_title" value ="<?php echo e($slider->second_title); ?>" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($slider->second_title); ?></textarea>
               </div>
-
-              <div class="form-group">
-                  <label>Attachment</label>
-                  <input type="file" name="attachment[]" id="file" multiple 
-                      onchange="javascript:updateList()" />
-              </div>
-
-              
 
 
             </div>
@@ -77,29 +64,15 @@
 
           <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Preview News</h3>
+              <h3 class="box-title">Preview Slider Image</h3>
              </div> 
             
             <div class="box-body">
-                <!-- CONTENT -->
-                <div id="news_content">
-                  <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img id="img_prev" src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
-                  </div>
-                  <div class="col-xs-12 col-sm-6 col-md-8">
-                    <h3><strong id="preview_news_title">News Title</strong></h3>
-                  </div>
-                  
-                  <div id="preview_news_content">
-                    Waiting for input content
-                  </div>
-
-                  <!-- Attachments -->
-                  <div>
-                    <h5><strong>Attachments : </strong></h5>
-                        <div id="file_list"></div>
-                  </div>
-                </div>
+                <div class="image">
+                  <img src="<?php echo e(url($slider->url_image)); ?>" id="image_preview" width="100%" height="250px">
+                </div>  
+                <h4 id="title_preview"><?php echo e($slider->title); ?></h4>
+                <p id="second_title_preview"><?php echo e($slider->second_title); ?></p>
               
             </div>
           </div>
@@ -152,36 +125,29 @@
 $(document).ready(function(){
   $('#title').on('input', function(){ 
     var input = $('#title').val();
-    $('#preview_news_title').html(input);
+    $('#title_preview').html(input);
 
    });
 });
 </script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
- <script>
- $(document).ready(function() {
-      $('#summernote').summernote({
-        callbacks: {
-          onChange: function(contents, $editable) {
-            console.log('onChange:', contents, $editable);
-            $('#preview_news_content').html(contents, $editable);
-          }
-        },
-        height: 100,
-        
-      });
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#second_title').on('input', function(){ 
+    var input = $('#second_title').val();
+    $('#second_title_preview').html(input);
+
+   });
 });
 </script>
+
 <script type="text/javascript">
-
   function readURL(input) {
-
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('#img_prev').attr('src', e.target.result);
+      $('#image_preview').attr('src', e.target.result);
     }
 
     reader.readAsDataURL(input.files[0]);
