@@ -63,7 +63,8 @@
                               no material uploaded
                               @else
                               @foreach ( $chapter['material']['files_material'] as $file)
-                              <a href="" class="btn btn-default" style="width: 90%">{{$file->attachment_name}}</a><span class="pull-right"><i class="fa fa-times" style="color: red" aria-hidden="true">remove</i></span>
+                              <a href="{{URL::asset($file->url)}}" class="btn btn-default" style="width: 90%">{{$file->name}}</a><span class="pull-right">
+                              <a href="{{url('remove_material_file', $file->id)}}"><i class="fa fa-times" style="color: red" aria-hidden="true">remove</i></a></span>
                               @endforeach
                               @endif
                             </p>
@@ -76,21 +77,26 @@
 
                           <!-- /.box-header -->
                           <div class="box-body">
+                          <form method="post" action="{{url('material_add')}}" enctype="multipart/form-data">
                             <h5>Form Upload</h5>
                             <!-- Title -->
+                            <input type="hidden" name="id_material" value="{{$chapter['material']->id}}">
+
+                            {{csrf_field()}}
                             <div class="form-group col-md-6">
                               <label for="title">Attachment Name</label>
-                              <input type="text" class="form-control" id="title" name="title" id="title" placeholder="Attachment Name">
+                              <input type="text" class="form-control" name="attachment_name" id="title" placeholder="Attachment Name">
                             </div>
 
                             <!-- File -->
                             <div class="form-group col-md-6">
                                 <label for="exampleInputFile">Image Thumbnail</label>
-                                <input type="file" id="exampleInputFile" accept=".pdf">
+                                <input type="file" id="exampleInputFile" name="file" accept=".pdf">
                             </div>
                             <div class="form-group col-md-12 text-center">
                               <input type="submit" name="submit" class="btn btn-info">
                             </div>
+                            </form>
                           </div>
                           <!-- /.box-body -->
                         </div>
@@ -150,24 +156,11 @@
                           <textarea class="textarea" name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                       </div>
                       <!-- Option -->
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="title">Option 1</label>
-                          <input type="text" class="form-control" name="option1" placeholder="Option 1">
-                        </div>
-                        <div class="form-group">
-                          <label for="title">Option 2</label>
-                          <input type="text" class="form-control" name="option2"  placeholder="Option 2">
-                        </div>
-                        <div class="form-group">
-                          <label for="title">Option 3</label>
-                          <input type="text" class="form-control" name="option3" placeholder="Option 3">
-                        </div>
-                        <div class="form-group">
-                          <label for="title">Option 4</label>
-                          <input type="text" class="form-control" name="option4"  placeholder="Option 4">
-                        </div>
-                        
+                      <h5><strong>Options</strong></h5>
+                      <button class="add_field_button btn btn-default">Add More Fields</button>
+                      <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
+                        <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" style="width: 80%;" placeholder="input option" name="option[]"></div>
+                        <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" style="width: 80%;"  placeholder="input option" name="option[]"></div>
                       </div>
                       
                       <div class="col-md-12 text-center">
@@ -250,6 +243,26 @@ $(document).ready(function(){
     $('#preview_news_content').html(input);
 
    });
+});
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="col-md-12" style="padding-bottom: 5px;"><input type="text" style="width: 80%;" class="form-control" placeholder="input option" name="option[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
 });
 </script>
 

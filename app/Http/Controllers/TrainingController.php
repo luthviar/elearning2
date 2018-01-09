@@ -9,6 +9,7 @@ use App\UserChapterRecord;
 use App\Material;
 use App\Chapter;
 use App\Test;
+use App\FilesMaterial;
 use App\UserTestRecord;
 use App\Question;
 use App\QuestionOption;
@@ -322,6 +323,7 @@ class TrainingController extends Controller
             $test = new Test;
             $test->id_chapter = $id;
             $test->description = $request->description;
+            $test->time = $request->time;
             $test->save();
         }
         
@@ -353,30 +355,15 @@ class TrainingController extends Controller
             ]
         );
 
-        $option1 = new QuestionOption;
-        $option1->id_question = $id;
-        $option1->option_text = $request->option1;
-        $option1->is_true     = 0;
-        $option1->save();
-
-        $option2 = new QuestionOption;
-        $option2->id_question = $id;
-        $option2->option_text = $request->option2;
-        $option2->is_true     = 0;
-        $option2->save();
-
-        $option3 = new QuestionOption;
-        $option3->id_question = $id;
-        $option3->option_text = $request->option3;
-        $option3->is_true     = 0;
-        $option3->save();
-
-        $option4 = new QuestionOption;
-        $option4->id_question = $id;
-        $option4->option_text = $request->option4;
-        $option4->is_true     = 0;
-        $option4->save();
-
+        $options = $request->option;
+        foreach ($options as $key => $value) {
+            $option1 = new QuestionOption;
+            $option1->id_question = $id;
+            $option1->option_text = $value;
+            $option1->is_true     = 0;
+            $option1->save();
+        }
+        
         return redirect('select_answer/'. $id);
     }
 
@@ -432,29 +419,15 @@ class TrainingController extends Controller
         $question->question_text = $request->question_text;
         $question->save();
 
-        $option1 = new QuestionOption;
-        $option1->id_question = $question->id;
-        $option1->option_text = $request->option1;
-        $option1->is_true     = 0;
-        $option1->save();
-
-        $option2 = new QuestionOption;
-        $option2->id_question = $question->id;
-        $option2->option_text = $request->option2;
-        $option2->is_true     = 0;
-        $option2->save();
-
-        $option3 = new QuestionOption;
-        $option3->id_question = $question->id;
-        $option3->option_text = $request->option3;
-        $option3->is_true     = 0;
-        $option3->save();
-
-        $option4 = new QuestionOption;
-        $option4->id_question = $question->id;
-        $option4->option_text = $request->option4;
-        $option4->is_true     = 0;
-        $option4->save();
+        $new_option = $request->option;        
+        foreach ($new_option as $key => $option) {
+            $option1 = new QuestionOption;
+            $option1->id_question = $question->id;
+            $option1->option_text = $option;
+            $option1->is_true     = 0;
+            $option1->save();
+        }
+        
 
         return redirect('select_answer/'. $question->id);
     }
@@ -561,15 +534,24 @@ class TrainingController extends Controller
         } else {
             $search = $request->input('search.value'); 
 
-            $ModulTraining =  ModulTraining::where('modul_name','LIKE',"%{$search}%")
-                            ->orWhere('description', 'LIKE',"%{$search}%")
-                            ->offset($start)
-                            ->limit($limit)
+            $ModulTraining =  DB::table('modul_trainings')
+                            ->where('modul_trainings.is_child','=',1)
+                            ->where(function($query) use ($search){
+                                $query->where('modul_trainings.modul_name', 'LIKE',"%{$search}%");
+                                $query->orWhere('modul_trainings.description','LIKE',"%{$search}%");
+                            })
                             ->orderBy($order,$dir)
+                            ->limit($limit)
+                            ->offset($start)
                             ->get();
 
-            $totalFiltered = ModulTraining::where('modul_name','LIKE',"%{$search}%")
-                             ->orWhere('description', 'LIKE',"%{$search}%")
+
+            $totalFiltered = DB::table('modul_trainings')
+                             ->where('modul_trainings.is_child','=',1)
+                             ->where(function($query) use ($search){
+                                $query->where('modul_trainings.modul_name', 'LIKE',"%{$search}%");
+                                $query->orWhere('modul_trainings.description','LIKE',"%{$search}%");
+                             })
                              ->count();
         }
 
@@ -608,6 +590,66 @@ class TrainingController extends Controller
                     );
             
         echo json_encode($json_data); 
+    }
+
+    public function material_add (Request $request){
+        $material = Material::find($request->id_material);
+        if ($material == null) {
+            return "error : material not found";
+        }
+        $file = $request->file('file');
+        $url = null;
+        if (!empty($file)) {
+            $destinationPath = 'file_attachments';
+            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+        }
+
+        $attachment = new FilesMaterial;
+        $attachment->id_material = $request->id_material;
+        $attachment->name = $request->attachment_name;
+        $attachment->url = $url;
+        $attachment->save();
+
+        return redirect('manage_chapter/'.$material->id_chapter);
+    }
+
+    public function remove_material_file($id_file){
+
+        $file = FilesMaterial::find($id_file);
+        if ($file == null) {
+            return "error : file material not found";
+        }
+        $material = Material::find($file->id_material);
+        DB::table('files_materials')->where('id','=',$id_file)->delete();
+
+        return redirect('manage_chapter/'.$material->id_chapter);
+    }
+
+    public function edit_training( $id_training){
+        $module = ModulTraining::find($id_training);
+        $parent = ModulTraining::where('is_child', 0)->get();
+        if ($module == null) {
+            return "error: module not found";
+        }
+
+        return view('admin.training_edit')->with('module', $module)->with('parent',$parent);
+    }
+
+    public function edit_training_submit(Request $request){
+        $module = ModulTraining::find($request->id_module);
+        if ($module == null) {
+            return "error: module not found";
+        }
+        $module->modul_name    = $request->modul_name;
+        $module->id_parent     = $request->id_parent;
+        $module->description  = $request->description;
+        $module->date          = $request->date;
+        $module->time          = $request->time;
+        $module->save();
+
+        return redirect('manage_training/'.$request->id_module);   
+
     }
 
 }

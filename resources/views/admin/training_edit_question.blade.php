@@ -33,15 +33,18 @@
                     <label>Question</label>
                     <textarea class="textarea" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$question->question_text}}</textarea>
                 </div>
-                <div class="col-md-12">
-                  @foreach ($question['option'] as $key => $option)
-                  <div class="form-group">
-                    <label for="title">Option {{$key+1}}</label>
-                    <input type="text" class="form-control" name="option{{$key+1}}" value="{{$option->option_text}}">
+                
+                  <h5><strong>Options</strong></h5>
+                  <button class="add_field_button btn btn-default">Add More Fields</button>
+                  <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
+                    @foreach ($question['option'] as $key => $option)
+                    @if($key < 2)
+                    <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]"></div>
+                    @else
+                    <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]"><a href="#" class="remove_field">Remove</a></div>
+                    @endif
+                    @endforeach
                   </div>
-                  @endforeach
-                  
-                </div>
 
                 <div class="col-md-12 text-center">
                  <input type="submit" name="submit" class="btn btn-default">
@@ -112,6 +115,26 @@ $(document).ready(function(){
     $('#preview_news_content').html(input);
 
    });
+});
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="col-md-12" style="padding-bottom: 5px;"><input type="text" style="width: 80%;" class="form-control" placeholder="input option" name="option[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
 });
 </script>
 

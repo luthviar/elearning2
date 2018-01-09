@@ -49,16 +49,11 @@
                     <!-- Textarea -->
                   <div class="form-group">
                       <label>Chapter Description</label>
-                      
-                      <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
-                        <?php if($chapter->category == 0): ?>
-                        <?php echo e($chapter['material']->description); ?>
-
+                      <?php if($chapter->category == 0): ?>
+                      <textarea class="textarea" id="content" name="description" value="<?php echo e($chapter['material']->description); ?>" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                         <?php else: ?>
-                        <?php echo e($chapter['test']->description); ?>
-
+                        <textarea class="textarea" id="content" name="description" value="<?php echo e($chapter['test']->description); ?>" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($chapter['test']->description); ?></textarea>
                         <?php endif; ?>
-                        </textarea>
                   </div>
                     
                   <div class="col-md-12 text-center">

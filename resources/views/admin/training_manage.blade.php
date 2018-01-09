@@ -22,7 +22,7 @@
       <div class="col-md-12">
       <div class="box box-primary text-center">
             <div class="box-header">
-              <h3 class="box-title">{{$training->modul_name}} </h3><span class="pull-right"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i></span>
+              <h3 class="box-title">{{$training->modul_name}} </h3><span class="pull-right"><a href="{{url('edit_training',$training->id)}}"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i></a></span>
             </div>
             <div class="box-body">
 
@@ -118,7 +118,6 @@
                       <th>Chapter</th>
                       <th>Type</th>
                       <th>Content Count</th>
-                      <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -135,7 +134,7 @@
                       <td>{{count($chapter['test']['questions'])}} Question</td>
                       @endif
                       
-                      <td>ready</td>
+              
                     </tr>
                     @endforeach
                     @endif

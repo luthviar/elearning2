@@ -29,19 +29,29 @@
                  <form action="{{url('/add_chapter_submit')}}" method="post">
                  {{csrf_field()}}
                   <input type="hidden" name="id_module" value="{{$module->id}}">
+                  
+                  <div class="col-md-12">
                   <!-- Title -->
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label for="title">Chapter Name</label>
-                    <input type="text" class="form-control" name="chapter_name" id="title" placeholder="Training title">
+                    <input type="text" class="form-control" name="chapter_name" id="title" placeholder="Chapter title">
                   </div>
                     <!-- select -->
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label>Chapter Type</label>
                     <select class="form-control" id="add_chapter_type" name="category">
                       <option value="0">Material</option>
                       <option value="1">Test</option>
                     </select>
                   </div>
+
+                  <!-- Title -->
+                  <div class="form-group col-md-4 hidden" id="test_time">
+                    <label for="time">Test Time</label>
+                    <input type="text" class="form-control" name="time" id="time" placeholder="in minutes">
+                  </div>
+                  </div>
+
                     <!-- Textarea -->
                   <div class="form-group">
                       <label>Chapter Description</label>
@@ -81,12 +91,10 @@
       var chapter_type = $('#add_chapter_type').val();
     if (chapter_type == 0) {
       // material form load
-      $('#add_test_form').addClass('hidden');
-      $('#add_material_form').removeClass('hidden');
+      $('#test_time').addClass('hidden');
     } else {
       // test form load
-      $('#add_test_form').removeClass('hidden');
-      $('#add_material_form').addClass('hidden');
+      $('#test_time').removeClass('hidden');
     }
   });
 </script>

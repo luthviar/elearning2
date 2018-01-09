@@ -29,7 +29,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
-                            <?php if(Auth::user()->is_admin == 1): ?>
+                            <?php if(Auth::user()->role == 1): ?>
                                 <a href="<?php echo e(url('/personnel')); ?>">
                                     Acting As Admin
                                 </a>
@@ -148,10 +148,10 @@
                 </a>
                 <ul class="sub-menu">
                     <?php $__currentLoopData = Session::get('module'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li>
-                            <a href="<?php echo e(url('/module/'.$modul->id)); ?>"><?php echo e($modul->nama); ?></a>
-                        </li>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <li>
+									<a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a>
+								</li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
 
             </li>
@@ -173,7 +173,7 @@
             <?php endif; ?>
 
             <li class="login">
-                <?php if(Auth::user()->is_admin == 1): ?>
+                <?php if(Auth::user()->role == 1): ?>
                     <a href="<?php echo e(url('personnel')); ?>">
                         Acting As Admin
                     </a>

@@ -278,3 +278,18 @@ Route::get('edit_chapter/{id}', 'TrainingController@edit_chapter');
 Route::post('edit_chapter_submit', 'TrainingController@edit_chapter_submit');
 
 Route::get('remove_chapter/{id}', 'TrainingController@remove_chapter');
+
+Route::post('material_add', 'TrainingController@material_add');
+
+Route::get('remove_material_file/{id}', 'TrainingController@remove_material_file');
+
+Route::get('edit_training/{id}','TrainingController@edit_training');
+
+Route::post('edit_training_submit','TrainingController@edit_training_submit');
+
+
+// -------------------------------------
+// ORG. STRUCTURE
+// -------------------------------------
+
+Route::post('get_unit','OrganizationStructureController@get_unit');

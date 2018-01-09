@@ -5,7 +5,7 @@
             class="icon">
               <span>
                   <i class="glyphicon glyphicon-th-list"></i>
-                   List of Chapters
+                   List of Chaptersa
               </span>
         </a>
     </li>
@@ -16,7 +16,11 @@
 
             <?php if($chapter->category == 0): ?>
                 <li class="<?php echo e(Request::is('material/*') ? 'tab-current' : ''); ?>">
-                    <a href="<?php echo e(url('/material', $chapter->id)); ?>" class="icon">
+                    <a
+                        
+                        onclick="window.open('<?php echo e(url('/material',$chapter->id)); ?>','_self')"
+                        style="cursor:pointer;"
+                        class="icon">
                       <span>
                           <i class="glyphicon glyphicon-book"></i>
                           <?php echo e($chapter->chapter_name); ?>
@@ -28,17 +32,27 @@
             <?php else: ?>
 
                 <?php if(Request::is('review_test/*')): ?>
-                <li class="<?php echo e(Request::is('review_test/*') ? 'tab-current' : ''); ?>">
+                <li class="<?php echo e(Request::is('review_test/'.$chapter->id) ? 'tab-current' : ''); ?>">
                 <?php else: ?>
-                <li class="<?php echo e(Request::is('test/*') ? 'tab-current' : ''); ?>">
+                <li class="<?php echo e(Request::is('test/'.$chapter->id) ? 'tab-current' : ''); ?>">
                 <?php endif; ?>
-
+                    <?php if(Session::get('record') == 'yes'): ?>
                     <a
-                        
-                        href="<?php echo e(url('/test', $chapter->id)); ?>"
+                        onclick="window.open('<?php echo e(url('/test',$chapter->id)); ?>','_self')"
+                        target="_self"
                         class="icon"
                         style="margin-right: 0px; cursor: pointer;"
                     >
+                        
+                        <?php elseif(Session::get('record') != 'yes'): ?>
+                    <a
+                        onclick="window.open('<?php echo e(url('/test',$chapter->id)); ?>','_self')"
+                        target="_self"
+                        class="icon"
+                        style="margin-right: 0px; cursor: pointer;"
+                        data-toggle="modal" data-target="#TestStart"
+                    >
+                        <?php endif; ?>
                       <span>
                           <i class="glyphicon glyphicon-pencil"></i>
                           <?php echo e($chapter->chapter_name); ?>
@@ -48,10 +62,11 @@
                 </li>
 
 
+
             <?php endif; ?>
 
         <?php else: ?>
-            <li class="<?php echo e(Request::is('test/*') ? 'tab-current' : ''); ?>">
+            <li class="<?php echo e(Request::is('test/*') || Request::is('material/*') || Request::is('review_test/*') ? 'tab-current' : ''); ?>">
                 <a href="#" class="icon">
                   <span>
                       <i class="glyphicon glyphicon-pencil"></i>

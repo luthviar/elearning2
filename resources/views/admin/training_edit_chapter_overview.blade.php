@@ -50,14 +50,11 @@
                     <!-- Textarea -->
                   <div class="form-group">
                       <label>Chapter Description</label>
-                      
-                      <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
-                        @if($chapter->category == 0)
-                        {{$chapter['material']->description}}
+                      @if($chapter->category == 0)
+                      <textarea class="textarea" id="content" name="description"  placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$chapter['material']->description}}</textarea>
                         @else
-                        {{$chapter['test']->description}}
+                        <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$chapter['test']->description}}</textarea>
                         @endif
-                        </textarea>
                   </div>
                     
                   <div class="col-md-12 text-center">
