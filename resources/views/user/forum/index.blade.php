@@ -1099,4 +1099,20 @@
         {{--</div>--}}
     {{--</div>--}}
 
+	
+<!-- Scroll dalem modal
+<style>
+.modal_umum,modal_department,modal_job_family,{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 400px;
+  overflow-y: auto;
+}
+</style> -->
+
 @endsection
+
