@@ -180,11 +180,11 @@
                 <?php endif; ?>
                 <a href="<?php echo e(route('logout')); ?>"
                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();"
+                   document.getElementById('logout-form').submit();"
                    style="
-                                    :hover{
-                                        background-color: red;
-                                    }"
+                        :hover{
+                            background-color: red;
+                        }"
                 >
                     Logout
                 </a>

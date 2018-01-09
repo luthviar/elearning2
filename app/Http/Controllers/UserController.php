@@ -11,6 +11,8 @@ use App\EmployeeScore;
 use App\LevelPosition;
 use App\EmployeeStatus;
 use App\OsDivision;
+use Session;
+use App\Auth;
 
 class UserController extends Controller
 {
@@ -55,6 +57,12 @@ class UserController extends Controller
     // -------------------------------------------
 
     public function personnel_list () {
+        $user = new User();
+        $profile = $user->profile_view(\Auth::user()->id);
+        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
+
+        Session::put('profile', $profile);
+//        dd(Session::get('profile')['level']->nama_level);
         return view('admin.personnel.personnel');
     }
     public function personnel_list_serverside (Request $request) {
