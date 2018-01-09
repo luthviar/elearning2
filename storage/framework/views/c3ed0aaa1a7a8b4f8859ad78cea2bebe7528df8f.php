@@ -1106,6 +1106,7 @@
     
 
 	
+<!-- Scroll dalem modal
 <style>
 .modal_umum,modal_department,modal_job_family,{
     display: block !important;
@@ -1117,7 +1118,8 @@
   height: 400px;
   overflow-y: auto;
 }
-</style>
+</style> -->
+
 <?php $__env->stopSection(); ?>
 
 
