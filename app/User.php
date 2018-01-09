@@ -52,24 +52,24 @@ class User extends Authenticatable
 
         function get_employee_data () {
             $data['employee_status'] = EmployeeStatus::find(\Auth::user()->id_employee_status);
-            $org_structure = OrganizationalStructure::find(\Auth::user()->position);
+            $org_structure = OrganizationalStructure::find(\Auth::user()->id_organizational_structure);
             if ($org_structure != null) {
-                if ($org_structure->id_department != null) {
+                if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
                 } else {
                     $data['department'] = null;
                 }
-                if ($org_structure->id_unit != null) {
+                if ($org_structure->id_unit != 0) {
                     $data['unit'] = OsUnit::find($org_structure->id_unit);
                 }else{
                     $data['unit'] = null;
                 }
-                if ($org_structure->id_section != null) {
+                if ($org_structure->id_section != 0) {
                     $data['section'] = OsSection::find($org_structure->id_section);
                 } else {
                     $data['section'] = null;
                 }
-                if ($org_structure->id_division != null) {
+                if ($org_structure->id_division != 0) {
                     $data['division'] = OsDivision::find($org_structure->id_division);
                 } else {
                     $data['division'] = null;
@@ -113,24 +113,24 @@ class User extends Authenticatable
 
         function get_employee_data ($user) {
             $data['employee_status'] = EmployeeStatus::find($user->id_employee_status);
-            $org_structure = OrganizationalStructure::find($user->position);
+            $org_structure = OrganizationalStructure::find($user->id_organizational_structure);
             if ($org_structure != null) {
-                if ($org_structure->id_department != null) {
+                if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
                 } else {
                     $data['department'] = null;
                 }
-                if ($org_structure->id_unit != null) {
+                if ($org_structure->id_unit != 0) {
                     $data['unit'] = OsUnit::find($org_structure->id_unit);
                 }else{
                     $data['unit'] = null;
                 }
-                if ($org_structure->id_section != null) {
+                if ($org_structure->id_section != 0) {
                     $data['section'] = OsSection::find($org_structure->id_section);
                 } else {
                     $data['section'] = null;
                 }
-                if ($org_structure->id_division != null) {
+                if ($org_structure->id_division != 0) {
                     $data['division'] = OsDivision::find($org_structure->id_division);
                 } else {
                     $data['division'] = null;
@@ -142,7 +142,9 @@ class User extends Authenticatable
         }
 
         $user['personal_data'] = get_personal_data($id_user);
-        if ($user['personal_data']->status == 'error') {
+
+        if ($user['personal_data']['status'] == 'error') {
+//            dd($user['personal_data']);
             return $user['personal_data'];
         }
         $data = User::find($id_user);

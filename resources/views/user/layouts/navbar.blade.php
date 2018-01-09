@@ -30,7 +30,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
                             @if(Auth::user()->role == 1)
-                                <a href="{{ url('/personnel') }}">
+                                <a href="{{ URL::action('UserController@personnel_list') }}">
                                     Acting As Admin
                                 </a>
                             @endif
@@ -179,7 +179,7 @@
 
             <li class="login">
                 @if(Auth::user()->role == 1)
-                    <a href="{{ url('personnel') }}">
+                    <a href="{{ URL::action('UserController@personnel_list') }}">
                         Acting As Admin
                     </a>
                 @endif

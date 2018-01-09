@@ -4,10 +4,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{URL::asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                <img src="<?php echo e(URL::asset('AdminLTE/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{Auth::user()->name}}</p>
+                <p><?php echo e(Auth::user()->name); ?></p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -16,11 +16,10 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
 
-            {{-- Menu Personnel --}}
-            <li class="treeview {{
-                     Request::is('admin/personnel/*') ||
+            
+            <li class="treeview <?php echo e(Request::is('admin/personnel/*') ||
                      Request::is('admin/personnel')
-                     ? 'active' : '' }}">
+                     ? 'active' : ''); ?>">
                 <a href="#">
                     <i class="fa fa-user"></i>
                     <span>Personnel</span>
@@ -29,21 +28,19 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{
-                     Request::is('admin/personnel')
-                     ? 'active' : '' }}">
-                        <a href="{{ URL::action('UserController@personnel_list') }}"><i class="fa fa-circle-o"></i>
+                    <li class="<?php echo e(Request::is('admin/personnel')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('UserController@personnel_list')); ?>"><i class="fa fa-circle-o"></i>
                             View Personnel</a></li>
 
-                    <li class="{{
-                     Request::is('admin/personnel/add')
-                     ? 'active' : '' }}">
-                        <a href="{{ URL::action('UserController@personnel_add') }}"><i class="fa fa-circle-o"></i>
+                    <li class="<?php echo e(Request::is('admin/personnel/add')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('UserController@personnel_add')); ?>"><i class="fa fa-circle-o"></i>
                             Add Personnel</a></li>
                 </ul>
             </li>
 
-            {{-- Menu Training --}}
+            
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pencil"></i>
@@ -53,14 +50,14 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::action('TrainingController@admin_training') }}"><i class="fa fa-circle-o"></i>
+                    <li><a href="<?php echo e(URL::action('TrainingController@admin_training')); ?>"><i class="fa fa-circle-o"></i>
                             View Training</a></li>
-                    <li><a href="{{ URL::action('TrainingController@add_training') }}"><i class="fa fa-circle-o"></i>
+                    <li><a href="<?php echo e(URL::action('TrainingController@add_training')); ?>"><i class="fa fa-circle-o"></i>
                             Add Training</a></li>
                 </ul>
             </li>
 
-            {{-- Menu Request Access --}}
+            
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-laptop"></i>
@@ -75,7 +72,7 @@
                 </ul>
             </li>
 
-            {{-- Menu Slider --}}
+            
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -85,7 +82,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::action('SliderController@slider_list') }}">
+                    <li><a href="<?php echo e(URL::action('SliderController@slider_list')); ?>">
                             View Slider
                         </a></li>
                     <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>
@@ -103,8 +100,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('admin_news')}}"><i class="fa fa-circle-o"></i> View News</a></li>
-                    <li><a href="{{url('news_add')}}"><i class="fa fa-circle-o"></i> Add News</a></li>
+                    <li><a href="<?php echo e(url('admin_news')); ?>"><i class="fa fa-circle-o"></i> View News</a></li>
+                    <li><a href="<?php echo e(url('news_add')); ?>"><i class="fa fa-circle-o"></i> Add News</a></li>
                 </ul>
             </li>
 
@@ -117,9 +114,9 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('admin_forum_public')}}"><i class="fa fa-circle-o"></i> Public Forum</a></li>
-                    <li><a href="{{url('admin_forum_job_family')}}"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
-                    <li><a href="{{url('admin_forum_department')}}"><i class="fa fa-circle-o"></i> Department Forum</a></li>
+                    <li><a href="<?php echo e(url('admin_forum_public')); ?>"><i class="fa fa-circle-o"></i> Public Forum</a></li>
+                    <li><a href="<?php echo e(url('admin_forum_job_family')); ?>"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
+                    <li><a href="<?php echo e(url('admin_forum_department')); ?>"><i class="fa fa-circle-o"></i> Department Forum</a></li>
                 </ul>
             </li>
         </ul>
