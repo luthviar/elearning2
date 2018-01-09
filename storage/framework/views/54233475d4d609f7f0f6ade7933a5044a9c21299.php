@@ -82,7 +82,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(URL::action('SliderController@slider_list')); ?>">
+                    <li><a href="<?php echo e(URL::action('SliderController@slider_list')); ?>"><i class="fa fa-circle-o"></i>
                             View Slider
                         </a></li>
                     <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>
@@ -100,8 +100,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('admin_news')); ?>"><i class="fa fa-circle-o"></i> View News</a></li>
-                    <li><a href="<?php echo e(url('news_add')); ?>"><i class="fa fa-circle-o"></i> Add News</a></li>
+                    <li><a href="<?php echo e(URL::action('NewsController@news_list')); ?>"><i class="fa fa-circle-o"></i> View News</a></li>
+                    <li><a href="<?php echo e(URL::action('NewsController@news_add')); ?>"><i class="fa fa-circle-o"></i> Add News</a></li>
                 </ul>
             </li>
 

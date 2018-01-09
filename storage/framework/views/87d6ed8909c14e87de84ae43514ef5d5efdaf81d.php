@@ -1,8 +1,8 @@
+<?php $__env->startSection('page-name'); ?>
+    Add Personnel
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-
-
-
-
 
     <!-- Main content -->
     <section class="content">

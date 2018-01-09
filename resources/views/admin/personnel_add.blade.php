@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    Add Personnel
+@endsection
+
 @section('content')
-
-
-
-
 
     <!-- Main content -->
     <section class="content">

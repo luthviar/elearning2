@@ -1,15 +1,13 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
+<?php $__env->startSection('page-name'); ?>
 Add News
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{ URL::action('NewsController@news_add_submit') }}" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(URL::action('NewsController@news_add_submit')); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
@@ -19,7 +17,8 @@ Add News
               <h3 class="box-title">Add News</h3>
             </div>
             <div class="box-body">
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
+
 
             
               <!-- Title -->
@@ -75,7 +74,7 @@ Add News
                 <!-- CONTENT -->
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img id="img_prev" src="{{ URL::asset('gambar.png')}}" style="width: 100%; height: 100px;">
+                    <img id="img_prev" src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-8">
                     <h3><strong id="preview_news_title">News Title</strong></h3>
@@ -108,10 +107,10 @@ Add News
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -197,4 +196,5 @@ $("#img").change(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

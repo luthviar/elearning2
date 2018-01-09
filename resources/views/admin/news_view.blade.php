@@ -1,20 +1,10 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    View News
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        View News
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/admin_news')}}">News</a></li>
-        <li class="active">{{$news->title}}</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">

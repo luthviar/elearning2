@@ -98,7 +98,10 @@ class UserController extends Controller
             foreach ($users as $user)
             {
 
-                $nestedData['name'] = "<a href='".url('/personnel',$user->id)."'>".$user->name."</a>";
+                $nestedData['name'] =
+                    "<a href='".url(action('UserController@profile_view',$user->id))."'>"
+                    .$user->name."</a>";
+
                 if ($user->role == 1) {
                     $nestedData['role'] = "Administrator";
                 } else {

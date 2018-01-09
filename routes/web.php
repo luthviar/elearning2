@@ -149,6 +149,11 @@ Route::get('/home2', 'HomeController@index2')->name('home2');
 |--------------------------------------------------------------------------
 */
 
+
+Route::get('/admin', function(){
+    return redirect(action('UserController@personnel_list'));
+});
+
 Route::prefix('admin')->group(function () {
 
     Route::get('/admin', function(){
@@ -173,31 +178,37 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/personnel/{id}', 'UserController@profile_view');
 
-});
+
 
     // ----------------------------------
     // NEWS
     // -----------------------------------
-
-    Route::get('/news_add', function(){
-        return view('admin.news_add');
+    Route::get('/news', function(){
+        return redirect(action('NewsController@news_list'));
     });
 
-    Route::get('admin_news','NewsController@news_list');
+    Route::prefix('news')->group(function () {
 
-    Route::post('admin_news','NewsController@news_list_serverside');
+        Route::get('add','NewsController@news_add');
 
-    Route::get('admin_news/{id}','NewsController@admin_news_view');
+        Route::get('all','NewsController@news_list');
 
-    Route::post('news_add_submit', 'NewsController@news_add_submit');
+        Route::post('admin_news','NewsController@news_list_serverside');
 
-    Route::get('news_edit/{id}', 'NewsController@news_edit');
+        Route::get('view-{id}','NewsController@admin_news_view');
 
-    Route::post('news_edit_submit', 'NewsController@news_edit_submit');
+        Route::post('news_add_submit', 'NewsController@news_add_submit');
 
-    Route::get('news_remove/{id}', 'NewsController@news_remove');
+        Route::get('{id}', 'NewsController@news_edit');
 
-    Route::get('news_publish/{id}', 'NewsController@publish_news');
+        Route::post('news_edit_submit', 'NewsController@news_edit_submit');
+
+        Route::get('news_remove/{id}', 'NewsController@news_remove');
+
+        Route::get('news_publish/{id}', 'NewsController@publish_news');
+
+    });
+});
 
     // -------------------------------------
     // SLIDER

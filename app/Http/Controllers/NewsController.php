@@ -214,7 +214,9 @@ class NewsController extends Controller
             foreach ($news as $det_news)
             {
 
-                $nestedData['title'] = "<a href='".url('/admin_news',$det_news->id)."'>".$det_news->title."</a>";
+                $nestedData['title'] =
+                    "<a href='".url(action('NewsController@admin_news_view',$det_news->id))."'>"
+                    .$det_news->title."</a>";
 
                 $user = new User();
                 $user = $user->get_user($det_news->created_by);
@@ -366,5 +368,10 @@ class NewsController extends Controller
         $news->save();
 
         return redirect('admin_news/'.$id_news);
+    }
+
+    public function news_add()
+    {
+        return view('admin.news_add');
     }
 }

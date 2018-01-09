@@ -30,17 +30,6 @@
     <!--                  SIDEBAR                       -->
     <!-- ********************************************** -->
     <!-- Content Header (Page header) -->
-    {{--<section class="content-header">--}}
-        {{--<h1>--}}
-            {{--Add Personnel--}}
-        {{--</h1>--}}
-        {{--<ol class="breadcrumb">--}}
-            {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
-            {{--<li><a href="{{url('/personnel')}}">Personnel</a></li>--}}
-            {{--<li class="active">Add Personnel</li>--}}
-        {{--</ol>--}}
-    {{--</section>--}}
-
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -54,15 +43,14 @@
                 @yield('page-name')
             </h1>
             <ol class="breadcrumb">
+                <i class="fa fa-home"></i>
         @for($i = 1; $i <= count(\Illuminate\Support\Facades\Request::segments()); $i++)
-
 
             @if($i < count(\Illuminate\Support\Facades\Request::segments()) & $i > 0)
                 <?php $link .= "/" . \Illuminate\Support\Facades\Request::segment($i); ?>
 
                 <li>
                     <a href="<?= $link ?>">
-                        <i class="fa fa-home"></i>
                         {{ \Illuminate\Support\Facades\Request::segment($i) }}
                     </a>
                 </li>
