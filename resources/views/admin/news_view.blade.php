@@ -28,6 +28,10 @@
                 <div class="col-md-12">
                   <a href="{{url('news_publish',$news->id)}}" class="btn btn-success" style="width: 100%">publish news</a>
                 </div>
+                @else
+                <div class="col-md-12">
+                  <a href="{{url('news_unpublish',$news->id)}}" class="btn btn-warning" style="width: 100%">unpublish news</a>
+                </div>
                 @endif
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
