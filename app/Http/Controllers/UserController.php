@@ -129,6 +129,11 @@ class UserController extends Controller
         echo json_encode($json_data); 
     }
 
+    public function personnel_add()
+    {
+        return view('admin.personnel_add');
+    }
+
     public function profile_view( $id_user ){
         //get modul training
         $modul = new ModulTraining();
@@ -142,6 +147,9 @@ class UserController extends Controller
 
         $employee_record = EmployeeScore::where('id_user', $id_user)->orderBy('id','desc')->get();
 
-        return view('admin.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
+        return view('admin.personnel_view')
+            ->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
     }
+
+
 }

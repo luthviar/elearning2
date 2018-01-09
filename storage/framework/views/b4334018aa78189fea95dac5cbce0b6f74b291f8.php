@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <title>
-        @yield('title')
+        <?php echo $__env->yieldContent('title'); ?>
         Elearning Aerofood
     </title>
     <!-- ********************************************** -->
     <!--                  HEAD IMPORT CSS DLL           -->
     <!-- ********************************************** -->
-    @include('admin.layouts.header')
-    @yield('header')
+    <?php echo $__env->make('admin.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->yieldContent('header'); ?>
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
@@ -17,83 +17,86 @@
     <!-- ********************************************** -->
     <!--                  NAVBAR                        -->
     <!-- ********************************************** -->
-    @include('admin.layouts.navbar')
+    <?php echo $__env->make('admin.layouts.navbar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 
     <!-- Left side column. contains the logo and sidebar -->
     <!-- ********************************************** -->
     <!--                  SIDEBAR                       -->
     <!-- ********************************************** -->
-    @include('admin.layouts.sidebar')
+    <?php echo $__env->make('admin.layouts.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
     <!-- ********************************************** -->
     <!--                  SIDEBAR                       -->
     <!-- ********************************************** -->
     <!-- Content Header (Page header) -->
-    {{--<section class="content-header">--}}
-        {{--<h1>--}}
-            {{--Add Personnel--}}
-        {{--</h1>--}}
-        {{--<ol class="breadcrumb">--}}
-            {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
-            {{--<li><a href="{{url('/personnel')}}">Personnel</a></li>--}}
-            {{--<li class="active">Add Personnel</li>--}}
-        {{--</ol>--}}
-    {{--</section>--}}
+    
+        
+            
+        
+        
+            
+            
+            
+        
+    
 
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-        {{-- START BREADCRUMB --}}
-        @php
+        
+        <?php
             $link = url('/');
-        @endphp
+        ?>
         <section class="content-header">
             <h1>
-                @yield('page-name')
+                <?php echo $__env->yieldContent('page-name'); ?>
             </h1>
             <ol class="breadcrumb">
-        @for($i = 1; $i <= count(\Illuminate\Support\Facades\Request::segments()); $i++)
+        <?php for($i = 1; $i <= count(\Illuminate\Support\Facades\Request::segments()); $i++): ?>
 
 
-            @if($i < count(\Illuminate\Support\Facades\Request::segments()) & $i > 0)
+            <?php if($i < count(\Illuminate\Support\Facades\Request::segments()) & $i > 0): ?>
                 <?php $link .= "/" . \Illuminate\Support\Facades\Request::segment($i); ?>
 
                 <li>
                     <a href="<?= $link ?>">
                         <i class="fa fa-home"></i>
-                        {{ \Illuminate\Support\Facades\Request::segment($i) }}
+                        <?php echo e(\Illuminate\Support\Facades\Request::segment($i)); ?>
+
                     </a>
                 </li>
-                    {!!' <i class="fa fa-angle-right"></i> '!!}
-            @else
+                    <?php echo ' <i class="fa fa-angle-right"></i> '; ?>
+
+            <?php else: ?>
                 <li class="active">
-                {{\Illuminate\Support\Facades\Request::segment($i)}}
+                <?php echo e(\Illuminate\Support\Facades\Request::segment($i)); ?>
+
                 </li>
-            @endif
-        @endfor
+            <?php endif; ?>
+        <?php endfor; ?>
             </ol>
         </section>
-        {{-- END BREADCRUMB --}}
+        
 
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </div>
     <!-- /.content-wrapper -->
 
     <!-- ********************************************** -->
     <!--                  FOOTER                        -->
     <!-- ********************************************** -->
-    @include('admin.layouts.footer')
+    <?php echo $__env->make('admin.layouts.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
     <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
-{{-- this include is required for all page--}}
-@include('admin.layouts.script')
 
-{{-- if you need script only to a page, yield this --}}
-@yield('script')
+<?php echo $__env->make('admin.layouts.script', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+<?php echo $__env->yieldContent('script'); ?>
 </body>
 </html>

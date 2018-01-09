@@ -1,6 +1,4 @@
-@extends('admin.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -9,7 +7,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">Training</a></li>
+        <li><a href="<?php echo e(url('/personnel')); ?>">Training</a></li>
         <li class="active">Add Training</li>
       </ol>
     </section>
@@ -26,8 +24,9 @@
             </div>
             <div class="box-body">
 
-            <form action="{{url('/add_training')}}" method="post">
-              {{ csrf_field() }}
+            <form action="<?php echo e(url('/add_training')); ?>" method="post">
+              <?php echo e(csrf_field()); ?>
+
             
               <!-- Title -->
               <div class="form-group">
@@ -40,9 +39,9 @@
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
                   <select class="form-control" name="id_parent">
-                    @foreach($parent as $par)
-                    <option value="{{$par->id}}">{{ $par->modul_name}}</option>
-                    @endforeach
+                    <?php $__currentLoopData = $parent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </select>
                 </div>
 
@@ -103,9 +102,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   //Date picker
     $('#datepicker').datepicker({
@@ -121,7 +120,7 @@
 
 </script>
 
-<<!-- script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<<!-- script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   $(function () {
@@ -169,4 +168,5 @@ $(document).ready(function(){
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

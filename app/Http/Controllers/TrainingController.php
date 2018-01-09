@@ -51,6 +51,7 @@ class TrainingController extends Controller
         if ( $user_chapter_record->is_user_has_record(\Auth::user()->id,$id_training) == 'no') {
             $initiate = $user_chapter_record->add_user_chapter_record_initiate(\Auth::user()->id, $id_training);
             if ($initiate != 'selesai') {
+//                dd($initiate);
                 return view('user.error')->with('error', $initiate);
             }
         }

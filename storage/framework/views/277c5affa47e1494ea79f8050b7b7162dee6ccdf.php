@@ -1,11 +1,18 @@
-@extends('admin.layouts.app')
-@section('page-name')
-Personnel View
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        User Profile
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo e(url('/personnel')); ?>">Personnel</a></li>
+        <li class="active">User profile</li>
+      </ol>
+    </section>
+
+
 
     <!-- Main content -->
     <section class="content">
@@ -16,63 +23,63 @@ Personnel View
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('AdminLTE/dist/img/user4-128x128.jpg')}}" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset('AdminLTE/dist/img/user4-128x128.jpg')); ?>" alt="User profile picture">
 
-              <h3 class="profile-username text-center">{{$profile['personal_data']->name}}</h3>
+              <h3 class="profile-username text-center"><?php echo e($profile['personal_data']->name); ?></h3>
 
-              <p class="text-muted text-center">{{$profile['personal_data']->position_name}}</p>
+              <p class="text-muted text-center"><?php echo e($profile['personal_data']->position_name); ?></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                	@if ($profile['personal_data']->role == 1)
+                	<?php if($profile['personal_data']->role == 1): ?>
                   	<b>Role</b> <a class="pull-right">Administrator</a>
-                  	@else
+                  	<?php else: ?>
                   	<b>Role</b> <a class="pull-right">User</a>
-                  	@endif
+                  	<?php endif; ?>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <a class="pull-right">{{$profile['personal_data']->email}}</a>
+                  <b>Email</b> <a class="pull-right"><?php echo e($profile['personal_data']->email); ?></a>
                 </li>
                 <li class="list-group-item">
                   <b>Level</b> <a class="pull-right">13,287</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Employee Status</b> <a class="pull-right">{{$profile['employee_data']['employee_status']->name}}</a>
+                  <b>Employee Status</b> <a class="pull-right"><?php echo e($profile['employee_data']['employee_status']->name); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Birtdate</b> <a class="pull-right">{{$profile['personal_data']->birtdate}}</a>
+                  <b>Birtdate</b> <a class="pull-right"><?php echo e($profile['personal_data']->birtdate); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Education</b> <a class="pull-right">{{ $profile['personal_data']->education}}</a>
+                  <b>Education</b> <a class="pull-right"><?php echo e($profile['personal_data']->education); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Date Join</b> <a class="pull-right">{{$profile['personal_data']->date_join_acs}}</a>
+                  <b>Date Join</b> <a class="pull-right"><?php echo e($profile['personal_data']->date_join_acs); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Division</b> <a class="pull-right">{{$profile['employee_data']['division']->division_name or null}}</a>
+                  <b>Division</b> <a class="pull-right"><?php echo e(isset($profile['employee_data']['division']->division_name) ? $profile['employee_data']['division']->division_name : null); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Unit</b> <a class="pull-right">{{$profile['employee_data']['unit']->unit_name or null}}</a>
+                  <b>Unit</b> <a class="pull-right"><?php echo e(isset($profile['employee_data']['unit']->unit_name) ? $profile['employee_data']['unit']->unit_name : null); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Department</b> <a class="pull-right">{{$profile['employee_data']['department']->department_name or null}}</a>
+                  <b>Department</b> <a class="pull-right"><?php echo e(isset($profile['employee_data']['department']->department_name) ? $profile['employee_data']['department']->department_name : null); ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Section</b> <a class="pull-right">{{$profile['employee_data']['section']->section_name or null}}</a>
+                  <b>Section</b> <a class="pull-right"><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></a>
                 </li>
                 <li class="list-group-item">
-                @if ($profile['personal_data']->flag_active == 1)
+                <?php if($profile['personal_data']->flag_active == 1): ?>
                   <b>Status</b> <a class="pull-right">Active</a>
-                 @else
+                 <?php else: ?>
                   <b>Status</b> <a class="pull-right">Non-Active</a>
-                 @endif
+                 <?php endif; ?>
                 </li>
               </ul>
-              @if ($profile['personal_data']->flag_active == 1)
+              <?php if($profile['personal_data']->flag_active == 1): ?>
               <a href="#" class="btn btn-danger btn-block"><b>Non-Activate</b></a>
-              @else
+              <?php else: ?>
               <a href="#" class="btn btn-success btn-block"><b>Activate</b></a>
-              @endif
+              <?php endif; ?>
             </div>
             <!-- /.box-body -->
           </div>
@@ -106,14 +113,14 @@ Personnel View
 		                </tr>
 		                </thead>
 		                <tbody>
-		                @foreach ( $training_record['records']  as $key => $record)
+		                <?php $__currentLoopData = $training_record['records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
-		                	<td>{{ $key+1}}</td>
-		                	<td>{{ $record['module']->modul_name}}</td>
-		                	<td>{{ $record['status']}}</td>
+		                	<td><?php echo e($key+1); ?></td>
+		                	<td><?php echo e($record['module']->modul_name); ?></td>
+		                	<td><?php echo e($record['status']); ?></td>
 		                	<td>1</td>
 		                </tr>
-		                @endforeach	
+		                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
 		                </tbody>
 		              </table>
 		            </div>
@@ -138,13 +145,13 @@ Personnel View
 		                </tr>
 		                </thead>
 		                <tbody>
-		                @foreach($employee_record as $key => $record)
+		                <?php $__currentLoopData = $employee_record; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
-		                	<td>{{$key+1}}</td>
-		                	<td><a href="{{$record->attachment_url}}">{{$record->attachment_name}}</a></td>
-		                	<td>{{$record->created_at}}</td>
+		                	<td><?php echo e($key+1); ?></td>
+		                	<td><a href="<?php echo e($record->attachment_url); ?>"><?php echo e($record->attachment_name); ?></a></td>
+		                	<td><?php echo e($record->created_at); ?></td>
 		                </tr>	
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 		                </tbody>
 		              </table>
 		            </div>
@@ -166,9 +173,9 @@ Personnel View
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script>
   $(function () {
     $("#record").DataTable();
@@ -176,4 +183,5 @@ Personnel View
   });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
