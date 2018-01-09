@@ -24,6 +24,15 @@
             </div>
             <div class="box-body">
 
+            <div>
+              <?php if($training->is_publish == 0): ?>
+              <a href="<?php echo e(url('training/publish',$training->id)); ?>" class="btn btn-success">publish training</a>
+              <?php else: ?>
+              <a href="<?php echo e(url('training/unpublish',$training->id)); ?>" class="btn btn-warning">unpublish training</a>
+              <?php endif; ?>
+              <a href="<?php echo e(url('training/see_participant',$training->id)); ?>" class="btn btn-info">see participant</a>
+            </div>
+            
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>

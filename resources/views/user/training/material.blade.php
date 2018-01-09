@@ -7,11 +7,11 @@
   <div class="row">
     <div class="text-center">
       <h1>{{ $chapter->chapter_name }}</h1>
-      <p>{{ $chapter['material']->description    }}</p>
+      <p>{!! html_entity_decode($chapter['material']->description)     !!}</p>
       <h4>Attachments :</h4>
       @foreach ($chapter['material']['files_material'] as $file)
       <div style="padding-bottom: 10px;">
-        <a href="/file" class="btn btn-default" style="width: 100%;">
+        <a href="{{URL::asset($file->url)}}" class="btn btn-default" style="width: 100%;">
           {{ $file->name}}
         </a>
       </div>

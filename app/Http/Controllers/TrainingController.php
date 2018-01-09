@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ModulTraining;
 use App\Auth;
 use App\UserChapterRecord;
+use App\User;
 use App\Material;
 use App\Chapter;
 use App\Test;
@@ -673,6 +674,55 @@ class TrainingController extends Controller
 
         return redirect('manage_training/'.$request->id_module);   
 
+    }
+
+    public function publish_training ($id_module){
+        $module = ModulTraining::find($id_module);
+        if ($module == null) {
+            return "error: module not found";
+        }
+        $module->is_publish = 1;
+        $module->save();
+
+        return redirect('manage_training/'.$id_module);  
+    }
+
+    public function unpublish_training ($id_module){
+        $module = ModulTraining::find($id_module);
+        if ($module == null) {
+            return "error: module not found";
+        }
+        $module->is_publish = 0;
+        $module->save();
+
+        return redirect('manage_training/'.$id_module);  
+    }
+
+    public function see_participant($id_module) {
+        $module = ModulTraining::find($id_module);
+        $module['chapter'] = Chapter::where('id_module',$id_module)->get();
+        if ($module == null) {
+            return "error: module not found";
+        }
+        $chapter_record = UserChapterRecord::where('id_module_training',$id_module)->distinct()->get(['id_user']);
+        foreach ($chapter_record as $key => $record) {
+            $record['user'] = User::find($record->id_user);
+            $record['user']['list_chapter'] = UserChapterRecord::where('id_module_training',$id_module)->where('id_user',$record->id_user)->get();
+            foreach ($record['user']['list_chapter'] as $key => $record_chaps) {
+                $chapter = Chapter::find($record_chaps->id_chapter_training);
+                if ($chapter->category == 1) {
+                    $test = Test::where('id_chapter',$chapter->id)->first();
+                    $all_question = UserTestRecord::where('id_test',$test->id)->where('id_user',$record_chaps->id_user)->get();
+                    $true_answer = UserTestRecord::where('id_test',$test->id)->where('id_user',$record_chaps->id_user)->where('is_true',1)->get();
+                    $score = (int)(count($true_answer)/count($all_question)) * 100;
+                    $record_chaps['score'] = $score;
+                } else {
+                    $record_chaps['score'] = '--';
+                }
+                
+            }
+        }
+        return view('admin.training_see_participant')->with('module',$module)->with('chapter_record',$chapter_record);
     }
 
 }

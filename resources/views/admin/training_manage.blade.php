@@ -26,6 +26,15 @@
             </div>
             <div class="box-body">
 
+            <div>
+              @if($training->is_publish == 0)
+              <a href="{{url('training/publish',$training->id)}}" class="btn btn-success">publish training</a>
+              @else
+              <a href="{{url('training/unpublish',$training->id)}}" class="btn btn-warning">unpublish training</a>
+              @endif
+              <a href="{{url('training/see_participant',$training->id)}}" class="btn btn-info">see participant</a>
+            </div>
+            
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>

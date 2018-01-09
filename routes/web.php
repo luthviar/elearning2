@@ -323,6 +323,12 @@ Route::prefix('admin')->group(function () {
 
     Route::post('edit_training_submit','TrainingController@edit_training_submit');
 
+    Route::get('training/publish/{id}', 'TrainingController@publish_training');
+
+    Route::get('training/unpublish/{id}', 'TrainingController@unpublish_training');
+
+    Route::get('training/see_participant/{id}', 'TrainingController@see_participant');
+
 
     // -------------------------------------
     // ORG. STRUCTURE
