@@ -11,6 +11,8 @@ use App\EmployeeScore;
 use App\LevelPosition;
 use App\EmployeeStatus;
 use App\OsDivision;
+use Session;
+use App\Auth;
 use App\Chapter;
 use App\OsUnit;
 use App\OsDepartment;
@@ -66,6 +68,12 @@ class UserController extends Controller
     // -------------------------------------------
 
     public function personnel_list () {
+        $user = new User();
+        $profile = $user->profile_view(\Auth::user()->id);
+        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
+
+        Session::put('profile', $profile);
+//        dd(Session::get('profile')['level']->nama_level);
         return view('admin.personnel.personnel');
     }
     public function personnel_list_serverside (Request $request) {
@@ -171,6 +179,9 @@ class UserController extends Controller
         return view('admin.personnel.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
     }
 
+    // ---------------------------------
+    // ADMIN
+    // ---------------------------------
 
     public function user_add (){
         $level_position = LevelPosition::all();
@@ -267,7 +278,7 @@ class UserController extends Controller
         $user->flag_active = 1;
         $user->save();
 
-        return redirect(action('UserController@profile_view',$user->id));   
+        return redirect(action('UserController@profile_view',$user->id));
     }
 
     public function nonactivate ($id_user) {
@@ -277,8 +288,8 @@ class UserController extends Controller
         }
         $user->flag_active = 0;
         $user->save();
-        
-        return redirect(action('UserController@profile_view',$user->id));   
+
+        return redirect(action('UserController@profile_view',$user->id));
     }
 
     public function add_score (Request $request) {
@@ -302,7 +313,7 @@ class UserController extends Controller
         $score->attachment_url  = $url;
         $score->save();
 
-        return redirect(action('UserController@profile_view',$user->id)); 
+        return redirect(action('UserController@profile_view',$user->id));
     }
 
     public function see_record($id_personnel, $id_training){
@@ -336,7 +347,7 @@ class UserController extends Controller
                     $value['score'] = (int) (count($true_answer)/count($value['test_record']))*100;
                 }
             }
-           
+
         }
 
         return view('admin.personnel_see_record')->with('user',$user)->with('training', $training)->with('status',$status)->with('user_chapter',$user_chapter);

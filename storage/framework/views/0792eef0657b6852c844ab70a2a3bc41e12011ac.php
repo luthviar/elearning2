@@ -3,9 +3,6 @@ Personnel View
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-
-  <!-- Content Header (Page header) -->
-
     <!-- Main content -->
     <section class="content">
 

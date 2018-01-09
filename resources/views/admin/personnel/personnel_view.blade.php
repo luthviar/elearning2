@@ -170,7 +170,7 @@ Personnel View
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <form action="{{url('admin/personnel/add_score')}}" method="post" enctype="multipart/form-data">
-        
+
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
