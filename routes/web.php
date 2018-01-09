@@ -216,9 +216,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('news_publish/{id}', 'NewsController@publish_news');
 
+        Route::get('news_unpublish/{id}', 'NewsController@unpublish_news');
     });
 
-    Route::get('news_unpublish/{id}', 'NewsController@unpublish_news');
 
     // -------------------------------------
     // SLIDER
@@ -249,26 +249,33 @@ Route::prefix('admin')->group(function () {
 
         Route::get('slider_remove/{id}', 'SliderController@delete_slider');
     });
-});
+
 
     // -------------------------------------
     // FORUM
     // -------------------------------------
+    Route::get('forum', function(){
+        return redirect(action('ForumController@forum_public_list'));
+    });
 
-    Route::get('admin_forum_public','ForumController@forum_public_list');
+    Route::prefix('forum')->group(function () {
 
-    Route::post('admin_forum_public','ForumController@forum_public_list_serverside');
+        Route::get('umum-all','ForumController@forum_public_list');
 
-    Route::get('admin_forum_department','ForumController@forum_department_list');
+        Route::post('admin_forum_public','ForumController@forum_public_list_serverside');
 
-    Route::post('admin_forum_department','ForumController@forum_department_list_serverside');
+        Route::get('department-all','ForumController@forum_department_list');
 
-    Route::get('admin_forum_job_family','ForumController@forum_job_family_list');
+        Route::post('admin_forum_department','ForumController@forum_department_list_serverside');
 
-    Route::post('admin_forum_job_family','ForumController@forum_job_family_list_serverside');
+        Route::get('job-family-all','ForumController@forum_job_family_list');
 
-    Route::get('admin_forum/{id_forum}','ForumController@forum_admin_view');
+        Route::post('admin_forum_job_family','ForumController@forum_job_family_list_serverside');
 
+        Route::get('view-{id_forum}','ForumController@forum_admin_view');
+
+    });
+});
     // -------------------------------------
     // TRAINING
     // -------------------------------------

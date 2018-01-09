@@ -1,28 +1,13 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    <a href="{{ url()->previous() }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    View Forum
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        View Forum
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">Forum</a></li>
-        @if($forum->category == 0)
-        <li><a href="{{url('/admin_forum_public')}}">Forum Public</a></li>
-        @elseif ($forum->category == 1)
-        <li><a href="{{url('/admin_forum_job_family')}}">Forum Job Family</a></li>
-        @else
-        <li><a href="{{url('/admin_forum_department')}}">Forum Department</a></li>
-        @endif
-        <li class="active">{{$forum->title}}</li>
-      </ol>
-    </section>
-
-
-
     <!-- Main content -->
     <section class="content">
     <div class="row">
@@ -60,10 +45,6 @@
 
         </div>
     </div>
-    <div class="row text-center">
-      <button class="btn btn-success">submit</button>
-    </div>
-
 
     </section>
     <!-- /.content -->

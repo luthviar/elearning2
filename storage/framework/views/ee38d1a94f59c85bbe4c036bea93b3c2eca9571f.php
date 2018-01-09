@@ -1,24 +1,13 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+    Forum Job Family
+<?php $__env->stopSection(); ?>
 
-@section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Forum Public
-        <small>view forum public</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Forum Public</li>
-      </ol>
-    </section>
-
+<?php $__env->startSection('content'); ?>
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Forum Public</h3>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -28,6 +17,7 @@
                   <th>Title</th>
                   <th>Created By</th>
                   <th>Snippet</th>
+                  <th>Job Family Name</th>
                   <th>Created At</th>
                 </tr>
                 </thead>
@@ -40,9 +30,9 @@
     </section>
     <!-- /.content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -50,15 +40,16 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('admin_forum_public') }}",
+                     "url": "<?php echo e(url(action('ForumController@forum_job_family_list_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
+                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "title" },
                 { "data": "created_by" },
                 { "data": "snippet" },
+                { "data": "job_family" },
                 { "data": "created_at" },
             ]  
 
@@ -67,4 +58,5 @@
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -21,7 +21,16 @@
                               <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
                               PUBLISH
                           </a>
-
+                    <?php else: ?>
+                        <a href="<?php echo e(url(action('NewsController@unpublish_news',$news->id))); ?>"
+                           class="btn btn-lg btn-info"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="Sembunyikan news ini dari publik"
+                        >
+                              <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
+                              UN-PUBLISH
+                          </a>
                     <?php endif; ?>
 
                     <a href="<?php echo e(url(action('NewsController@news_edit',$news->id))); ?>"

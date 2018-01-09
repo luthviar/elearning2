@@ -125,20 +125,42 @@
                 </ul>
             </li>
 
-            <li class="treeview">
+            
+            <li class="treeview <?php echo e(Request::is('admin/forum/*')
+                     ? 'active' : ''); ?>">
                 <a href="#">
                     <i class="fa fa-weixin" aria-hidden="true"></i>
                     <span>Forum</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
+
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('admin_forum_public')); ?>"><i class="fa fa-circle-o"></i> Public Forum</a></li>
-                    <li><a href="<?php echo e(url('admin_forum_job_family')); ?>"><i class="fa fa-circle-o"></i> Job Family Forum</a></li>
-                    <li><a href="<?php echo e(url('admin_forum_department')); ?>"><i class="fa fa-circle-o"></i> Department Forum</a></li>
+                    <li class="<?php echo e(Request::is('admin/forum/umum*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url(action('ForumController@forum_public_list'))); ?>">
+                            <i class="fa fa-circle-o"></i>
+                            Public Forum
+                        </a>
+                    </li>
+                    <li class="<?php echo e(Request::is('admin/forum/job-family*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url(action('ForumController@forum_job_family_list'))); ?>">
+                            <i class="fa fa-circle-o"></i>
+                            Job Family Forum
+                        </a>
+                    </li>
+                    <li class="<?php echo e(Request::is('admin/forum/department*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url(action('ForumController@forum_department_list'))); ?>">
+                            <i class="fa fa-circle-o"></i>
+                            Department Forum
+                        </a>
+                    </li>
                 </ul>
             </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->

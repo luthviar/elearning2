@@ -23,7 +23,16 @@
                               <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
                               PUBLISH
                           </a>
-
+                    @else
+                        <a href="{{url(action('NewsController@unpublish_news',$news->id))}}"
+                           class="btn btn-lg btn-info"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="Sembunyikan news ini dari publik"
+                        >
+                              <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
+                              UN-PUBLISH
+                          </a>
                     @endif
 
                     <a href="{{url(action('NewsController@news_edit',$news->id))}}"
@@ -46,19 +55,7 @@
             </div>
             <div class="box-body">
                 <!-- CONTENT -->
-<<<<<<< HEAD:resources/views/admin/news_view.blade.php
-                @if($news->is_publish == 0)
-                <div class="col-md-12">
-                  <a href="{{url('news_publish',$news->id)}}" class="btn btn-success" style="width: 100%">publish news</a>
-                </div>
-                @else
-                <div class="col-md-12">
-                  <a href="{{url('news_unpublish',$news->id)}}" class="btn btn-warning" style="width: 100%">unpublish news</a>
-                </div>
-                @endif
-=======
 
->>>>>>> 40d3f8ac340b4f397a676b8fa1ec0f7d40a3a908:resources/views/admin/news/news_view.blade.php
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
                     <img src="{{ URL::asset($news->url_image)}}" style="width: 100%; height: 150px;">
