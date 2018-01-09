@@ -8,15 +8,43 @@
     <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h4>View News</h4> <span class="pull-right"><a href="<?php echo e(url('news_edit',$news->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit_this_news</i></a> <a href="<?php echo e(url('news_remove',$news->id)); ?>"><i style="color:red;" class="fa fa-remove" aria-hidden="true">delete_this_news</i></a></span>
+              <h4>View News</h4>
+                <span class="pull-right">
+                    <?php if($news->is_publish == 0): ?>
+
+                          <a href="<?php echo e(url(action('NewsController@publish_news',$news->id))); ?>"
+                             class="btn btn-lg btn-success"
+                             data-toggle="tooltip"
+                             data-placement="top"
+                             title="Tampilkan publik ke seluruh user"
+                          >
+                              <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
+                              PUBLISH
+                          </a>
+
+                    <?php endif; ?>
+
+                    <a href="<?php echo e(url(action('NewsController@news_edit',$news->id))); ?>"
+                       class="btn btn-warning" style="word-spacing: normal;">
+
+                        <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+                        Edit
+                    </a>
+
+                    <a href="<?php echo e(url(action('NewsController@news_remove',$news->id))); ?>"
+                       class="btn btn-danger" style="word-spacing: normal;">
+
+                        <i style="" class="fa fa-remove" aria-hidden="true"></i>
+
+                        Delete
+                    </a>
+
+                </span>
             </div>
             <div class="box-body">
                 <!-- CONTENT -->
-                <?php if($news->is_publish == 0): ?>
-                <div class="col-md-12">
-                  <a href="<?php echo e(url('news_publish',$news->id)); ?>" class="btn btn-success" style="width: 100%">publish news</a>
-                </div>
-                <?php endif; ?>
+
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
                     <img src="<?php echo e(URL::asset($news->url_image)); ?>" style="width: 100%; height: 150px;">

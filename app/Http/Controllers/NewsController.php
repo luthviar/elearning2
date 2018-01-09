@@ -295,8 +295,8 @@ class NewsController extends Controller
                 $attachment->save();
             }
         }
-        
-        return redirect('admin_news');
+
+        return redirect(action('NewsController@news_list'));
     }
 
     public function news_edit($id_news){
@@ -345,7 +345,7 @@ class NewsController extends Controller
             }
         }
 
-        return redirect('admin_news/'.$request->id_news);
+        return redirect(action('NewsController@admin_news_view',$request->id_news));
         
     } 
 
@@ -356,7 +356,7 @@ class NewsController extends Controller
         }
         DB::table('newses')->where('id','=',$id_news)->delete();
 
-        return redirect('admin_news');
+        return redirect(action('NewsController@news_list'));
     }
 
     public function publish_news ($id_news){
@@ -367,7 +367,7 @@ class NewsController extends Controller
         $news->is_publish = 1;
         $news->save();
 
-        return redirect('admin_news/'.$id_news);
+        return redirect(action('NewsController@admin_news_view',$id_news));
     }
 
     public function news_add()

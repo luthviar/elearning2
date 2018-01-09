@@ -196,10 +196,13 @@ Route::prefix('admin')->group(function () {
         Route::post('admin_news','NewsController@news_list_serverside');
 
         Route::get('view-{id}','NewsController@admin_news_view');
+//        Route::prefix('view-{id}','NewsController@admin_news_view')->group(function () {
+//            Route::get('edit-{id}', 'NewsController@news_edit');
+//        });
 
         Route::post('news_add_submit', 'NewsController@news_add_submit');
 
-        Route::get('{id}', 'NewsController@news_edit');
+        Route::get('edit-{id}', 'NewsController@news_edit');
 
         Route::post('news_edit_submit', 'NewsController@news_edit_submit');
 

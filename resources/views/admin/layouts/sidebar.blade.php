@@ -94,7 +94,10 @@
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview {{
+                     Request::is('admin/news/*') ||
+                     Request::is('admin/news')
+                     ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     <span> News</span>
@@ -103,8 +106,18 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::action('NewsController@news_list') }}"><i class="fa fa-circle-o"></i> View News</a></li>
-                    <li><a href="{{URL::action('NewsController@news_add') }}"><i class="fa fa-circle-o"></i> Add News</a></li>
+                    <li class="{{
+                     Request::is('admin/news/all') ||
+                     Request::is('admin/news/view*') ||
+                     Request::is('admin/news/edit*')
+                     ? 'active' : '' }}">
+                        <a href="{{ URL::action('NewsController@news_list') }}"><i class="fa fa-circle-o"></i> View News</a>
+                    </li>
+                    <li class="{{
+                     Request::is('admin/news/add')
+                     ? 'active' : '' }}">
+                        <a href="{{URL::action('NewsController@news_add') }}"><i class="fa fa-circle-o"></i> Add News</a>
+                    </li>
                 </ul>
             </li>
 

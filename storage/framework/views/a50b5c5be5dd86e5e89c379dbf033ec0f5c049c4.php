@@ -1,17 +1,15 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
-    <a href="{{ url(action('NewsController@admin_news_view',$news->id)) }}">
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('NewsController@admin_news_view',$news->id))); ?>">
         <i class="fa fa-arrow-left"></i>
     </a>
     Edit News
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url(action('NewsController@news_edit_submit'))}}" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url(action('NewsController@news_edit_submit'))); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
@@ -21,13 +19,14 @@
               <h3 class="box-title">Add News</h3>
             </div>
             <div class="box-body">
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
 
-              <input type="hidden" name="id_news" value="{{$news->id}}">
+
+              <input type="hidden" name="id_news" value="<?php echo e($news->id); ?>">
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" value="{{$news->title}}" name="title" placeholder="News title">
+                <input type="text" class="form-control" id="title" value="<?php echo e($news->title); ?>" name="title" placeholder="News title">
               </div>
 
               <div class="col-md-12">
@@ -41,13 +40,13 @@
               <div class="form-group col-md-6">
                   <label>Can Reply ?</label>
                   <select class="form-control" name="can_reply">
-                    @if($news->is_reply == 1)
+                    <?php if($news->is_reply == 1): ?>
                     <option value="1" selected="true">Ya</option>
                     <option value="0">Tidak</option>
-                    @else
+                    <?php else: ?>
                     <option value="1">Ya</option>
                     <option value="0" selected="true">Tidak</option>
-                    @endif
+                    <?php endif; ?>
                   </select>
               </div>
               </div>
@@ -55,7 +54,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$news->content}}</textarea>
+                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($news->content); ?></textarea>
               </div>
 
               <div class="form-group">
@@ -85,14 +84,15 @@
                 <!-- CONTENT -->
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img id="img_prev" src="{{ URL::asset($news->url_image)}}" style="width: 100%; height: 100px;">
+                    <img id="img_prev" src="<?php echo e(URL::asset($news->url_image)); ?>" style="width: 100%; height: 100px;">
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-8">
-                    <h3><strong id="preview_news_title">{{$news->title}}</strong></h3>
+                    <h3><strong id="preview_news_title"><?php echo e($news->title); ?></strong></h3>
                   </div>
                   
                   <div id="preview_news_content">
-                    {!! html_entity_decode($news->content) !!}
+                    <?php echo html_entity_decode($news->content); ?>
+
                   </div>
 
                   <!-- Attachments -->
@@ -100,9 +100,9 @@
                     <h5><strong>Attachments : </strong></h5>
                         <div id="file_list">
                           <ul>
-                          @foreach($news['attachments'] as $file)
-                            <li><a href="{{url::asset($file->attachment_url)}}">{{$file->attachment_name}}</a></li>
-                          @endforeach
+                          <?php $__currentLoopData = $news['attachments']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><a href="<?php echo e(url::asset($file->attachment_url)); ?>"><?php echo e($file->attachment_name); ?></a></li>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </ul>
                         </div>
                   </div>
@@ -124,10 +124,10 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -211,4 +211,5 @@ $("#img").change(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
