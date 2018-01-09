@@ -53,11 +53,7 @@
           <!-- /.box -->
         </div>
     </div>
-    <div class="row text-center">
-      <button class="btn btn-success">Next Step</button>
-    </div>
-
-
+    
     </section>
     <!-- /.content -->
 

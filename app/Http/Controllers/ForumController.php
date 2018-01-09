@@ -526,7 +526,8 @@ class ForumController extends Controller
                 }
                 $nestedData['created_by'] = $user->name;
                 $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
-                $nestedData['job_family'] = $forum->id_job_family;
+                $job_family = JobFamily::find($forum->id_job_family);
+                $nestedData['job_family'] = $job_family->job_family_name;
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
                 
                 $data[] = $nestedData;
@@ -616,7 +617,8 @@ class ForumController extends Controller
                 }
                 $nestedData['created_by'] = $user->name;
                 $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
-                $nestedData['department'] = $forum->id_department;
+                $department = OsDepartment::find($forum->id_department);
+                $nestedData['department'] = $department->department_name;
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
                 
                 $data[] = $nestedData;

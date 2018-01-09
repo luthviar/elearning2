@@ -714,7 +714,7 @@ class TrainingController extends Controller
                     $test = Test::where('id_chapter',$chapter->id)->first();
                     $all_question = UserTestRecord::where('id_test',$test->id)->where('id_user',$record_chaps->id_user)->get();
                     $true_answer = UserTestRecord::where('id_test',$test->id)->where('id_user',$record_chaps->id_user)->where('is_true',1)->get();
-                    $score = (int)(count($true_answer)/count($all_question)) * 100;
+                    $score = (count($true_answer)/count($all_question))*100;
                     $record_chaps['score'] = $score;
                 } else {
                     $record_chaps['score'] = '--';

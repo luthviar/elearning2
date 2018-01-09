@@ -39,18 +39,15 @@
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="row">
-                                <div class="col-xs-6 text-center">
-                                    <a>Grade: <br/> <?php echo e(Session::get('profile')['level']->nama_level); ?></a>
+                                <div class="col-xs-4 text-center">
+                                    <small>Grade: <br/> <?php echo e(Session::get('profile')['level']->nama_level); ?></small>
                                 </div>
-                                <div class="col-xs-6 text-center">
-                                    <a>Position name: <br/> <?php echo e(Auth::user()->position_name); ?></a>
+                                <div class="col-xs-4 text-center">
+                                    <small>Position : <br/> <?php echo e(Auth::user()->position_name); ?></small>
                                 </div>
-                                
-                                    
-                                
-                                
-                                    
-                                
+                                <div class="col-xs-4 text-center">
+                                    <small>Dept : <br/> <?php echo e(Session::get('profile')['employee_data']['department']->department_name); ?></small>
+                                </div>
                             </div>
                             <!-- /.row -->
                         </li>
