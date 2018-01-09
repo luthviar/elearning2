@@ -1,29 +1,26 @@
 @extends('admin.layouts.app')
 
 @section('page-name')
-    View Personnel
+    Slider
+    <small>view slider</small>
 @endsection
 
 @section('content')
-
-  <!-- Content Header (Page header) -->
-
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Personnel Data</h3>
+                {{-- fill something here --}}
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Role</th>
-                  <th>Position</th>
-                  <th>Date Join</th>
+                  <th>Title</th>
+                  <th>Second Title</th>
+                  <th>Created At</th>
                   <th>Status</th>
                 </tr>
                 </thead>
@@ -46,17 +43,16 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ URL::action('UserController@personnel_list') }}",
+                     "url": "{{ url(action('SliderController@slider_list_serverside')) }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}
                    },
             "columns": [
-                { "data": "name" },
-                { "data": "role" },
-                { "data": "position" },
-                { "data": "date_join" },
-                { "data": "flag_active" }
+                { "data": "title" },
+                { "data": "second_title" },
+                { "data": "created_at" },
+                { "data": "status" }
             ]  
 
         });

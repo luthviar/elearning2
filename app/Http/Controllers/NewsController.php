@@ -160,13 +160,14 @@ class NewsController extends Controller
     }
 
 
+
     // -------------------------------------
     //          ADMIN PAGE
     // -------------------------------------
 
 
     public function news_list(){
-        return view('admin.news');
+        return view('admin.news.news');
     }
 
     public function news_list_serverside(Request $request){
@@ -256,7 +257,7 @@ class NewsController extends Controller
         if ($news == null) {
             echo "error: news not found";
         }
-        return view('admin.news_view')->with('news',$news);
+        return view('admin.news.news_view')->with('news',$news);
     }
 
     public function news_add_submit(Request $request) {
@@ -305,7 +306,7 @@ class NewsController extends Controller
             return 'error : news not found';
         }
         $news['attachments'] = NewsAttachment::where('id_news', $id_news)->get();
-        return view('admin.news_edit')->with('news', $news);
+        return view('admin.news.news_edit')->with('news', $news);
     }
 
     public function news_edit_submit(Request $request) {
@@ -372,6 +373,6 @@ class NewsController extends Controller
 
     public function news_add()
     {
-        return view('admin.news_add');
+        return view('admin.news.news_add');
     }
 }

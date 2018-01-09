@@ -30,7 +30,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{
-                     Request::is('admin/personnel')
+                     Request::is('admin/personnel/all') ||
+                     Request::is('admin/personnel/view*')
                      ? 'active' : '' }}">
                         <a href="{{ URL::action('UserController@personnel_list') }}"><i class="fa fa-circle-o"></i>
                             View Personnel</a></li>
@@ -76,7 +77,10 @@
             </li>
 
             {{-- Menu Slider --}}
-            <li class="treeview">
+            <li class="treeview {{
+                     Request::is('admin/slider/*') ||
+                     Request::is('admin/slider')
+                     ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-sliders" aria-hidden="true"></i>
                     <span>Slider</span>
@@ -85,15 +89,24 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::action('SliderController@slider_list') }}"><i class="fa fa-circle-o"></i>
+                    <li class=" {{
+                     Request::is('admin/slider/all') ||
+                     Request::is('admin/slider/view*') ||
+                     Request::is('admin/slider/edit*')
+                     ? 'active' : '' }}">
+                        <a href="{{ URL::action('SliderController@slider_list') }}"><i class="fa fa-circle-o"></i>
                             View Slider
                         </a></li>
-                    <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>
+                    <li class=" {{
+                     Request::is('admin/slider/add')
+                     ? 'active' : '' }}">
+                        <a href="{{ url(action('SliderController@add_slider')) }}"><i class="fa fa-circle-o"></i>
                             Add Slider
                         </a></li>
                 </ul>
             </li>
 
+            {{-- Menu News --}}
             <li class="treeview {{
                      Request::is('admin/news/*') ||
                      Request::is('admin/news')

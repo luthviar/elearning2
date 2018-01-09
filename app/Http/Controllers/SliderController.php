@@ -38,7 +38,7 @@ class SliderController extends Controller
     }
 
     public function slider_list () {
-        return view('admin.slider');
+        return view('admin.slider.slider');
     }
 
     public function slider_list_serverside(Request $request){
@@ -86,8 +86,7 @@ class SliderController extends Controller
         {
             foreach ($sliders as $slider)
             {
-
-                $nestedData['title'] = "<a href='".url('/admin_slider',$slider->id)."'>".$slider->title."</a>";
+                $nestedData['title'] = "<a href='".url(action('SliderController@view_slider',$slider->id))."'>".$slider->title."</a>";
                 $nestedData['second_title'] = $slider->second_title;
                 $nestedData['created_at'] = date('j M Y',strtotime($slider->created_at));
                 if ($slider->flag_active == 1) {
@@ -114,7 +113,7 @@ class SliderController extends Controller
     }
 
     public function add_slider (){
-        return view('admin.slider_add');
+        return view('admin.slider.slider_add');
     }
 
     public function slider_add_submit (Request $request) {
@@ -135,7 +134,7 @@ class SliderController extends Controller
         $slider->url_image = $url;
         $slider->save();
 
-        return redirect('admin_slider');
+        return redirect(action('SliderController@slider_list'));
     }
 
     public function view_slider ($id_slider) {
@@ -144,7 +143,7 @@ class SliderController extends Controller
             return "error : slider not found";
         }
         $count_slider_active = Slider::where('flag_active',1)->count();
-        return view('admin.slider_view')->with('slider', $slider)->with('count', $count_slider_active);
+        return view('admin.slider.slider_view')->with('slider', $slider)->with('count', $count_slider_active);
     }
 
     public function edit_slider ($id_slider) {
@@ -152,7 +151,7 @@ class SliderController extends Controller
         if ($slider == null) {
             return "error : slider not found";
         }
-        return view('admin.slider_edit')->with('slider', $slider);
+        return view('admin.slider.slider_edit')->with('slider', $slider);
     }
 
     public function edit_slider_submit(Request $request) {
@@ -176,9 +175,7 @@ class SliderController extends Controller
         }
         $slider->save();
 
-        return redirect('admin_slider/'. $request->id_slider);
-        
-
+        return redirect(action('SliderController@view_slider',$request->id_slider));
     }  
 
     public function activate ($id_slider) {
@@ -192,8 +189,7 @@ class SliderController extends Controller
         }
         $slider->flag_active = 1;
         $slider->save();
-        return redirect('admin_slider/'. $id_slider);
-
+        return redirect(action('SliderController@view_slider',$id_slider));
     }
 
     public function nonactivate ($id_slider) {
@@ -207,7 +203,7 @@ class SliderController extends Controller
         }
         $slider->flag_active = 0;
         $slider->save();
-        return redirect('admin_slider/'. $id_slider);
+        return redirect(action('SliderController@view_slider',$id_slider));
 
     }
 
@@ -218,6 +214,6 @@ class SliderController extends Controller
         }
         DB::table('sliders')->where('id','=',$id_slider)->delete();
 
-        return redirect('admin_slider');
+        return redirect(action('SliderController@slider_list'));
     }
 }

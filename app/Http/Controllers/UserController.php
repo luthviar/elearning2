@@ -55,7 +55,7 @@ class UserController extends Controller
     // -------------------------------------------
 
     public function personnel_list () {
-        return view('admin.personnel');
+        return view('admin.personnel.personnel');
     }
     public function personnel_list_serverside (Request $request) {
         $columns = array( 
@@ -138,7 +138,7 @@ class UserController extends Controller
 
     public function personnel_add()
     {
-        return view('admin.personnel_add');
+        return view('admin.personnel.personnel_add');
     }
 
     public function profile_view( $id_user ){
@@ -157,7 +157,7 @@ class UserController extends Controller
 
         $profile['level'] = LevelPosition::find($profile['personal_data']->position);
 
-        return view('admin.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
+        return view('admin.personnel.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
     }
 
     // ---------------------------------
@@ -169,7 +169,7 @@ class UserController extends Controller
         $division = OsDivision::all();
         $status = EmployeeStatus::all();
 
-        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status);
+        return view('admin.personnel.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status);
     }
 
     public function user_add_submit (Request $request){

@@ -14,12 +14,13 @@
                 <ul class="slider">
                     <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                        <li style="background: url(<?php echo e(isset($slide->image) ? $slide->image : 'Elegantic/images/ALS.jpg'); ?>) no-repeat 100% 100%; width:100% !important;">
-
+                        <li style="background: url(<?php echo e((url($slide->url_image) or 'Elegantic/images/ALS.jpg') ?
+                                                        url($slide->url_image) : 'Elegantic/images/ALS.jpg'); ?>)
+                                no-repeat 100% 100%; width:100% !important;">
                             <div class="slide-holder">
                                 <div class="slide-info">
                                     <h1><?php echo e($slide->title); ?></h1>
-                                    <p><?php echo html_entity_decode(str_limit($slide->content, $limit = 360, $end = '...')); ?> ajsdfkldasf klsadf lkas fklsad fklds akfldas klf asdklf akdslf adsklf adkslf klsaf klasdf klsda fkldakf</p>
+                                    <p><?php echo html_entity_decode(str_limit($slide->second_title, $limit = 360, $end = '...')); ?></p>
                                     <div class="top-left">
                                         <a class="btn btn-ghost"  href="/slider/<?php echo e($slide->id); ?>">Read More</a>
                                     </div>

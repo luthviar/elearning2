@@ -68,6 +68,7 @@
         </section>
         
 
+        
         <?php echo $__env->yieldContent('content'); ?>
     </div>
     <!-- /.content-wrapper -->

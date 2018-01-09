@@ -16,12 +16,13 @@
                 <ul class="slider">
                     @foreach ($sliders as $slide)
 
-                        <li style="background: url({{$slide->image or 'Elegantic/images/ALS.jpg'}}) no-repeat 100% 100%; width:100% !important;">
-
+                        <li style="background: url({{ (url($slide->url_image) or 'Elegantic/images/ALS.jpg') ?
+                                                        url($slide->url_image) : 'Elegantic/images/ALS.jpg'  }})
+                                no-repeat 100% 100%; width:100% !important;">
                             <div class="slide-holder">
                                 <div class="slide-info">
                                     <h1>{{$slide->title}}</h1>
-                                    <p>{!! html_entity_decode(str_limit($slide->content, $limit = 360, $end = '...')) !!} ajsdfkldasf klsadf lkas fklsad fklds akfldas klf asdklf akdslf adsklf adkslf klsaf klasdf klsda fkldakf</p>
+                                    <p>{!! html_entity_decode(str_limit($slide->second_title, $limit = 360, $end = '...')) !!}</p>
                                     <div class="top-left">
                                         <a class="btn btn-ghost"  href="/slider/{{$slide->id}}">Read More</a>
                                     </div>

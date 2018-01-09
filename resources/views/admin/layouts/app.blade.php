@@ -65,6 +65,7 @@
         </section>
         {{-- END BREADCRUMB --}}
 
+        {{-- THE CONTENT WILL BE HERE --}}
         @yield('content')
     </div>
     <!-- /.content-wrapper -->
