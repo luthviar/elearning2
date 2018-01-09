@@ -76,9 +76,9 @@
                                      ? 'selected' : '' }}"></span>
                 </li>
                 @if(Auth::user())
-                    <li class="classic-menu-dropdown {{ Request::is('forum') ? 'active' : '' }}">
+                    <li class="classic-menu-dropdown {{ Request::is('forum') || Request::is('forum/*') ? 'active' : '' }}">
                         <a href="{{url('/forum')}}">Forum</a>
-                        <span class="{{ Request::is('forum') ? 'selected' : '' }}"></span>
+                        <span class="{{ Request::is('forum') || Request::is('forum/*') ? 'selected' : '' }}"></span>
                     </li>
 
 

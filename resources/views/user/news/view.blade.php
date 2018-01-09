@@ -27,7 +27,7 @@
 
                     </p>
                     <hr class="style14">
-                    <div class='pull-right'>
+                    <div class=''>
                         @if(!empty($news['file_pendukung'][0]))
                             Attachments : <br>
                             @foreach($news['file_pendukung'] as $file)
