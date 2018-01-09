@@ -1,7 +1,99 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: luthviar
- * Date: 1/2/2018
- * Time: 2:28 PM
- */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        @yield('title')
+        Elearning Aerofood
+    </title>
+    <!-- ********************************************** -->
+    <!--                  HEAD IMPORT CSS DLL           -->
+    <!-- ********************************************** -->
+    @include('admin.layouts.header')
+    @yield('header')
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+<div class="wrapper">
+
+    <!-- ********************************************** -->
+    <!--                  NAVBAR                        -->
+    <!-- ********************************************** -->
+    @include('admin.layouts.navbar')
+
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <!-- ********************************************** -->
+    <!--                  SIDEBAR                       -->
+    <!-- ********************************************** -->
+    @include('admin.layouts.sidebar')
+
+    <!-- ********************************************** -->
+    <!--                  SIDEBAR                       -->
+    <!-- ********************************************** -->
+    <!-- Content Header (Page header) -->
+    {{--<section class="content-header">--}}
+        {{--<h1>--}}
+            {{--Add Personnel--}}
+        {{--</h1>--}}
+        {{--<ol class="breadcrumb">--}}
+            {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
+            {{--<li><a href="{{url('/personnel')}}">Personnel</a></li>--}}
+            {{--<li class="active">Add Personnel</li>--}}
+        {{--</ol>--}}
+    {{--</section>--}}
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        {{-- START BREADCRUMB --}}
+        @php
+            $link = url('/');
+        @endphp
+        <section class="content-header">
+            <h1>
+                @yield('page-name')
+            </h1>
+            <ol class="breadcrumb">
+        @for($i = 1; $i <= count(\Illuminate\Support\Facades\Request::segments()); $i++)
+
+
+            @if($i < count(\Illuminate\Support\Facades\Request::segments()) & $i > 0)
+                <?php $link .= "/" . \Illuminate\Support\Facades\Request::segment($i); ?>
+
+                <li>
+                    <a href="<?= $link ?>">
+                        <i class="fa fa-home"></i>
+                        {{ \Illuminate\Support\Facades\Request::segment($i) }}
+                    </a>
+                </li>
+                    {!!' <i class="fa fa-angle-right"></i> '!!}
+            @else
+                <li class="active">
+                {{\Illuminate\Support\Facades\Request::segment($i)}}
+                </li>
+            @endif
+        @endfor
+            </ol>
+        </section>
+        {{-- END BREADCRUMB --}}
+
+        @yield('content')
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- ********************************************** -->
+    <!--                  FOOTER                        -->
+    <!-- ********************************************** -->
+    @include('admin.layouts.footer')
+
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+{{-- this include is required for all page--}}
+@include('admin.layouts.script')
+
+{{-- if you need script only to a page, yield this --}}
+@yield('script')
+</body>
+</html>

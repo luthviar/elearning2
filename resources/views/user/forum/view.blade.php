@@ -6,18 +6,21 @@
             <div class ="col-md-8">
                 <div class="row">
                     <h3>{{ $forum['title'] }}</h3>
-                    <h6>{{$forum['personnel']->fname}} {{$forum['personnel']->lname}},
+                    <h6>{{$forum['personnel']->name}},
                         {{ \Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')}}</h6>
                     <hr class="style14">
                     <p align="justify" class="big">
                         {!! html_entity_decode($forum['content']) !!}
 
-                    </p><br>
-                    <div class='pull-right'>
+                    </p>
+                    <hr class="style14">
+                    <div class=''>
                         @if(!empty($forum['file_pendukung'][0]))
                             Attachment(s) : <br>
                             @foreach($forum['file_pendukung'] as $file)
-                                <a href="{{URL::asset($file->url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->name}} </a><br>
+                                <a href="{{URL::asset($file->attachment_url)}}">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}}
+                                </a><br>
                             @endforeach
                         @endif
 
@@ -32,7 +35,8 @@
                         @foreach($forum['replie'] as $reply)
                             <div class="panel panel-default">
                                 <div class="panel-heading"><strong>{{ $reply['title'] }}</strong><br>
-                                    {{$reply['personnel']->fname}} {{$reply['personnel']->lname}}, {{ \Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')}}</div>
+                                    {{$reply['personnel']->name}} ,
+                                    {{ \Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')}}</div>
                                 <div class="panel-body">
                                     {!! html_entity_decode($reply['content']) !!}
                                     <div class='pull-right'>
@@ -64,7 +68,9 @@
                                     <label for="title" class="col-md-2 control-label">Title</label>
 
                                     <div class="col-md-8">
-                                        <input id="title" type="text" class="form-control" name="title" required  value="[RE:] {{$forum['title']}}">
+                                        <input id="title" type="text"
+                                               class="form-control" name="title" required
+                                               value="[RE:] {{$forum['title']}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -226,12 +232,11 @@
 
         $(document).scroll(function () {
             //stick nav to top of page
-            var y = $(this).scrollTop()
+            var y = $(this).scrollTop();
 
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
-                    nav.css('top', stopPosition - y);
                 } else {
                     nav.css('top', 80);
                 }
@@ -240,32 +245,9 @@
             }
         });
     </script>
-
-    <script>
-        $(window).load(function(){
-
-            setTimeout(function() {
-                    $("#loading").fadeOut(function(){
-
-                        $(this).remove();
-                        $('body').removeAttr('style');
-                    })
-                }
-                , 300);
-        });
-
-
-        jQuery(document).ready(function() {
-            // initiate layout and plugins
-            App.init();
-
-        });
-    </script>
-
     <style>
         .sticky {
             position: fixed;
-            top:200px;
         }
         p.big {
             line-height: 300%;

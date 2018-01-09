@@ -142,7 +142,9 @@ class User extends Authenticatable
         }
 
         $user['personal_data'] = get_personal_data($id_user);
-        if ($user['personal_data']->status == 'error') {
+
+        if ($user['personal_data']['status'] == 'error') {
+//            dd($user['personal_data']);
             return $user['personal_data'];
         }
         $data = User::find($id_user);

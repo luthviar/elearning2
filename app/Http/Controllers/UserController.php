@@ -133,6 +133,11 @@ class UserController extends Controller
         echo json_encode($json_data); 
     }
 
+    public function personnel_add()
+    {
+        return view('admin.personnel_add');
+    }
+
     public function profile_view( $id_user ){
         //get modul training
         $modul = new ModulTraining();
@@ -145,6 +150,7 @@ class UserController extends Controller
         $training_record = $training_record->get_user_training_record($id_user);
 
         $employee_record = EmployeeScore::where('id_user', $id_user)->orderBy('id','desc')->get();
+
 
         $profile['level'] = LevelPosition::find($profile['personal_data']->position);
 

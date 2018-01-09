@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ALC  | Admin Page</title>
+  <title>E-Learning  | Admin Page</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="{{URL::asset('AdminLTE/bootstrap/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ url('css/font-awesome.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
@@ -52,8 +52,8 @@
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script src="{{ url('js/html5shiv.js') }}"></script>
+  <script src="{{ url('js/respond.min.js')}}"></script>
   <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -142,7 +142,8 @@
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
           <a>
-            <i class="fa fa-dashboard"></i> <span>Personnel</span>
+            <i class="fa fa-user"></i>
+            <span>Personnel</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -152,9 +153,10 @@
             <li><a href="{{url('/personnel_add')}}"><i class="fa fa-circle-o"></i> Add Personnel</a></li>
           </ul>
         </li>
+
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-pencil"></i>
             <span>Training</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -180,19 +182,25 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Slider</span>
+            <i class="fa fa-sliders" aria-hidden="true"></i>
+            <span>Slider</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/admin_slider')}}"><i class="fa fa-circle-o"></i> View Slider</a></li>
+            <li><a href="{{url('/admin_slider')}}">
+
+                View Slider
+              </a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Add Slider</a></li>
           </ul>
         </li>
+
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-folder"></i> <span> News</span>
+            <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+            <span> News</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -202,9 +210,11 @@
             <li><a href="{{url('news_add')}}"><i class="fa fa-circle-o"></i> Add News</a></li>
           </ul>
         </li>
+
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>Forum</span>
+            <i class="fa fa-weixin" aria-hidden="true"></i>
+            <span>Forum</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

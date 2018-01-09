@@ -70,7 +70,7 @@ class ForumController extends Controller
                 }
             }
         }
-
+//        dd($job_family);
 //        $module = Module::all();
         return view('user.forum.index')
             ->with('forum_umum', $forum_umum)

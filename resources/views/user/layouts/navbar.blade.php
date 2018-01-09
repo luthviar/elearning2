@@ -30,7 +30,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
                             @if(Auth::user()->role == 1)
-                                <a href="{{ url('/personnel') }}">
+                                <a href="{{ URL::action('UserController@personnel_list') }}">
                                     Acting As Admin
                                 </a>
                             @endif
@@ -76,9 +76,9 @@
                                      ? 'selected' : '' }}"></span>
                 </li>
                 @if(Auth::user())
-                    <li class="classic-menu-dropdown {{ Request::is('forum') ? 'active' : '' }}">
+                    <li class="classic-menu-dropdown {{ Request::is('forum') || Request::is('forum/*') ? 'active' : '' }}">
                         <a href="{{url('/forum')}}">Forum</a>
-                        <span class="{{ Request::is('forum') ? 'selected' : '' }}"></span>
+                        <span class="{{ Request::is('forum') || Request::is('forum/*') ? 'selected' : '' }}"></span>
                     </li>
 
 
@@ -179,7 +179,7 @@
 
             <li class="login">
                 @if(Auth::user()->role == 1)
-                    <a href="{{ url('personnel') }}">
+                    <a href="{{ URL::action('UserController@personnel_list') }}">
                         Acting As Admin
                     </a>
                 @endif
