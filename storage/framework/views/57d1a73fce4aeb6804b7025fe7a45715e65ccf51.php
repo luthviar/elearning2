@@ -26,6 +26,10 @@
                 <div class="col-md-12">
                   <a href="<?php echo e(url('news_publish',$news->id)); ?>" class="btn btn-success" style="width: 100%">publish news</a>
                 </div>
+                <?php else: ?>
+                <div class="col-md-12">
+                  <a href="<?php echo e(url('news_unpublish',$news->id)); ?>" class="btn btn-warning" style="width: 100%">unpublish news</a>
+                </div>
                 <?php endif; ?>
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
@@ -60,4 +64,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

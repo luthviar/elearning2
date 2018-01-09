@@ -1,52 +1,29 @@
 @extends('admin.layouts.app')
 
-@section('page-name')
-    View News
-@endsection
-
 @section('content')
+
+  <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        View News
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{url('/admin_news')}}">News</a></li>
+        <li class="active">{{$news->title}}</li>
+      </ol>
+    </section>
+
+
 
     <!-- Main content -->
     <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h4>View News</h4>
-                <span class="pull-right">
-                    @if($news->is_publish == 0)
-
-                          <a href="{{url(action('NewsController@publish_news',$news->id))}}"
-                             class="btn btn-lg btn-success"
-                             data-toggle="tooltip"
-                             data-placement="top"
-                             title="Tampilkan publik ke seluruh user"
-                          >
-                              <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
-                              PUBLISH
-                          </a>
-
-                    @endif
-
-                    <a href="{{url(action('NewsController@news_edit',$news->id))}}"
-                       class="btn btn-warning" style="word-spacing: normal;">
-
-                        <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                        Edit
-                    </a>
-
-                    <a href="{{url(action('NewsController@news_remove',$news->id))}}"
-                       class="btn btn-danger" style="word-spacing: normal;">
-
-                        <i style="" class="fa fa-remove" aria-hidden="true"></i>
-
-                        Delete
-                    </a>
-
-                </span>
+              <h4>View News</h4> <span class="pull-right"><a href="{{url('news_edit',$news->id)}}"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit_this_news</i></a> <a href="{{url('news_remove',$news->id)}}"><i style="color:red;" class="fa fa-remove" aria-hidden="true">delete_this_news</i></a></span>
             </div>
             <div class="box-body">
                 <!-- CONTENT -->
-<<<<<<< HEAD:resources/views/admin/news_view.blade.php
                 @if($news->is_publish == 0)
                 <div class="col-md-12">
                   <a href="{{url('news_publish',$news->id)}}" class="btn btn-success" style="width: 100%">publish news</a>
@@ -56,9 +33,6 @@
                   <a href="{{url('news_unpublish',$news->id)}}" class="btn btn-warning" style="width: 100%">unpublish news</a>
                 </div>
                 @endif
-=======
-
->>>>>>> 40d3f8ac340b4f397a676b8fa1ec0f7d40a3a908:resources/views/admin/news/news_view.blade.php
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
                     <img src="{{ URL::asset($news->url_image)}}" style="width: 100%; height: 150px;">

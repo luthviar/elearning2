@@ -13,6 +13,12 @@ use App\EmployeeStatus;
 use App\OsDivision;
 use Session;
 use App\Auth;
+use App\Chapter;
+use App\OsUnit;
+use App\OsDepartment;
+use App\Test;
+use App\UserTestRecord;
+use App\OsSection;
 
 class UserController extends Controller
 {
@@ -186,8 +192,6 @@ class UserController extends Controller
             return "error: organization structure not found";
         }
 
-        echo $structure;
-
         $user = new User;
         $user->name = $request->name;
         $user->username = $request->username;
@@ -207,5 +211,140 @@ class UserController extends Controller
 
         return redirect('admin/personnel');
 
+    }
+
+    public function edit_personnel ($id_personnel) {
+        $user = User::find($id_personnel);
+        if ($user == null) {
+            return 'error:user not found';
+        }
+        $user['level'] = LevelPosition::find($user->position);
+        $user['employee_status'] = EmployeeStatus::find($user->id_employee_status);
+        $user['org_structure'] = OrganizationalStructure::find($user->id_organizational_structure);
+
+        $division = OsDivision::all();
+        $unit = OsUnit::all();
+        $department = OsDepartment::all();
+        $section = OsSection::all();
+        $level = LevelPosition::all();
+        $status = EmployeeStatus::all();
+
+        return view('admin.personnel_edit')->with('user',$user)->with('division',$division)->with('unit',$unit)->with('section',$section)->with('department',$department)->with('level_position',$level)->with('status',$status);
+    }
+
+    public function edit_personnel_submit (Request $request){
+        $structure = OrganizationalStructure::where('id_division',$request->division)->where('id_unit',$request->unit)->where('id_department',$request->department)->where('id_section',$request->section)->first();
+        if ($structure == null) {
+            return "error: organization structure not found";
+        }
+
+        $user = User::find($request->id_user);
+        if ($user == null) {
+            return 'error: user not found';
+        }
+
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        if ($request->password != null) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->role = $request->role;
+        $user->education = $request->education;
+        $user->gender = $request->gender;
+        $user->birtdate = $request->birtdate;
+        $user->date_join_acs = $request->date_join_acs;
+        $user->position_name = $request->position;
+        $user->flag_active = 1;
+        $user->position = $request->level_position;
+        $user->id_employee_status = $request->id_employee_status;
+        $user->id_organizational_structure = $structure->id;
+        $user->save();
+
+        return redirect(action('UserController@personnel_list'));
+
+    }
+
+    public function activate ($id_user){
+        $user = User::find($id_user);
+        if ($user == null) {
+            return "error: user not found";
+        }
+        $user->flag_active = 1;
+        $user->save();
+
+        return redirect(action('UserController@profile_view',$user->id));
+    }
+
+    public function nonactivate ($id_user) {
+        $user = User::find($id_user);
+        if ($user == null) {
+            return "error: user not found";
+        }
+        $user->flag_active = 0;
+        $user->save();
+
+        return redirect(action('UserController@profile_view',$user->id));
+    }
+
+    public function add_score (Request $request) {
+        $file = $request->file('score');
+        $url = null;
+        if (!empty($file)) {
+            $destinationPath = 'file_attachments';
+            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+        }
+        if ($url == null) {
+            return 'error: file not found';
+        }
+        $user = User::find($request->id_user);
+        if ($user == null) {
+            return 'error: user not found';
+        }
+        $score = new EmployeeScore;
+        $score->id_user = $request->id_user;
+        $score->attachment_name = $request->attachment_name;
+        $score->attachment_url  = $url;
+        $score->save();
+
+        return redirect(action('UserController@profile_view',$user->id));
+    }
+
+    public function see_record($id_personnel, $id_training){
+        $user = User::find($id_personnel);
+        if ($user == null) {
+            return "error:user not found";
+        }
+
+        $training = ModulTraining::find($id_training);
+        if ($training == null) {
+            return "error: training not found";
+        }
+
+        $user_chapter = UserChapterRecord::where('id_user', $id_personnel)->where('id_module_training',$id_training)->get();
+        $user_chapter_finish = UserChapterRecord::where('id_user', $id_personnel)->where('id_module_training',$id_training)->where('is_finish',1)->get();
+        if ($user_chapter == null) {
+            return "error: user record not found";
+        }
+        $status = 'finish';
+        if (count($user_chapter) > count($user_chapter_finish)) {
+            $status = 'unfinish';
+        }
+
+        foreach ($user_chapter as $key => $value) {
+            $value['chapter'] = Chapter::find($value->id_chapter_training);
+            if ($value['chapter'] != null) {
+                 if ($value['chapter']->category == 1) {
+                    $test = Test::where('id_chapter',$value->id_chapter_training)->first();
+                    $value['test_record'] = UserTestRecord::where('id_test',$test->id)->where('id_user',$id_personnel)->get();
+                    $true_answer = UserTestRecord::where('id_test',$test->id)->where('id_user',$id_personnel)->where('is_true',1)->get();
+                    $value['score'] = (int) (count($true_answer)/count($value['test_record']))*100;
+                }
+            }
+
+        }
+
+        return view('admin.personnel_see_record')->with('user',$user)->with('training', $training)->with('status',$status)->with('user_chapter',$user_chapter);
     }
 }

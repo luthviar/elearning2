@@ -171,6 +171,20 @@ Route::prefix('admin')->group(function () {
 
         Route::get('add', 'UserController@personnel_add');
 
+
+	    Route::get('/personnel/edit/{id}','UserController@edit_personnel');
+
+	    Route::post('personnel/edit','UserController@edit_personnel_submit');
+
+	    Route::get('/personnel/activate/{id}','UserController@activate');
+
+	    Route::get('/personnel/nonactivate/{id}','UserController@nonactivate');
+
+	    Route::post('/personnel/add_score','UserController@add_score');
+
+	    Route::get('/personnel/{id_personnel}/training/{id_training}','UserController@see_record');
+
+
         Route::get('view-{id}', 'UserController@profile_view');
 
     });
@@ -203,6 +217,8 @@ Route::prefix('admin')->group(function () {
         Route::get('news_publish/{id}', 'NewsController@publish_news');
 
     });
+
+    Route::get('news_unpublish/{id}', 'NewsController@unpublish_news');
 
     // -------------------------------------
     // SLIDER

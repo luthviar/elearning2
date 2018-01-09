@@ -275,7 +275,7 @@ class NewsController extends Controller
             'title'         => $request->title, 
             'created_by'    => \Auth::user()->id,
             'content'       => $request->content,
-            'is_publish'    => 1,
+            'is_publish'    => 0,
             'flag_active'   => 1,
             'url_image'     => $url,
             'is_reply'     => $request->can_reply,
@@ -374,5 +374,16 @@ class NewsController extends Controller
     public function news_add()
     {
         return view('admin.news.news_add');
+    }
+
+    public function unpublish_news ($id_news){
+        $news = News::find($id_news);
+        if ($news == null) {
+            return 'error: news not found';
+        }
+        $news->is_publish = 0;
+        $news->save();
+
+        return redirect('admin_news/'.$id_news);
     }
 }
