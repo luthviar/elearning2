@@ -31,11 +31,14 @@
                         @if(!empty($news['file_pendukung'][0]))
                             Attachments : <br>
                             @foreach($news['file_pendukung'] as $file)
-                                <a href="{{URL::asset($file->url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->name}} </a><br>
+                                <a href="{{URL::asset($file->attachment_url)}}">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}}
+                                </a><br>
                             @endforeach
                         @endif
                     </div>
-                    <br><br><br><br>
+                    <hr class="style14">
+                    <br><br><br>
 
                     @if($news->is_reply == 1)
                         <div class="block-advice">
@@ -73,7 +76,8 @@
 
                             @else
                                 <form id="myform" class="form-horizontal" role="form" method="POST"
-                                      action="{{ URL::action('NewsController@storeCommentByUser') }}" enctype="multipart/form-data">
+                                      action="{{ URL::action('NewsController@storeCommentByUser') }}"
+                                      enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
                                     <input type="hidden" name="id_news" value="{{$news->id}}">
