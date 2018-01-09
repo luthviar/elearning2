@@ -39,7 +39,7 @@
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
-                  <select class="form-control" name="id_parent">
+                  <select class="form-control" name="id_parent" id="parent">
                     @foreach($parent as $par)
                     <option value="{{$par->id}}">{{ $par->modul_name}}</option>
                     @endforeach
@@ -76,6 +76,18 @@
                 </div>
                 <!-- /.form group -->
               </div>
+
+              <!-- select -->
+              <div class="col-md-12">
+                <div class="form-group col-md-4 hidden" id="department">
+                  <label>Department</label>
+                  <select class="form-control" name="id_department" >
+                    @foreach($department as $dept)
+                    <option value="{{$dept->id}}">{{ $dept->department_name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                </div>
 
               <!-- Textarea -->
               <div class="form-group">
@@ -166,6 +178,16 @@ $(document).ready(function(){
 
    });
 });
+</script>
+<script type="text/javascript">
+  $('#parent').on('input',function(){
+    var $input = $('#parent').val();
+    if ($input == 3) {
+      $('#department').removeClass('hidden');
+    }else{
+      $('#department').addClass('hidden');
+    }
+  });
 </script>
 
 

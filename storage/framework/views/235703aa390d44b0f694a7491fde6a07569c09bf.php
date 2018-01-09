@@ -40,7 +40,7 @@
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
-                  <select class="form-control" name="id_parent">
+                  <select class="form-control" name="id_parent" id="parent">
                     <?php $__currentLoopData = $parent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($par->id == $module->id_parent): ?>
                     <option value="<?php echo e($par->id); ?>" selected="true"><?php echo e($par->modul_name); ?></option>
@@ -81,6 +81,26 @@
                 </div>
                 <!-- /.form group -->
               </div>
+
+              <!-- select -->
+              <div class="col-md-12">
+              <?php if($module->id_parent == 3): ?>
+                <div class="form-group col-md-4" id="department">
+              <?php else: ?>
+                <div class="form-group col-md-4 hidden" id="department">
+              <?php endif; ?>
+                  <label>Department</label>
+                  <select class="form-control" name="id_department" >
+                    <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($dept->id == $module->id_department): ?>
+                    <option value="<?php echo e($dept->id); ?>" selected="true"><?php echo e($dept->department_name); ?></option>
+                    <?php else: ?>
+                    <option value="<?php echo e($dept->id); ?>"><?php echo e($dept->department_name); ?></option>
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  </select>
+                </div>
+                </div>
 
               <!-- Textarea -->
               <div class="form-group">
@@ -172,7 +192,18 @@ $(document).ready(function(){
    });
 });
 </script>
+<script type="text/javascript">
+  $('#parent').on('input',function(){
+    var $input = $('#parent').val();
+    if ($input == 3) {
+      $('#department').removeClass('hidden');
+    }else{
+      $('#department').addClass('hidden');
+    }
+  });
+</script>
+
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

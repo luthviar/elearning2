@@ -11,6 +11,7 @@ use App\Chapter;
 use App\Test;
 use App\FilesMaterial;
 use App\UserTestRecord;
+use App\OsDepartment;
 use App\Question;
 use App\QuestionOption;
 use DB;
@@ -239,7 +240,8 @@ class TrainingController extends Controller
 
     public function add_training (){
         $parent = ModulTraining::where('is_child',0)->get();
-        return view('admin.training_add')->with('parent',$parent);
+        $department = OsDepartment::all();
+        return view('admin.training_add')->with('parent',$parent)->with('department',$department);
     }
 
     public function add_training_submit (Request $request) {
@@ -250,19 +252,35 @@ class TrainingController extends Controller
             $hours = (int) substr($time, 0,2) + 12;
             $time = $hours . substr($request->time, 2,3) . ':00';
         }
-
-        $id = DB::table('modul_trainings')->insertGetId(
-            [
-            'modul_name'    => $request->modul_name, 
-            'id_parent'     => $request->id_parent,
-            'description'   => $request->description,
-            'date'          => $request->date,
-            'time'          => $time,
-            'is_active'     => 1,
-            'is_publish'    => 0,
-            'is_child'      => 1,
-            ]
-        );
+        $id;
+        if ($request->id_parent == 3) {
+            $id = DB::table('modul_trainings')->insertGetId(
+                [
+                'modul_name'    => $request->modul_name, 
+                'id_parent'     => $request->id_parent,
+                'description'   => $request->description,
+                'date'          => $request->date,
+                'time'          => $time,
+                'id_department' => $request->id_department,
+                'is_active'     => 1,
+                'is_publish'    => 0,
+                'is_child'      => 1,
+                ]
+            );
+        } else {
+            $id = DB::table('modul_trainings')->insertGetId(
+                [
+                'modul_name'    => $request->modul_name, 
+                'id_parent'     => $request->id_parent,
+                'description'   => $request->description,
+                'date'          => $request->date,
+                'time'          => $time,
+                'is_active'     => 1,
+                'is_publish'    => 0,
+                'is_child'      => 1,
+                ]
+            );
+        }
 
         return redirect('/manage_training/'. $id);
     }
@@ -633,8 +651,9 @@ class TrainingController extends Controller
         if ($module == null) {
             return "error: module not found";
         }
+        $department = OsDepartment::all();
 
-        return view('admin.training_edit')->with('module', $module)->with('parent',$parent);
+        return view('admin.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department);
     }
 
     public function edit_training_submit(Request $request){
@@ -645,6 +664,9 @@ class TrainingController extends Controller
         $module->modul_name    = $request->modul_name;
         $module->id_parent     = $request->id_parent;
         $module->description  = $request->description;
+        if ($request->id_parent == 3) {
+            $module->id_department = $request->id_department;
+        }
         $module->date          = $request->date;
         $module->time          = $request->time;
         $module->save();

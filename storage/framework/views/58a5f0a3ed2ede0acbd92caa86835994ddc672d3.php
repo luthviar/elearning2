@@ -83,9 +83,10 @@
 
                                 <?php if($forum_job_family != null): ?>
                                     <div class="tab-pane" id="jobfamily">
-                                        <h1>Forum <?php echo e($job_family->name); ?></h1>
+                                        <h1>Forum <?php echo e($job_family->job_family_name); ?></h1>
                                         <p>Forum ini ditujukan untuk karyawan <?php echo e($job_family->name); ?> PT Aerofood Indonesia.</p>
-                                        <button  class="btn btn-info" data-toggle="modal" data-target="#modal_job_family">New Thread</button><br><br>
+                                        <button  class="btn btn-info" data-toggle="modal"
+                                                 data-target="#modal_job_family">New Thread</button><br><br>
 
                                         <table  class="table table-striped detailTable text-left">
                                             <thead>
@@ -137,9 +138,10 @@
 
                                 <?php if($forum_department != null): ?>
                                     <div class="tab-pane" id="dept">
-                                        <h1>Forum <?php echo e($department->nama_departmen); ?></h1>
+                                        <h1>Forum <?php echo e($department->department_name); ?></h1>
                                         <p>forum ini ditujukan untuk karyawan <?php echo e($department->nama_departmen); ?> PT Aerofood Indonesia</p>
-                                        <button  class="btn btn-info" data-toggle="modal" data-target="#modal_department">New Thread</button><br><br>
+                                        <button  class="btn btn-info" data-toggle="modal"
+                                                 data-target="#modal_department">New Thread</button><br><br>
 
                                         <table  class="table table-striped detailTable text-left">
                                             <thead>
@@ -297,8 +299,9 @@
                       action="<?php echo e(URL::action('ForumController@storeByUser')); ?>"
                       enctype="multipart/form-data">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">New Thread</h4>
+                        <button type="button" class="btn btn-danger btn-lg pull-right"
+                                data-dismiss="modal">X</button>
+                        <h1 class="modal-title text-center">New Thread -  Forum Umum</h1>
                     </div>
 
                     <div class="modal-body">
@@ -317,13 +320,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="padding-bottom: 50px;">
+                        <div class="form-group">
                             <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                             <div class="col-md-6">
-                                <select name="can_reply" class="form-control pull-left">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select><br>
+                                <label class="radio-inline">
+									<input type="radio" name="can_reply" value="0">No
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="can_reply" value="1" checked="checked">Yes
+								</label>
 
                             </div>
                         </div>
@@ -384,10 +389,15 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form id="summernote_form"class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
+                    <form id="summernote_form"class="form-horizontal" role="form" method="POST"
+                          action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">New Thread</h4>
+
+                                <button type="button" class="btn btn-danger btn-lg pull-right"
+                                        data-dismiss="modal">X</button>
+                                <h1 class="modal-title text-center">New Thread</h1>
+
+                            <h1 class="modal-title text-center">New Thread - Forum Department</h1>
                         </div>
 
                         <div class="modal-body">
@@ -409,10 +419,12 @@
                             <div class="form-group">
                                 <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                                 <div class="col-md-6">
-                                    <select name="can_reply">
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                    <label class="radio-inline">
+										<input type="radio" name="can_reply" value="0">No
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="can_reply" value="1" checked="checked">Yes
+									</label>
                                 </div>
                             </div>
 
@@ -474,8 +486,12 @@
                 <div class="modal-content" >
                     <form id="summernote_form"class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">New Thread</h4>
+
+                                <button type="button" class="btn btn-danger btn-lg pull-right"
+                                        data-dismiss="modal">X</button>
+
+
+                            <h1 class="modal-title text-center">New Thread - Forum Job Family</h1>
                         </div>
 
                         <div class="modal-body">
@@ -494,13 +510,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                                 <div class="col-md-6">
-                                    <select name="can_reply" >
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                    <label class="radio-inline">
+										<input type="radio" name="can_reply" value="0">No
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="can_reply" value="1" checked="checked">Yes
+									</label>
                                 </div>
                             </div>
 
@@ -1093,5 +1111,22 @@
         
     
 
+	
+
+<style>
+.modal_umum,modal_department,modal_job_family,{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 400px;
+  overflow-y: auto;
+}
+</style>
+
 <?php $__env->stopSection(); ?>
+
+
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

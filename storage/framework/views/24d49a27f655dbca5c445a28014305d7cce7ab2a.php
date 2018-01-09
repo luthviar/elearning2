@@ -26,15 +26,19 @@
 
                     </p>
                     <hr class="style14">
-                    <div class='pull-right'>
+                    <div class=''>
                         <?php if(!empty($news['file_pendukung'][0])): ?>
                             Attachments : <br>
                             <?php $__currentLoopData = $news['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <a href="<?php echo e(URL::asset($file->url)); ?>"><i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->name); ?> </a><br>
+                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?>
+
+                                </a><br>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php endif; ?>
                     </div>
-                    <br><br><br><br>
+                    <hr class="style14">
+                    <br><br><br>
 
                     <?php if($news->is_reply == 1): ?>
                         <div class="block-advice">
@@ -74,7 +78,8 @@
 
                             <?php else: ?>
                                 <form id="myform" class="form-horizontal" role="form" method="POST"
-                                      action="<?php echo e(URL::action('NewsController@storeCommentByUser')); ?>" enctype="multipart/form-data">
+                                      action="<?php echo e(URL::action('NewsController@storeCommentByUser')); ?>"
+                                      enctype="multipart/form-data">
                                     <?php echo e(csrf_field()); ?>
 
                                     <input type="hidden" name="id_user" value="<?php echo e(Auth::user()->id); ?>">
@@ -469,12 +474,11 @@
 
         $(document).scroll(function () {
             //stick nav to top of page
-            var y = $(this).scrollTop()
+            var y = $(this).scrollTop();
 
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
-                    nav.css('top', stopPosition - y);
                 } else {
                     nav.css('top', 80);
                 }
@@ -483,32 +487,9 @@
             }
         });
     </script>
-
-    <script>
-        $(window).load(function(){
-
-            setTimeout(function() {
-                    $("#loading").fadeOut(function(){
-
-                        $(this).remove();
-                        $('body').removeAttr('style');
-                    })
-                }
-                , 300);
-        });
-
-
-        jQuery(document).ready(function() {
-            // initiate layout and plugins
-            App.init();
-
-        });
-    </script>
-
     <style>
         .sticky {
             position: fixed;
-            top:200px;
         }
         p.big {
             line-height: 300%;
