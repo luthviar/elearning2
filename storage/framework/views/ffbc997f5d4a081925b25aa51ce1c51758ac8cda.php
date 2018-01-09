@@ -39,15 +39,21 @@
                                     <div class="form-group">
                                         <label for="can_reply" id="can_reply_edit" class="col-md-3 control-label">Can Reply</label>
                                         <div class="col-md-6">
-                                            <select name="can_reply" >
-                                                <?php if($forum->can_reply == 1): ?>
-                                                    <option value="1" selected>Yes</option>
-                                                    <option value="0">No</option>
+                                            <?php if($forum->is_reply == 0): ?>
+                                                   <label class="radio-inline">
+													  <input type="radio" name="can_reply" value="0" checked="checked"No
+													</label>
+													<label class="radio-inline">
+													  <input type="radio" name="can_reply" value="1">Yes
+													</label>
                                                 <?php else: ?>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0" selected>No</option>
+                                                   <label class="radio-inline">
+													  <input type="radio" name="can_reply" value="0">No
+													</label>
+													<label class="radio-inline">
+													  <input type="radio" name="can_reply" value="1" checked="checked">Yes
+													</label>
                                                 <?php endif; ?>
-                                            </select>
                                         </div>
                                     </div>
 
