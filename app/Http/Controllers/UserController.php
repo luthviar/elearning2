@@ -194,7 +194,7 @@ class UserController extends Controller
         $user->id_organizational_structure = $structure->id;
         $user->save();
 
-        return redirect('personnel');
+        return redirect('admin/personnel');
 
     }
 }
