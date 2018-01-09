@@ -384,6 +384,6 @@ class NewsController extends Controller
         $news->is_publish = 0;
         $news->save();
 
-        return redirect('admin_news/'.$id_news);
+        return redirect(action('NewsController@admin_news_view',$id_news));
     }
 }

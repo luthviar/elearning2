@@ -371,7 +371,7 @@ class ForumController extends Controller
     // ----------------------------------------
 
     public function forum_public_list(){
-        return view('admin.forum_public');
+        return view('admin.forum.forum_public');
     }
 
     public function forum_public_list_serverside(Request $request){
@@ -427,8 +427,9 @@ class ForumController extends Controller
         {
             foreach ($forums as $forum)
             {
-
-                $nestedData['title'] = "<a href='".url('/admin_forum',$forum->id)."'>".$forum->title."</a>";
+                $nestedData['title'] =
+                    "<a href='".url(action('ForumController@forum_admin_view',$forum->id))."'>"
+                    .$forum->title."</a>";
 
                 $user = new User();
                 $user = $user->get_user($forum->created_by);
@@ -456,7 +457,7 @@ class ForumController extends Controller
 
 
     public function forum_job_family_list(){
-        return view('admin.forum_job_family');
+        return view('admin.forum.forum_job_family');
     }
 
     public function forum_job_family_list_serverside(Request $request){
@@ -514,7 +515,9 @@ class ForumController extends Controller
             foreach ($forums as $forum)
             {
 
-                $nestedData['title'] = "<a href='".url('/admin_forum',$forum->id)."'>".$forum->title."</a>";
+                $nestedData['title'] =
+                    "<a href='".url(action('ForumController@forum_admin_view',$forum->id))."'>"
+                    .$forum->title."</a>";
 
                 $user = new User();
                 $user = $user->get_user($forum->created_by);
@@ -543,7 +546,7 @@ class ForumController extends Controller
 
 
     public function forum_department_list(){
-        return view('admin.forum_department');
+        return view('admin.forum.forum_department');
     }
 
     public function forum_department_list_serverside(Request $request){
@@ -601,10 +604,13 @@ class ForumController extends Controller
             foreach ($forums as $forum)
             {
 
-                $nestedData['title'] = "<a href='".url('/admin_forum',$forum->id)."'>".$forum->title."</a>";
+                $nestedData['title'] =
+                    "<a href='".url(action('ForumController@forum_admin_view',$forum->id))."'>"
+                    .$forum->title."</a>";
 
                 $user = new User();
                 $user = $user->get_user($forum->created_by);
+
                 if ($user['status'] == 'error') {
                     return "";
                 }
@@ -624,8 +630,8 @@ class ForumController extends Controller
                     "recordsFiltered" => intval($totalFiltered), 
                     "data"            => $data   
                     );
-            
-        echo json_encode($json_data); 
+
+        echo json_encode($json_data);
     }
 
     public function forum_admin_view ( $id_forum ) {
@@ -634,6 +640,6 @@ class ForumController extends Controller
         if ($forum['status'] == 'error') {
             echo $forum['message'];
         }
-        return view('admin.forum_view')->with('forum', $forum);
+        return view('admin.forum.forum_view')->with('forum', $forum);
     }
 }

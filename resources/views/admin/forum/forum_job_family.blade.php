@@ -1,24 +1,15 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    Forum Job Family
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Forum Department
-        <small>view forum department</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Forum Department</li>
-      </ol>
-    </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Forum Department</h3>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -28,7 +19,7 @@
                   <th>Title</th>
                   <th>Created By</th>
                   <th>Snippet</th>
-                  <th>Department Name</th>
+                  <th>Job Family Name</th>
                   <th>Created At</th>
                 </tr>
                 </thead>
@@ -51,7 +42,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('admin_forum_department') }}",
+                     "url": "{{ url(action('ForumController@forum_job_family_list_serverside')) }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}
@@ -60,7 +51,7 @@
                 { "data": "title" },
                 { "data": "created_by" },
                 { "data": "snippet" },
-                { "data": "department" },
+                { "data": "job_family" },
                 { "data": "created_at" },
             ]  
 

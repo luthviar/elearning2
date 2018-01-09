@@ -38,18 +38,15 @@
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="row">
-                                <div class="col-xs-6 text-center">
-                                    <a>Grade: <br/> {{Session::get('profile')['level']->nama_level}}</a>
+                                <div class="col-xs-4 text-center">
+                                    <small>Grade: <br/> {{Session::get('profile')['level']->nama_level}}</small>
                                 </div>
-                                <div class="col-xs-6 text-center">
-                                    <a>Position name: <br/> {{Auth::user()->position_name}}</a>
+                                <div class="col-xs-4 text-center">
+                                    <small>Position : <br/> {{Auth::user()->position_name}}</small>
                                 </div>
-                                {{--<div class="col-xs-4 text-center">--}}
-                                    {{--<a href="#">Sales</a>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-4 text-center">--}}
-                                    {{--<a href="#">Friends</a>--}}
-                                {{--</div>--}}
+                                <div class="col-xs-4 text-center">
+                                    <small>Dept : <br/> {{Session::get('profile')['employee_data']['department']->department_name}}</small>
+                                </div>
                             </div>
                             <!-- /.row -->
                         </li>
