@@ -30,17 +30,6 @@
     <!--                  SIDEBAR                       -->
     <!-- ********************************************** -->
     <!-- Content Header (Page header) -->
-    
-        
-            
-        
-        
-            
-            
-            
-        
-    
-
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -54,15 +43,14 @@
                 <?php echo $__env->yieldContent('page-name'); ?>
             </h1>
             <ol class="breadcrumb">
+                <i class="fa fa-home"></i>
         <?php for($i = 1; $i <= count(\Illuminate\Support\Facades\Request::segments()); $i++): ?>
-
 
             <?php if($i < count(\Illuminate\Support\Facades\Request::segments()) & $i > 0): ?>
                 <?php $link .= "/" . \Illuminate\Support\Facades\Request::segment($i); ?>
 
                 <li>
                     <a href="<?= $link ?>">
-                        <i class="fa fa-home"></i>
                         <?php echo e(\Illuminate\Support\Facades\Request::segment($i)); ?>
 
                     </a>
@@ -80,6 +68,7 @@
         </section>
         
 
+        
         <?php echo $__env->yieldContent('content'); ?>
     </div>
     <!-- /.content-wrapper -->

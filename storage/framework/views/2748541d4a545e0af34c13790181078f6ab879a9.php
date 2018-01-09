@@ -1,54 +1,49 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('SliderController@view_slider',$slider->id))); ?>">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Edit Slider
+<?php $__env->stopSection(); ?>
 
-@section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add Slider
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/admin_slider')}}">Slider</a></li>
-        <li class="active">Add Slider</li>
-      </ol>
-    </section>
-
-
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url('slider_add_submit')}}" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url(action('SliderController@edit_slider_submit'))); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Slider</h3>
+              <h3 class="box-title">Edit Slider</h3>
             </div>
             <div class="box-body">
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
+
+
+              <input type="hidden" name="id_slider" value="<?php echo e($slider->id); ?>">
 
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Slider title">
+                <input type="text" class="form-control" id="title" name="title" value="<?php echo e($slider->title); ?>">
               </div>
 
 
               <!-- Image -->
               <div class="form-group">
-                  <label for="exampleInputFile">Image background</label>
+                  <label for="exampleInputFile">New Image background</label>
+                  <p style="color: red">* select if you want to change image</p>
                   <input type="file" id="img" name="image">
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="second_title" name="second_title" value ="<?php echo e($slider->second_title); ?>" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($slider->second_title); ?></textarea>
               </div>
 
 
@@ -67,10 +62,10 @@
             
             <div class="box-body">
                 <div class="image">
-                  <img src="{{url('gambar.png')}}" id="image_preview" width="100%" height="250px">
+                  <img src="<?php echo e(url($slider->url_image)); ?>" id="image_preview" width="100%" height="250px">
                 </div>  
-                <h4 id="title_preview"></h4>
-                <p id="second_title_preview"></p>
+                <h4 id="title_preview"><?php echo e($slider->title); ?></h4>
+                <p id="second_title_preview"><?php echo e($slider->second_title); ?></p>
               
             </div>
           </div>
@@ -88,10 +83,10 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -170,4 +165,5 @@ $("#img").change(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

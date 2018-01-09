@@ -1,10 +1,18 @@
-<?php $__env->startSection('page-name'); ?>
-Personnel View
-<?php $__env->stopSection(); ?>
-
 <?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        User Profile
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo e(url('/personnel')); ?>">Personnel</a></li>
+        <li class="active">User profile</li>
+      </ol>
+    </section>
+
+
 
     <!-- Main content -->
     <section class="content">
@@ -176,4 +184,4 @@ Personnel View
 </script>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('admin.layout_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

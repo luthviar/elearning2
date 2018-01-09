@@ -160,13 +160,14 @@ class NewsController extends Controller
     }
 
 
+
     // -------------------------------------
     //          ADMIN PAGE
     // -------------------------------------
 
 
     public function news_list(){
-        return view('admin.news');
+        return view('admin.news.news');
     }
 
     public function news_list_serverside(Request $request){
@@ -214,7 +215,9 @@ class NewsController extends Controller
             foreach ($news as $det_news)
             {
 
-                $nestedData['title'] = "<a href='".url('/admin_news',$det_news->id)."'>".$det_news->title."</a>";
+                $nestedData['title'] =
+                    "<a href='".url(action('NewsController@admin_news_view',$det_news->id))."'>"
+                    .$det_news->title."</a>";
 
                 $user = new User();
                 $user = $user->get_user($det_news->created_by);
@@ -254,7 +257,7 @@ class NewsController extends Controller
         if ($news == null) {
             echo "error: news not found";
         }
-        return view('admin.news_view')->with('news',$news);
+        return view('admin.news.news_view')->with('news',$news);
     }
 
     public function news_add_submit(Request $request) {
@@ -293,8 +296,8 @@ class NewsController extends Controller
                 $attachment->save();
             }
         }
-        
-        return redirect('admin_news');
+
+        return redirect(action('NewsController@news_list'));
     }
 
     public function news_edit($id_news){
@@ -303,7 +306,7 @@ class NewsController extends Controller
             return 'error : news not found';
         }
         $news['attachments'] = NewsAttachment::where('id_news', $id_news)->get();
-        return view('admin.news_edit')->with('news', $news);
+        return view('admin.news.news_edit')->with('news', $news);
     }
 
     public function news_edit_submit(Request $request) {
@@ -343,7 +346,7 @@ class NewsController extends Controller
             }
         }
 
-        return redirect('admin_news/'.$request->id_news);
+        return redirect(action('NewsController@admin_news_view',$request->id_news));
         
     } 
 
@@ -354,7 +357,7 @@ class NewsController extends Controller
         }
         DB::table('newses')->where('id','=',$id_news)->delete();
 
-        return redirect('admin_news');
+        return redirect(action('NewsController@news_list'));
     }
 
     public function publish_news ($id_news){
@@ -365,7 +368,12 @@ class NewsController extends Controller
         $news->is_publish = 1;
         $news->save();
 
-        return redirect('admin_news/'.$id_news);
+        return redirect(action('NewsController@admin_news_view',$id_news));
+    }
+
+    public function news_add()
+    {
+        return view('admin.news.news_add');
     }
 
     public function unpublish_news ($id_news){

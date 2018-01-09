@@ -1,57 +1,44 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+  Add Slider
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Edit Slider
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/admin_slider')}}">Slider</a></li>
-        <li class="active">Edit Slider</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url('slider_edit_submit')}}" enctype="multipart/form-data">
+    <form method="post" action="{{url(action('SliderController@slider_add_submit'))}}" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Edit Slider</h3>
+              <h3 class="box-title">Add Slider</h3>
             </div>
             <div class="box-body">
               {{csrf_field()}}
-
-              <input type="hidden" name="id_slider" value="{{$slider->id}}">
 
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{$slider->title}}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Slider title">
               </div>
 
 
               <!-- Image -->
               <div class="form-group">
-                  <label for="exampleInputFile">New Image background</label>
-                  <p style="color: red">* select if you want to change image</p>
+                  <label for="exampleInputFile">Image background</label>
                   <input type="file" id="img" name="image">
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title" value ="{{$slider->second_title}}" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$slider->second_title}}</textarea>
+                  <textarea class="textarea" id="second_title" name="second_title" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
 
 
@@ -70,10 +57,10 @@
             
             <div class="box-body">
                 <div class="image">
-                  <img src="{{url($slider->url_image)}}" id="image_preview" width="100%" height="250px">
+                  <img src="{{url('gambar.png')}}" id="image_preview" width="100%" height="250px">
                 </div>  
-                <h4 id="title_preview">{{$slider->title}}</h4>
-                <p id="second_title_preview">{{$slider->second_title}}</p>
+                <h4 id="title_preview"></h4>
+                <p id="second_title_preview"></p>
               
             </div>
           </div>

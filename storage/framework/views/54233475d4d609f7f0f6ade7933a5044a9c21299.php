@@ -28,7 +28,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?php echo e(Request::is('admin/personnel')
+                    <li class="<?php echo e(Request::is('admin/personnel/all') ||
+                     Request::is('admin/personnel/view*')
                      ? 'active' : ''); ?>">
                         <a href="<?php echo e(URL::action('UserController@personnel_list')); ?>"><i class="fa fa-circle-o"></i>
                             View Personnel</a></li>
@@ -73,7 +74,9 @@
             </li>
 
             
-            <li class="treeview">
+            <li class="treeview <?php echo e(Request::is('admin/slider/*') ||
+                     Request::is('admin/slider')
+                     ? 'active' : ''); ?>">
                 <a href="#">
                     <i class="fa fa-sliders" aria-hidden="true"></i>
                     <span>Slider</span>
@@ -82,16 +85,25 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(URL::action('SliderController@slider_list')); ?>">
+                    <li class=" <?php echo e(Request::is('admin/slider/all') ||
+                     Request::is('admin/slider/view*') ||
+                     Request::is('admin/slider/edit*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('SliderController@slider_list')); ?>"><i class="fa fa-circle-o"></i>
                             View Slider
                         </a></li>
-                    <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>
+                    <li class=" <?php echo e(Request::is('admin/slider/add')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url(action('SliderController@add_slider'))); ?>"><i class="fa fa-circle-o"></i>
                             Add Slider
                         </a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            
+            <li class="treeview <?php echo e(Request::is('admin/news/*') ||
+                     Request::is('admin/news')
+                     ? 'active' : ''); ?>">
                 <a href="#">
                     <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     <span> News</span>
@@ -100,8 +112,16 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('admin_news')); ?>"><i class="fa fa-circle-o"></i> View News</a></li>
-                    <li><a href="<?php echo e(url('news_add')); ?>"><i class="fa fa-circle-o"></i> Add News</a></li>
+                    <li class="<?php echo e(Request::is('admin/news/all') ||
+                     Request::is('admin/news/view*') ||
+                     Request::is('admin/news/edit*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('NewsController@news_list')); ?>"><i class="fa fa-circle-o"></i> View News</a>
+                    </li>
+                    <li class="<?php echo e(Request::is('admin/news/add')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('NewsController@news_add')); ?>"><i class="fa fa-circle-o"></i> Add News</a>
+                    </li>
                 </ul>
             </li>
 

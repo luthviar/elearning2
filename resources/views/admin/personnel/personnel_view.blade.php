@@ -120,7 +120,7 @@ Personnel View
 		            </div>
 		            <!-- /.box-body -->
 		          </div>
-		          <!-- /.box -->a
+		          <!-- /.box -->
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="timeline">

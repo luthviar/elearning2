@@ -1,25 +1,15 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+Add News
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add News
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">News</a></li>
-        <li class="active">Add News</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url('news_add_submit')}}" enctype="multipart/form-data">
+    <form method="post" action="{{ URL::action('NewsController@news_add_submit') }}" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       

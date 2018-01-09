@@ -1,8 +1,10 @@
-<?php $__env->startSection('page-name'); ?>
-    Add Personnel
-<?php $__env->stopSection(); ?>
+@extends('admin.layouts.app')
 
-<?php $__env->startSection('content'); ?>
+@section('page-name')
+    Add Personnel
+@endsection
+
+@section('content')
 
     <!-- Main content -->
     <section class="content">
@@ -210,9 +212,9 @@
     <!-- /.content -->
 
 
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php $__env->startSection('script'); ?>
+@section('script')
 <script type="text/javascript">
 
     $('#division').click(function() {
@@ -222,7 +224,7 @@
         type:"POST",
         url:"/get_unit",
         dataType: 'json',
-        data:{id_division:id_division,_token: '<?php echo e(csrf_token()); ?>'},
+        data:{id_division:id_division,_token: '{{csrf_token()}}'},
         beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
 
@@ -296,7 +298,7 @@ $(".select2").select2({
         type:"POST",
         url:"/get-department",
         dataType: 'json',
-        data:{id_unit:id_unit,id_divisi:id_divisi,_token: '<?php echo e(csrf_token()); ?>'},
+        data:{id_unit:id_unit,id_divisi:id_divisi,_token: '{{csrf_token()}}'},
         beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
 
@@ -336,7 +338,7 @@ $(".select2").select2({
         type:"POST",
         url:"/get-section",
         dataType: 'json',
-        data:{id_department:id_department,id_unit:id_unit,id_divisi:id_divisi,_token: '<?php echo e(csrf_token()); ?>'},
+        data:{id_department:id_department,id_unit:id_unit,id_divisi:id_divisi,_token: '{{csrf_token()}}'},
         beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
 
@@ -365,5 +367,4 @@ $(".select2").select2({
 
 </script>
 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+@endsection

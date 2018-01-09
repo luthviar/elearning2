@@ -149,93 +149,107 @@ Route::get('/home2', 'HomeController@index2')->name('home2');
 |--------------------------------------------------------------------------
 */
 
+
+Route::get('/admin', function(){
+    return redirect(action('UserController@personnel_list'));
+});
+
 Route::prefix('admin')->group(function () {
 
-    Route::get('/admin', function(){
-        return view('admin.layout_admin	');
+    // ----------------------------------
+    // PERSONNEL
+    // -----------------------------------
+    Route::get('personnel', function(){
+        return redirect(action('UserController@personnel_list'));
     });
 
-    /*
-    |
-    | Bagian route tentang personnel
-    |
-    */
+    Route::prefix('personnel')->group(function () {
 
-    Route::get('users', function () {
-        // Matches The "/admin/users" URL
+        Route::get('all', 'UserController@personnel_list');
+
+        Route::post('/personnel/serverside', 'UserController@personnel_list_serverside');
+
+        Route::get('add', 'UserController@personnel_add');
+
+
+	    Route::get('/personnel/edit/{id}','UserController@edit_personnel');
+
+	    Route::post('personnel/edit','UserController@edit_personnel_submit');
+
+	    Route::get('/personnel/activate/{id}','UserController@activate');
+
+	    Route::get('/personnel/nonactivate/{id}','UserController@nonactivate');
+
+	    Route::post('/personnel/add_score','UserController@add_score');
+
+	    Route::get('/personnel/{id_personnel}/training/{id_training}','UserController@see_record');
+
+
+        Route::get('view-{id}', 'UserController@profile_view');
+
     });
-
-    Route::get('/personnel', 'UserController@personnel_list');
-
-    Route::post('/personnel', 'UserController@personnel_list_serverside');
-
-    Route::get('/personnel/add', 'UserController@personnel_add');
-
-    Route::get('/personnel/{id}', 'UserController@profile_view');
-
-    Route::get('/personnel/edit/{id}','UserController@edit_personnel');
-
-    Route::post('personnel/edit','UserController@edit_personnel_submit');
-
-    Route::get('/personnel/activate/{id}','UserController@activate');
-
-    Route::get('/personnel/nonactivate/{id}','UserController@nonactivate');
-
-    Route::post('/personnel/add_score','UserController@add_score');
-
-    Route::get('/personnel/{id_personnel}/training/{id_training}','UserController@see_record');
-
-});
 
     // ----------------------------------
     // NEWS
     // -----------------------------------
-
-    Route::get('/news_add', function(){
-        return view('admin.news_add');
+    Route::get('/news', function(){
+        return redirect(action('NewsController@news_list'));
     });
 
-    Route::get('admin_news','NewsController@news_list');
+    Route::prefix('news')->group(function () {
 
-    Route::post('admin_news','NewsController@news_list_serverside');
+        Route::get('add','NewsController@news_add');
 
-    Route::get('admin_news/{id}','NewsController@admin_news_view');
+        Route::get('all','NewsController@news_list');
 
-    Route::post('news_add_submit', 'NewsController@news_add_submit');
+        Route::post('admin_news','NewsController@news_list_serverside');
 
-    Route::get('news_edit/{id}', 'NewsController@news_edit');
+        Route::get('view-{id}','NewsController@admin_news_view');
 
-    Route::post('news_edit_submit', 'NewsController@news_edit_submit');
+        Route::post('news_add_submit', 'NewsController@news_add_submit');
 
-    Route::get('news_remove/{id}', 'NewsController@news_remove');
+        Route::get('edit-{id}', 'NewsController@news_edit');
 
-    Route::get('news_publish/{id}', 'NewsController@publish_news');
+        Route::post('news_edit_submit', 'NewsController@news_edit_submit');
+
+        Route::get('news_remove/{id}', 'NewsController@news_remove');
+
+        Route::get('news_publish/{id}', 'NewsController@publish_news');
+
+    });
 
     Route::get('news_unpublish/{id}', 'NewsController@unpublish_news');
 
     // -------------------------------------
     // SLIDER
     // -------------------------------------
+    Route::get('/slider', function(){
+        return redirect(action('SliderController@slider_list'));
+    });
 
-    Route::get('admin_slider','SliderController@slider_list');
+    Route::prefix('slider')->group(function () {
 
-    Route::post('admin_slider','SliderController@slider_list_serverside');
+        Route::get('all','SliderController@slider_list');
 
-    Route::get('/add_slider', 'SliderController@add_slider');
+        Route::post('admin_slider','SliderController@slider_list_serverside');
 
-    Route::post('/slider_add_submit', 'SliderController@slider_add_submit');
+        Route::get('add', 'SliderController@add_slider');
 
-    Route::get('admin_slider/{id}', 'SliderController@view_slider');
+        Route::post('/slider_add_submit', 'SliderController@slider_add_submit');
 
-    Route::get('slider_edit/{id}', 'SliderController@edit_slider');
+        Route::get('view-{id}', 'SliderController@view_slider');
 
-    Route::post('slider_edit_submit', 'SliderController@edit_slider_submit');
+        Route::get('edit-{id}', 'SliderController@edit_slider');
 
-    Route::get('slider_activate/{id}', 'SliderController@activate');
+        Route::post('slider_edit_submit', 'SliderController@edit_slider_submit');
 
-    Route::get('slider_nonactivate/{id}', 'SliderController@nonactivate');
+        Route::get('slider_activate/{id}', 'SliderController@activate');
 
-    Route::get('slider_remove/{id}', 'SliderController@delete_slider');
+        Route::get('slider_nonactivate/{id}', 'SliderController@nonactivate');
+
+        Route::get('slider_remove/{id}', 'SliderController@delete_slider');
+    });
+});
 
     // -------------------------------------
     // FORUM
