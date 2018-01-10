@@ -60,26 +60,7 @@
             "deferRender": true,
             order: [[ 1, "asc" ]]
         });
-  $('form').on('submit', function(e){
-   var $form = $(this);
-
-   // Iterate over all checkboxes in the table
-   table.$('input[type="checkbox"]').each(function(){
-      // If checkbox doesn't exist in DOM
-      if(!$.contains(document, this)){
-         // If checkbox is checked
-         if(this.checked){
-            // Create a hidden element 
-            $form.append(
-               $('<input>')
-                  .attr('type', 'hidden')
-                  .attr('name', this.name)
-                  .val(this.value)
-            );
-         }
-      } 
-   });          
-});
+  
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

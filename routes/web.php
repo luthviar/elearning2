@@ -342,7 +342,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('cancel_access/{id_access}','TrainingController@cancel_access');
 
-        Route::get('training/add_participant/{id_training}','TrainingController@add_participant');
+        Route::get('participant/{id_training}','TrainingController@add_participant');
 
         Route::post('training/add_participant','TrainingController@add_participant_submit');
 

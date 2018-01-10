@@ -5,8 +5,8 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Jadwal Training 
-        <small>Jadwal Training</small>
+        Training Schedule
+        <small>Training Schedule</small>
       </h1>
     </section>
 
@@ -14,7 +14,7 @@
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Jadwal Training</h3>
+              <h3 class="box-title">Training Schedule</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -49,7 +49,7 @@
             "serverSide": true,
             "order": [[1, 'asc']],
             "ajax":{
-                     "url": "{{ url('schedule') }}",
+                     "url": "{{ url('admin/training/schedule') }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}

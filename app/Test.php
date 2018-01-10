@@ -45,11 +45,6 @@ class Test extends Model
 
     public function get_manage_test ( $id_chapter ) {
 
-        function get_question_option_admin( $question ) {
-            $options = QuestionOption::where( 'id_question' , $question->id )->get();
-            return $options;
-        }
-
         $error;
         $test = Test::where('id_chapter', $id_chapter)->first();
         if ($test == null) {
@@ -60,7 +55,7 @@ class Test extends Model
         $questions = Question::where( 'id_test' , $test->id )->get();
         
         foreach ($questions as $question) {
-            $question['option'] = get_question_option_admin( $question );
+            $question['option'] = QuestionOption::where( 'id_question' , $question->id)->get();
         }   
         $test['questions'] = $questions;
         

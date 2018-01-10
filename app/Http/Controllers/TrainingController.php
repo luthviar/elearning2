@@ -13,6 +13,7 @@ use App\UserTrainingAccess;
 use App\Test;
 use App\FilesMaterial;
 use App\UserTestRecord;
+use App\OrganizationalStructure;
 use App\OsDepartment;
 use App\Question;
 use App\QuestionOption;
@@ -325,7 +326,7 @@ class TrainingController extends Controller
             foreach ($ModulTraining as $module)
             {
 
-                $nestedData['modul_name'] = "<a href='".url('/manage_training',$module->id)."'>".$module->modul_name."</a>";
+                $nestedData['modul_name'] = "<a href='".url('admin/training/manage-'.$module->id)."'>".$module->modul_name."</a>";
 
                 $nestedData['date'] = date('j M Y',strtotime($module->date));
                 $nestedData['time'] = $module->time;
@@ -952,9 +953,41 @@ class TrainingController extends Controller
         if ($training == null) {
             return "error : training not found";
         }
-        $user = User::where('flag_active',1)->get();
+        $partisipant;
+        if ($training->id_parent == 1 or $training->id_parent == 2) {
+            $partisipant = User::where('flag_active',1)->get();
+        }elseif ($training->id_parent == 3) {
+            $module = ModulTraining::find($id_training);
+            $department_module = OsDepartment::find($module->id_department);
+            $users = User::where('flag_active',1)->get();
+            foreach ($users as $key => $user) {
+                $structure = OrganizationalStructure::find($user->id);
+                $department_user = OsDepartment::find($structure->id_department);
+                if ($department_user->id_job_family == $department_module->id_job_family) {
+                    array_push($partisipant, $user);
+                }
+            }
+            $access = UserTrainingAccess::where('id_module',$id_training)->get();
+            foreach ($access as $key => $value) {
+                $user = User::find($value->id_user);
+                array_push($partisipant, $user);
+            }
+        }elseif ($training->id_parent == 4) {
+            $partisipant = User::where('position','>',5)->get();
+            $access = UserTrainingAccess::where('id_module',$id_training)->get();
+            foreach ($access as $key => $value) {
+                $user = User::find($value->id_user);
+                array_push($partisipant, $user);
+            }
+        }else{
+            $access = UserTrainingAccess::where('id_module',$id_training)->get();
+            foreach ($access as $key => $value) {
+                $user = User::find($value->id_user);
+                array_push($partisipant, $user);
+            }
+        }
 
-        return view('admin.training_partisipant_add')->with('training', $training)->with('user',$user);
+        return view('admin.training.training_participant')->with('training', $training)->with('participant',$partisipant);
     }
 
     public function add_participant_submit(Request $request){

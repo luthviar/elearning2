@@ -1,20 +1,8 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+  Add Training
+<?php $__env->stopSection(); ?>
 
-@section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add Training
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">Training</a></li>
-        <li class="active">Add Training</li>
-      </ol>
-    </section>
-
-
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
@@ -26,15 +14,14 @@
             </div>
             <div class="box-body">
 
-            <form action="{{url('admin/training/edit_training_submit')}}" method="post">
-              {{ csrf_field() }}
+            <form action="<?php echo e(url(action('TrainingController@add_training_submit'))); ?>" method="post">
+              <?php echo e(csrf_field()); ?>
 
-              <input type="hidden" name="id_module" value="{{$module->id}}">
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="modul_name" value="{{$module->modul_name}}" placeholder="Training title">
+                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title">
               </div>
 
 
@@ -42,13 +29,9 @@
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
                   <select class="form-control" name="id_parent" id="parent">
-                    @foreach($parent as $par)
-                    @if ($par->id == $module->id_parent)
-                    <option value="{{$par->id}}" selected="true">{{ $par->modul_name}}</option>
-                    @else
-                    <option value="{{$par->id}}">{{ $par->modul_name}}</option>
-                    @endif
-                    @endforeach
+                    <?php $__currentLoopData = $parent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </select>
                 </div>
 
@@ -60,7 +43,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date" value="{{$module->date}}" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd">
+                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -72,7 +55,7 @@
                   <label>Training Start:</label>
 
                   <div class="input-group">
-                    <input type="text" name="time" value="{{$module->time}}" class="form-control" placeholder="00:00:00 -- 24 hours format">
+                    <input type="text" name="time" class="form-control timepicker">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -85,20 +68,12 @@
 
               <!-- select -->
               <div class="col-md-12">
-              @if($module->id_parent == 3)
-                <div class="form-group col-md-4" id="department">
-              @else
                 <div class="form-group col-md-4 hidden" id="department">
-              @endif
                   <label>Department</label>
                   <select class="form-control" name="id_department" >
-                    @foreach($department as $dept)
-                    @if($dept->id == $module->id_department)
-                    <option value="{{$dept->id}}" selected="true">{{ $dept->department_name}}</option>
-                    @else
-                    <option value="{{$dept->id}}">{{ $dept->department_name}}</option>
-                    @endif
-                    @endforeach
+                    <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($dept->id); ?>"><?php echo e($dept->department_name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </select>
                 </div>
                 </div>
@@ -106,11 +81,11 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$module->description}}</textarea>
+                  <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
 
               <div class="row text-center">
-                <button class="btn btn-success">Submit</button>
+                <button class="btn btn-success">Next Step</button>
               </div>
 
               </form>
@@ -129,9 +104,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   //Date picker
     $('#datepicker').datepicker({
@@ -147,7 +122,7 @@
 
 </script>
 
-<<!-- script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<<!-- script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   $(function () {
@@ -205,5 +180,5 @@ $(document).ready(function(){
 </script>
 
 
-
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

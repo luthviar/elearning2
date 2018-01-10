@@ -1,30 +1,29 @@
-<?php $__env->startSection('content'); ?>
+<?php $__env->startSection('page-name'); ?>
+All Training
+<?php $__env->stopSection(); ?>
 
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Training Schedule
-        <small>Training Schedule</small>
-      </h1>
-    </section>
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Training Schedule</h3>
+              <h3 class="box-title">
+                  
+              </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Training</th>
+                  <th>Modul Name</th>
+                  <th>Parent</th>
+                  <th>Snippet</th>
                   <th>Date</th>
                   <th>Time</th>
-                  <th>Partisipant</th>
-                  <th>Trainer</th>
-                  <th>Created_by</th>
+                  <th>Status</th>
+                  <th>Created At</th>
                 </tr>
                 </thead>
                 
@@ -45,20 +44,20 @@
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
-            "order": [[1, 'asc']],
             "ajax":{
-                     "url": "<?php echo e(url('admin/training/schedule')); ?>",
+                     "url": "<?php echo e(url(action('TrainingController@admin_training_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "modul_name" },
+                { "data": "parent" },
+                { "data": "snippet" },
                 { "data": "date" },
                 { "data": "time" },
-                { "data": "partisipant" },
-                { "data": "trainer" },
-                { "data": "created_by" }
+                { "data": "is_publish" },
+                { "data": "created_at" }
             ]  
 
         });
