@@ -29,6 +29,10 @@ Route::post('change_password', 'UserController@change_password');
 
 Route::get('/profile', 'UserController@get_profile');
 
+Route::get('/forgot_password', function(){
+    return view('user.forgot_password');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Training Routes
@@ -344,7 +348,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('participant/{id_training}','TrainingController@add_participant');
 
-        Route::post('training/add_participant','TrainingController@add_participant_submit');
+        Route::post('add_participant','TrainingController@add_participant_submit');
 
         Route::get('schedule','TrainingController@schedule');
 

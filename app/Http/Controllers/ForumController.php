@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Forum;
 use App\ModulTraining;
 use App\User;
+use App\AerofoodLink;
 use DB;
 use Auth;
 use Carbon\Carbon;
@@ -326,10 +327,11 @@ class ForumController extends Controller
             ->orderBy('id', 'desc')->take(6)->get();
 
         $forum['file_pendukung'] = ForumAttachment::where('id_forum', $id_forum)->get();
+        $link = AerofoodLink::all();
 //        $module = Module::all();
 //        dd($forum);
         return view('user.forum.view')
-            ->with('forum',$forum)->with('recent',$recent);
+            ->with('forum',$forum)->with('recent',$recent)->with('link',$link);
 
 
 //        return view('user.forum.view')->with('forum', $forum)->with('last_six',$last_six);

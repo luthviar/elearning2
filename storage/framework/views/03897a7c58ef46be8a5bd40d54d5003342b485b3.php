@@ -37,7 +37,7 @@
               <div class="col-md-4">
                   <!-- form add participant -->
                   <h3>Add Participant</h3>
-                  <form action="<?php echo e(url('training/add_participant')); ?>" method="post">
+                  <form action="<?php echo e(url('admin/training/add_participant')); ?>" method="post">
 
                   <?php echo e(csrf_field()); ?>
 
@@ -45,12 +45,12 @@
                   <!-- select -->
                   <div class="form-group">
                     <label>Select</label>
-                    <select class="form-control select2">
-                      <option>option 1</option>
-                      <option>option 2</option>
-                      <option>option 3</option>
-                      <option>option 4</option>
-                      <option>option 5</option>
+                    <select name="user" class="form-control select2">
+                      
+                      <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <option value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?></option>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    
                     </select>
                   </div>
 

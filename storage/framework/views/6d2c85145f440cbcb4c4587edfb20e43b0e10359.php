@@ -3,19 +3,20 @@
 </p>
 <div class="row">
     <div class="col-md-12 clearfix">
-        @foreach($link as $aero_link)
-        <a href="{{$aero_link->url}}"
-           class="btn btn-lg {{$aero_link->color}}"
+        <?php $__currentLoopData = $link; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $aero_link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <a href="<?php echo e($aero_link->url); ?>"
+           class="btn btn-lg <?php echo e($aero_link->color); ?>"
            style="margin:5px 1px"
            data-toggle="tooltip"
            data-placement="top"
-           title="{{$aero_link->detail_url}}	({{$aero_link->url}})"
+           title="<?php echo e($aero_link->detail_url); ?>	(<?php echo e($aero_link->url); ?>)"
            target="_blank"
         >
 
-            {{$aero_link->name}}
+            <?php echo e($aero_link->name); ?>
+
         </a>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         <a href="https://oms.aerofood.co.id"
            class="btn btn-lg red"
            style="margin:5px 1px"

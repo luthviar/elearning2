@@ -39,19 +39,19 @@
               <div class="col-md-4">
                   <!-- form add participant -->
                   <h3>Add Participant</h3>
-                  <form action="{{url('training/add_participant')}}" method="post">
+                  <form action="{{url('admin/training/add_participant')}}" method="post">
 
                   {{csrf_field()}}
                   <input type="hidden" name="id_training" value="{{$training->id}}">
                   <!-- select -->
                   <div class="form-group">
                     <label>Select</label>
-                    <select class="form-control select2">
-                      <option>option 1</option>
-                      <option>option 2</option>
-                      <option>option 3</option>
-                      <option>option 4</option>
-                      <option>option 5</option>
+                    <select name="user" class="form-control select2">
+                      
+                      @foreach($users as $user)
+                      <option value="{{$user->id}}">{{$user->name}}</option>
+                      @endforeach
+                    
                     </select>
                   </div>
 

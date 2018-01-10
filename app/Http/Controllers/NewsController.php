@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\NewsAttachment;
+use App\AerofoodLink;
 use App\NewsComment;
 use App\NewsCommentAttachment;
 use Illuminate\Http\Request;
@@ -87,9 +88,10 @@ class NewsController extends Controller
         }
         $berita['file_pendukung'] = NewsAttachment::where('id_news', $news_id)->get();
         $recent = DB::table('newses')->orderBy('id', 'desc')->take(6)->get();
+        $link = AerofoodLink::all();
 //        $module = Module::all();
 //        dd($replies);
-        return view('user.news.view')->with('news',$berita)->with('replies',$replies)->with('beritas',$recent);
+        return view('user.news.view')->with('news',$berita)->with('replies',$replies)->with('beritas',$recent)->with('link',$link);
     }
 
     public function paginate_news ( Request $request ) {

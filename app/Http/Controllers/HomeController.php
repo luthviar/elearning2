@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\News;
 use App\Slider;
+use DB;
+use App\AerofoodLink;
 use App\ModulTraining;
 use Session;
 
@@ -39,12 +41,21 @@ class HomeController extends Controller
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
 
+        $schedule = ModulTraining::where('is_child',1)
+                         ->whereDate('date','>=', DB::raw('CURDATE()'))
+                         ->limit(6)
+                         ->get();
+
+        $link = AerofoodLink::all();
+
         Session::put('module',$modul);
 
         return view('user.home')
                     ->with( 'newses' , $news )
                     ->with( 'sliders' , $sliders )
-                    ->with( 'module' , $modul );
+                    ->with( 'module' , $modul )
+                    ->with( 'schedule', $schedule)
+                    ->with( 'link', $link);
     }
 
     public function test(){

@@ -5,7 +5,7 @@
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
       <img src="{{ URL::asset('gambar.png') }}" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
       <h3 class="green_color"><strong>{{$profile['personal_data']->name}}</strong></h3>
-      <h4>Department Human Capital . Aerofood ACS Head Office</h4>
+      <h4> {{$profile['personal_data']->position_name}} . Aerofood ACS</h4>
     </div>
     <div class="col-xs-12 col-md-12" style="padding-top: 10px;">
 
@@ -37,8 +37,12 @@
                 <td>{{ $profile['personal_data']->birtdate}}</td>
               </tr>
               <tr>
-                <td width="50%">Age</td>
-                <td>{{ $profile['personal_data']->age}}</td>
+                <td width="50%">Gender</td>
+                @if($profile['personal_data']->gender == 1)
+                <td>Male</td>
+                @else
+                <td>Female</td>
+                @endif
               </tr>
               <tr>
                 <td width="50%">Education</td>
@@ -152,7 +156,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="container text-center">
-            <iframe id="iframe" src="{{URL::to('/ViewerJS/index.html#../files/situs.pdf')}}" width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            <iframe id="iframe" src="{{URL::to($score->attachment_url)}}" width='100%' height='600' allowfullscreen webkitallowfullscreen>
             </iframe>
           </div>
         </div>
@@ -161,4 +165,16 @@
     </div>
   </div>
 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+$(document).ready(function() {
+  $('iframe').ready(function() {
+     setTimeout(function() {
+        $('iframe').contents().find('#download').remove();
+     }, 100);
+  });
+});
+</script>
 @endsection

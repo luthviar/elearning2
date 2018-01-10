@@ -8,6 +8,7 @@ use App\Auth;
 use App\UserChapterRecord;
 use App\User;
 use App\Material;
+use App\Trainer;
 use App\Chapter;
 use App\UserTrainingAccess;
 use App\Test;
@@ -327,11 +328,16 @@ class TrainingController extends Controller
             {
 
                 $nestedData['modul_name'] = "<a href='".url('admin/training/manage-'.$module->id)."'>".$module->modul_name."</a>";
-
                 $nestedData['date'] = date('j M Y',strtotime($module->date));
                 $nestedData['time'] = $module->time;
-                $nestedData['partisipant'] = "partisipant";
-                $nestedData['trainer'] = "trainer";
+                $nestedData['partisipant'] = "<a href='".url('admin/training/participant/'.$module->id)."'> see partisipant<a>";
+                $trainer = Trainer::where('id_module',$module->id)->get();
+                $text ="<ul style='list-style-type: none;'>";
+                foreach ($trainer as $key => $trains) {
+                    $text= $text ."<li>".($key+1).". ".$trains->trainer_name."</li>";
+                }
+                $text = $text ."</ul>";
+                $nestedData['trainer'] = $text;
                 $user = User::find($module->created_by);
                 $nestedData['created_by'] = $user->name;
                 
@@ -404,6 +410,7 @@ class TrainingController extends Controller
                 'is_active'     => 1,
                 'is_publish'    => 0,
                 'is_child'      => 1,
+                'created_by'    => \Auth::user()->id
                 ]
             );
         } else {
@@ -417,8 +424,18 @@ class TrainingController extends Controller
                 'is_active'     => 1,
                 'is_publish'    => 0,
                 'is_child'      => 1,
+                'created_by'    => \Auth::user()->id
                 ]
             );
+        }
+        if (count($request->trainer_name) >0) {
+            for ($ii=0; $ii < count($request->trainer_name); $ii++) { 
+                $trainer = new Trainer;
+                $trainer->id_module = $id;
+                $trainer->trainer_name = $request->trainer_name[$ii];
+                $trainer->trainer_info = $request->trainer_info[$ii];
+                $trainer->save();
+            }
         }
 
         return redirect(action('TrainingController@manage_training', $id));
@@ -445,9 +462,10 @@ class TrainingController extends Controller
             }
         }
         $training['chapter'] = $chapter;
+        $trainer = Trainer::where('id_module',$id_training)->get();
 
 //        dd($training['chapter']);
-        return view('admin.training.training_manage')->with('training',$training)->with('parent',$parent);
+        return view('admin.training.training_manage')->with('training',$training)->with('parent',$parent)->with('trainer',$trainer);
     }
 
     public function add_chapter ($id_module) {
@@ -799,7 +817,9 @@ class TrainingController extends Controller
         }
         $department = OsDepartment::all();
 
-        return view('admin.training.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department);
+        $trainer = Trainer::where('id_module', $id_training)->get();
+
+        return view('admin.training.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department)->with('trainer', $trainer);
     }
 
     public function edit_training_submit(Request $request){
@@ -816,6 +836,18 @@ class TrainingController extends Controller
         $module->date          = $request->date;
         $module->time          = $request->time;
         $module->save();
+
+        DB::table('trainers')->where('id_module','=',$module->id)->delete();
+
+        if (count($request->trainer_name) >0) {
+            for ($ii=0; $ii < count($request->trainer_name); $ii++) { 
+                $trainer = new Trainer;
+                $trainer->id_module = $module->id;
+                $trainer->trainer_name = $request->trainer_name[$ii];
+                $trainer->trainer_info = $request->trainer_info[$ii];
+                $trainer->save();
+            }
+        }
 
         return redirect(action('TrainingController@manage_training',$request->id_module));
 
@@ -953,7 +985,8 @@ class TrainingController extends Controller
         if ($training == null) {
             return "error : training not found";
         }
-        $partisipant;
+        $partisipant = array();
+        $notparticipant = array();
         if ($training->id_parent == 1 or $training->id_parent == 2) {
             $partisipant = User::where('flag_active',1)->get();
         }elseif ($training->id_parent == 3) {
@@ -986,26 +1019,67 @@ class TrainingController extends Controller
                 array_push($partisipant, $user);
             }
         }
+        $users = User::all();
 
-        return view('admin.training.training_participant')->with('training', $training)->with('participant',$partisipant);
+        return view('admin.training.training_participant')->with('training', $training)->with('participant',$partisipant)->with('users',$users);
     }
 
     public function add_participant_submit(Request $request){
-        foreach ($request->user as $key => $id_user) {
-            $access = UserTrainingAccess::where('id_module', $request->id_training)->where('id_user',$id_user)->first();
-            if ($access == null) {
-                $access = new UserTrainingAccess;
-                $access->id_user = $id_user;
-                $access->id_module = $request->id_training;
-                $access->status = 1;
-                $access->save();
+        $module = ModulTraining::find($request->id_training);
+        if ($module->id_parent != 1 or $module->id_parent != 2) {
+            if ($module->id_parent == 5) {
+                $access = UserTrainingAccess::where('id_module', $request->id_training)->where('id_user',$request->user)->first();
+                if ($access == null) {
+                    $access = new UserTrainingAccess;
+                    $access->id_user = $request->user;
+                    $access->id_module = $request->id_training;
+                    $access->status = 1;
+                    $access->save();
+                } else {
+                    $access->status = 1;
+                    $access->save();
+                }
+            } elseif ($module->id_parent == 4) {
+                $user = User::find($request->user);
+                if ($user->position <= 5) {
+                    $access = UserTrainingAccess::where('id_module', $request->id_training)->where('id_user',$request->user)->first();
+                    if ($access == null) {
+                        $access = new UserTrainingAccess;
+                        $access->id_user = $request->user;
+                        $access->id_module = $request->id_training;
+                        $access->status = 1;
+                        $access->save();
+                    } else {
+                        $access->status = 1;
+                        $access->save();
+                    }
+                }
             } else {
-                $access->status = 1;
-                $access->save();
+                $user = User::find($request->user);
+                $structure = OrganizationalStructure::find($user->id);
+                $department_user = OsDepartment::find($structure->id_department);
+
+                $module = ModulTraining::find($request->id_training);
+                $department_module = OsDepartment::find($module->id_department);
+
+                if ($department_module->id_job_family != $department_user->id_job_family) {
+                    $access = UserTrainingAccess::where('id_module', $request->id_training)->where('id_user',$request->user)->first();
+                    if ($access == null) {
+                        $access = new UserTrainingAccess;
+                        $access->id_user = $request->user;
+                        $access->id_module = $request->id_training;
+                        $access->status = 1;
+                        $access->save();
+                    } else {
+                        $access->status = 1;
+                        $access->save();
+                    }
+                }
             }
+            
         }
         
-        return redirect('manage_training/'.$request->id_training);
+        return redirect('admin/training/participant/'.$request->id_training);
     }
 
 }

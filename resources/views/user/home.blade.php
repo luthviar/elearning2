@@ -64,7 +64,7 @@
                                             <li>
                                                 <i class="fa fa-calendar"></i>
                                                 <a href="#">
-                                                    {{ $news->created_at }}
+                                                    {{ date('j M Y, H:i:s',strtotime($news->created_at))  }}
                                                 </a>
                                             </li>
                                         </ul>
@@ -93,6 +93,9 @@
                                     More News <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-6 article-block">
+                            @include('user.layouts.schedule')
                         </div>
 
                         <div class="col-md-4 col-sm-6 article-block">

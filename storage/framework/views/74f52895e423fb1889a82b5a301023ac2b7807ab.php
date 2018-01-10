@@ -4,7 +4,7 @@
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
       <img src="<?php echo e(URL::asset('gambar.png')); ?>" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
       <h3 class="green_color"><strong><?php echo e($profile['personal_data']->name); ?></strong></h3>
-      <h4>Department Human Capital . Aerofood ACS Head Office</h4>
+      <h4> <?php echo e($profile['personal_data']->position_name); ?> . Aerofood ACS</h4>
     </div>
     <div class="col-xs-12 col-md-12" style="padding-top: 10px;">
 
@@ -36,8 +36,12 @@
                 <td><?php echo e($profile['personal_data']->birtdate); ?></td>
               </tr>
               <tr>
-                <td width="50%">Age</td>
-                <td><?php echo e($profile['personal_data']->age); ?></td>
+                <td width="50%">Gender</td>
+                <?php if($profile['personal_data']->gender == 1): ?>
+                <td>Male</td>
+                <?php else: ?>
+                <td>Female</td>
+                <?php endif; ?>
               </tr>
               <tr>
                 <td width="50%">Education</td>
@@ -92,19 +96,19 @@
                 </tr>
 
                 <tr>
-                  <td>Change Password</td>
+                  <td>New Password</td>
                   <td>
-                    <input id="change_password" type="password" class="form-control" name="change_password" placeholder="password"><span id="change_password_msg"></span></td>
+                    <input id="change_password" type="password" class="form-control" name="change_password" placeholder="password" required="true" ><span id="change_password_msg"></span></td>
                 </tr>
                 <tr>
                   <td>Confirm Password</td>
                   <td>
-                    <input id="confirm_password" type="password" class="form-control" name="confirm_password" placeholder="confirm password">
+                    <input id="confirm_password" type="password" class="form-control" name="confirm_password" placeholder="confirm password" required="true">
                   </td>
                 </tr>
                 </tbody>
               </table>
-              <button type="submit" class="btn btn-success" style="width: 100%;">change password</button>
+              <button type="submit" class="btn btn-success" style="width: 100%;">Change Password</button>
             </div>
           </form>
         </div>
@@ -152,7 +156,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="container text-center">
-            <iframe id="iframe" src="<?php echo e(URL::to('/ViewerJS/index.html#../files/situs.pdf')); ?>" width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            <iframe id="iframe" src="<?php echo e(URL::to($score->attachment_url)); ?>" width='100%' height='600' allowfullscreen webkitallowfullscreen>
             </iframe>
           </div>
         </div>
@@ -161,5 +165,17 @@
     </div>
   </div>
 
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('iframe').ready(function() {
+     setTimeout(function() {
+        $('iframe').contents().find('#download').remove();
+     }, 100);
+  });
+});
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
