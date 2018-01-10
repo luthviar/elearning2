@@ -227,8 +227,6 @@
             </div>
 
         </div>
-
-        <div id="stopHere"></div>
     </div>
 
     {{--<div class="page-container" id="wrapper">--}}
@@ -476,8 +474,9 @@
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
+					nav.css('top', stopPosition - y);
                 } else {
-                    nav.css('top', 80);
+                    nav.css('top', 0);
                 }
             } else {
                 nav.removeClass('sticky');

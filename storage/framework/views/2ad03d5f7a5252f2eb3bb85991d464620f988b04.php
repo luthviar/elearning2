@@ -490,6 +490,10 @@
         .sticky {
             position: fixed;
         }
+        p.big {
+            line-height: 300%;
+            font-size : 15px;
+        }
     </style>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

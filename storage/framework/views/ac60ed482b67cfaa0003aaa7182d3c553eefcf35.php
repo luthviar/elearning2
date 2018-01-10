@@ -1,35 +1,25 @@
-<?php $__env->startSection('content'); ?>
+<?php $__env->startSection('page-name'); ?>
+    Slider
+    <small>view slider</small>
+<?php $__env->stopSection(); ?>
 
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        News
-        <small>view news</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">News</li>
-      </ol>
-    </section>
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">News</h3>
+                
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Modul Name</th>
-                  <th>Parent</th>
-                  <th>Snippet</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Status</th>
+                  <th>Title</th>
+                  <th>Second Title</th>
                   <th>Created At</th>
+                  <th>Status</th>
                 </tr>
                 </thead>
                 
@@ -51,19 +41,16 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "<?php echo e(url('admin_training')); ?>",
+                     "url": "<?php echo e(url(action('SliderController@slider_list_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
-                { "data": "modul_name" },
-                { "data": "parent" },
-                { "data": "snippet" },
-                { "data": "date" },
-                { "data": "time" },
-                { "data": "is_publish" },
-                { "data": "created_at" }
+                { "data": "title" },
+                { "data": "second_title" },
+                { "data": "created_at" },
+                { "data": "status" }
             ]  
 
         });

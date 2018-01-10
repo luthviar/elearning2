@@ -1,30 +1,20 @@
+<?php $__env->startSection('page-name'); ?>
+Add News
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add Slider
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo e(url('/admin_slider')); ?>">Slider</a></li>
-        <li class="active">Add Slider</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="<?php echo e(url('slider_add_submit')); ?>" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(URL::action('NewsController@news_add_submit')); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Slider</h3>
+              <h3 class="box-title">Add News</h3>
             </div>
             <div class="box-body">
               <?php echo e(csrf_field()); ?>
@@ -34,21 +24,37 @@
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Slider title">
+                <input type="text" class="form-control" id="title" name="title" placeholder="News title">
               </div>
 
 
               <!-- Image -->
-              <div class="form-group">
-                  <label for="exampleInputFile">Image background</label>
+              <div class="form-group col-md-6">
+                  <label for="exampleInputFile">Image Thumbnail</label>
                   <input type="file" id="img" name="image">
+              </div>
+
+              <div class="form-group col-md-6">
+                  <label>Can Reply ?</label>
+                  <select class="form-control" name="can_reply">
+                    <option value="1">Ya</option>
+                    <option value="0">Tidak</option>
+                  </select>
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
+
+              <div class="form-group">
+                  <label>Attachment</label>
+                  <input type="file" name="attachment[]" id="file" multiple 
+                      onchange="javascript:updateList()" />
+              </div>
+
+              
 
 
             </div>
@@ -61,15 +67,29 @@
 
           <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Preview Slider Image</h3>
+              <h3 class="box-title">Preview News</h3>
              </div> 
             
             <div class="box-body">
-                <div class="image">
-                  <img src="<?php echo e(url('gambar.png')); ?>" id="image_preview" width="100%" height="250px">
-                </div>  
-                <h4 id="title_preview"></h4>
-                <p id="second_title_preview"></p>
+                <!-- CONTENT -->
+                <div id="news_content">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <img id="img_prev" src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-8">
+                    <h3><strong id="preview_news_title">News Title</strong></h3>
+                  </div>
+                  
+                  <div id="preview_news_content">
+                    Waiting for input content
+                  </div>
+
+                  <!-- Attachments -->
+                  <div>
+                    <h5><strong>Attachments : </strong></h5>
+                        <div id="file_list"></div>
+                  </div>
+                </div>
               
             </div>
           </div>
@@ -122,29 +142,36 @@
 $(document).ready(function(){
   $('#title').on('input', function(){ 
     var input = $('#title').val();
-    $('#title_preview').html(input);
+    $('#preview_news_title').html(input);
 
    });
 });
 </script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#second_title').on('input', function(){ 
-    var input = $('#second_title').val();
-    $('#second_title_preview').html(input);
-
-   });
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+ <script>
+ $(document).ready(function() {
+      $('#summernote').summernote({
+        callbacks: {
+          onChange: function(contents, $editable) {
+            console.log('onChange:', contents, $editable);
+            $('#preview_news_content').html(contents, $editable);
+          }
+        },
+        height: 100,
+        
+      });
 });
 </script>
-
 <script type="text/javascript">
+
   function readURL(input) {
+
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('#image_preview').attr('src', e.target.result);
+      $('#img_prev').attr('src', e.target.result);
     }
 
     reader.readAsDataURL(input.files[0]);

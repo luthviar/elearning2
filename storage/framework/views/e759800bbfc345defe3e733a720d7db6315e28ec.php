@@ -1,23 +1,13 @@
+<?php $__env->startSection('page-name'); ?>
+  Add Slider
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add Slider
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo e(url('/admin_slider')); ?>">Slider</a></li>
-        <li class="active">Add Slider</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="<?php echo e(url('slider_add_submit')); ?>" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url(action('SliderController@slider_add_submit'))); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
