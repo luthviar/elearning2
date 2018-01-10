@@ -148,82 +148,14 @@
                                 <h4>Recent News</h4>
                                 <hr class="style14">
                                 <?php $__currentLoopData = $beritas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="<?php echo e(url('news/'.$brt->id)); ?>">
+                                    <a href="<?php echo e(url(action('NewsController@get_news',$brt->id))); ?>">
                                         <p><?php echo e($brt->title); ?></p>
                                     </a>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <br>
                             </div>
                             <!--Links -->
-                            <p class="border-panel-title-wrap">
-                                <span class="panel-title-text">Links</span>
-                            </p>
-                            <div class="row">
-                                <div class="col-md-12 clearfix">
-                                    <a href="https://oms.aerofood.co.id"
-                                       class="btn btn-lg default"
-                                       style="margin:5px 1px"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
-                                       target="_blank"
-                                    >
-                                        OMS
-                                    </a>
-
-                                    <a href="https://oms.aerofood.co.id"
-                                       class="btn btn-lg red"
-                                       style="margin:5px 1px"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
-                                       target="_blank"
-                                    >
-                                        IMS
-                                    </a>
-                                    <a href="https://oms.aerofood.co.id"
-                                       class="btn btn-lg blue"
-                                       style="margin:5px 1px"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
-                                       target="_blank"
-                                    >
-                                        GLP-ICGB
-                                    </a>
-                                    <a href="https://oms.aerofood.co.id"
-                                       class="btn btn-lg green"
-                                       style="margin:5px 1px"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Operation Monitoring System	(oms.aerofood.co.id)"
-                                       target="_blank"
-                                    >
-                                        Proline
-                                    </a>
-                                    <a href="#" class="btn btn-lg yellow" style="margin:5px 1px">
-                                        eProc
-                                    </a>
-                                    <a href="#" class="btn btn-lg purple" style="margin:5px 1px">
-                                        eLearning
-                                    </a>
-                                    <a href="#" class="btn btn-lg green" style="margin:5px 1px">
-                                        eRecruitment
-                                    </a>
-                                    <a href="#" class="btn btn-lg dark" style="margin:5px 1px">
-                                        Simpreman
-                                    </a>
-                                    <a href="#" class="btn btn-lg purple" style="margin:5px 1px">
-                                        ePireq
-                                    </a>
-                                    <a href="#" class="btn btn-lg green" style="margin:5px 1px">
-                                        eBudgeting
-                                    </a>
-                                    <a href="#" class="btn btn-lg blue" style="margin:5px 1px">
-                                        SOB
-                                    </a>
-                                </div>
-                            </div>
+                            <?php echo $__env->make('user.layouts.aerofood_links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         </div>
                     </nav>
                 </div>
@@ -233,223 +165,6 @@
 
         <div id="stopHere"></div>
     </div>
-
-    
-
-        
-            
-                
-                    
-                        
-                        
-                            
-                        
-                            
-                        
-                    
-                    
-                        
-                        
-                    
-                
-                
-                    
-                    
-                        
-
-                    
-                    
-                    
-                        
-                            
-                            
-                                
-                            
-                        
-                    
-                    
-
-                    
-                        
-                            
-                            
-                            
-                                
-                                    
-                                        
-                                    
-
-                                        
-                                        
-                                        
-
-                                            
-                                                
-                                                
-                                                    
-                                                
-                                            
-
-                                        
-
-                                    
-                                
-                                
-                            
-
-                            
-
-                            
-                                
-                                    
-                                    
-                                    
-                                    
-                                        
-
-                                        
-                                            
-                                        
-                                    
-                                    
-                                        
-
-                                        
-                                            
-                                        
-                                    
-
-                                    
-                                        
-
-                                        
-                                            
-													
-														
-															
-															
-                                                                   
-                                                                   
-                                                                   
-                                                                   
-															
-													
-                                                
-                                            
-                                            
-                                                
-                                                
-                                                
-                                            
-                                        
-                                    
-
-
-                                    
-                                        
-                                            
-                                                
-                                            
-                                        
-                                    
-                                
-                            
-                        
-                    
-                
-            
-
-            
-                
-                    
-                        
-                            
-                                
-                                
-                                
-                                    
-                                
-                                
-                            
-                            
-                            
-                                
-                            
-                            
-                                
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-                                    
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                    
-                                        
-                                    
-                                
-                            
-                        
-                
-            
-
-        
-
-
-        
-    
 
 <?php $__env->stopSection(); ?>
 
@@ -474,12 +189,11 @@
 
         $(document).scroll(function () {
             //stick nav to top of page
-            var y = $(this).scrollTop()
+            var y = $(this).scrollTop();
 
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
-                    nav.css('top', stopPosition - y);
                 } else {
                     nav.css('top', 80);
                 }
@@ -488,32 +202,9 @@
             }
         });
     </script>
-
-    <script>
-        $(window).load(function(){
-
-            setTimeout(function() {
-                    $("#loading").fadeOut(function(){
-
-                        $(this).remove();
-                        $('body').removeAttr('style');
-                    })
-                }
-                , 300);
-        });
-
-
-        jQuery(document).ready(function() {
-            // initiate layout and plugins
-            App.init();
-
-        });
-    </script>
-
     <style>
         .sticky {
             position: fixed;
-            top:200px;
         }
         p.big {
             line-height: 300%;

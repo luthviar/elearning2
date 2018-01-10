@@ -320,13 +320,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="padding-bottom: 50px;">
+                        <div class="form-group">
                             <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                             <div class="col-md-6">
-                                <select name="can_reply" class="form-control pull-left">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select><br>
+                                <label class="radio-inline">
+									<input type="radio" name="can_reply" value="0">No
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="can_reply" value="1" checked="checked">Yes
+								</label>
 
                             </div>
                         </div>
@@ -414,13 +416,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" style="padding-bottom: 50px;">
+                            <div class="form-group">
                                 <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                                 <div class="col-md-6">
-                                    <select name="can_reply">
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                    <label class="radio-inline">
+										<input type="radio" name="can_reply" value="0">No
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="can_reply" value="1" checked="checked">Yes
+									</label>
                                 </div>
                             </div>
 
@@ -506,13 +510,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" style="padding-bottom: 50px;">
+                            <div class="form-group" >
                                 <label for="can_reply" class="col-md-3 control-label">Can Reply</label>
                                 <div class="col-md-6">
-                                    <select name="can_reply" >
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                    <label class="radio-inline">
+										<input type="radio" name="can_reply" value="0">No
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="can_reply" value="1" checked="checked">Yes
+									</label>
                                 </div>
                             </div>
 
@@ -1105,5 +1111,22 @@
         
     
 
+	
+
+<style>
+.modal_umum,modal_department,modal_job_family,{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 400px;
+  overflow-y: auto;
+}
+</style>
+
 <?php $__env->stopSection(); ?>
+
+
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

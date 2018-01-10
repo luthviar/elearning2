@@ -27,7 +27,7 @@
                                 style="height: 400px;">
 
                                 <div class="card h-100">
-                                    <a href="{{ url('news/'.$news->id) }}">
+                                    <a href="{{ url(action('NewsController@get_news',$news->id)) }}">
                                         <img
                                             class="card-img-top img-fluid"
                                             src="{{$news->url_image or url('Elegantic/images/ALS.jpg')}}"
@@ -35,7 +35,7 @@
                                     </a>
                                     <div class="card-block">
                                         <h4 class="card-title">
-                                            <a href="{{ url('news/'.$news->id) }}">
+                                            <a href="{{ url(action('NewsController@get_news',$news->id)) }}">
                                                 {{ str_limit($news->title, $limit = 20, $end = '...') }}
                                             </a>
                                         </h4>
@@ -43,7 +43,7 @@
                                             {{ strip_tags(str_limit($news->content, $limit = 200, $end = '...')) }}
                                         </p>
                                         <p class="text-right">
-                                            <a href="{{ url('news/'.$news->id) }}">
+                                            <a href="{{ url(action('NewsController@get_news',$news->id)) }}">
                                                 Read more
                                             </a>
                                         </p>
@@ -57,11 +57,7 @@
                         <br>
                     </div>
                     <div class="row" style="text-align: center; padding-top: 50px;">
-
-                            {{--<ul class="pagination" id="page_navigation">--}}
-                                {{ $newses->links() }}
-                            {{--</ul>--}}
-
+                        {{ $newses->links() }}
                     </div>
                 </div>
             </div>

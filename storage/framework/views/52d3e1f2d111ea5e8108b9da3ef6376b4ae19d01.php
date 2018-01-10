@@ -26,7 +26,7 @@
                                 style="height: 400px;">
 
                                 <div class="card h-100">
-                                    <a href="<?php echo e(url('news/'.$news->id)); ?>">
+                                    <a href="<?php echo e(url(action('NewsController@get_news',$news->id))); ?>">
                                         <img
                                             class="card-img-top img-fluid"
                                             src="<?php echo e(isset($news->url_image) ? $news->url_image : url('Elegantic/images/ALS.jpg')); ?>"
@@ -34,7 +34,7 @@
                                     </a>
                                     <div class="card-block">
                                         <h4 class="card-title">
-                                            <a href="<?php echo e(url('news/'.$news->id)); ?>">
+                                            <a href="<?php echo e(url(action('NewsController@get_news',$news->id))); ?>">
                                                 <?php echo e(str_limit($news->title, $limit = 20, $end = '...')); ?>
 
                                             </a>
@@ -44,7 +44,7 @@
 
                                         </p>
                                         <p class="text-right">
-                                            <a href="<?php echo e(url('news/'.$news->id)); ?>">
+                                            <a href="<?php echo e(url(action('NewsController@get_news',$news->id))); ?>">
                                                 Read more
                                             </a>
                                         </p>
@@ -58,11 +58,7 @@
                         <br>
                     </div>
                     <div class="row" style="text-align: center; padding-top: 50px;">
-
-                            
-                                <?php echo e($newses->links()); ?>
-
-                            
+                        <?php echo e($newses->links()); ?>
 
                     </div>
                 </div>
