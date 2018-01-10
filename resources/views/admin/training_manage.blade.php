@@ -33,6 +33,8 @@
               <a href="{{url('training/unpublish',$training->id)}}" class="btn btn-warning">unpublish training</a>
               @endif
               <a href="{{url('training/see_participant',$training->id)}}" class="btn btn-info">see participant</a>
+              <a href="{{url('training/add_participant',$training->id)}}" class="btn btn-success">add participant</a>
+              
             </div>
             
               <!-- select -->

@@ -336,7 +336,23 @@ Route::prefix('admin')->group(function () {
 
     Route::get('training/see_participant/{id}', 'TrainingController@see_participant');
 
+    Route::get('admin_access_training', 'TrainingController@admin_access_training');
 
+    Route::post('admin_access_training','TrainingController@admin_access_training_serverside');
+
+    Route::get('request_access/{id_training}', 'TrainingController@request_access');
+
+    Route::get('give_access/{id_access}', 'TrainingController@give_access');
+
+    Route::get('cancel_access/{id_access}','TrainingController@cancel_access');
+
+    Route::get('training/add_participant/{id_training}','TrainingController@add_participant');
+
+    Route::post('training/add_participant','TrainingController@add_participant_submit');
+
+    Route::get('schedule','TrainingController@schedule');
+
+    Route::post('schedule','TrainingController@schedule_serverside');
     // -------------------------------------
     // ORG. STRUCTURE
     // -------------------------------------

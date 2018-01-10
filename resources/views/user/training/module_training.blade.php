@@ -5,48 +5,102 @@
 <div class="container" style="padding-top: 100px;">
   <div class="row">
 
-    
-      @php
-        function prints($print_data , $indent) {
-              if ( count ($print_data['children']) > 0) {
-                echo "<div class='col-xs-". (12- $indent)." col-md-". (12- $indent)." col-md-offset-".$indent." col-xs-offset-".$indent." '>
-                          <div class='panel panel-success'>
-                            <div class='panel-body' style='background-color: #13B795 !important; color: white;'>
-                              <span class='pull-left'>
-                                <strong>Modul Training Parent</strong>
-                              </span>
-                              <span class='pull-right'>
-                                <i class='glyphicon glyphicon-chevron-down'></i>
-                              </span>
-                            </div>
-                          </div>
-                        </div>";
-                foreach ( $print_data['children'] as $children) {
-                  prints($children, $indent+1);
-                }
-              } else {
-                echo "<div class='col-xs-". (12- $indent)." col-md-". (12- $indent)." col-md-offset-".$indent." col-xs-offset-".$indent." '>
-                          <div class='panel panel-default'>
-                            <div class='panel-body'>
-                              <span class='pull-left'>
-                                <strong>Modul Training Parent</strong>
-                              </span>
-                              <span class='pull-right' style='color: red;'>
-<!--                                <a href='".url('/get_training/'.$print_data->id)."' class='btn btn-danger' >Request Access</a> <i  class='glyphicon glyphicon-remove'></i>--!>
-                                <a href='".url('/get_training/'.$print_data->id)."' class='btn btn-info' > Access</a>
-                                ".Session::put('child_id', $print_data->id)."
-                              </span>
-                            </div>
-                          </div>
-                        </div>";
-
-              }
-
-          }
-          prints( $trainings , 0);
-      @endphp
-
+<div class="text-center">
+<h3>{{$trainings->modul_name}}</h3>
+<p>{{$trainings->description}}</p>
+</div>
+<div class='col-md-12'>
+  <div class='panel panel-success'>
+    <div class='panel-body' style='background-color: #13B795 !important; color: white;'>
+      <span class='pull-left'>
+        <strong>{{$trainings->modul_name}}</strong>
+      </span>
+      <span class='pull-right'>
+        <i class='glyphicon glyphicon-chevron-down'></i>
+      </span>
+    </div>
   </div>
 </div>
 
+@if(count($trainings['children']) == 0)
+
+<div class="text-center">
+no training found
+</div>
+
+@elseif($trainings->id == 3)
+
+@foreach($department as $deps)
+<div class='col-md-11 col-md-offset-1'>
+  <div class='panel panel-warning'>
+    <div class='panel-body' style='background-color: lightgreen !important; color: white;'>
+      <span class='pull-left'>
+        <a id="a-{{$deps->id}}" onclick="show_training({{$deps->id}})"><strong>Department {{$deps->department_name}}</strong></a>
+      </span>
+    </div>
+  </div>
+</div>
+@foreach($trainings['children'] as $children)
+@if($children->id_department == $deps->id)
+<div class='col-md-10 col-md-offset-2 hidden {{$deps->id}}'>
+  <div class='panel panel-default'>
+    <div class='panel-body'>
+      <span class='pull-left'>
+        <strong>{{$children->modul_name}}</strong>
+      </span>
+      <span class='pull-right'>
+        @if($children['access']['status'] == 0)
+          <a href="{{url('request_access',$children->id)}}" class="btn btn-danger">Request Access</a>
+        @elseif($children['access']->status == 1)
+          <a href="{{url('get_training',$children->id)}}" class="btn btn-info">Access</a>
+        @else
+          <a class="btn btn-warning">Access Requested</a>
+        @endif
+      </span>
+    </div>
+  </div>
+</div>
+@endif
+@endforeach
+@endforeach
+
+@else
+@foreach($trainings['children'] as $children)
+<div class='col-md-11 col-md-offset-1'>
+  <div class='panel panel-default'>
+    <div class='panel-body'>
+      <span class='pull-left'>
+        <strong>{{$children->modul_name}}</strong>
+      </span>
+      <span class='pull-right'>
+        @if($children['access']['status'] == 0)
+          <a href="{{url('request_access',$children->id)}}" class="btn btn-danger">Request Access</a>
+        @elseif($children['access']->status == 1)
+          <a href="{{url('get_training',$children->id)}}" class="btn btn-info">Access</a>
+        @else
+          <a class="btn btn-warning">Access Requested</a>
+        @endif
+      </span>
+    </div>
+  </div>
+</div>
+@endforeach
+@endif
+
+
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+  function show_training($id_deps){
+    $('.'+$id_deps).removeClass('hidden');
+    $('#a-'+$id_deps).attr('onclick','hide_training('+$id_deps+')');
+  }
+
+  function hide_training($id_deps){
+    $('.'+$id_deps).addClass('hidden');
+    $('#a-'+$id_deps).attr('onclick','show_training('+$id_deps+')'); 
+  }
+</script>
 @endsection
