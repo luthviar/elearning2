@@ -1,18 +1,11 @@
+<?php $__env->startSection('page-name'); ?>
+  <a href="<?php echo e(url(action('TrainingController@admin_training'))); ?>">
+    <i class="fa fa-arrow-left"></i>
+  </a>
+  Manage Training
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Manage Training
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo e(url('/personnel')); ?>">Training</a></li>
-        <li class="active"><?php echo e($training->modul_name); ?></li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
@@ -20,20 +13,32 @@
       <div class="col-md-12">
       <div class="box box-primary text-center">
             <div class="box-header">
-              <h3 class="box-title"><?php echo e($training->modul_name); ?> </h3><span class="pull-right"><a href="<?php echo e(url('edit_training',$training->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i></a></span>
+              <h1 class="box-title">
+               Training name:
+                <strong><?php echo e($training->modul_name); ?></strong>
+              </h1>
+              <span class="pull-right">
+                <?php if($training->is_publish == 0): ?>
+                  <a href="<?php echo e(url(action('TrainingController@publish_training',$training->id))); ?>"
+                     class="btn btn-success">PUBLISH TRAINING</a>
+                <?php else: ?>
+                  <a href="<?php echo e(url(action('TrainingController@unpublish_training',$training->id))); ?>"
+                     class="btn btn-danger">UN-PUBLISH TRAINING</a>
+                <?php endif; ?>
+                <a href="<?php echo e(url(action('TrainingController@see_participant',$training->id))); ?>"
+                   class="btn btn-info">SEE PARTICIPANTS</a>
+
+                  <a href="<?php echo e(url(action('TrainingController@edit_training',$training->id))); ?>"
+                   class="btn btn-warning" style="word-spacing: normal;">
+                        <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        EDIT TRAINING
+                   </a>
+                   <a href="<?php echo e(url('admin/training/add_participant',$training->id)); ?>" class="btn btn-success">ADD PARTICIPANT</a>
+
+              </span>
             </div>
             <div class="box-body">
 
-            <div>
-              <?php if($training->is_publish == 0): ?>
-              <a href="<?php echo e(url('training/publish',$training->id)); ?>" class="btn btn-success">publish training</a>
-              <?php else: ?>
-              <a href="<?php echo e(url('training/unpublish',$training->id)); ?>" class="btn btn-warning">unpublish training</a>
-              <?php endif; ?>
-              <a href="<?php echo e(url('training/see_participant',$training->id)); ?>" class="btn btn-info">see participant</a>
-              <a href="<?php echo e(url('training/add_participant',$training->id)); ?>" class="btn btn-success">add participant</a>
-              
-            </div>
             
               <!-- select -->
                 <div class="form-group col-md-4">
@@ -83,7 +88,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <p><?php echo e($training->description); ?></p>
+                  <p><?php echo html_entity_decode($training->description); ?></p>
               </div>
 
 
@@ -94,23 +99,43 @@
                  <!-- /.col -->
         <div class="col-md-12">
           <div class="nav-tabs-custom">
-          <div class="container">
+
+            <div class="container">
             <h4>Chapter Training</h4>  
           </div>
-          
+
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#chapter_list" data-toggle="tab">Chapter List</a></li>
+              <li class="active">
+                <a href="#chapter_list" data-toggle="tab">
+                  Chapter List
+                </a>
+              </li>
               <?php if(count($training['chapter']) != 0): ?>
               <?php $__currentLoopData = $training['chapter']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($chapter->category == 0): ?>
-                <li><a href="#material<?php echo e($chapter->id); ?>" data-toggle="tab"><?php echo e($chapter->chapter_name); ?></a></li>
+                <li>
+                  <a href="#material<?php echo e($chapter->id); ?>" data-toggle="tab">
+                    <?php echo e($chapter->chapter_name); ?>
+
+                  </a>
+                </li>
                 <?php else: ?>
-                <li><a href="#test<?php echo e($chapter->id); ?>" data-toggle="tab"><?php echo e($chapter->chapter_name); ?></a></li>
+                <li>
+                  <a href="#test<?php echo e($chapter->id); ?>" data-toggle="tab">
+                    <?php echo e($chapter->chapter_name); ?>
+
+                  </a>
+                </li>
                 <?php endif; ?>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               <?php endif; ?>
-              <li><a href="<?php echo e(url('add_chapter',$training->id)); ?>"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+              <li>
+                <a href="<?php echo e(url(action('TrainingController@add_chapter',$training->id))); ?>">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+              </li>
             </ul>
+
             <div class="tab-content">
               <div class="active tab-pane" id="chapter_list">
               <div class="box">
@@ -161,16 +186,24 @@
               <div class="tab-pane" id="material<?php echo e($chapter->id); ?>">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right"> <a href="<?php echo e(url('manage_chapter',$chapter->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
+                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3>
+                  <span class="pull-right">
+                    <a class="btn btn-warning" href="<?php echo e(url(action('TrainingController@manage_chapter',$chapter->id))); ?>">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      Manage Chapter
+                    </a>
+                  </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
                   <h4><?php echo e($chapter->chapter_name); ?></h4>
-                  <p><?php echo e($chapter['material']->description); ?></p>
+                  <p><?php echo $chapter['material']->description; ?></p>
                   <h5><strong>Attachments</strong></h5>
                   <div>
-                    <button onclick="window.location.href='/ViewerJS/index.html#../files/situs.pdf'" class="btn btn-block btn-flat"> Attachment 1</button>
-                    <button class="btn btn-block btn-flat"> Attachment 1</button>
+                    <?php $__currentLoopData = $chapter['material']->files_material; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $material): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <button onclick="window.location.href='<?php echo e(URL::asset($material->url)); ?>'"
+                              class="btn btn-block btn-flat"> <?php echo e($material->name); ?></button>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </div>
                 </div>
                 <!-- /.box-body -->
@@ -182,13 +215,19 @@
               <div class="tab-pane" id="test<?php echo e($chapter->id); ?>">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right"> <a href="<?php echo e(url('manage_chapter',$chapter->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
+                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3>
+                  <span class="pull-right">
+                    <a class="btn btn-warning" href="<?php echo e(url(action('TrainingController@manage_chapter',$chapter->id))); ?>">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      Manage Chapter
+                    </a>
+                  </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
                   <h4><?php echo e($chapter->chapter_name); ?></h4>
                   <h5>Test Time : <?php echo e($chapter['test']->time); ?>minutes</h5>
-                  <p><?php echo e($chapter['test']->description); ?></p>
+                  <p><?php echo $chapter['test']->description; ?></p>
                   
                     <div class="box box-success text-left">
                     <div class="box-header">
@@ -343,7 +382,7 @@
         </div>
     </div>
     <div class="row text-center">
-      <button class="btn btn-success">Next Step</button>
+      
     </div>
 
 

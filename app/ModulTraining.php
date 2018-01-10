@@ -129,11 +129,11 @@ class ModulTraining extends Model
     	}
 
     	// mengambil anak dari modul yang bersangkutan
-    	$modules 	= ModulTraining::where('id_parent',$module_id)->get();
+    	$modules 	= ModulTraining::where('id_parent',$module_id)->where('is_publish',1)->get();
 
     	// apabila tidak mempunyai anak, maka masuk dalam kategori training
     	// jika mempunyai anak, maka dia masuk dalam parent training (modul)
-    	if (count($modules) != 0){
+    	if ($super_module->is_child == 0){
     		$output = getModule( $super_module , $modules );
             $output['status'] = "parent";
 

@@ -42,7 +42,9 @@
             </li>
 
             
-            <li class="treeview">
+            <li class="treeview <?php echo e(Request::is('admin/training/*') ||
+                     Request::is('admin/training')
+                     ? 'active' : ''); ?>">
                 <a href="#">
                     <i class="fa fa-pencil"></i>
                     <span>Training</span>
@@ -51,7 +53,10 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(URL::action('TrainingController@admin_training')); ?>"><i class="fa fa-circle-o"></i>
+                    <li class="<?php echo e(Request::is('admin/training/all') ||
+                     Request::is('admin/training/manage*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('TrainingController@admin_training')); ?>"><i class="fa fa-circle-o"></i>
                             View Training</a></li>
                     <li><a href="<?php echo e(URL::action('TrainingController@add_training')); ?>"><i class="fa fa-circle-o"></i>
                             Add Training</a></li>
@@ -68,8 +73,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Training Access</a></li>
-                    <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> System Access</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Training Access</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> System Access</a></li>
                 </ul>
             </li>
 

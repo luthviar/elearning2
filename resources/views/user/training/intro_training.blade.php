@@ -2,6 +2,8 @@
 
 @section('content_training')
 
+
+
   @foreach ( Session::get('training')['chapter'] as $key => $chapter)
       @if ($key < $finish_chapter)
           <div style="padding-bottom: 10px;">

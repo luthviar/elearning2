@@ -1,4 +1,6 @@
-<?php $__env->startSection('content'); ?>
+@extends('admin.layouts.app')
+
+@section('content')
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -7,8 +9,8 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo e(url('/personnel')); ?>">Training</a></li>
-        <li class="active"><?php echo e($training->modul_name); ?></li>
+        <li><a href="{{url('/personnel')}}">Training</a></li>
+        <li class="active">{{$training->modul_name}}</li>
       </ol>
     </section>
 
@@ -20,18 +22,18 @@
       <div class="col-md-12">
       <div class="box box-primary text-center">
             <div class="box-header">
-              <h3 class="box-title"><?php echo e($training->modul_name); ?> </h3><span class="pull-right"><a href="<?php echo e(url('edit_training',$training->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i></a></span>
+              <h3 class="box-title">{{$training->modul_name}} </h3><span class="pull-right"><a href="{{url('edit_training',$training->id)}}"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">edit</i></a></span>
             </div>
             <div class="box-body">
 
             <div>
-              <?php if($training->is_publish == 0): ?>
-              <a href="<?php echo e(url('training/publish',$training->id)); ?>" class="btn btn-success">publish training</a>
-              <?php else: ?>
-              <a href="<?php echo e(url('training/unpublish',$training->id)); ?>" class="btn btn-warning">unpublish training</a>
-              <?php endif; ?>
-              <a href="<?php echo e(url('training/see_participant',$training->id)); ?>" class="btn btn-info">see participant</a>
-              <a href="<?php echo e(url('training/add_participant',$training->id)); ?>" class="btn btn-success">add participant</a>
+              @if($training->is_publish == 0)
+              <a href="{{url('training/publish',$training->id)}}" class="btn btn-success">publish training</a>
+              @else
+              <a href="{{url('training/unpublish',$training->id)}}" class="btn btn-warning">unpublish training</a>
+              @endif
+              <a href="{{url('training/see_participant',$training->id)}}" class="btn btn-info">see participant</a>
+              <a href="{{url('training/add_participant',$training->id)}}" class="btn btn-success">add participant</a>
               
             </div>
             
@@ -39,13 +41,13 @@
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
                   <select class="form-control" disabled="true">
-                  <?php $__currentLoopData = $parent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php if($par->id == $training->id_parent): ?>
-                    <option selected="true" value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
-                    <?php else: ?>
-                    <option><?php echo e($par->modul_name); ?></option>
-                    <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  @foreach($parent as $par)
+                    @if($par->id == $training->id_parent)
+                    <option selected="true" value="{{$par->id}}">{{$par->modul_name}}</option>
+                    @else
+                    <option>{{$par->modul_name}}</option>
+                    @endif
+                  @endforeach
                   </select>
                 </div>
 
@@ -57,7 +59,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" value="<?php echo e($training->date); ?>" id="datepicker" disabled="true">
+                  <input type="text" class="form-control pull-right" value="{{$training->date}}" id="datepicker" disabled="true">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -69,7 +71,7 @@
                   <label>Training Start:</label>
 
                   <div class="input-group">
-                    <input type="text" value="<?php echo e($training->time); ?>" class="form-control" disabled="true">
+                    <input type="text" value="{{$training->time}}" class="form-control" disabled="true">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -83,7 +85,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <p><?php echo e($training->description); ?></p>
+                  <p>{{$training->description}}</p>
               </div>
 
 
@@ -100,16 +102,16 @@
           
             <ul class="nav nav-tabs">
               <li class="active"><a href="#chapter_list" data-toggle="tab">Chapter List</a></li>
-              <?php if(count($training['chapter']) != 0): ?>
-              <?php $__currentLoopData = $training['chapter']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if($chapter->category == 0): ?>
-                <li><a href="#material<?php echo e($chapter->id); ?>" data-toggle="tab"><?php echo e($chapter->chapter_name); ?></a></li>
-                <?php else: ?>
-                <li><a href="#test<?php echo e($chapter->id); ?>" data-toggle="tab"><?php echo e($chapter->chapter_name); ?></a></li>
-                <?php endif; ?>
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-              <?php endif; ?>
-              <li><a href="<?php echo e(url('add_chapter',$training->id)); ?>"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+              @if(count($training['chapter']) != 0)
+              @foreach($training['chapter'] as $chapter)
+                @if($chapter->category == 0)
+                <li><a href="#material{{$chapter->id}}" data-toggle="tab">{{$chapter->chapter_name}}</a></li>
+                @else
+                <li><a href="#test{{$chapter->id}}" data-toggle="tab">{{$chapter->chapter_name}}</a></li>
+                @endif
+              @endforeach
+              @endif
+              <li><a href="{{url('add_chapter',$training->id)}}"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="chapter_list">
@@ -130,23 +132,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php if(count($training['chapter']) != null): ?>
-                    <?php $__currentLoopData = $training['chapter']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    @if(count($training['chapter']) != null)
+                    @foreach ($training['chapter'] as $key => $chapter)
                     <tr>
-                      <td><?php echo e($key+1); ?></td>
-                      <td><?php echo e($chapter->chapter_name); ?></td>
-                      <?php if( $chapter->category ==0): ?>
+                      <td>{{$key+1}}</td>
+                      <td>{{$chapter->chapter_name}}</td>
+                      @if( $chapter->category ==0)
                       <td>Material</td>
-                      <td><?php echo e(count($chapter['material']['files_material'])); ?> Attachments</td>
-                      <?php else: ?>
+                      <td>{{count($chapter['material']['files_material'])}} Attachments</td>
+                      @else
                       <td>Test</td>
-                      <td><?php echo e(count($chapter['test']['questions'])); ?> Question</td>
-                      <?php endif; ?>
+                      <td>{{count($chapter['test']['questions'])}} Question</td>
+                      @endif
                       
               
                     </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    <?php endif; ?>
+                    @endforeach
+                    @endif
                     </tbody>
                   </table>
                 </div>
@@ -155,18 +157,18 @@
               <!-- /.box -->
               </div>
 
-              <?php if(count($training['chapter']) > 0 ): ?>
-              <?php $__currentLoopData = $training['chapter']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-              <?php if($chapter->category == 0): ?>
-              <div class="tab-pane" id="material<?php echo e($chapter->id); ?>">
+              @if(count($training['chapter']) > 0 )
+              @foreach($training['chapter'] as $chapter)
+              @if($chapter->category == 0)
+              <div class="tab-pane" id="material{{$chapter->id}}">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right"> <a href="<?php echo e(url('manage_chapter',$chapter->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
+                  <h3 class="box-title">{{$chapter->chapter_name}}</h3><span class="pull-right"> <a href="{{url('manage_chapter',$chapter->id)}}"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
-                  <h4><?php echo e($chapter->chapter_name); ?></h4>
-                  <p><?php echo e($chapter['material']->description); ?></p>
+                  <h4>{{$chapter->chapter_name}}</h4>
+                  <p>{{$chapter['material']->description}}</p>
                   <h5><strong>Attachments</strong></h5>
                   <div>
                     <button onclick="window.location.href='/ViewerJS/index.html#../files/situs.pdf'" class="btn btn-block btn-flat"> Attachment 1</button>
@@ -178,17 +180,17 @@
               <!-- /.box -->
               </div>
 
-              <?php else: ?>
-              <div class="tab-pane" id="test<?php echo e($chapter->id); ?>">
+              @else
+              <div class="tab-pane" id="test{{$chapter->id}}">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title"><?php echo e($chapter->chapter_name); ?></h3><span class="pull-right"> <a href="<?php echo e(url('manage_chapter',$chapter->id)); ?>"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
+                  <h3 class="box-title">{{$chapter->chapter_name}}</h3><span class="pull-right"> <a href="{{url('manage_chapter',$chapter->id)}}"><i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true">manage_chapter</i></a> </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
-                  <h4><?php echo e($chapter->chapter_name); ?></h4>
-                  <h5>Test Time : <?php echo e($chapter['test']->time); ?>minutes</h5>
-                  <p><?php echo e($chapter['test']->description); ?></p>
+                  <h4>{{$chapter->chapter_name}}</h4>
+                  <h5>Test Time : {{$chapter['test']->time}}minutes</h5>
+                  <p>{{$chapter['test']->description}}</p>
                   
                     <div class="box box-success text-left">
                     <div class="box-header">
@@ -197,27 +199,26 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                       <ul style="list-style-type: none;">
-                        <?php if(count($chapter['test']['questions']) >0): ?>
-                        <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key+1); ?>. <?php echo e($question->question_text); ?> 
+                        @if(count($chapter['test']['questions']) >0)
+                        @foreach ($chapter['test']['questions'] as $key => $question)
+                        <li>{{$key+1}}. {{$question->question_text}} 
                           <ul style="list-style-type: none;">
-                            <?php if(count($question['option']) >0): ?>
-                            <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($option->is_true == 1): ?>
-                            <li><input type="radio" name="<?php echo e($option->id); ?>" checked>
-                                <?php echo e($option->option_text); ?>
-
+                            @if(count($question['option']) >0)
+                            @foreach($question['option'] as $option)
+                            @if($option->is_true == 1)
+                            <li><input type="radio" name="{{$option->id}}" checked>
+                                {{$option->option_text}}
                                 <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
-                            <?php else: ?>
-                            <li><input type="radio" name="<?php echo e($option->id); ?>" >
-                                <?php echo e($option->option_text); ?></li>
-                            <?php endif; ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
+                            @else
+                            <li><input type="radio" name="{{$option->id}}" >
+                                {{$option->option_text}}</li>
+                            @endif
+                            @endforeach
+                            @endif
                           </ul>
                         </li>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php endif; ?>
+                        @endforeach
+                        @endif
                       </ul>
                     </div>
                     <!-- /.box-body -->
@@ -227,9 +228,9 @@
               </div>
               <!-- /.box -->
               </div>
-              <?php endif; ?>
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-              <?php endif; ?>
+              @endif
+              @endforeach
+              @endif
 
               <div class="tab-pane" id="add">
               <div class="box">
@@ -351,9 +352,9 @@
     <!-- /.content -->
 
 
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php $__env->startSection('script'); ?>
+@section('script')
 
 
 <script type="text/javascript">
@@ -369,7 +370,7 @@
 
 </script>
 
-<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
+<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -391,5 +392,4 @@ $(document).ready(function(){
 </script>
 
 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+@endsection

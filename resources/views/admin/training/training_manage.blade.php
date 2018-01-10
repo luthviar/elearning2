@@ -35,24 +35,12 @@
                         <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         EDIT TRAINING
                    </a>
+                   <a href="{{url('admin/training/add_participant',$training->id)}}" class="btn btn-success">ADD PARTICIPANT</a>
 
               </span>
             </div>
             <div class="box-body">
 
-            {{--<div class="row">--}}
-              {{--<div class="col-lg-8 col-lg-offset-2">--}}
-              {{--@if($training->is_publish == 0)--}}
-              {{--<a href="{{url(action('TrainingController@publish_training',$training->id))}}"--}}
-                 {{--class="btn btn-success">publish training</a>--}}
-              {{--@else--}}
-              {{--<a href="{{url(action('TrainingController@unpublish_training',$training->id))}}"--}}
-                 {{--class="btn btn-warning">unpublish training</a>--}}
-              {{--@endif--}}
-              {{--<a href="{{url(action('TrainingController@see_participant',$training->id))}}"--}}
-                 {{--class="btn btn-info">see participant</a>--}}
-              {{--</div>--}}
-            {{--</div>--}}
             
               <!-- select -->
                 <div class="form-group col-md-4">

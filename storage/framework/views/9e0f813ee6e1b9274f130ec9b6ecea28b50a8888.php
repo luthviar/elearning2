@@ -1,10 +1,8 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
+<?php $__env->startSection('page-name'); ?>
     Manage Chapter Training
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
@@ -17,20 +15,21 @@
             </div>
 
             <div class="box-body">
-                 <form action="{{url(action('TrainingController@select_answer_submit'))}}" method="post">
-                   {{csrf_field()}}
+                 <form action="<?php echo e(url(action('TrainingController@select_answer_submit'))); ?>" method="post">
+                   <?php echo e(csrf_field()); ?>
+
                  
                  <h5>Question :</h5>
-                 <p>{!! html_entity_decode($question->question_text) !!}</p>
+                 <p><?php echo html_entity_decode($question->question_text); ?></p>
                 <!-- select -->
                 <div class="form-group col-md-12">
                   <label>Select True Answer</label>
                   <select class="form-control" name="true_answer">
-                  @if(count($question['option']) >0)
-                  @foreach($question['option'] as $option)
-                    <option value="{{$option->id}}">{{$option->option_text}}</option>
-                  @endforeach
-                  @endif
+                  <?php if(count($question['option']) >0): ?>
+                  <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($option->id); ?>"><?php echo e($option->option_text); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php endif; ?>
                   </select>
                 </div>
 
@@ -55,9 +54,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $('#add_chapter_type').on('input', function(){
       var chapter_type = $('#add_chapter_type').val();
@@ -85,7 +84,7 @@
 
 </script>
 
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -107,4 +106,5 @@ $(document).ready(function(){
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
