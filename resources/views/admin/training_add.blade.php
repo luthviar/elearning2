@@ -32,7 +32,7 @@
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title">
+                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title" required ="true">
               </div>
 
 
@@ -54,7 +54,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd">
+                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd" required ="true">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -66,7 +66,7 @@
                   <label>Training Start:</label>
 
                   <div class="input-group">
-                    <input type="text" name="time" class="form-control timepicker">
+                    <input type="text" name="time" class="form-control timepicker" required ="true">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -92,7 +92,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="summernote" name="description" required ="true" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
 
               <div class="row text-center">
@@ -118,6 +118,7 @@
 @endsection
 
 @section('script')
+	@include('admin.layouts.summernote')
 <script type="text/javascript">
   //Date picker
     $('#datepicker').datepicker({
@@ -160,25 +161,6 @@
   });
 
 </script> -->
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#title').on('input', function(){ 
-    var input = $('#title').val();
-    $('#preview_news_title').html(input);
-
-   });
-});
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#content').on('input', function(){ 
-    var input = $('#content').val();
-    $('#preview_news_content').html(input);
-
-   });
-});
-</script>
 <script type="text/javascript">
   $('#parent').on('input',function(){
     var $input = $('#parent').val();

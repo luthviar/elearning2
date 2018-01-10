@@ -30,7 +30,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li class="login">
                             <?php if(Auth::user()->role == 1): ?>
-                                <a href="<?php echo e(url('/personnel')); ?>">
+                                <a href="<?php echo e(URL::action('UserController@personnel_list')); ?>">
                                     Acting As Admin
                                 </a>
                             <?php endif; ?>
@@ -174,17 +174,17 @@
 
             <li class="login">
                 <?php if(Auth::user()->role == 1): ?>
-                    <a href="<?php echo e(url('personnel')); ?>">
+                    <a href="<?php echo e(URL::action('UserController@personnel_list')); ?>">
                         Acting As Admin
                     </a>
                 <?php endif; ?>
                 <a href="<?php echo e(route('logout')); ?>"
                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();"
+                   document.getElementById('logout-form').submit();"
                    style="
-                                    :hover{
-                                        background-color: red;
-                                    }"
+                        :hover{
+                            background-color: red;
+                        }"
                 >
                     Logout
                 </a>

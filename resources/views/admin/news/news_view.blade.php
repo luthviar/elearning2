@@ -10,7 +10,9 @@
     <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h4>View News</h4>
+              <h4>
+                  {{--Fill here--}}
+              </h4>
                 <span class="pull-right">
                     @if($news->is_publish == 0)
 

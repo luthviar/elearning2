@@ -8,7 +8,9 @@
     <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h4>View News</h4>
+              <h4>
+                  
+              </h4>
                 <span class="pull-right">
                     <?php if($news->is_publish == 0): ?>
 

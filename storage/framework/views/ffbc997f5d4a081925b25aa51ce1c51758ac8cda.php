@@ -41,7 +41,7 @@
                                         <div class="col-md-6">
                                             <?php if($forum->is_reply == 0): ?>
                                                    <label class="radio-inline">
-													  <input type="radio" name="can_reply" value="0" checked="checked"No
+													  <input type="radio" name="can_reply" value="0" checked="checked">No
 													</label>
 													<label class="radio-inline">
 													  <input type="radio" name="can_reply" value="1">Yes
@@ -213,28 +213,6 @@
 
     });
 </script>
-<script>
-
-    $(window).load(function(){
-
-        setTimeout(function() {
-                $("#loading").fadeOut(function(){
-
-                    $(this).remove();
-                    $('body').removeAttr('style');
-                })
-            }
-            , 300);
-    });
-
-
-    jQuery(document).ready(function() {
-        // initiate layout and plugins
-        App.init();
-
-    });
-</script>
-
 </body>
 </html>
 

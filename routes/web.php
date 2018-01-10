@@ -70,8 +70,6 @@ Route::get('/get_all_news','NewsController@get_all_news');
 
 Route::get('/get_active_news', 'NewsController@get_active_news');
 
-//Route::get('/get_news/{id}' , 'NewsController@get_news');
-
 Route::get('/activate_news/{id}','NewsController@activate_news');
 
 Route::get('/nonactivate_news/{id}','NewsController@nonactivate_news');
@@ -79,8 +77,6 @@ Route::get('/nonactivate_news/{id}','NewsController@nonactivate_news');
 Route::get('/news-board','NewsController@index');
 
 Route::get('/news/{id}','NewsController@get_news');
-
-//Route::get('/comm/{id}','NewsController@get_news');
 
 Route::post('/news/comment','NewsController@storeCommentByUser');
 
@@ -275,84 +271,89 @@ Route::prefix('admin')->group(function () {
         Route::get('view-{id_forum}','ForumController@forum_admin_view');
 
     });
-});
+
     // -------------------------------------
     // TRAINING
     // -------------------------------------
 
-    Route::get('add_training', function(){
-        return view('admin.training_add');
+    Route::get('training', function(){
+        return redirect(action('TrainingController@admin_training'));
     });
 
-    Route::get('manage_training/{id}', 'TrainingController@manage_training');
+    Route::prefix('training')->group(function () {
 
-    Route::get('add_chapter', function(){
-        return view('admin.training_add_chapter');
+        Route::get('add_training', 'TrainingController@add_training');
+
+        Route::get('manage-{id}', 'TrainingController@manage_training');
+
+        Route::get('add_chapter', 'TrainingController@add_chapter');
+
+        Route::get('all', 'TrainingController@admin_training');
+
+        Route::post('admin_training', 'TrainingController@admin_training_serverside');
+
+        Route::get('add','TrainingController@add_training');
+
+        Route::post('add_training','TrainingController@add_training_submit');
+
+        Route::get('add_chapter/{id_module}','TrainingController@add_chapter');
+
+        Route::get('manage_chapter/{id_chapter}','TrainingController@manage_chapter');
+
+        Route::post('add_chapter_submit','TrainingController@add_chapter_submit');
+
+        Route::post('add_question_submit','TrainingController@add_question_submit');
+
+        Route::get('select_answer/{id_question}','TrainingController@select_answer');
+
+        Route::post('select_answer_submit','TrainingController@select_answer_submit');
+
+        Route::get('remove_question/{id}', 'TrainingController@remove_question' );
+
+        Route::get('edit_question/{id}','TrainingController@edit_question');
+
+        Route::post('edit_question_submit','TrainingController@edit_question_submit');
+
+        Route::get('edit_chapter/{id}', 'TrainingController@edit_chapter');
+
+        Route::post('edit_chapter_submit', 'TrainingController@edit_chapter_submit');
+
+        Route::get('remove_chapter/{id}', 'TrainingController@remove_chapter');
+
+        Route::post('material_add', 'TrainingController@material_add');
+
+        Route::get('remove_material_file/{id}', 'TrainingController@remove_material_file');
+
+        Route::get('edit_training/{id}','TrainingController@edit_training');
+
+        Route::post('edit_training_submit','TrainingController@edit_training_submit');
+
+        Route::get('training/publish/{id}', 'TrainingController@publish_training');
+
+        Route::get('training/unpublish/{id}', 'TrainingController@unpublish_training');
+
+        Route::get('admin_access_training', 'TrainingController@admin_access_training');
+
+        Route::post('admin_access_training','TrainingController@admin_access_training_serverside');
+
+        Route::get('request_access/{id_training}', 'TrainingController@request_access');
+
+        Route::get('give_access/{id_access}', 'TrainingController@give_access');
+
+        Route::get('cancel_access/{id_access}','TrainingController@cancel_access');
+
+        Route::get('training/add_participant/{id_training}','TrainingController@add_participant');
+
+        Route::post('training/add_participant','TrainingController@add_participant_submit');
+
+        Route::get('schedule','TrainingController@schedule');
+
+        Route::post('schedule','TrainingController@schedule_serverside');
+
+        Route::get('see_participant/{id}', 'TrainingController@see_participant');
+
     });
-
-    Route::get('admin_training', 'TrainingController@admin_training');
-
-    Route::post('admin_training', 'TrainingController@admin_training_serverside');
-
-    Route::get('add_training','TrainingController@add_training');
-
-    Route::post('add_training','TrainingController@add_training_submit');
-
-    Route::get('add_chapter/{id_module}','TrainingController@add_chapter');
-
-    Route::get('manage_chapter/{id_chapter}','TrainingController@manage_chapter');
-
-    Route::post('add_chapter_submit','TrainingController@add_chapter_submit');
-
-    Route::post('add_question_submit','TrainingController@add_question_submit');
-
-    Route::get('select_answer/{id_question}','TrainingController@select_answer');
-
-    Route::post('select_answer_submit','TrainingController@select_answer_submit');
-
-    Route::get('remove_question/{id}', 'TrainingController@remove_question' );
-
-    Route::get('edit_question/{id}','TrainingController@edit_question');
-
-    Route::post('edit_question_submit','TrainingController@edit_question_submit');
-
-    Route::get('edit_chapter/{id}', 'TrainingController@edit_chapter');
-
-    Route::post('edit_chapter_submit', 'TrainingController@edit_chapter_submit');
-
-    Route::get('remove_chapter/{id}', 'TrainingController@remove_chapter');
-
-    Route::post('material_add', 'TrainingController@material_add');
-
-    Route::get('remove_material_file/{id}', 'TrainingController@remove_material_file');
-
-    Route::get('edit_training/{id}','TrainingController@edit_training');
-
-    Route::post('edit_training_submit','TrainingController@edit_training_submit');
-
-    Route::get('training/publish/{id}', 'TrainingController@publish_training');
-
-    Route::get('training/unpublish/{id}', 'TrainingController@unpublish_training');
-
-    Route::get('training/see_participant/{id}', 'TrainingController@see_participant');
-
-    Route::get('admin_access_training', 'TrainingController@admin_access_training');
-
-    Route::post('admin_access_training','TrainingController@admin_access_training_serverside');
-
-    Route::get('request_access/{id_training}', 'TrainingController@request_access');
-
-    Route::get('give_access/{id_access}', 'TrainingController@give_access');
-
-    Route::get('cancel_access/{id_access}','TrainingController@cancel_access');
-
-    Route::get('training/add_participant/{id_training}','TrainingController@add_participant');
-
-    Route::post('training/add_participant','TrainingController@add_participant_submit');
-
-    Route::get('schedule','TrainingController@schedule');
-
-    Route::post('schedule','TrainingController@schedule_serverside');
+});
     // -------------------------------------
     // ORG. STRUCTURE
     // -------------------------------------

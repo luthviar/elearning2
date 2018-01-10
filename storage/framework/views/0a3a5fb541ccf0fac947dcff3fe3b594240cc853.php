@@ -1,5 +1,5 @@
 <footer id="footer" class="col-lg-12 text-center">
-
+	<div id="stopHere"></div>
         <div class="page-footer-fixed text-center" id="div2">
             <div class="footer-content text-center" id="p2">
                 <div class="col-holder">

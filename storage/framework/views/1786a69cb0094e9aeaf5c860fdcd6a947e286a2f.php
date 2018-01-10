@@ -167,6 +167,23 @@
 
 
 <script>
+var password = document.getElementById("change_password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+
+
+<script>
     function editForum($id_edit,$title,$can_reply,$content,$attachments) {
         window.location.href = '...';
         $("#id_forum_edit").val($id_edit);
@@ -190,7 +207,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.detailTable').DataTable({
-            "order": [[ 0, "desc" ]]
+            "order": [[ 4, "desc" ]]
         });
     });
 </script>

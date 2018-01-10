@@ -230,8 +230,6 @@
             </div>
 
         </div>
-
-        <div id="stopHere"></div>
     </div>
 
     
@@ -479,8 +477,9 @@
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
+					nav.css('top', stopPosition - y);
                 } else {
-                    nav.css('top', 80);
+                    nav.css('top', 0);
                 }
             } else {
                 nav.removeClass('sticky');
@@ -490,10 +489,6 @@
     <style>
         .sticky {
             position: fixed;
-        }
-        p.big {
-            line-height: 300%;
-            font-size : 15px;
         }
     </style>
 <?php $__env->stopSection(); ?>

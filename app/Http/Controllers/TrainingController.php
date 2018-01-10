@@ -116,12 +116,12 @@ class TrainingController extends Controller
             return view('user.error')->with('error', $next_chapter)->with('module', $modul);
         }
         if ($next_chapter['chapter'] == null) {
-            return redirect('get_training/'.$record->id_module_training);
+            return redirect(action('TrainingController@get_trainings',$record->id_module_training));
         }
         if ($next_chapter['chapter']->category == 0) {
-            return redirect('/material/'.$next_chapter['chapter']->id);
+            return redirect(action('TrainingController@get_material',$next_chapter['chapter']->id));
         } else {
-            return redirect('/test/'.$next_chapter['chapter']->id);
+            return redirect(action('TrainingController@get_test',$next_chapter['chapter']->id));
         }
         
         
@@ -378,7 +378,8 @@ class TrainingController extends Controller
     public function add_training (){
         $parent = ModulTraining::where('is_child',0)->get();
         $department = OsDepartment::all();
-        return view('admin.training_add')->with('parent',$parent)->with('department',$department);
+        return view('admin.training.training_add')
+            ->with('parent',$parent)->with('department',$department);
     }
 
     public function add_training_submit (Request $request) {
@@ -419,7 +420,7 @@ class TrainingController extends Controller
             );
         }
 
-        return redirect('/manage_training/'. $id);
+        return redirect(action('TrainingController@manage_training', $id));
     }
 
     public function manage_training ($id_training){
@@ -443,7 +444,9 @@ class TrainingController extends Controller
             }
         }
         $training['chapter'] = $chapter;
-        return view('admin.training_manage')->with('training',$training)->with('parent',$parent);
+
+//        dd($training['chapter']);
+        return view('admin.training.training_manage')->with('training',$training)->with('parent',$parent);
     }
 
     public function add_chapter ($id_module) {
@@ -451,7 +454,8 @@ class TrainingController extends Controller
         if ($modul == null) {
             return "error : module not found";
         }
-        return view('admin.training_add_chapter')->with('module',$modul);
+        return view('admin.training.training_add_chapter')->with('module',$modul);
+
     }
 
     public function add_chapter_submit (Request $request) {
@@ -483,13 +487,15 @@ class TrainingController extends Controller
             $test->save();
         }
         
-        return redirect('manage_chapter/'.$id);
+        return redirect(action('TrainingController@manage_chapter',$id));
 
 
     }
 
     public function manage_chapter($id_chapter) {
         $chapter = Chapter::find($id_chapter);
+//        $modul = Chapter::where('id_module', $id_chapter)->orderBy('sequence','desc')->first();
+
         if ($chapter == null) {
             return "error : chapter not found";
         }
@@ -500,7 +506,7 @@ class TrainingController extends Controller
             $test = new Test();
             $chapter['test'] = $test->get_manage_test($id_chapter);
         }
-        return view('admin.training_manage_chapter')->with('chapter',$chapter);
+        return view('admin.training.training_manage_chapter')->with('chapter',$chapter);
     }
 
     public function add_question_submit(Request $request){
@@ -520,7 +526,7 @@ class TrainingController extends Controller
             $option1->save();
         }
         
-        return redirect('select_answer/'. $id);
+        return redirect(action('TrainingController@select_answer', $id));
     }
 
     public function select_answer ($id_question) {
@@ -530,7 +536,7 @@ class TrainingController extends Controller
         }
         $question['option'] = QuestionOption::where('id_question',$id_question)->get();
 
-        return view('admin.training_select_option_true')->with('question',$question);
+        return view('admin.training.training_select_option_true')->with('question',$question);
     }
 
     public function select_answer_submit (Request $request) {
@@ -541,7 +547,7 @@ class TrainingController extends Controller
 
         $question = Question::find($option->id_question);
         $test = Test::find($question->id_test);
-        return redirect('manage_chapter/'.$test->id_chapter);
+        return redirect(action('TrainingController@manage_chapter',$test->id_chapter));
     }
 
     public function remove_question ($id_question) {
@@ -553,7 +559,7 @@ class TrainingController extends Controller
         DB::table('question_options')->where('id_question','=',$id_question)->delete();
         DB::table('questions')->where('id','=',$id_question)->delete();
 
-        return redirect('manage_chapter/'.$test->id_chapter);
+        return redirect(action('TrainingController@manage_chapter',$test->id_chapter));
     }
 
     public function edit_question($id_question) {
@@ -563,7 +569,7 @@ class TrainingController extends Controller
         }
         $question['option'] = QuestionOption::where('id_question',$id_question)->get();
 
-        return view('admin.training_edit_question')->with('question',$question);
+        return view('admin.training.training_edit_question')->with('question',$question);
     }
 
     public function edit_question_submit (Request $request) {
@@ -585,7 +591,7 @@ class TrainingController extends Controller
         }
         
 
-        return redirect('select_answer/'. $question->id);
+        return redirect(action('TrainingController@select_answer', $question->id));
     }
 
     public function edit_chapter ( $id_chapter){
@@ -605,7 +611,7 @@ class TrainingController extends Controller
             }
         }
 
-        return view('admin.training_edit_chapter_overview')->with('chapter', $chapter);
+        return view('admin.training.training_edit_chapter_overview')->with('chapter', $chapter);
 
     }
 
@@ -642,7 +648,7 @@ class TrainingController extends Controller
             }
         }
 
-        return redirect('manage_chapter/'. $request->id_chapter);
+        return redirect(action('TrainingController@manage_chapter', $request->id_chapter));
     }
 
     public function remove_chapter ($id_chapter){
@@ -653,11 +659,11 @@ class TrainingController extends Controller
         $id_module = $chapter->id_module;
         DB::table('chapters')->where('id','=',$id_chapter)->delete();
 
-        return redirect('manage_training/'.$id_module);
+        return redirect(action('TrainingController@manage_training',$id_module));
     }
 
     public function admin_training () {
-        return view('admin.training');
+        return view('admin.training.training');
     }
 
     public function admin_training_serverside( Request $request) {
@@ -717,7 +723,9 @@ class TrainingController extends Controller
             foreach ($ModulTraining as $module)
             {
 
-                $nestedData['modul_name'] = "<a href='".url('/manage_training',$module->id)."'>".$module->modul_name."</a>";
+                $nestedData['modul_name'] =
+                    "<a href='".url(action('TrainingController@manage_training',$module->id))."'>"
+                    .$module->modul_name."</a>";
 
                 $parent = ModulTraining::find($module->id_parent);
                 $nestedData['parent'] = $parent->modul_name;
@@ -767,7 +775,7 @@ class TrainingController extends Controller
         $attachment->url = $url;
         $attachment->save();
 
-        return redirect('manage_chapter/'.$material->id_chapter);
+        return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
     }
 
     public function remove_material_file($id_file){
@@ -779,7 +787,7 @@ class TrainingController extends Controller
         $material = Material::find($file->id_material);
         DB::table('files_materials')->where('id','=',$id_file)->delete();
 
-        return redirect('manage_chapter/'.$material->id_chapter);
+        return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
     }
 
     public function edit_training( $id_training){
@@ -790,7 +798,7 @@ class TrainingController extends Controller
         }
         $department = OsDepartment::all();
 
-        return view('admin.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department);
+        return view('admin.training.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department);
     }
 
     public function edit_training_submit(Request $request){
@@ -808,7 +816,7 @@ class TrainingController extends Controller
         $module->time          = $request->time;
         $module->save();
 
-        return redirect('manage_training/'.$request->id_module);   
+        return redirect(action('TrainingController@manage_training',$request->id_module));
 
     }
 
@@ -820,7 +828,7 @@ class TrainingController extends Controller
         $module->is_publish = 1;
         $module->save();
 
-        return redirect('manage_training/'.$id_module);  
+        return redirect(action('TrainingController@manage_training',$id_module));
     }
 
     public function unpublish_training ($id_module){
@@ -831,7 +839,7 @@ class TrainingController extends Controller
         $module->is_publish = 0;
         $module->save();
 
-        return redirect('manage_training/'.$id_module);  
+        return redirect(action('TrainingController@manage_training',$id_module));
     }
 
     public function see_participant($id_module) {
@@ -858,7 +866,7 @@ class TrainingController extends Controller
                 
             }
         }
-        return view('admin.training_see_participant')->with('module',$module)->with('chapter_record',$chapter_record);
+        return view('admin.training.training_see_participant')->with('module',$module)->with('chapter_record',$chapter_record);
     }
 
     public function admin_access_training(){

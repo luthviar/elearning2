@@ -45,7 +45,10 @@
             </li>
 
             {{-- Menu Training --}}
-            <li class="treeview">
+            <li class="treeview {{
+                     Request::is('admin/training/*') ||
+                     Request::is('admin/training')
+                     ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-pencil"></i>
                     <span>Training</span>
@@ -54,7 +57,11 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::action('TrainingController@admin_training') }}"><i class="fa fa-circle-o"></i>
+                    <li class="{{
+                     Request::is('admin/training/all') ||
+                     Request::is('admin/training/manage*')
+                     ? 'active' : '' }}">
+                        <a href="{{ URL::action('TrainingController@admin_training') }}"><i class="fa fa-circle-o"></i>
                             View Training</a></li>
                     <li><a href="{{ URL::action('TrainingController@add_training') }}"><i class="fa fa-circle-o"></i>
                             Add Training</a></li>
@@ -71,8 +78,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Training Access</a></li>
-                    <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> System Access</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Training Access</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> System Access</a></li>
                 </ul>
             </li>
 

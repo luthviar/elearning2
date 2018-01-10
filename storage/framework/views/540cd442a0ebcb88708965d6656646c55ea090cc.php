@@ -190,7 +190,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.detailTable').DataTable({
-            "order": [[ 0, "desc" ]]
+            "order": [[ 4, "desc" ]]
         });
     });
 </script>
