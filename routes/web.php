@@ -294,45 +294,45 @@ Route::prefix('admin')->group(function () {
 
         Route::get('add','TrainingController@add_training');
 
-        Route::post('add_training','TrainingController@add_training_submit');
+        Route::post('add-training','TrainingController@add_training_submit');
 
-        Route::get('add_chapter/{id_module}','TrainingController@add_chapter');
+        Route::get('add-chapter-{id_module}','TrainingController@add_chapter');
 
-        Route::get('manage_chapter/{id_chapter}','TrainingController@manage_chapter');
+        Route::get('chapter-{id_chapter}','TrainingController@manage_chapter');
 
         Route::post('add_chapter_submit','TrainingController@add_chapter_submit');
 
         Route::post('add_question_submit','TrainingController@add_question_submit');
 
-        Route::get('select_answer/{id_question}','TrainingController@select_answer');
+        Route::get('select-answer-{id_question}','TrainingController@select_answer');
 
         Route::post('select_answer_submit','TrainingController@select_answer_submit');
 
-        Route::get('remove_question/{id}', 'TrainingController@remove_question' );
+        Route::get('remove-question-{id}', 'TrainingController@remove_question' );
 
-        Route::get('edit_question/{id}','TrainingController@edit_question');
+        Route::get('edit-question-{id}','TrainingController@edit_question');
 
         Route::post('edit_question_submit','TrainingController@edit_question_submit');
 
-        Route::get('edit_chapter/{id}', 'TrainingController@edit_chapter');
+        Route::get('edit-chapter-{id}', 'TrainingController@edit_chapter');
 
         Route::post('edit_chapter_submit', 'TrainingController@edit_chapter_submit');
 
-        Route::get('remove_chapter/{id}', 'TrainingController@remove_chapter');
+        Route::get('remove-chapter-{id}', 'TrainingController@remove_chapter');
 
         Route::post('material_add', 'TrainingController@material_add');
 
-        Route::get('remove_material_file/{id}', 'TrainingController@remove_material_file');
+        Route::get('remove-material-file-{id}', 'TrainingController@remove_material_file');
 
-        Route::get('edit_training/{id}','TrainingController@edit_training');
+        Route::get('edit-training-{id}','TrainingController@edit_training');
 
         Route::post('edit_training_submit','TrainingController@edit_training_submit');
 
-        Route::get('training/publish/{id}', 'TrainingController@publish_training');
+        Route::get('training-publish-{id}', 'TrainingController@publish_training');
 
-        Route::get('training/unpublish/{id}', 'TrainingController@unpublish_training');
+        Route::get('training-unpublish-{id}', 'TrainingController@unpublish_training');
 
-        Route::get('see_participant/{id}', 'TrainingController@see_participant');
+        Route::get('see-participants-{id}', 'TrainingController@see_participant');
 
     });
 });

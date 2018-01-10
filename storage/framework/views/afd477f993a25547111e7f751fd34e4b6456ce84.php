@@ -10,7 +10,9 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Training</h3>
+              <h3 class="box-title">
+                
+              </h3>
             </div>
             <div class="box-body">
 
@@ -21,14 +23,14 @@
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title">
+                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title" required>
               </div>
 
 
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
-                  <select class="form-control" name="id_parent" id="parent">
+                  <select class="form-control" name="id_parent" id="parent" required>
                     <?php $__currentLoopData = $parent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <option value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -43,7 +45,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd">
+                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd" required/>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -55,7 +57,7 @@
                   <label>Training Start:</label>
 
                   <div class="input-group">
-                    <input type="text" name="time" class="form-control timepicker">
+                    <input type="text" name="time" class="form-control timepicker" required/>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -81,11 +83,15 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="summernote"
+                            name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
               </div>
 
               <div class="row text-center">
-                <button class="btn btn-success">Next Step</button>
+                <button class="btn btn-info">
+                    Next Step
+                    <i class="fa fa-angle-right"></i>
+                </button>
               </div>
 
               </form>
@@ -179,6 +185,7 @@ $(document).ready(function(){
   });
 </script>
 
+    <?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

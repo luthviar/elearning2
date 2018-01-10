@@ -1,18 +1,11 @@
+<?php $__env->startSection('page-name'); ?>
+  <a href="<?php echo e(url(action('TrainingController@manage_training',$module->id))); ?>">
+    <i class="fa fa-arrow-left"></i>
+  </a>
+  Edit Training
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add Training
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo e(url('/personnel')); ?>">Training</a></li>
-        <li class="active">Add Training</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
@@ -20,11 +13,13 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Training</h3>
+              <h3 class="box-title">
+                
+              </h3>
             </div>
             <div class="box-body">
 
-            <form action="<?php echo e(url('edit_training_submit')); ?>" method="post">
+            <form action="<?php echo e(url(action('TrainingController@edit_training_submit'))); ?>" method="post">
               <?php echo e(csrf_field()); ?>
 
 
