@@ -2,31 +2,19 @@
 
 @section('content')
 
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Add Training
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">Training</a></li>
-        <li class="active">Add Training</li>
-      </ol>
-    </section>
-
-
-
     <!-- Main content -->
     <section class="content">
     <div class="row">
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Training</h3>
+              <h3 class="box-title">
+                {{-- fill in here --}}
+              </h3>
             </div>
             <div class="box-body">
 
-            <form action="{{url('admin/training/edit_training_submit')}}" method="post">
+            <form action="{{url(action('TrainingController@edit_training_submit'))}}" method="post">
               {{ csrf_field() }}
 
               <input type="hidden" name="id_module" value="{{$module->id}}">

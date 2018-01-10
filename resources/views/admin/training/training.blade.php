@@ -46,6 +46,7 @@ All Training
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
+            "order": [[6, 'dsc']],
             "ajax":{
                      "url": "{{ url(action('TrainingController@admin_training_serverside')) }}",
                      "dataType": "json",

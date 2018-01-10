@@ -20,7 +20,7 @@
 
                  
                  <h5>Question :</h5>
-                 <p><?php echo e($question->question_text); ?></p>
+                 <p><?php echo html_entity_decode($question->question_text); ?></p>
                 <!-- select -->
                 <div class="form-group col-md-12">
                   <label>Select True Answer</label>

@@ -171,7 +171,7 @@
                 </b>
               </h3>
               <input type="hidden" name="question_id" value="127">
-              <div class="question">{{ $question->question_text }}</div>
+              <div class="question">{!! $question->question_text  !!} </div>
               <br>
               <ol type="A" style="list-style:none">
 

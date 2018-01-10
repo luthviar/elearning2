@@ -173,7 +173,7 @@
                 </b>
               </h3>
               <input type="hidden" name="question_id" value="127">
-              <div class="question"><?php echo e($question->question_text); ?></div>
+              <div class="question"><?php echo $question->question_text; ?> </div>
               <br>
               <ol type="A" style="list-style:none">
 

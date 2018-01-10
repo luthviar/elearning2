@@ -68,7 +68,7 @@ class UserTestRecord extends Model
     	$count_true = count($true_answer);
     	$count_record_test = count($record_test);
 
-    	$skor = (int) (($count_true/$count_record_test)*100);
+    	$skor = round((($count_true/$count_record_test)*100),2);
 
     	$record['skor'] = $skor;
     	$record['true_answer'] = count($true_answer);

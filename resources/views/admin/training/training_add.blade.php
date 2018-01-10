@@ -12,7 +12,9 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Training</h3>
+              <h3 class="box-title">
+                {{-- fill here --}}
+              </h3>
             </div>
             <div class="box-body">
 
@@ -22,14 +24,14 @@
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title">
+                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title" required>
               </div>
 
 
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent</label>
-                  <select class="form-control" name="id_parent" id="parent">
+                  <select class="form-control" name="id_parent" id="parent" required>
                     @foreach($parent as $par)
                     <option value="{{$par->id}}">{{ $par->modul_name}}</option>
                     @endforeach
@@ -44,7 +46,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd">
+                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd" required/>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -56,7 +58,7 @@
                   <label>Training Start:</label>
 
                   <div class="input-group">
-                    <input type="text" name="time" class="form-control timepicker">
+                    <input type="text" name="time" class="form-control timepicker" required/>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -82,7 +84,8 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" id="summernote"
+                            name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
               </div>
 
               <h5><strong>Trainer</strong></h5>
@@ -98,7 +101,10 @@
 
 
               <div class="row text-center">
-                <button class="btn btn-success">Next Step</button>
+                <button class="btn btn-info">
+                    Next Step
+                    <i class="fa fa-angle-right"></i>
+                </button>
               </div>
 
               </form>
@@ -212,5 +218,6 @@ $(document).ready(function(){
 });
 </script>
 
+    @include('admin.layouts.summernote')
 
 @endsection

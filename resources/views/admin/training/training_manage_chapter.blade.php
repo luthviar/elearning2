@@ -214,19 +214,19 @@
                            <input type="submit" name="submit" class="btn btn-default">
                           </div>
                       </form>
-                      @endif
+                      {{--@endif--}}
 
 
                     </div>
                     <!-- /.box-body -->
-
+                        <div class="row text-center">
+                            <a href="{{url(action('TrainingController@manage_training',$chapter->id_module))}}"
+                               class="btn btn-block btn-success">
+                                Save This Chapter
+                            </a>
+                        </div>
                   </div>
-                      <div class="row text-center">
-                          <a href="{{url(action('TrainingController@manage_training',$chapter->id_module))}}"
-                             class="btn btn-block btn-success">
-                              Save This Chapter
-                          </a>
-                      </div>
+                      @endif
             </div>
             <!-- /.box-body -->
 

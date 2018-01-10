@@ -11,27 +11,17 @@
       <h4>Attachments :</h4>
       @foreach ($chapter['material']['files_material'] as $file)
       <div style="padding-bottom: 10px;">
-        <a href="{{URL::asset($file->url)}}" class="btn btn-default" style="width: 100%;">
+        <a
+            {{--href="{{URL::asset($file->url)}}"--}}
+           {{--onclick="window.open('{{URL::asset($file->url)}}',--}}
+                   {{--'newWin', 'width='+screen.availWidth+',height='+screen.availHeight)"--}}
+            onclick="openPDF()"
+           class="btn btn-default" style="width: 100%;">
           {{ $file->name}}
         </a>
       </div>
       @endforeach
-      {{--@if(Session::get('record') == 'yes')--}}
-      {{--<a--}}
-        {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
-        {{--onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"--}}
-        {{--class="btn color-std">--}}
-        {{--Finish this chapter--}}
-      {{--</a>--}}
-      {{--@elseif(Session::get('record') != 'yes')--}}
-      {{--<a--}}
 
-              {{--target="_self"--}}
-              {{--class="icon"--}}
-              {{--style="margin-right: 0px; cursor: pointer;"--}}
-              {{--data-toggle="modal" data-target="#TestStart"--}}
-      {{-->--}}
-      {{--@endif--}}
           <a
                   {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
                   onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
@@ -44,4 +34,21 @@
   </div>
 </div>
 
+@endsection
+
+@section('script')
+    <script>
+        function openPDF() {
+            var myWindow = window.open('', 'MsgWindow', 'width='+screen.availWidth+',height='+screen.availHeight);
+            var coba = 'satu';
+            myWindow.document.write("<iframe id='iframe' src ='{{ URL::asset($file->url)}}' width='90%' height='90%' allowfullscreen webkitallowfullscreen></iframe>");
+
+            myWindow.document.getElementById('iframe').textContent().removeChild(document.getElementById('download'));
+        }
+//        $('#iframe').ready(function() {
+//            setTimeout(function() {
+//                $('#iframe').contents().find('#download').remove();
+//            }, 100);
+//        });
+    </script>
 @endsection

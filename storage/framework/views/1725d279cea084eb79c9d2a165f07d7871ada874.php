@@ -158,7 +158,7 @@
                         no question
                         <?php else: ?>
                         <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key + 1); ?>. <?php echo e($question->question_text); ?> 
+                        <li><?php echo e($key + 1); ?>. <?php echo html_entity_decode($question->question_text); ?> 
                         <span class="pull-right">
                           <a href="<?php echo e(url(action('TrainingController@edit_question',$question->id))); ?>">
                             <i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true"></i>edit
@@ -216,19 +216,19 @@
                            <input type="submit" name="submit" class="btn btn-default">
                           </div>
                       </form>
-                      <?php endif; ?>
+                      
 
 
                     </div>
                     <!-- /.box-body -->
-
+                        <div class="row text-center">
+                            <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
+                               class="btn btn-block btn-success">
+                                Save This Chapter
+                            </a>
+                        </div>
                   </div>
-                      <div class="row text-center">
-                          <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
-                             class="btn btn-block btn-success">
-                              Save This Chapter
-                          </a>
-                      </div>
+                      <?php endif; ?>
             </div>
             <!-- /.box-body -->
 
