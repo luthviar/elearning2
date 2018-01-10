@@ -1,11 +1,11 @@
 <ul>
     <li class="{{ Request::is('get_training/*') ? 'tab-current' : '' }}">
         <a
-            href="{{ url('get_training/'.Session::get('child_id')) }}"
+            href="{{ url('get_training/'.Session::get('training')->id) }}"
             class="icon">
               <span>
                   <i class="glyphicon glyphicon-th-list"></i>
-                   List of Chaptersa
+                   List of Chapters
               </span>
         </a>
     </li>

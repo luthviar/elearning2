@@ -33,24 +33,12 @@
                         <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         EDIT TRAINING
                    </a>
+                   <a href="<?php echo e(url('admin/training/add_participant',$training->id)); ?>" class="btn btn-success">ADD PARTICIPANT</a>
 
               </span>
             </div>
             <div class="box-body">
 
-            
-              
-              
-              
-                 
-              
-              
-                 
-              
-              
-                 
-              
-            
             
               <!-- select -->
                 <div class="form-group col-md-4">

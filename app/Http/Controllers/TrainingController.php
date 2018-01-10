@@ -54,7 +54,8 @@ class TrainingController extends Controller
                 $children['access'] = $user_access->check_access(\Auth::user()->id, $children->id);
             }
             
-            return view('user.training.module_training')->with( 'trainings', $trainings)->with('module', $modul)->with('department',$department);
+            return view('user.training.module_training')
+                ->with( 'trainings', $trainings)->with('module', $modul)->with('department',$department);
         } 
 
         $user_chapter_record = new UserChapterRecord();
@@ -73,7 +74,10 @@ class TrainingController extends Controller
         $trainings2 = Session::get('training');
         $finish_chapter2 = Session::get('finish_chapter');
 
-        return view('user.training.intro_training')->with('training', $trainings2)->with('module', $modul)->with('finish_chapter', $finish_chapter2);
+//        dd(Session::get('training'));
+        return view('user.training.intro_training')
+            ->with('training', $trainings2)->with('module', $modul)
+            ->with('finish_chapter', $finish_chapter2);
     	
 
     }
@@ -174,7 +178,8 @@ class TrainingController extends Controller
 //        dd(Session::get('record'));
         // start test of training
         return view('user.training.online_test')
-            ->with('chapter', $chapter)->with('test',$test)->with('module',$modul)->with('char',$char)->with('record',$record_session);
+            ->with('chapter', $chapter)->with('test',$test)
+            ->with('module',$modul)->with('char',$char)->with('record',$record_session);
 
     }
 
@@ -223,7 +228,8 @@ class TrainingController extends Controller
         }
         
 
-        return view('user.training.online_test_review')->with('chapter', $chapter)->with('record', $user_record)->with('module', $modul);
+        return view('user.training.online_test_review')
+            ->with('chapter', $chapter)->with('record', $user_record)->with('module', $modul);
     }
 
     public function next_chapter($id_chapter){
