@@ -1,0 +1,47 @@
+<?php $__env->startSection('content_training'); ?>
+
+
+<div class="container" style="padding-bottom: 100px;">
+  <div class="row">
+    <div class="text-center">
+      <h1><?php echo e($chapter->chapter_name); ?></h1>
+      <p><?php echo html_entity_decode($chapter['material']->description); ?></p>
+      <h4>Attachments :</h4>
+      <?php $__currentLoopData = $chapter['material']['files_material']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <div style="padding-bottom: 10px;">
+        <a href="<?php echo e(URL::asset($file->url)); ?>" class="btn btn-default" style="width: 100%;">
+          <?php echo e($file->name); ?>
+
+        </a>
+      </div>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      
+      
+        
+        
+        
+        
+      
+      
+      
+
+              
+              
+              
+              
+      
+      
+          <a
+                  
+                  onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
+                  class="btn color-std">
+            Finish this chapter
+          </a>
+
+
+    </div>
+  </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.training.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

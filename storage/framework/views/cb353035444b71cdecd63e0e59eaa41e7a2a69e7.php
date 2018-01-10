@@ -92,7 +92,7 @@
                 </tr>
 
                 <tr>
-                  <td>Change Password</td>
+                  <td>New Password</td>
                   <td>
                     <input id="change_password" type="password" class="form-control" name="change_password" placeholder="password" required="true" ><span id="change_password_msg"></span></td>
                 </tr>
@@ -104,7 +104,7 @@
                 </tr>
                 </tbody>
               </table>
-              <button type="submit" class="btn btn-success" style="width: 100%;">change password</button>
+              <button type="submit" class="btn btn-success" style="width: 100%;">Change Password</button>
             </div>
           </form>
         </div>
