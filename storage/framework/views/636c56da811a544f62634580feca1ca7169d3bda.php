@@ -96,7 +96,9 @@
                             </ul>
                         </div>
 
-                        <?php echo $__env->make('user.layouts.aerofood_links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                        <div class="col-md-4 col-sm-6 article-block">
+                            <?php echo $__env->make('user.layouts.aerofood_links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                        </div>
                         <!-- end Div links-->
                     </div>
 
