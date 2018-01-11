@@ -19,12 +19,12 @@ class News extends Model
     }
 
     public function get_all_active_news () {
-        $news = News::where( 'flag_active', 1 )->orderBy( 'created_at' , 'desc' )->paginate(6);
+        $news = News::where( 'flag_active', 1 )->where('is_publish',1)->orderBy( 'created_at' , 'desc' )->paginate(6);
         return $news;
     }
 
     public function get_active_news() {
-    	$news = News::where( 'flag_active', 1 )->orderBy( 'created_at' , 'desc' )->take(6)->get();
+    	$news = News::where( 'flag_active', 1 )->where('is_publish',1)->orderBy( 'created_at' , 'desc' )->take(6)->get();
     	return $news;
     }
 
