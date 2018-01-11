@@ -31,7 +31,9 @@ Route::get('/profile', 'UserController@get_profile');
 
 Route::get('/forgot_password', 'UserController@forgot_password');
 
-Route::post('/forgot_password', 'UserController@forgot_password_submit');
+Route::post('/forgot_password_submit', 'UserController@forgot_password_submit');
+
+Route::get('/send-password/{id}', 'UserController@send_password');
 
 Route::post('/change_photo','UserController@change_photo');
 
@@ -163,7 +165,7 @@ Route::prefix('admin')->group(function () {
     // ----------------------------------
     Route::get('system/access','UserController@system_access');
 
-    Route::post('system/access','UserController@system_access_serversid');
+    Route::post('system/access/server','UserController@system_access_serverside');
 
     // ----------------------------------
     // PERSONNEL

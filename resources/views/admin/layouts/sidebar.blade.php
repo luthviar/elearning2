@@ -67,8 +67,13 @@
                      ? 'active' : '' }}">
                         <a href="{{ URL::action('TrainingController@admin_training') }}"><i class="fa fa-circle-o"></i>
                             View Training</a></li>
-                    <li><a href="{{ URL::action('TrainingController@add_training') }}"><i class="fa fa-circle-o"></i>
-                            Add Training</a></li>
+                    <li class="{{
+                     Request::is('admin/training/add')
+                     ? 'active' : '' }}">
+                        <a href="{{ URL::action('TrainingController@add_training') }}"><i class="fa fa-circle-o"></i>
+                            Add Training
+                        </a>
+                    </li>
                     <li><a href="{{ url('admin/training/schedule') }}"><i class="fa fa-circle-o"></i>
                             Schedule</a></li>
                 </ul>

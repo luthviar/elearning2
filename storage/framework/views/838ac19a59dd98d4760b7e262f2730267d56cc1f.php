@@ -43,7 +43,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "<?php echo e(url('admin/system/access')); ?>",
+                     "url": "<?php echo e(url(action('UserController@system_access_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "<?php echo e(csrf_token()); ?>"}

@@ -21,9 +21,10 @@
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Email</th>
-                  <th>Validation</th>
-                  <th>Time</th>
+                    <th>Email</th>
+                    <th>Validation</th>
+                    <th>Time</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 
@@ -45,7 +46,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('admin/system/access') }}",
+                     "url": "{{ url(action('UserController@system_access_serverside')) }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}

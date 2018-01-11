@@ -62,8 +62,12 @@
                      ? 'active' : ''); ?>">
                         <a href="<?php echo e(URL::action('TrainingController@admin_training')); ?>"><i class="fa fa-circle-o"></i>
                             View Training</a></li>
-                    <li><a href="<?php echo e(URL::action('TrainingController@add_training')); ?>"><i class="fa fa-circle-o"></i>
-                            Add Training</a></li>
+                    <li class="<?php echo e(Request::is('admin/training/add')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(URL::action('TrainingController@add_training')); ?>"><i class="fa fa-circle-o"></i>
+                            Add Training
+                        </a>
+                    </li>
                     <li><a href="<?php echo e(url('admin/training/schedule')); ?>"><i class="fa fa-circle-o"></i>
                             Schedule</a></li>
                 </ul>

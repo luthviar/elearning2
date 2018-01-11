@@ -21,6 +21,7 @@ use App\OsDepartment;
 use App\Test;
 use App\UserTestRecord;
 use App\OsSection;
+use Mail;
 
 class UserController extends Controller
 {
@@ -28,10 +29,11 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => [
-             'forgot_password', 'forgot_password_submit'
+             'forgot_password', 'forgot_password_submit', 'send_password'
         ]]);
         $this->middleware('isAdmin', ['except' => [
-             'forgot_password', 'forgot_password_submit', 'get_profile', 'change_password', 'change_photo'
+             'forgot_password', 'forgot_password_submit', 'get_profile',
+            'change_password', 'change_photo','send_password'
         ]]);
         
     }
@@ -112,7 +114,12 @@ class UserController extends Controller
                 $request_password->is_valid = 1;
                 $request_password->save();
 
-                return "ok";
+//                $this->send_password($user->id);
+
+
+//                return redirect('access');
+
+                return redirect(action('UserController@send_password',$user->id));
             }
         }
         $request_password = new RequestPassword;
@@ -121,6 +128,34 @@ class UserController extends Controller
         $request_password->save();
         $error = 'We cant find your email in our system';
         return view('user.forgot_password')->with('error',$error);
+    }
+
+    public function send_password($id_user) {
+        $user = User::where('id',$id_user)->first();
+//        dd('masuk');
+        $pinrandom = mt_rand(100, 999)
+            . mt_rand(100, 999);
+        // shuffle the result
+        $newpass = str_shuffle($pinrandom);
+
+
+        $user->password = bcrypt($newpass);
+        $user->save();
+
+        $dataEmail = array(
+            'name'=>$user->name,
+            'newpass'=>$newpass
+        );
+
+
+        Mail::send(['html'=>'email-content.password-reset'],
+            $dataEmail, function($message) use($user) {
+                $message->to($user->email, $user->name)->subject
+                ('[ALC] Informasi Ganti Password');
+                $message->from('luthviar.a@gmail.com','Admin ELearning Aerofood');
+            });
+
+        return redirect('login');
     }
 
 
@@ -465,7 +500,10 @@ class UserController extends Controller
         {
             foreach ($accesses as $access)
             {
-                
+
+
+
+
                 $nestedData['email'] = $access->email;
                 if ($access->is_valid == 1) {
                     $nestedData['is_valid'] = "valid";
@@ -473,9 +511,13 @@ class UserController extends Controller
                     $nestedData['is_valid'] = "not valid";
                 }
                 $nestedData['created_at'] = date('j M Y',strtotime($access->created_at));
-                
-                
-                
+
+
+                $nestedData['action'] =
+                    "<a href='".url(action('UserController@profile_view',$user->id))."'>"
+                    .$user->name."</a>";
+
+
                 $data[] = $nestedData;
 
             }

@@ -35,7 +35,7 @@
             <hr class="style14">
             <br>
             <div class="panel panel-info" >
-                <div class="panel-heading" style="background-color:blue; color:white">
+                <div class="panel-heading" style="background-color:#e67e22; color:white">
                     <div class="panel-title">Forgot Password</div>
                 </div>
 
@@ -43,7 +43,8 @@
 
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('forgot_password') }}">
+                    <form class="form-horizontal" role="form" method="POST"
+                          action="{{ url(action('UserController@forgot_password_submit')) }}">
                         {{ csrf_field() }}
 
                         <div style="margin-bottom: 25px" class="input-group">
@@ -57,7 +58,7 @@
                                 <!-- Button -->
 
                                 <div class="col-sm-12 controls">
-                                    <button type="submit" class="btn btn-primary" style="background-color:blue; color:white">
+                                    <button type="submit" class="btn btn-warning">
                                         Request Password
                                     </button>
 

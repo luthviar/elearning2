@@ -48,7 +48,9 @@ Add Personnel
               <div class="form-group">
                 <label>Name:</label>
                 <div class="input-group">
-                  <span class="input-group-addon"> <i class="fa fa-address-book"></i></span>
+                  <span class="input-group-addon">
+                      <i class="fa fa-address-book"></i>
+                  </span>
                   <input type="text" class="form-control" name="name" placeholder="name">
                 </div>
               </div>
