@@ -160,7 +160,11 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="container text-center">
+            @if($score != null)
             <iframe id="iframe" src="{{URL::to($score->attachment_url)}}" width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            @else
+              no score
+            @endif
             </iframe>
           </div>
         </div>
