@@ -210,10 +210,7 @@ class UserController extends Controller
         echo json_encode($json_data); 
     }
 
-    public function personnel_add()
-    {
-        return view('admin.personnel.personnel_add');
-    }
+    
 
     public function profile_view( $id_user ){
         //get modul training
@@ -243,7 +240,7 @@ class UserController extends Controller
         $division = OsDivision::all();
         $status = EmployeeStatus::all();
 
-        return view('admin.personnel.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status);
+        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status);
     }
 
     public function user_add_submit (Request $request){

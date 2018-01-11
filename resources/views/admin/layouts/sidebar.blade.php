@@ -43,7 +43,7 @@
                     <li class="{{
                      Request::is('admin/personnel/add')
                      ? 'active' : '' }}">
-                        <a href="{{ URL::action('UserController@personnel_add') }}"><i class="fa fa-circle-o"></i>
+                        <a href="{{ URL::action('UserController@user_add') }}"><i class="fa fa-circle-o"></i>
                             Add Personnel</a></li>
                 </ul>
             </li>

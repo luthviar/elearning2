@@ -178,7 +178,7 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/personnel/serverside', 'UserController@personnel_list_serverside');
 
-        Route::get('add', 'UserController@personnel_add');
+        Route::get('add', 'UserController@user_add');
 
 
 	    Route::get('/personnel/edit/{id}','UserController@edit_personnel');
