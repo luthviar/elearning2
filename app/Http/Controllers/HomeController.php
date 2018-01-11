@@ -48,6 +48,7 @@ class HomeController extends Controller
 
         $link = AerofoodLink::all();
 
+        Session::put('link',$link);
         Session::put('module',$modul);
 
         return view('user.home')

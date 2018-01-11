@@ -62,7 +62,7 @@
                                             <li>
                                                 <i class="fa fa-calendar"></i>
                                                 <a href="#">
-                                                    <?php echo e($news->created_at); ?>
+                                                    <?php echo e(date('j M Y, H:i:s',strtotime($news->created_at))); ?>
 
                                                 </a>
                                             </li>
@@ -94,6 +94,9 @@
                                     More News <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-6 article-block">
+                            <?php echo $__env->make('user.layouts.schedule', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         </div>
 
                         <div class="col-md-4 col-sm-6 article-block">

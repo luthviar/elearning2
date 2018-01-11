@@ -26,14 +26,14 @@
                      class="btn btn-danger">UN-PUBLISH TRAINING</a>
                 <?php endif; ?>
                 <a href="<?php echo e(url(action('TrainingController@see_participant',$training->id))); ?>"
-                   class="btn btn-info">SEE PARTICIPANTS</a>
+                   class="btn btn-info">SEE RESULT</a>
 
                   <a href="<?php echo e(url(action('TrainingController@edit_training',$training->id))); ?>"
                    class="btn btn-warning" style="word-spacing: normal;">
                         <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         EDIT TRAINING
                    </a>
-                   <a href="<?php echo e(url('admin/training/add_participant',$training->id)); ?>" class="btn btn-success">ADD PARTICIPANT</a>
+                   <a href="<?php echo e(url('admin/training/participant',$training->id)); ?>" class="btn btn-success">SEE PARTICIPANT</a>
 
               </span>
             </div>
@@ -85,11 +85,22 @@
                 <!-- /.form group -->
               </div>
 
+              <div class="col-md-12">
+                <h5><strong>Trainer </strong></h5>
+                <ul style="list-style-type: none;">
+                  <?php $__currentLoopData = $trainer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $trains): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($key+1); ?>. <strong><?php echo e($trains->trainer_name); ?></strong> - <?php echo e($trains->trainer_info); ?></li>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </ul>
+              </div>
+
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
                   <p><?php echo html_entity_decode($training->description); ?></p>
               </div>
+
+              
 
 
             </div>
