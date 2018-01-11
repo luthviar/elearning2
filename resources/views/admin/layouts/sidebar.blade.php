@@ -187,6 +187,46 @@
                 </ul>
             </li>
 
+            {{-- MENU AEROFOOD LINKS SYSTEM --}}
+            <li class="treeview {{
+                     Request::is('admin/links/*')
+                     ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-link" aria-hidden="true"></i>
+                    <span>Aerofood Links</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li class="{{
+                     Request::is('admin/links/*')
+                     ? 'active' : '' }}">
+                        <a href="{{url(action('AerofoodLinksController@index'))}}">
+                            <i class="fa fa-circle-o"></i>
+                            View All
+                        </a>
+                    </li>
+                    <li class="{{
+                     Request::is('adminaa//job-family*')
+                     ? 'active' : '' }}">
+                        <a href="{{url(action('ForumController@forum_job_family_list'))}}">
+                            <i class="fa fa-circle-o"></i>
+                            Job Family Forum
+                        </a>
+                    </li>
+                    <li class="{{
+                     Request::is('admin/aaa/department*')
+                     ? 'active' : '' }}">
+                        <a href="{{url(action('ForumController@forum_department_list'))}}">
+                            <i class="fa fa-circle-o"></i>
+                            Department Forum
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->

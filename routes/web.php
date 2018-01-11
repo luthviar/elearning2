@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-//Route::get('/test', 'HomeController@test');
+Route::get('/view-file/{id}', 'TrainingController@view_file');
 
 
 Route::post('change_password', 'UserController@change_password');
@@ -368,6 +368,25 @@ Route::prefix('admin')->group(function () {
 
         Route::get('see-participants-{id}', 'TrainingController@see_participant');
 
+    });
+
+
+    // -------------------------------------
+    // LINKS OF AEROFOOD SYSTEM
+    // -------------------------------------
+    Route::get('links', function(){
+        return redirect(action('TrainingController@admin_training'));
+    });
+
+    Route::prefix('links')->group(function () {
+
+        Route::get('all', 'AerofoodLinksController@index');
+
+        Route::get('view-{id}', 'AerofoodLinksController@view');
+
+        Route::get('edit-{id}', 'AerofoodLinksController@edit');
+
+        Route::post('update', 'AerofoodLinksController@update');
     });
 });
     // -------------------------------------

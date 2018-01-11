@@ -26,7 +26,7 @@
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" value="<?php echo e($news->title); ?>" name="title" placeholder="News title">
+                <input type="text" class="form-control" id="title" value="<?php echo e($news->title); ?>" name="title" placeholder="News title" required ="true">
               </div>
 
               <div class="col-md-12">
@@ -54,7 +54,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($news->content); ?></textarea>
+                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required ="true"><?php echo e($news->content); ?></textarea>
               </div>
 
               <div class="form-group">

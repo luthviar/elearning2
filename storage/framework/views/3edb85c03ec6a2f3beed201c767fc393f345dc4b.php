@@ -2,9 +2,13 @@
 
   <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
-      <img src="<?php echo e(URL::asset('gambar.png')); ?>" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
+      <?php if($profile['personal_data']->photo != null): ?>
+      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="..." style="height: 100%; border: 1px solid green;" class="img-circle"></a>
+      <?php else: ?>
+      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="..." style="height: 100%; border: 1px solid green;" class="img-circle"></a>
+      <?php endif; ?>
       <h3 class="green_color"><strong><?php echo e($profile['personal_data']->name); ?></strong></h3>
-      <h4>Department Human Capital . Aerofood ACS Head Office</h4>
+      <h4> <?php echo e($profile['personal_data']->position_name); ?> . Aerofood ACS</h4>
     </div>
     <div class="col-xs-12 col-md-12" style="padding-top: 10px;">
 
@@ -36,8 +40,12 @@
                 <td><?php echo e($profile['personal_data']->birtdate); ?></td>
               </tr>
               <tr>
-                <td width="50%">Age</td>
-                <td><?php echo e($profile['personal_data']->age); ?></td>
+                <td width="50%">Gender</td>
+                <?php if($profile['personal_data']->gender == 1): ?>
+                <td>Male</td>
+                <?php else: ?>
+                <td>Female</td>
+                <?php endif; ?>
               </tr>
               <tr>
                 <td width="50%">Education</td>
@@ -152,7 +160,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="container text-center">
-            <iframe id="iframe" src="<?php echo e(URL::to('/ViewerJS/index.html#../files/situs.pdf')); ?>" width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            <iframe id="iframe" src="<?php echo e(URL::to($score->attachment_url)); ?>" width='100%' height='600' allowfullscreen webkitallowfullscreen>
             </iframe>
           </div>
         </div>
@@ -161,5 +169,76 @@
     </div>
   </div>
 
+
+<!-- MODAL CHANGE PHOTO -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="change_photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="<?php echo e(url('/change_photo')); ?>" enctype="multipart/form-data">
+      <?php echo e(csrf_field()); ?>
+
+      <input type="hidden" name="id_user" value="<?php echo e($profile['personal_data']->id); ?>">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Change Photo</h4>
+      </div>
+      <div class="modal-body text-center">
+        <div class="text-center">
+          <?php if($profile['personal_data']->photo == null): ?>
+          <img id="img_prev" src="<?php echo e(URL::asset('photo/user-default.png')); ?>" style="width: 35%; height: 200px;">
+          <?php else: ?>
+          <img id="img_prev" src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" style="width: 35%; height: 200px;">
+          <?php endif; ?>
+        </div>
+        <!-- Image -->
+        <div class="form-group">
+            <label for="exampleInputFile">Profile</label>
+            <input type="file" id="img" name="image" accept="image/*">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('iframe').ready(function() {
+     setTimeout(function() {
+        $('iframe').contents().find('#download').remove();
+     }, 100);
+  });
+});
+</script>
+<script type="text/javascript">
+
+  function readURL(input) {
+
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#img_prev').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#img").change(function() {
+  readURL(this);
+});
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
