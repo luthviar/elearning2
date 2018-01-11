@@ -48,9 +48,11 @@ Personnel View
                   </tr>
                 </thead>
                 <tbody>
+                  @if($user_chapter != null)
                   @foreach($user_chapter as $record)
+                  @if($record['chapter'] != null)
                   <tr>
-                    <td>{{$record['chapter']->chapter_name}}</td>
+                    <td>{{$record['chapter']->chapter_name or null}}</td>
                     @if($record['chapter']->category ==0)
                     <td>Material</td>
                     @else
@@ -68,7 +70,9 @@ Personnel View
                     <td>--</td>
                     @endif
                   </tr>
+                  @endif
                   @endforeach
+                  @endif
                 </tbody>
               </table>
 

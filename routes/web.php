@@ -29,9 +29,11 @@ Route::post('change_password', 'UserController@change_password');
 
 Route::get('/profile', 'UserController@get_profile');
 
-Route::get('/forgot_password', function(){
-    return view('user.forgot_password');
-});
+Route::get('/forgot_password', 'UserController@forgot_password');
+
+Route::post('/forgot_password', 'UserController@forgot_password_submit');
+
+Route::post('/change_photo','UserController@change_photo');
 
 /*
 |--------------------------------------------------------------------------
@@ -157,6 +159,13 @@ Route::get('/admin', function(){
 Route::prefix('admin')->group(function () {
 
     // ----------------------------------
+    // SYSTEM
+    // ----------------------------------
+    Route::get('system/access','UserController@system_access');
+
+    Route::post('system/access','UserController@system_access_serverside');
+
+    // ----------------------------------
     // PERSONNEL
     // -----------------------------------
     Route::get('personnel', function(){
@@ -182,7 +191,7 @@ Route::prefix('admin')->group(function () {
 
 	    Route::post('/personnel/add_score','UserController@add_score');
 
-	    Route::get('/personnel/{id_personnel}/training/{id_training}','UserController@see_record');
+	    Route::get('{id_personnel}/training/{id_training}','UserController@see_record');
 
 
         Route::get('view-{id}', 'UserController@profile_view');

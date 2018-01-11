@@ -33,6 +33,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
     public function get_user($id_user){
         $user = User::find($id_user);
         if ($user == null) {

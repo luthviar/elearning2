@@ -3,7 +3,11 @@
 
   <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
-      <img src="{{ URL::asset('gambar.png') }}" alt="..." style="height: 58%; border: 1px solid green;" class="img-circle">
+      @if($profile['personal_data']->photo != null)
+      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="{{ URL::asset($profile['personal_data']->photo) }}" alt="..." style="height: 100%; border: 1px solid green;" class="img-circle"></a>
+      @else
+      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="{{URL::asset('photo/user-default.png') }}" alt="..." style="height: 100%; border: 1px solid green;" class="img-circle"></a>
+      @endif
       <h3 class="green_color"><strong>{{$profile['personal_data']->name}}</strong></h3>
       <h4> {{$profile['personal_data']->position_name}} . Aerofood ACS</h4>
     </div>
@@ -165,6 +169,44 @@
     </div>
   </div>
 
+
+<!-- MODAL CHANGE PHOTO -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="change_photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="{{ url('/change_photo') }}" enctype="multipart/form-data">
+      {{csrf_field()}}
+      <input type="hidden" name="id_user" value="{{$profile['personal_data']->id}}">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Change Photo</h4>
+      </div>
+      <div class="modal-body text-center">
+        <div class="text-center">
+          @if($profile['personal_data']->photo == null)
+          <img id="img_prev" src="{{ URL::asset('photo/user-default.png')}}" style="width: 35%; height: 200px;">
+          @else
+          <img id="img_prev" src="{{ URL::asset($profile['personal_data']->photo)}}" style="width: 35%; height: 200px;">
+          @endif
+        </div>
+        <!-- Image -->
+        <div class="form-group">
+            <label for="exampleInputFile">Profile</label>
+            <input type="file" id="img" name="image" accept="image/*">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @section('script')
@@ -175,6 +217,26 @@ $(document).ready(function() {
         $('iframe').contents().find('#download').remove();
      }, 100);
   });
+});
+</script>
+<script type="text/javascript">
+
+  function readURL(input) {
+
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#img_prev').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#img").change(function() {
+  readURL(this);
 });
 </script>
 @endsection

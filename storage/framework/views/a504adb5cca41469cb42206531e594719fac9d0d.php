@@ -47,9 +47,11 @@ Personnel View
                   </tr>
                 </thead>
                 <tbody>
+                  <?php if($user_chapter != null): ?>
                   <?php $__currentLoopData = $user_chapter; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($record['chapter'] != null): ?>
                   <tr>
-                    <td><?php echo e($record['chapter']->chapter_name); ?></td>
+                    <td><?php echo e(isset($record['chapter']->chapter_name) ? $record['chapter']->chapter_name : null); ?></td>
                     <?php if($record['chapter']->category ==0): ?>
                     <td>Material</td>
                     <?php else: ?>
@@ -67,7 +69,9 @@ Personnel View
                     <td>--</td>
                     <?php endif; ?>
                   </tr>
+                  <?php endif; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
 

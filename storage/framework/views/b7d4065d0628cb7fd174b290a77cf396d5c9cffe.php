@@ -15,7 +15,11 @@ Personnel View
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset('AdminLTE/dist/img/user4-128x128.jpg')); ?>" alt="User profile picture">
+              <?php if($profile['personal_data']->photo == null): ?>
+              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="User profile picture">
+              <?php else: ?>
+              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="User profile picture">
+              <?php endif; ?>
 
               <h3 class="profile-username text-center"><?php echo e($profile['personal_data']->name); ?></h3>
 

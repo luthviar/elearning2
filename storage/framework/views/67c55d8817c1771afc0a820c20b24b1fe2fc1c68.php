@@ -78,7 +78,7 @@
                         <div class="form-group">
                             <div class="col-md-12 control">
                                 <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-                                    <a class="btn btn-link" href="<?php echo e(url('/request-reset')); ?>" style="color:green">
+                                    <a class="btn btn-link" href="<?php echo e(url('/forgot_password')); ?>" style="color:green">
                                         Forgot Your Password?
                                     </a>
                                 </div>

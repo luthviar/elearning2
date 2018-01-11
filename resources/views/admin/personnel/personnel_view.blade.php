@@ -16,7 +16,11 @@ Personnel View
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('AdminLTE/dist/img/user4-128x128.jpg')}}" alt="User profile picture">
+              @if($profile['personal_data']->photo == null)
+              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('photo/user-default.png')}}" alt="User profile picture">
+              @else
+              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset($profile['personal_data']->photo)}}" alt="User profile picture">
+              @endif
 
               <h3 class="profile-username text-center">{{$profile['personal_data']->name}}</h3>
 

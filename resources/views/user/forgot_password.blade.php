@@ -22,6 +22,12 @@
 <body>
 <div class="container">
     <div class="card">
+    @if($error != null)
+        <span class="help-block text-center" style="position: relative; color: red;">
+            <h3><strong>{{$error}}</strong></h3>
+        </span>
+    @endif
+    
         <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="text-align:center;">
             <img class="card-img-top" style="margin-top:50px;" src="{{ url('/Elegantic/images/ALS.jpg') }}" alt="Card image cap" width="60%"></div>
         <div id="loginbox"  class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -29,7 +35,7 @@
             <hr class="style14">
             <br>
             <div class="panel panel-info" >
-                <div class="panel-heading" style="background-color:red; color:white">
+                <div class="panel-heading" style="background-color:blue; color:white">
                     <div class="panel-title">Forgot Password</div>
                 </div>
 
@@ -37,17 +43,13 @@
 
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('forgot_password') }}">
                         {{ csrf_field() }}
 
-                        <div style="margin-bottom: 25px" class="input-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-												<strong>{{ $errors->first('email') }}</strong>
-											</span>
-                            @endif
+                            <input id="email" type="text" class="form-control" name="email" placeholder="Email" required autofocus>
+                            
                         </div>
 
                         <div style="text-align: center">
@@ -55,7 +57,7 @@
                                 <!-- Button -->
 
                                 <div class="col-sm-12 controls">
-                                    <button type="submit" class="btn btn-primary" style="background-color:red; color:white">
+                                    <button type="submit" class="btn btn-primary" style="background-color:blue; color:white">
                                         Request Password
                                     </button>
 

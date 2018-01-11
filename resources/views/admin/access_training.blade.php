@@ -46,7 +46,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('admin_access_training') }}",
+                     "url": "{{ url('admin/training/admin_access_training') }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}

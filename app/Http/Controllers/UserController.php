@@ -12,6 +12,7 @@ use App\LevelPosition;
 use App\EmployeeStatus;
 use App\OsDivision;
 use Session;
+use App\RequestPassword;
 use App\Auth;
 use App\Chapter;
 use App\OsUnit;
@@ -23,11 +24,7 @@ use App\OsSection;
 class UserController extends Controller
 {
     // MIDDLEWARE
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-    }
+    // 
     
     public function get_profile () {
 
@@ -63,6 +60,52 @@ class UserController extends Controller
     		return view('user.error')->with('error', $user)->with('module', $modul);
     	}
     	return redirect('/profile');
+    }
+
+    public function change_photo(Request $request) {
+        $user = User::find($request->id_user);
+        if ($user == null) {
+            return "error : user not found";
+        }
+        $image = $request->file('image');
+        $url = null;
+        if (!empty($image)) {
+            $destinationPath = 'photo';
+            $movea = $image->move($destinationPath,$image->getClientOriginalName());
+            $url = "photo/{$image->getClientOriginalName()}";
+
+            $user->photo = $url;
+            $user->save();
+        }
+
+        return  redirect('profile');
+
+    }
+
+    public function forgot_password(){
+        $error = null;
+        return view('user.forgot_password')->with('error',$error);
+    }
+
+    public function forgot_password_submit(Request $request){
+        $email = $request->email;
+        if ($email != null) {
+            $user = User::where('email',$email)->first();
+            if ($user != null) {
+                $request_password = new RequestPassword;
+                $request_password->email = $request->email;
+                $request_password->is_valid = 1;
+                $request_password->save();
+
+                return "ok";
+            }
+        }
+        $request_password = new RequestPassword;
+        $request_password->email = $request->email;
+        $request_password->is_valid = 0;
+        $request_password->save();
+        $error = 'We cant find your email in our system';
+        return view('user.forgot_password')->with('error',$error);
     }
 
 
@@ -354,5 +397,79 @@ class UserController extends Controller
         }
 
         return view('admin.personnel_see_record')->with('user',$user)->with('training', $training)->with('status',$status)->with('user_chapter',$user_chapter);
+    }
+
+    public function system_access () {
+        return view('admin.access_system');
+    }
+
+    public function system_access_serverside (Request $request) {
+        $columns = array( 
+                            0 =>'email', 
+                            1 =>'is_valid',
+                            2 => 'created_at',
+                        );
+  
+        $totalData = RequestPassword::count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+            
+        if(empty($request->input('search.value')))
+        {   
+            $accesses = RequestPassword::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->get();
+        } else {
+            $search = $request->input('search.value'); 
+
+            $accesses =  RequestPassword::where('email','LIKE',"%{$search}%")
+                            ->orWhere('is_valid', 'LIKE',"%{$search}%")
+                            ->orWhere('created_at', 'LIKE',"%{$search}%")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderBy($order,$dir)
+                            ->get();
+
+            $totalFiltered = RequestPassword::where('email','LIKE',"%{$search}%")
+                             ->orWhere('is_valid', 'LIKE',"%{$search}%")
+                             ->orWhere('created_at', 'LIKE',"%{$search}%")
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($accesses))
+        {
+            foreach ($accesses as $access)
+            {
+                
+                $nestedData['email'] = $access->email;
+                if ($access->is_valid == 1) {
+                    $nestedData['is_valid'] = "valid";
+                } else {
+                    $nestedData['is_valid'] = "not valid";
+                }
+                $nestedData['created_at'] = date('j M Y',strtotime($access->created_at));
+                
+                
+                
+                $data[] = $nestedData;
+
+            }
+        }
+          
+        $json_data = array(
+                    "draw"            => intval($request->input('draw')),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data   
+                    );
+            
+        echo json_encode($json_data); 
     }
 }
