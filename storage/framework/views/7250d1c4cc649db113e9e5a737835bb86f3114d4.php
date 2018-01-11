@@ -28,25 +28,31 @@
             <br>
             <hr class="style14">
             <br>
+
+            <?php if(Session::get('success') != null): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php echo e(Session::get('success')); ?>
+
+                </div>
+            <?php endif; ?>
+
             <div class="panel panel-info" >
                 <div class="panel-heading" style="background-color:green; color:white">
                     <div class="panel-title">Sign In</div>
                 </div>
 
                 <div style="padding-top:30px" class="panel-body" >
-
-                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-
                     <form class="form-horizontal" role="form" method="POST" action="<?php echo e(route('login')); ?>">
                         <?php echo e(csrf_field()); ?>
 
 
-                        <div style="margin-bottom: 25px" class="input-group<?php echo e($errors->has('email') ? ' has-error' : ''); ?>">
+                        <div style="margin-bottom: 25px" class="input-group<?php echo e($errors->has('username') ? ' has-error' : ''); ?>">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="email" type="text" class="form-control" name="email" value="<?php echo e(old('email')); ?>" placeholder="Email" required autofocus>
-                            <?php if($errors->has('email')): ?>
+                            <input id="username" type="text" class="form-control"
+                                   name="username" value="<?php echo e(old('username')); ?>" placeholder="username" required autofocus>
+                            <?php if($errors->has('username')): ?>
                                 <span class="help-block">
-												<strong><?php echo e($errors->first('email')); ?></strong>
+												<strong><?php echo e($errors->first('username')); ?></strong>
 											</span>
                             <?php endif; ?>
                         </div>
@@ -94,72 +100,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-    
-        
-            
-                
-
-                
-                    
-                        
-
-                        
-                            
-
-                            
-                                
-
-                                
-                                    
-                                        
-                                    
-                                
-                            
-                        
-
-                        
-                            
-
-                            
-                                
-
-                                
-                                    
-                                        
-                                    
-                                
-                            
-                        
-
-                        
-                            
-                                
-                                    
-                                        
-                                    
-                                
-                            
-                        
-
-                        
-                            
-                                
-                                    
-                                
-
-                                
-                                    
-                                
-                            
-                        
-                    
-                
-            
-        
-    
-
-

@@ -40,6 +40,6 @@ class LoginController extends Controller
     protected function credentials(\Illuminate\Http\Request $request)
     {
         //return $request->only($this->username(), 'password');
-        return ['email' => $request->email, 'password' => $request->password, 'flag_active' => 1];
+        return ['username' => $request->username, 'password' => $request->password, 'flag_active' => 1];
     }
 }

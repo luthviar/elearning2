@@ -155,6 +155,8 @@ class UserController extends Controller
                 $message->from('luthviar.a@gmail.com','Admin ELearning Aerofood');
             });
 
+        Session::flash('success', 'Password Anda Berhasil diubah, Silahkan cek email Anda. di '.$user->email);
+
         return redirect('login');
     }
 
