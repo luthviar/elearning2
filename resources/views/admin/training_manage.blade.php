@@ -142,7 +142,11 @@
                       <td>{{count($chapter['material']['files_material'])}} Attachments</td>
                       @else
                       <td>Test</td>
+                      @if($chapter['test']['questions'] != null)
                       <td>{{count($chapter['test']['questions'])}} Question</td>
+                      @else
+                      <td>0 Question</td>
+                      @endif
                       @endif
                       
               
@@ -201,7 +205,7 @@
                       <ul style="list-style-type: none;">
                         @if(count($chapter['test']['questions']) >0)
                         @foreach ($chapter['test']['questions'] as $key => $question)
-                        <li>{{$key+1}}. {{$question->question_text}} 
+                        <li>{{$key+1}}. {!! htmly_entity_decode($question->question_text) !!} 
                           <ul style="list-style-type: none;">
                             @if(count($question['option']) >0)
                             @foreach($question['option'] as $option)

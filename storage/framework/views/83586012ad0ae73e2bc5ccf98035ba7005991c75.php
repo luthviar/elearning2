@@ -49,7 +49,7 @@ no training found
       <span class='pull-right'>
         <?php if($children['access']['status'] == 0): ?>
           <a href="<?php echo e(url('request_access',$children->id)); ?>" class="btn btn-danger">Request Access</a>
-        <?php elseif($children['access']->status == 1): ?>
+        <?php elseif($children['access']['status'] == 1): ?>
           <a href="<?php echo e(url('get_training',$children->id)); ?>" class="btn btn-info">Access</a>
         <?php else: ?>
           <a class="btn btn-warning">Access Requested</a>
@@ -73,7 +73,7 @@ no training found
       <span class='pull-right'>
         <?php if($children['access']['status'] == 0): ?>
           <a href="<?php echo e(url('request_access',$children->id)); ?>" class="btn btn-danger">Request Access</a>
-        <?php elseif($children['access']->status == 1): ?>
+        <?php elseif($children['access']['status'] == 1): ?>
           <a href="<?php echo e(url('get_training',$children->id)); ?>" class="btn btn-info">Access</a>
         <?php else: ?>
           <a class="btn btn-warning">Access Requested</a>

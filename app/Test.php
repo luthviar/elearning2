@@ -53,11 +53,17 @@ class Test extends Model
             return $error;
         }
         $questions = Question::where( 'id_test' , $test->id )->get();
+        if ($questions != null) {
+            foreach ($questions as $question) {
+                $question['option'] = QuestionOption::where( 'id_question' , $question->id)->get();
+            }   
+        }
+        if ($questions == null) {
+            $test['questions'] = null;
+        }else{
+            $test['questions'] = $questions;    
+        }
         
-        foreach ($questions as $question) {
-            $question['option'] = QuestionOption::where( 'id_question' , $question->id)->get();
-        }   
-        $test['questions'] = $questions;
         
         return $test;
     }

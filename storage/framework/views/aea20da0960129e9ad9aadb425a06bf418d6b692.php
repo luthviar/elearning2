@@ -249,7 +249,7 @@
                       <ul style="list-style-type: none;">
                         <?php if(count($chapter['test']['questions']) >0): ?>
                         <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key+1); ?>. <?php echo e($question->question_text); ?> 
+                        <li><?php echo e($key+1); ?>. <?php echo html_entity_decode($question->question_text); ?> 
                           <ul style="list-style-type: none;">
                             <?php if(count($question['option']) >0): ?>
                             <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

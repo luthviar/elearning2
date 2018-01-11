@@ -24,12 +24,13 @@
                  {{csrf_field()}}
                   <input type="hidden" name="id_chapter" value="{{$chapter->id}}">
                   <!-- Title -->
-                  <div class="form-group col-md-6">
+                  <div class="col-md-12">
+                  <div class="form-group col-md-4">
                     <label for="title">Chapter Name</label>
                     <input type="text" class="form-control" name="chapter_name" value="{{$chapter->chapter_name}}" id="title" placeholder="Training title">
                   </div>
                     <!-- select -->
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label>Chapter Type</label>
                     <select class="form-control" id="add_chapter_type" name="category">
                       @if($chapter->category == 0)
@@ -41,6 +42,21 @@
                       @endif
                     </select>
                   </div>
+                  @if($chapter->category == 0)
+                  <!-- Title -->
+                  <div class="form-group col-md-4 hidden" id="test_time">
+                    <label for="time">Test Time</label>
+                    <input type="text" class="form-control" name="time" id="time" placeholder="in minutes">
+                  </div>
+                  </div>
+                  @else
+                  <!-- Title -->
+                  <div class="form-group col-md-4" id="test_time">
+                    <label for="time">Test Time</label>
+                    <input type="text" class="form-control" value="{{$chapter['test']->time}}" name="time" id="time" placeholder="in minutes">
+                  </div>
+                  </div>
+                  @endif
                     <!-- Textarea -->
                   <div class="form-group">
                       <label>Chapter Description</label>
@@ -86,14 +102,13 @@
       var chapter_type = $('#add_chapter_type').val();
     if (chapter_type == 0) {
       // material form load
-      $('#add_test_form').addClass('hidden');
-      $('#add_material_form').removeClass('hidden');
+      $('#test_time').addClass('hidden');
     } else {
       // test form load
-      $('#add_test_form').removeClass('hidden');
-      $('#add_material_form').addClass('hidden');
+      $('#test_time').removeClass('hidden');
     }
   });
+</script>
 </script>
 <script type="text/javascript">
   //Date picker

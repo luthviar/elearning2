@@ -249,7 +249,7 @@
                       <ul style="list-style-type: none;">
                         @if(count($chapter['test']['questions']) >0)
                         @foreach ($chapter['test']['questions'] as $key => $question)
-                        <li>{{$key+1}}. {{$question->question_text}} 
+                        <li>{{$key+1}}. {!! html_entity_decode($question->question_text) !!} 
                           <ul style="list-style-type: none;">
                             @if(count($question['option']) >0)
                             @foreach($question['option'] as $option)

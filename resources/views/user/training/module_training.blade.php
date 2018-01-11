@@ -51,7 +51,7 @@ no training found
       <span class='pull-right'>
         @if($children['access']['status'] == 0)
           <a href="{{url('request_access',$children->id)}}" class="btn btn-danger">Request Access</a>
-        @elseif($children['access']->status == 1)
+        @elseif($children['access']['status'] == 1)
           <a href="{{url('get_training',$children->id)}}" class="btn btn-info">Access</a>
         @else
           <a class="btn btn-warning">Access Requested</a>
@@ -75,7 +75,7 @@ no training found
       <span class='pull-right'>
         @if($children['access']['status'] == 0)
           <a href="{{url('request_access',$children->id)}}" class="btn btn-danger">Request Access</a>
-        @elseif($children['access']->status == 1)
+        @elseif($children['access']['status'] == 1)
           <a href="{{url('get_training',$children->id)}}" class="btn btn-info">Access</a>
         @else
           <a class="btn btn-warning">Access Requested</a>

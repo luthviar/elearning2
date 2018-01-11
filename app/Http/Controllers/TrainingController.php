@@ -472,8 +472,18 @@ class TrainingController extends Controller
                     $material = new Material();
                     $chaps['material'] = $material->get_material($chaps->id);
                 }else{
-                    $test = new Test();
-                    $chaps['test'] = $test->get_manage_test($chaps->id);
+                    // $test = new Test();
+                    // $chaps['test'] = $test->get_manage_test($chaps->id);
+                    $chaps['test'] = Test::where('id_chapter',$chaps->id)->first();
+                    if ($chaps['test'] == null) {
+                        return "error: test not found";
+                    }
+                    $chaps['test']['questions'] = Question::where('id_test', $chaps['test']->id)->get();
+                    if (count($chaps['test']['questions']) > 0) {
+                        foreach ($chaps['test']['questions'] as $key => $question) {
+                            $question['option'] = QuestionOption::where('id_question',$question->id)->get();
+                        }
+                    }
                 }
             }
         }
@@ -676,9 +686,11 @@ class TrainingController extends Controller
                 $test = new Test;
                 $test->id_chapter = $request->id_chapter;
                 $test->description = $request->description;
+                $test->time = $request->time;
                 $test->save();
             } else {
                 $test->description = $request->description;
+                $test->time = $request->time;
                 $test->save();
             }
         }

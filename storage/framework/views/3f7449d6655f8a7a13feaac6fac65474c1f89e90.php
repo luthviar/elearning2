@@ -64,6 +64,8 @@
                             View Training</a></li>
                     <li><a href="<?php echo e(URL::action('TrainingController@add_training')); ?>"><i class="fa fa-circle-o"></i>
                             Add Training</a></li>
+                    <li><a href="<?php echo e(url('admin/training/schedule')); ?>"><i class="fa fa-circle-o"></i>
+                            Schedule</a></li>
                 </ul>
             </li>
 
@@ -77,8 +79,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Training Access</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> System Access</a></li>
+                    <li><a href="<?php echo e(url('admin/training/admin_access_training')); ?>"><i class="fa fa-circle-o"></i> Training Access</a></li>
+                    <li><a href="<?php echo e(url('admin/system/access')); ?>"><i class="fa fa-circle-o"></i> System Access</a></li>
                 </ul>
             </li>
 

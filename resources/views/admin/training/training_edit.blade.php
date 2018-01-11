@@ -94,7 +94,7 @@
               <!-- Textarea -->
               <div class="form-group">
                   <label>Training Overview</label>
-                  <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$module->description}}</textarea>
+                  <textarea class="textarea" id="summernote" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$module->description}}</textarea>
               </div>
 
               <h5><strong>Trainer</strong></h5>
@@ -235,7 +235,7 @@ $(document).ready(function(){
     })
 });
 </script>
-
+    @include('admin.layouts.summernote')
 
 
 @endsection
