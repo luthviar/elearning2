@@ -163,7 +163,7 @@ Route::prefix('admin')->group(function () {
     // ----------------------------------
     Route::get('system/access','UserController@system_access');
 
-    Route::post('system/access','UserController@system_access_serverside');
+    Route::post('system/access','UserController@system_access_serversid');
 
     // ----------------------------------
     // PERSONNEL
