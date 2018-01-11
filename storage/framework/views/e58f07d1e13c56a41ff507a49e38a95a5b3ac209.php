@@ -1,14 +1,13 @@
-@extends('admin.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
 
-    <form action="{{url('admin/personnel/edit')}}" method="post">
+    <form action="<?php echo e(url('admin/personnel/edit')); ?>" method="post">
       
-      {{csrf_field()}}
+      <?php echo e(csrf_field()); ?>
 
-      <input type="hidden" name="id_user" value="{{$user->id}}">
+
+      <input type="hidden" name="id_user" value="<?php echo e($user->id); ?>">
     
 
     <!-- Main content -->
@@ -28,7 +27,7 @@
                 <label>Username:</label>
                 <div class="input-group">
                   <span class="input-group-addon">@</span>
-                  <input type="text" class="form-control" name="username" value="{{$user->username}}" placeholder="username">
+                  <input type="text" class="form-control" name="username" value="<?php echo e($user->username); ?>" placeholder="username">
                 </div>
               </div>
 
@@ -46,7 +45,7 @@
                 <label>Name:</label>
                 <div class="input-group">
                   <span class="input-group-addon">@</span>
-                  <input type="text" class="form-control" name="name" value="{{$user->name}}" placeholder="name">
+                  <input type="text" class="form-control" name="name" value="<?php echo e($user->name); ?>" placeholder="name">
                 </div>
               </div>
 
@@ -55,7 +54,7 @@
                 <label>Email:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input type="email" name="email" class="form-control" value="{{$user->email}}" placeholder="email">
+                  <input type="email" name="email" class="form-control" value="<?php echo e($user->email); ?>" placeholder="email">
                 </div>
               </div>
 
@@ -63,13 +62,13 @@
               <div class="form-group">
                 <label>Gender:</label>
                 <select class="form-control" name="gender" style="width: 100%;">
-                  @if ($user->gender == 1)
+                  <?php if($user->gender == 1): ?>
                   <option value="1" selected="true">male</option>
                   <option value="0">female</option>
-                  @else
+                  <?php else: ?>
                   <option value="1">male</option>
                   <option value="0" selected="true">female</option>
-                  @endif
+                  <?php endif; ?>
                 </select>
               </div>
 
@@ -82,7 +81,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="birtdate" value="{{$user->birtdate}}" placeholder="birtdate" class="form-control pull-right datepicker" >
+                  <input type="text" name="birtdate" value="<?php echo e($user->birtdate); ?>" placeholder="birtdate" class="form-control pull-right datepicker" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -93,7 +92,7 @@
                 <label>Education:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input type="text" name="education" value="{{$user->education}}" class="form-control" placeholder="education">
+                  <input type="text" name="education" value="<?php echo e($user->education); ?>" class="form-control" placeholder="education">
                 </div>
               </div>
 
@@ -118,7 +117,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date_join_acs" value="{{ $user->date_join_acs}}" placeholder="date join acs" class="form-control pull-right datepicker" >
+                  <input type="text" name="date_join_acs" value="<?php echo e($user->date_join_acs); ?>" placeholder="date join acs" class="form-control pull-right datepicker" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -129,7 +128,7 @@
                 <label>Position:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input type="text" name="position" value="{{$user->position_name}}" class="form-control" placeholder="position">
+                  <input type="text" name="position" value="<?php echo e($user->position_name); ?>" class="form-control" placeholder="position">
                 </div>
               </div>
 
@@ -137,28 +136,28 @@
               <div class="form-group">
                 <label>Employee Status:</label>
                 <select class="form-control select2" name="id_employee_status" style="width: 100%;">
-                  @foreach($status as $emp_stat)
-                  @if($emp_stat->id == $user->id_employee_status)
-                  <option value="{{$emp_stat->id}}" selected="true">{{$emp_stat->name}}</option>
-                  @else
-                  <option value="{{$emp_stat->id}}">{{$emp_stat->name}}</option>
-                  @endif
-                  @endforeach
+                  <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $emp_stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($emp_stat->id == $user->id_employee_status): ?>
+                  <option value="<?php echo e($emp_stat->id); ?>" selected="true"><?php echo e($emp_stat->name); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($emp_stat->id); ?>"><?php echo e($emp_stat->name); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
 
               
               <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
-                <label>Level of Position</label>
+                <label>Level Position</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
-                  @foreach($level_position as $level)
-                  @if($level->id == $user->position)
-                  <option value="{{$level->id}}" selected="true">{{$level->nama_level}}</option>
-                  @else
-                  <option value="{{$level->id}}">{{$level->nama_level}}</option>
-                  @endif
-                  @endforeach
+                  <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($level->id == $user->position): ?>
+                  <option value="<?php echo e($level->id); ?>" selected="true"><?php echo e($level->nama_level); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($level->id); ?>"><?php echo e($level->nama_level); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
 
@@ -166,13 +165,13 @@
               <div class="form-group col-md-6 col-xs-6">
                 <label>Role</label>
                 <select class="form-control select2" name="role" style="width: 100%;">
-                  @if($user->role == 1)
+                  <?php if($user->role == 1): ?>
                   <option value="0">User</option>
                   <option value="1" selected="true">Administrator</option>
-                  @else
+                  <?php else: ?>
                   <option value="0" selected="true">User</option>
                   <option value="1">Administrator</option>
-                  @endif
+                  <?php endif; ?>
                 </select>
               </div>
               <!-- /.form-group -->
@@ -181,13 +180,13 @@
               <div class="form-group col-md-6 col-xs-6">
                 <label>Division</label>
                 <select class="form-control" name="division" id="division" style="width: 100%;">
-                  @foreach($division as $div)
-                  @if($user['org_structure']->id_division == $div->id)
-                  <option value="{{$div->id}}" selected="true" >{{$div->division_name}}</option>
-                  @else
-                  <option value="{{$div->id}}" >{{$div->division_name}}</option>
-                  @endif
-                  @endforeach
+                  <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($user['org_structure']->id_division == $div->id): ?>
+                  <option value="<?php echo e($div->id); ?>" selected="true" ><?php echo e($div->division_name); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($div->id); ?>" ><?php echo e($div->division_name); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
 
@@ -195,13 +194,13 @@
               <div class="form-group col-md-6 col-xs-6">
                 <label>Unit</label>
                 <select class="form-control" name="unit" id="unit" style="width: 100%;">
-                  @foreach($unit as $unt)
-                  @if($user['org_structure']->id_unit == $unt->id)
-                  <option value="{{$unt->id}}" selected="true" >{{$unt->unit_name}}</option>
-                  @else
-                  <option value="{{$unt->id}}" >{{$unt->unit_name}}</option>
-                  @endif
-                  @endforeach
+                  <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($user['org_structure']->id_unit == $unt->id): ?>
+                  <option value="<?php echo e($unt->id); ?>" selected="true" ><?php echo e($unt->unit_name); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($unt->id); ?>" ><?php echo e($unt->unit_name); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 </select>
               </div>
@@ -210,13 +209,13 @@
               <div class="form-group col-md-6 col-xs-6">
                 <label>Department</label>
                 <select class="form-control" name="department" id="department" style="width: 100%;">
-                  @foreach($department as $deps)
-                  @if($user['org_structure']->id_department == $deps->id)
-                  <option value="{{$deps->id}}" selected="true" >{{$deps->department_name}}</option>
-                  @else
-                  <option value="{{$deps->id}}" >{{$deps->department_name}}</option>
-                  @endif
-                  @endforeach
+                  <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($user['org_structure']->id_department == $deps->id): ?>
+                  <option value="<?php echo e($deps->id); ?>" selected="true" ><?php echo e($deps->department_name); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($deps->id); ?>" ><?php echo e($deps->department_name); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
 
@@ -224,13 +223,13 @@
               <div class="form-group col-md-6 col-xs-6">
                 <label>Section</label>
                 <select class="form-control" name="section" id="section" style="width: 100%;">
-                  @foreach($section as $sec)
-                  @if($user['org_structure']->id_section == $sec->id)
-                  <option value="{{$sec->id}}" selected="true" >{{$sec->section_name}}</option>
-                  @else
-                  <option value="{{$sec->id}}" >{{$sec->section_name}}</option>
-                  @endif
-                  @endforeach
+                  <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if($user['org_structure']->id_section == $sec->id): ?>
+                  <option value="<?php echo e($sec->id); ?>" selected="true" ><?php echo e($sec->section_name); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($sec->id); ?>" ><?php echo e($sec->section_name); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
 
@@ -255,9 +254,9 @@
     </form>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
 
@@ -265,9 +264,9 @@
       var id_division = $('#division').val();
       $.ajax({
         type:"POST",
-        url:"{{ url('get_unit') }}",
+        url:"<?php echo e(url('get_unit')); ?>",
         dataType: 'json',
-        data:{id_division:id_division,_token: '{{csrf_token()}}'},
+        data:{id_division:id_division,_token: '<?php echo e(csrf_token()); ?>'},
         beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
 
@@ -300,9 +299,9 @@
       var id_unit = $('#unit').val();
       $.ajax({
         type:"POST",
-        url:"{{ url('get_department') }}",
+        url:"<?php echo e(url('get_department')); ?>",
         dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,_token: '{{csrf_token()}}'},
+        data:{id_division:id_division,id_unit:id_unit,_token: '<?php echo e(csrf_token()); ?>'},
         beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
 
@@ -336,9 +335,9 @@
       var id_department = $('#department').val();
       $.ajax({
         type:"POST",
-        url:"{{ url('get_section') }}",
+        url:"<?php echo e(url('get_section')); ?>",
         dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,id_department:id_department,_token: '{{csrf_token()}}'},
+        data:{id_division:id_division,id_unit:id_unit,id_department:id_department,_token: '<?php echo e(csrf_token()); ?>'},
         beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
 
@@ -403,4 +402,5 @@ $(".select2").select2({
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

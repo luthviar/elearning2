@@ -387,6 +387,12 @@ Route::prefix('admin')->group(function () {
         Route::get('edit-{id}', 'AerofoodLinksController@edit');
 
         Route::post('update', 'AerofoodLinksController@update');
+
+        Route::get('remove-{id}', 'AerofoodLinksController@remove');
+
+        Route::post('create', 'AerofoodLinksController@create');
+
+        Route::get('add', 'AerofoodLinksController@add');
     });
 });
     // -------------------------------------

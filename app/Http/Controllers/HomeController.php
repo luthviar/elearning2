@@ -48,6 +48,12 @@ class HomeController extends Controller
 
         $link = AerofoodLink::all();
 
+        $user = new User();
+        $profile = $user->profile_view(\Auth::user()->id);
+        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
+
+        Session::put('profile', $profile);
+
         Session::put('link',$link);
         Session::put('module',$modul);
 

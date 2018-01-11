@@ -201,7 +201,9 @@
 
                 <ul class="treeview-menu">
                     <li class="{{
-                     Request::is('admin/links/*')
+                     Request::is('admin/links/all') ||
+                     Request::is('admin/links/view*') ||
+                     Request::is('admin/links/edit*')
                      ? 'active' : '' }}">
                         <a href="{{url(action('AerofoodLinksController@index'))}}">
                             <i class="fa fa-circle-o"></i>
@@ -209,19 +211,11 @@
                         </a>
                     </li>
                     <li class="{{
-                     Request::is('adminaa//job-family*')
+                     Request::is('admin/links/add')
                      ? 'active' : '' }}">
-                        <a href="{{url(action('ForumController@forum_job_family_list'))}}">
+                        <a href="{{url(action('AerofoodLinksController@add'))}}">
                             <i class="fa fa-circle-o"></i>
-                            Job Family Forum
-                        </a>
-                    </li>
-                    <li class="{{
-                     Request::is('admin/aaa/department*')
-                     ? 'active' : '' }}">
-                        <a href="{{url(action('ForumController@forum_department_list'))}}">
-                            <i class="fa fa-circle-o"></i>
-                            Department Forum
+                            Add Link
                         </a>
                     </li>
                 </ul>

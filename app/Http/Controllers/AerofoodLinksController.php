@@ -57,25 +57,41 @@ class AerofoodLinksController extends Controller
         }
         $aero_link->save();
 
+        return redirect(action('AerofoodLinksController@index'));
+    }
 
-//        $files = $request->file('attachment');
-//        if (!empty($files)) {
-//            $attachment = NewsAttachment::where('id_news', $request->id_news)->get();
-//            foreach ($attachment as $key => $value) {
-//                DB::table('news_attachments')->where('id','=',$value->id)->delete();
-//            }
-//            foreach ($files as $key => $file) {
-//                $destinationPath = 'file_attachment';
-//                $movea = $file->move($destinationPath,$file->getClientOriginalName());
-//                $url = "file_attachment/{$file->getClientOriginalName()}";
-//
-//                $attachment = new NewsAttachment;
-//                $attachment->id_news = $request->id_news;
-//                $attachment->attachment_name = $file->getClientOriginalName();
-//                $attachment->attachment_url = $url;
-//                $attachment->save();
-//            }
-//        }
+    public function remove($id){
+        $aero_link = AerofoodLink::find($id);
+        if ($aero_link == null) {
+            return 'error: news not found';
+        }
+        DB::table('aerofood_links')->where('id','=',$id)->delete();
+
+        return redirect(action('AerofoodLinksController@index'));
+    }
+
+    public function add() {
+        return view('admin.links.links_add');
+    }
+
+    public function create(Request $request) {
+        $image = $request->file('icon');
+        $url = null;
+        if (!empty($image)) {
+            $destinationPath = 'file_img';
+            $movea = $image->move($destinationPath,$image->getClientOriginalName());
+            $url = "file_img/{$image->getClientOriginalName()}";
+        }
+
+        DB::table('aerofood_links')->insertGetId(
+            [
+                'name'         => $request->name,
+                'detail_url'         => $request->detail_url,
+                'url'         => $request->url,
+                'icon'         => $url,
+                'color'         => $request->color,
+            ]
+        );
 
         return redirect(action('AerofoodLinksController@index'));
     }

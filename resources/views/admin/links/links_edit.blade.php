@@ -71,23 +71,43 @@
                             <!-- ICON -->
                             <div class="form-group">
                                 <label for="icon">
-                                    URL of the System
+                                    Icon
                                     <i class="fa fa-info-circle"
                                        data-toggle="tooltip"
                                        data-placement="top"
                                        title="Isi tanpa menulis HTTPS contoh: ims.aerofood.co.id"
                                     ></i>
                                 </label>
+                                <p>
+                                    <img src="{{ URL::asset($aero_link->icon) }}" width="50%"  />
+                                </p>
                                 <p style="color: red;">* your previous icon will deleted if you choose icon again</p>
                                 <input type="file" name="icon" id="icon"/>
+
                             </div>
 
-                            <!-- Title -->
+                            <!-- COLOR -->
                             <div class="form-group">
-                                <label for="title">Name of System</label>
-                                <input type="text" class="form-control" id="title" value="{{$aero_link->name}}"
-                                       name="title" placeholder="News title" required ="true">
+                                <label>
+                                    Color
+                                    <i class="fa fa-info-circle"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Pilihan warna ini akan tampil sesuai pada tampilan user"
+                                    ></i>
+                                </label>
+                                <select class="form-control select2" name="color" style="width: 100%;">
+                                    <option value="{{$aero_link->color}}" selected="true">{{$aero_link->color}}</option>
+                                    <option value="green">green</option>
+                                    <option value="purple">purple</option>
+                                    <option value="blue">blue</option>
+                                    <option value="yellow">yellow</option>
+                                    <option value="dark">dark</option>
+                                    <option value="red">red</option>
+                                </select>
+
                             </div>
+
 
                             <div class="row text-center">
                                 <div class="col-lg-12">

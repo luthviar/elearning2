@@ -40,7 +40,7 @@
 
                     <li class="<?php echo e(Request::is('admin/personnel/add')
                      ? 'active' : ''); ?>">
-                        <a href="<?php echo e(URL::action('UserController@personnel_add')); ?>"><i class="fa fa-circle-o"></i>
+                        <a href="<?php echo e(URL::action('UserController@user_add')); ?>"><i class="fa fa-circle-o"></i>
                             Add Personnel</a></li>
                 </ul>
             </li>
@@ -64,6 +64,8 @@
                             View Training</a></li>
                     <li><a href="<?php echo e(URL::action('TrainingController@add_training')); ?>"><i class="fa fa-circle-o"></i>
                             Add Training</a></li>
+                    <li><a href="<?php echo e(url('admin/training/schedule')); ?>"><i class="fa fa-circle-o"></i>
+                            Schedule</a></li>
                 </ul>
             </li>
 
@@ -77,8 +79,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Training Access</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> System Access</a></li>
+                    <li><a href="<?php echo e(url('admin/training/admin_access_training')); ?>"><i class="fa fa-circle-o"></i> Training Access</a></li>
+                    <li><a href="<?php echo e(url('admin/system/access')); ?>"><i class="fa fa-circle-o"></i> System Access</a></li>
                 </ul>
             </li>
 
@@ -182,25 +184,20 @@
                 </a>
 
                 <ul class="treeview-menu">
-                    <li class="<?php echo e(Request::is('admin/links/*')
+                    <li class="<?php echo e(Request::is('admin/links/all') ||
+                     Request::is('admin/links/view*') ||
+                     Request::is('admin/links/edit*')
                      ? 'active' : ''); ?>">
                         <a href="<?php echo e(url(action('AerofoodLinksController@index'))); ?>">
                             <i class="fa fa-circle-o"></i>
                             View All
                         </a>
                     </li>
-                    <li class="<?php echo e(Request::is('adminaa//job-family*')
+                    <li class="<?php echo e(Request::is('admin/links/add')
                      ? 'active' : ''); ?>">
-                        <a href="<?php echo e(url(action('ForumController@forum_job_family_list'))); ?>">
+                        <a href="<?php echo e(url(action('AerofoodLinksController@add'))); ?>">
                             <i class="fa fa-circle-o"></i>
-                            Job Family Forum
-                        </a>
-                    </li>
-                    <li class="<?php echo e(Request::is('admin/aaa/department*')
-                     ? 'active' : ''); ?>">
-                        <a href="<?php echo e(url(action('ForumController@forum_department_list'))); ?>">
-                            <i class="fa fa-circle-o"></i>
-                            Department Forum
+                            Add Link
                         </a>
                     </li>
                 </ul>

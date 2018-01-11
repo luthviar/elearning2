@@ -42,7 +42,7 @@
                             </td>
                             <td>{{$aero_link->detail_url}} </td>
                             <td>{{$aero_link->url}}</td>
-                            <td>{{ $aero_link->icon }}</td>
+                            <td><img src="{{ URL::asset($aero_link->icon) }}" width="20%"/></td>
                             <td>{{ $aero_link->color }}</td>
                         </tr>
                     @endforeach

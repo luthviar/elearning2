@@ -41,7 +41,7 @@
                             </td>
                             <td><?php echo e($aero_link->detail_url); ?> </td>
                             <td><?php echo e($aero_link->url); ?></td>
-                            <td><?php echo e($aero_link->icon); ?></td>
+                            <td><img src="<?php echo e(URL::asset($aero_link->icon)); ?>" width="20%"/></td>
                             <td><?php echo e($aero_link->color); ?></td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -3,6 +3,9 @@ Personnel View
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+
+  <!-- Content Header (Page header) -->
+
     <!-- Main content -->
     <section class="content">
 
@@ -12,7 +15,11 @@ Personnel View
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset('AdminLTE/dist/img/user4-128x128.jpg')); ?>" alt="User profile picture">
+              <?php if($profile['personal_data']->photo == null): ?>
+              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="User profile picture">
+              <?php else: ?>
+              <img class="profile-user-img img-responsive img-circle" src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="User profile picture">
+              <?php endif; ?>
 
               <h3 class="profile-username text-center"><?php echo e($profile['personal_data']->name); ?></h3>
 
@@ -64,10 +71,11 @@ Personnel View
                  <?php endif; ?>
                 </li>
               </ul>
+              <a href="<?php echo e(url('/admin/personnel/edit',$profile['personal_data']->id)); ?>" class="btn btn-info btn-block"><b>Edit Personnel</b></a>
               <?php if($profile['personal_data']->flag_active == 1): ?>
-              <a href="#" class="btn btn-danger btn-block"><b>Non-Activate</b></a>
+              <a href="<?php echo e(url('admin/personnel/nonactivate',$profile['personal_data']->id)); ?>" class="btn btn-danger btn-block"><b>Non-Activate</b></a>
               <?php else: ?>
-              <a href="#" class="btn btn-success btn-block"><b>Activate</b></a>
+              <a href="<?php echo e(url('admin/personnel/activate',$profile['personal_data']->id)); ?>" class="btn btn-success btn-block"><b>Activate</b></a>
               <?php endif; ?>
             </div>
             <!-- /.box-body -->
@@ -107,7 +115,7 @@ Personnel View
 		                	<td><?php echo e($key+1); ?></td>
 		                	<td><?php echo e($record['module']->modul_name); ?></td>
 		                	<td><?php echo e($record['status']); ?></td>
-		                	<td>1</td>
+		                	<td><span><a href="<?php echo e(url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)); ?>"><i class="fa fa-eye" style="color: blue;" aria-hidden="true">see_record</i></a></span></td>
 		                </tr>
 		                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
 		                </tbody>
@@ -121,7 +129,7 @@ Personnel View
               <div class="tab-pane" id="timeline">
                 <div class="box">
 		            <div class="box-header">
-		              <h3 class="box-title">Employee Score</h3>
+		              <h3 class="box-title">Employee Score</h3> <span class="pull-right"><a href="#" data-toggle="modal" data-target="#add_score"><i style="color:green;" class="fa fa-plus" aria-hidden="true">add_score</i></a></span>
 		            </div>
 		            <!-- /.box-header -->
 		            <div class="box-body">
@@ -137,8 +145,8 @@ Personnel View
 		                <?php $__currentLoopData = $employee_record; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
 		                	<td><?php echo e($key+1); ?></td>
-		                	<td><a href="<?php echo e($record->attachment_url); ?>"><?php echo e($record->attachment_name); ?></a></td>
-		                	<td><?php echo e($record->created_at); ?></td>
+		                	<td><a href="<?php echo e(URL::asset($record->attachment_url)); ?>"><?php echo e($record->attachment_name); ?></a></td>
+		                	<td><?php echo e(date('j M Y',strtotime($record->created_at))); ?></td>
 		                </tr>	
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 		                </tbody>
@@ -160,6 +168,42 @@ Personnel View
 
     </section>
     <!-- /.content -->
+
+<div class="modal fade" id="add_score" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="<?php echo e(url('admin/personnel/add_score')); ?>" method="post" enctype="multipart/form-data">
+
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add <strong><?php echo e($profile['personal_data']->name); ?></strong> Score</h4>
+      </div>
+      <div class="modal-body">
+      <?php echo e(csrf_field()); ?>
+
+          <input type="hidden" name="id_user" value="<?php echo e($profile['personal_data']->id); ?>">
+          <!-- Name -->
+          <div class="form-group col-md-12">
+            <label>Attachment Name:</label>
+            <div class="input-group col-md-12">
+              <input type="text" style="width: 100%" class="form-control" name="attachment_name"  placeholder="attachment name">
+            </div>
+          </div>
+          <!-- Score -->
+          <div class="form-group">
+              <label for="exampleInputFile">Score File</label>
+              <input type="file" name="score" accept=".pdf">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 <?php $__env->stopSection(); ?>
