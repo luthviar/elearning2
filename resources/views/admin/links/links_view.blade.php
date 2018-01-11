@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('page-name')
-    <a href="{{ url(action('AerofoodLinksController@view',$aero_link->id)) }}">
+    <a href="{{ url(action('AerofoodLinksController@index')) }}">
         <i class="fa fa-arrow-left"></i>
     </a>
     View Link
@@ -19,7 +19,26 @@
 
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Edit Links</h3>
+                            <h3 class="box-title">
+                            {{--fill here--}}
+                            </h3>
+                            <span class="pull-right">
+                            <a href="{{url(action('AerofoodLinksController@edit',$aero_link->id))}}"
+                               class="btn btn-warning" style="word-spacing: normal;">
+
+                                <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+                                Edit
+                            </a>
+                            <a href="{{url(action('AerofoodLinksController@remove',$aero_link->id))}}"
+                               class="btn btn-danger" style="word-spacing: normal;">
+
+                            <i style="" class="fa fa-remove" aria-hidden="true"></i>
+
+                                Delete
+                            </a>
+
+                            </span>
                         </div>
                         <div class="box-body">
                             {{csrf_field()}}
@@ -35,8 +54,9 @@
                                        title="contoh: IMS"
                                     ></i>
                                 </label>
-                                <input type="text" class="form-control" id="name" value="{{$aero_link->name}}"
-                                       name="name" placeholder="Name of the System" required ="true">
+                                <p>{{$aero_link->name}}</p>
+                                {{--<input type="text" class="form-control" id="name" value="{{$aero_link->name}}"--}}
+                                       {{--name="name" placeholder="Name of the System" required ="true" disabled>--}}
                             </div>
 
                             <!-- detail_url -->
@@ -49,8 +69,9 @@
                                        title="Singkat saja, contoh: Inflight Management System"
                                     ></i>
                                 </label>
-                                <input type="text" class="form-control" id="detail_url" value="{{$aero_link->detail_url}}"
-                                       name="detail_url" placeholder="Short Description of URL" required ="true">
+                                <p>{{$aero_link->detail_url}}</p>
+                                {{--<input type="text" class="form-control" id="detail_url" value=""--}}
+                                       {{--name="detail_url" placeholder="Short Description of URL" required ="true" disabled>--}}
                             </div>
 
                             <!-- URL -->
@@ -63,35 +84,32 @@
                                        title="Isi tanpa menulis HTTPS contoh: ims.aerofood.co.id"
                                     ></i>
                                 </label>
-
-                                <input type="text" class="form-control" id="url" value="{{$aero_link->url}}"
-                                       name="url" placeholder="URL of System" required ="true">
+                                <p>{{$aero_link->url}}</p>
+                                {{--<input type="text" class="form-control" id="url" value="{{$aero_link->url}}"--}}
+                                       {{--name="url" placeholder="URL of System" required ="true" disabled>--}}
                             </div>
 
                             <!-- ICON -->
                             <div class="form-group">
                                 <label for="icon">
-                                    URL of the System
-                                    <i class="fa fa-info-circle"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Isi tanpa menulis HTTPS contoh: ims.aerofood.co.id"
-                                    ></i>
+                                    Icon
                                 </label>
-                                <p style="color: red;">* your previous icon will deleted if you choose icon again</p>
-                                <input type="file" name="icon" id="icon"/>
+                                <p>
+                                    <img src="{{ URL::asset($aero_link->icon) }}" width="40%" />
+                                </p>
                             </div>
 
                             <!-- Title -->
                             <div class="form-group">
                                 <label for="title">Name of System</label>
-                                <input type="text" class="form-control" id="title" value="{{$aero_link->name}}"
-                                       name="title" placeholder="News title" required ="true">
+                                <p>{{$aero_link->name}}</p>
+                                {{--<input type="text" class="form-control" id="title" value="{{$aero_link->name}}"--}}
+                                       {{--name="title" placeholder="News title" required ="true" disabled>--}}
                             </div>
 
                             <div class="row text-center">
                                 <div class="col-lg-12">
-                                    <button class="btn btn-block btn-info">UPDATE</button>
+                                    {{--<button class="btn btn-block btn-info">UPDATE</button>--}}
                                 </div>
                             </div>
                         </div>

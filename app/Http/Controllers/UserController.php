@@ -11,6 +11,7 @@ use App\EmployeeScore;
 use App\LevelPosition;
 use App\EmployeeStatus;
 use App\OsDivision;
+use Illuminate\Support\Facades\Crypt;
 use Session;
 use App\RequestPassword;
 use App\Auth;
@@ -49,7 +50,12 @@ class UserController extends Controller
 
         $score = EmployeeScore::where('id_user',\Auth::user()->id)->orderBy('id','desc')->first();
 
-    	return view('user.profile')->with('profile', $profile)->with('training_record', $training_record)->with('module', $modul)->with('score',$score);
+        if ($score == null){
+            $score;
+        }
+
+    	return view('user.profile')->with('profile', $profile)
+            ->with('training_record', $training_record)->with('module', $modul)->with('score',$score);
     }
 
     public function change_password ( Request $request) {
@@ -286,11 +292,17 @@ class UserController extends Controller
         $level = LevelPosition::all();
         $status = EmployeeStatus::all();
 
-        return view('admin.personnel_edit')->with('user',$user)->with('division',$division)->with('unit',$unit)->with('section',$section)->with('department',$department)->with('level_position',$level)->with('status',$status);
+        return view('admin.personnel_edit')->with('user',$user)
+            ->with('division',$division)->with('unit',$unit)
+            ->with('section',$section)->with('department',$department)->with('level_position',$level)
+            ->with('status',$status);
     }
 
     public function edit_personnel_submit (Request $request){
-        $structure = OrganizationalStructure::where('id_division',$request->division)->where('id_unit',$request->unit)->where('id_department',$request->department)->where('id_section',$request->section)->first();
+        $structure = OrganizationalStructure::where('id_division',$request->division)
+            ->where('id_unit',$request->unit)->where('id_department',$request->department)
+            ->where('id_section',$request->section)->first();
+
         if ($structure == null) {
             return "error: organization structure not found";
         }

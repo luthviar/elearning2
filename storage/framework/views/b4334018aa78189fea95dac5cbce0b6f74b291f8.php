@@ -8,8 +8,9 @@
     <!-- ********************************************** -->
     <!--                  HEAD IMPORT CSS DLL           -->
     <!-- ********************************************** -->
-    <?php echo $__env->make('admin.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo $__env->yieldContent('header'); ?>
+    <?php echo $__env->make('admin.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
