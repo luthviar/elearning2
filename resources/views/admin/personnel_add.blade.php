@@ -1,10 +1,12 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+Add Personnel
+@endsection
+
 @section('content')
 
-
-
-    <form action="{{url('user_add')}}" method="post">
+    <form action="{{url(action('UserController@user_add_submit'))}}" method="post">
       
       {{csrf_field()}}
     
@@ -22,28 +24,34 @@
             <div class="box-body">
 
               <!-- Username -->
-              <div class="form-group col-md-6">
-                <label>Username:</label>
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
-                  <input type="text" class="form-control" name="username" placeholder="username">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Username:
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" class="form-control" name="username" placeholder="username">
+                    </div>
                 </div>
-              </div>
 
-              <!-- Password -->
-              <div class="form-group col-md-6">
-                <label>Password:</label>
-                <div class="input-group">
-                  <span class="input-group-addon">**</span>
-                  <input type="password" name="password" class="form-control" placeholder="password">
+                <!-- Password -->
+                <div class="form-group col-md-6">
+                    <label>Password:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">**</span>
+                        <input type="password" name="password" class="form-control" placeholder="password">
+                    </div>
                 </div>
-              </div>
+            </div>
+
 
               <!-- name -->
               <div class="form-group">
                 <label>Name:</label>
                 <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                  <span class="input-group-addon">
+                      <i class="fa fa-address-book"></i>
+                  </span>
                   <input type="text" class="form-control" name="name" placeholder="name">
                 </div>
               </div>
@@ -81,11 +89,18 @@
               </div>
               <!-- /.form group -->
 
-              <!-- Email -->
+              <!-- Education -->
               <div class="form-group">
-                <label>Education:</label>
+                <label>
+                    Education:
+                    <i class="fa fa-question-circle"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       title="Lulusan terakhir karyawan, contoh: S1, SMA, S2, dll"
+                    ></i>
+                </label>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                  <span class="input-group-addon"><i class="fa fa-institution"></i></span>
                   <input type="text" name="education" class="form-control" placeholder="education">
                 </div>
               </div>
@@ -117,11 +132,11 @@
               </div>
               <!-- /.form group -->
 
-              <!-- Email -->
+              <!-- Position name -->
               <div class="form-group">
-                <label>Position:</label>
+                <label>Position Name:</label>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
                   <input type="text" name="position" class="form-control" placeholder="position">
                 </div>
               </div>
@@ -129,68 +144,71 @@
               <!-- Email -->
               <div class="form-group">
                 <label>Employee Status:</label>
+                  <div class="input-group col-lg-12">
                 <select class="form-control select2" name="id_employee_status" style="width: 100%;">
                   @foreach($status as $emp_stat)
                   <option value="{{$emp_stat->id}}">{{$emp_stat->name}}</option>
                   @endforeach
                 </select>
+                  </div>
               </div>
 
               
               <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Level Position</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;">
-                  @foreach($level_position as $level)
-                  <option value="{{$level->id}}">{{$level->nama_level}}</option>
-                  @endforeach
-                </select>
-              </div>
+                <div class="row">
+                  <div class="form-group col-md-6 col-xs-6">
+                    <label>Level of Position</label>
+                    <select class="form-control select2" name="level_position" style="width: 100%;">
+                      @foreach($level_position as $level)
+                      <option value="{{$level->id}}">{{$level->nama_level}}</option>
+                      @endforeach
+                    </select>
+                  </div>
 
-               <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Role</label>
-                <select class="form-control select2" name="role" style="width: 100%;">
-                  <option value="0">User</option>
-                  <option value="1">Administrator</option>
-                </select>
-              </div>
-              <!-- /.form-group -->
+                   <!-- /.form-group -->
+                  <div class="form-group col-md-6 col-xs-6">
+                    <label>Role</label>
+                    <select class="form-control select2" name="role" style="width: 100%;">
+                      <option value="0">User</option>
+                      <option value="1">Administrator</option>
+                    </select>
+                  </div>
+                  <!-- /.form-group -->
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Division</label>
-                <select class="form-control" name="division" id="division" style="width: 100%;">
-                  @foreach($division as $div)
-                  <option value="{{$div->id}}" >{{$div->division_name}}</option>
-                  @endforeach
-                </select>
-              </div>
+                  <!-- /.form-group -->
+                  <div class="form-group col-md-6 col-xs-6">
+                    <label>Division</label>
+                    <select class="form-control" name="division" id="division" style="width: 100%;">
+                      @foreach($division as $div)
+                      <option value="{{$div->id}}" >{{$div->division_name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Unit</label>
-                <select class="form-control" name="unit" id="unit" style="width: 100%;">
-                  
-                </select>
-              </div>
+                  <!-- /.form-group -->
+                  <div class="form-group col-md-6 col-xs-6">
+                    <label>Unit</label>
+                    <select class="form-control" name="unit" id="unit" style="width: 100%;">
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Department</label>
-                <select class="form-control" name="department" id="department" style="width: 100%;">
-                  
-                </select>
-              </div>
+                    </select>
+                  </div>
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Section</label>
-                <select class="form-control" name="section" id="section" style="width: 100%;">
-                  
-                </select>
-              </div>
+                  <!-- /.form-group -->
+                  <div class="form-group col-md-6 col-xs-6">
+                    <label>Department</label>
+                    <select class="form-control" name="department" id="department" style="width: 100%;">
 
+                    </select>
+                  </div>
+
+                  <!-- /.form-group -->
+                  <div class="form-group col-md-6 col-xs-6">
+                    <label>Section</label>
+                    <select class="form-control" name="section" id="section" style="width: 100%;">
+
+                    </select>
+                  </div>
+                </div>
 
              
 
@@ -202,7 +220,9 @@
         </div>
     </div>
     <div class="row text-center">
-      <button class="btn btn-success">submit</button>
+        <div class="col-lg-12">
+            <button class="btn btn-block btn-success">Submit New Personnel</button>
+        </div>
     </div>
 
 

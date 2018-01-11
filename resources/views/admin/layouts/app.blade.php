@@ -8,8 +8,9 @@
     <!-- ********************************************** -->
     <!--                  HEAD IMPORT CSS DLL           -->
     <!-- ********************************************** -->
-    @include('admin.layouts.header')
     @yield('header')
+    @include('admin.layouts.header')
+
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">

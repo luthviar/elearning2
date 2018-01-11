@@ -1,3 +1,11 @@
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('UserController@profile_view',$user->id))); ?>">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Edit Personnel - <?php echo e($user->name); ?>
+
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 
@@ -22,29 +30,40 @@
             </div>
             <div class="box-body">
 
-              <!-- Username -->
-              <div class="form-group col-md-6">
-                <label>Username:</label>
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
-                  <input type="text" class="form-control" name="username" value="<?php echo e($user->username); ?>" placeholder="username">
+                <div class="row">
+                    <!-- Username -->
+                    <div class="form-group col-md-6">
+                        <label>Username:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input type="text" class="form-control" name="username" value="<?php echo e($user->username); ?>" placeholder="username">
+                        </div>
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group col-md-6">
+                        <label>
+                            Password:
+                            <i class="fa fa-question-circle"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="Isi untuk mengupdate password lama user"
+                            ></i>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-addon">**</span>
+                            <input type="password" name="password" class="form-control" placeholder="New Password"">
+                        </div>
+                        <p class="small" style="color:red;">Leave the password field empty will be used the old password</p>
+                    </div>
                 </div>
-              </div>
-
-              <!-- Password -->
-              <div class="form-group col-md-6">
-                <label>Password:</label>
-                <div class="input-group">
-                  <span class="input-group-addon">**</span>
-                  <input type="password" name="password" class="form-control" placeholder="new_password">
-                </div>
-              </div>
 
               <!-- name -->
               <div class="form-group">
                 <label>Name:</label>
                 <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                 <span class="input-group-addon">
+                      <i class="fa fa-address-book"></i>
+                  </span>
                   <input type="text" class="form-control" name="name" value="<?php echo e($user->name); ?>" placeholder="name">
                 </div>
               </div>
@@ -87,11 +106,18 @@
               </div>
               <!-- /.form group -->
 
-              <!-- Email -->
+              <!-- Education -->
               <div class="form-group">
-                <label>Education:</label>
+                  <label>
+                      Education:
+                      <i class="fa fa-question-circle"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="Lulusan terakhir karyawan, contoh: S1, SMA, S2, dll"
+                      ></i>
+                  </label>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <span class="input-group-addon"><i class="fa fa-institution"></i></span>
                   <input type="text" name="education" value="<?php echo e($user->education); ?>" class="form-control" placeholder="education">
                 </div>
               </div>
@@ -123,16 +149,16 @@
               </div>
               <!-- /.form group -->
 
-              <!-- Email -->
+              <!-- Position name -->
               <div class="form-group">
-                <label>Position:</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                  <label>Position Name:</label>
+                  <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
                   <input type="text" name="position" value="<?php echo e($user->position_name); ?>" class="form-control" placeholder="position">
                 </div>
               </div>
 
-              <!-- Email -->
+              <!-- Employee Status -->
               <div class="form-group">
                 <label>Employee Status:</label>
                 <select class="form-control select2" name="id_employee_status" style="width: 100%;">
@@ -148,8 +174,9 @@
 
               
               <!-- /.form-group -->
+                <div class="row">
               <div class="form-group col-md-6 col-xs-6">
-                <label>Level Position</label>
+                <label>Level of Position</label>
                 <select class="form-control select2" name="level_position" style="width: 100%;">
                   <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($level->id == $user->position): ?>
@@ -232,7 +259,7 @@
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
-
+                </div>
 
              
 
@@ -243,9 +270,12 @@
 
         </div>
     </div>
-    <div class="row text-center">
-      <button class="btn btn-success">submit</button>
-    </div>
+
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <button class="btn btn-block btn-info">Update Personnel</button>
+            </div>
+        </div>
 
 
     </section>

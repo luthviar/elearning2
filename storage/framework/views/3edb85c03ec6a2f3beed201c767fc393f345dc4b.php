@@ -160,7 +160,12 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="container text-center">
-            <iframe id="iframe" src="<?php echo e(URL::to($score->attachment_url)); ?>" width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            <?php if($score == "empty"): ?>
+            <iframe id="iframe" src="<?php echo e(URL::to($score->attachment_url)); ?>"
+                    width='100%' height='600' allowfullscreen webkitallowfullscreen>
+            <?php else: ?>
+              no score
+            <?php endif; ?>
             </iframe>
           </div>
         </div>

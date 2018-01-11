@@ -9,6 +9,8 @@ use DB;
 use App\AerofoodLink;
 use App\ModulTraining;
 use Session;
+use App\User;
+use App\LevelPosition;
 
 class HomeController extends Controller
 {
@@ -48,11 +50,11 @@ class HomeController extends Controller
 
         $link = AerofoodLink::all();
 
-        $user = new User();
-        $profile = $user->profile_view(\Auth::user()->id);
-        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
-
-        Session::put('profile', $profile);
+//        $user = new User();
+//        $profile = $user->profile_view(Auth::user()->id);
+//        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
+//
+//        Session::put('profile', $profile);
 
         Session::put('link',$link);
         Session::put('module',$modul);

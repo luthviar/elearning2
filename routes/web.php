@@ -178,10 +178,7 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/personnel/serverside', 'UserController@personnel_list_serverside');
 
-        Route::get('add', 'UserController@user_add');
-
-
-	    Route::get('edit/{id}','UserController@edit_personnel');
+	    Route::get('edit-{id}','UserController@edit_personnel');
 
 	    Route::post('edit','UserController@edit_personnel_submit');
 
@@ -193,8 +190,15 @@ Route::prefix('admin')->group(function () {
 
 	    Route::get('{id_personnel}/training/{id_training}','UserController@see_record');
 
-
         Route::get('view-{id}', 'UserController@profile_view');
+
+        // -------------------------------------
+        // USER
+        // -------------------------------------
+
+        Route::get('add', 'UserController@user_add');
+
+        Route::post('user_add_submit','UserController@user_add_submit');
 
     });
 
@@ -405,12 +409,4 @@ Route::post('get_unit','OrganizationStructureController@get_unit');
 Route::post('get_department','OrganizationStructureController@get_department');
 
 Route::post('get_section','OrganizationStructureController@get_section');
-
-// -------------------------------------
-// USER
-// -------------------------------------
-
-Route::get('user_add','UserController@user_add');
-
-Route::post('user_add','UserController@user_add_submit');
 

@@ -2,7 +2,16 @@
 @section('page-name')
 Personnel View
 @endsection
-
+@section('header')
+    <style>
+        dt{
+            width: 40% !important;
+        }
+        dd{
+            margin-left: 50% !important;
+        }
+    </style>
+@endsection
 @section('content')
 
   <!-- Content Header (Page header) -->
@@ -11,82 +20,143 @@ Personnel View
     <section class="content">
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
 
           <!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-              @if($profile['personal_data']->photo == null)
-              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('photo/user-default.png')}}" alt="User profile picture">
-              @else
-              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset($profile['personal_data']->photo)}}" alt="User profile picture">
-              @endif
+          <div class="box box-solid">
+              <div class="box-header with-border">
+                  @if($profile['personal_data']->photo == null)
+                      <img class="profile-user-img img-responsive img-circle"
+                           src="{{URL::asset('photo/user-default.png')}}" alt="User profile picture">
+                  @else
+                      <img class="profile-user-img img-responsive img-circle"
+                           src="{{URL::asset($profile['personal_data']->photo)}}" alt="User profile picture">
+                  @endif
 
-              <h3 class="profile-username text-center">{{$profile['personal_data']->name}}</h3>
+                  <h3 class="profile-username text-center">{{$profile['personal_data']->name}}</h3>
 
-              <p class="text-muted text-center">{{$profile['personal_data']->position_name}}</p>
+                  <p class="text-muted text-center">{{$profile['personal_data']->position_name}}</p>
+              </div>
 
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                	@if ($profile['personal_data']->role == 1)
-                  	<b>Role</b> <a class="pull-right">Administrator</a>
-                  	@else
-                  	<b>Role</b> <a class="pull-right">User</a>
-                  	@endif
-                </li>
-                <li class="list-group-item">
-                  <b>Email</b> <a class="pull-right">{{$profile['personal_data']->email}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Level</b> <a class="pull-right">{{$profile['level']->nama_level}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Employee Status</b> <a class="pull-right">{{$profile['employee_data']['employee_status']->name}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Birtdate</b> <a class="pull-right">{{$profile['personal_data']->birtdate}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Education</b> <a class="pull-right">{{ $profile['personal_data']->education}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Date Join</b> <a class="pull-right">{{$profile['personal_data']->date_join_acs}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Division</b> <a class="pull-right">{{$profile['employee_data']['division']->division_name or null}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Unit</b> <a class="pull-right">{{$profile['employee_data']['unit']->unit_name or null}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Department</b> <a class="pull-right">{{$profile['employee_data']['department']->department_name or null}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Section</b> <a class="pull-right">{{$profile['employee_data']['section']->section_name or null}}</a>
-                </li>
-                <li class="list-group-item">
-                @if ($profile['personal_data']->flag_active == 1)
-                  <b>Status</b> <a class="pull-right">Active</a>
-                 @else
-                  <b>Status</b> <a class="pull-right">Non-Active</a>
-                 @endif
-                </li>
-              </ul>
-              <a href="{{url('/admin/personnel/edit',$profile['personal_data']->id)}}" class="btn btn-info btn-block"><b>Edit Personnel</b></a>
-              @if ($profile['personal_data']->flag_active == 1)
-              <a href="{{url('admin/personnel/nonactivate',$profile['personal_data']->id)}}" class="btn btn-danger btn-block"><b>Non-Activate</b></a>
-              @else
-              <a href="{{url('admin/personnel/activate',$profile['personal_data']->id)}}" class="btn btn-success btn-block"><b>Activate</b></a>
-              @endif
-            </div>
+              <div class="box-body">
+                  <dl class="dl-horizontal">
+                  @if ($profile['personal_data']->role == 1)
+                      <dt>
+                          <b>Role</b>
+                      <dd>
+                          <a>Administrator</a>
+                      </dd>
+                  @else
+                      <dt>
+                          <b>Role</b>
+                      <dd>
+                          <a>User</a>
+                      </dd>
+                  @endif
+                      <dt>
+                          <b>Email</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['personal_data']->email}}</a>
+                      </dd>
+                      <dt>
+                          <b>Level</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['level']->nama_level}}</a>
+                      </dd>
+                      <dt>
+                          <b>Employee Status</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['employee_data']['employee_status']->name}}</a>
+                      </dd>
+                      <dt>
+                          <b>Birtdate</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['personal_data']->birtdate}}</a>
+                      </dd>
+                      <dt>
+                          <b>Education</b>
+                      </dt>
+                      <dd>
+                          <a >{{ $profile['personal_data']->education}}</a>
+                      </dd>
+                      <dt>
+                          <b>Date Join</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['personal_data']->date_join_acs}}</a>
+                      </dd>
+                      <dt>
+                          <b>Division</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['employee_data']['division']->division_name or null}}</a>
+                      </dd>
+                      <dt>
+                          <b>Unit</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['employee_data']['unit']->unit_name or null}}</a>
+                      </dd>
+                      <dt>
+                          <b>Department</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['employee_data']['department']->department_name or null}}</a>
+                      </dd>
+                      <dt>
+                          <b>Section</b>
+                      </dt>
+                      <dd>
+                          <a >{{$profile['employee_data']['section']->section_name or null}}</a>
+                      </dd>
+
+                  @if ($profile['personal_data']->flag_active == 1)
+                      <dt>
+                          <b>Status</b>
+                      </dt>
+                      <dd>
+                          <a >Active</a>
+                      </dd>
+                  @else
+                      <dt>
+                          <b>Status</b>
+                      </dt>
+                      <dd>
+                          <a >Non-Active</a>
+                      </dd>
+                  @endif
+
+                  </dl>
+                  <a href="{{url(action('UserController@edit_personnel',$profile['personal_data']->id))}}"
+                     class="btn btn-info btn-block">
+                      <b>Edit Personnel</b>
+                  </a>
+                  @if ($profile['personal_data']->flag_active == 1)
+
+                      <a href="{{url(action('UserController@nonactivate',$profile['personal_data']->id))}}"
+                         class="btn btn-danger btn-block">
+                          <b>Non-Activate</b>
+                      </a>
+                  @else
+
+                      <a href="{{url(action('UserController@activate',$profile['personal_data']->id))}}"
+                         class="btn btn-success btn-block">
+                          <b>Activate</b>
+                      </a>
+                  @endif
+
+              </div>
             <!-- /.box-body -->
-          </div>
           <!-- /.box -->
 
-          
+          </div>
         </div>
         <!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab">Training Record</a></li>
