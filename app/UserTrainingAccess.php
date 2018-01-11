@@ -79,7 +79,7 @@ class UserTrainingAccess extends Model
 
     	if ($module->id_parent == 4) {
     		$level_position_user = LevelPosition::find($user->position);
-    		if ($level_position_user > 5) {
+    		if ($level_position_user->id > 5) {
     			$access['status'] = 1; 
 	    		$access['message'] = 'can access';
 	    		return $access;

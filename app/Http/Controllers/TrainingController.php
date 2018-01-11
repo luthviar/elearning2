@@ -1047,7 +1047,16 @@ class TrainingController extends Controller
             $access = UserTrainingAccess::where('id_module',$id_training)->get();
             foreach ($access as $key => $value) {
                 $user = User::find($value->id_user);
-                array_push($partisipant, $user);
+                $in = false;
+                foreach ($partisipant as $key => $value) {
+                    if ($user->id == $value->id) {
+                        $in =true;
+                    }
+                }
+                if ($in == false) {
+                    $partisipant[] = $user;
+                }
+                
             }
         }else{
             $access = UserTrainingAccess::where('id_module',$id_training)->get();
