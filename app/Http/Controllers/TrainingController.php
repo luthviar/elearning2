@@ -1020,10 +1020,19 @@ class TrainingController extends Controller
         }elseif ($training->id_parent == 3) {
             $module = ModulTraining::find($id_training);
             $department_module = OsDepartment::find($module->id_department);
+            if ($department_module == null) {
+                return "error : department module not found";
+            }
             $users = User::where('flag_active',1)->get();
             foreach ($users as $key => $user) {
                 $structure = OrganizationalStructure::find($user->id);
+                if ($structure == null) {
+                    return "error: org. structure user not found";
+                }
                 $department_user = OsDepartment::find($structure->id_department);
+                if ($department_user == null) {
+                    return "error: department user not found";
+                }
                 if ($department_user->id_job_family == $department_module->id_job_family) {
                     array_push($partisipant, $user);
                 }
@@ -1082,13 +1091,22 @@ class TrainingController extends Controller
                         $access->save();
                     }
                 }
-            } else {
+            } elseif($module->id_parent == 3) {
                 $user = User::find($request->user);
                 $structure = OrganizationalStructure::find($user->id);
+                if ($structure == null) {
+                    return "error : org. struture user not found";
+                }
                 $department_user = OsDepartment::find($structure->id_department);
+                if ($department_user == null) {
+                    return "error : department user not found";
+                }
 
                 $module = ModulTraining::find($request->id_training);
                 $department_module = OsDepartment::find($module->id_department);
+                if ($department_module == null) {
+                    return "error : department module not found";
+                }
 
                 if ($department_module->id_job_family != $department_user->id_job_family) {
                     $access = UserTrainingAccess::where('id_module', $request->id_training)->where('id_user',$request->user)->first();
