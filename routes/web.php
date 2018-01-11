@@ -181,9 +181,9 @@ Route::prefix('admin')->group(function () {
         Route::get('add', 'UserController@user_add');
 
 
-	    Route::get('/personnel/edit/{id}','UserController@edit_personnel');
+	    Route::get('edit/{id}','UserController@edit_personnel');
 
-	    Route::post('personnel/edit','UserController@edit_personnel_submit');
+	    Route::post('edit','UserController@edit_personnel_submit');
 
 	    Route::get('/personnel/activate/{id}','UserController@activate');
 
