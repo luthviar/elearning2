@@ -8,6 +8,17 @@ use App\Slider;
 
 class SliderController extends Controller
 {
+    // MIDDLEWARE
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => [
+             'get_active_slider', 'get_all_slider'
+        ]]);
+        $this->middleware('isAdmin', ['except' => [
+             'get_active_slider', 'get_all_slider'
+        ]]);
+        
+    }
     
     public function get_all_slider () {
     	$sliders = new Slider();

@@ -23,6 +23,14 @@ use Session;
 
 class TrainingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isAdmin', ['except' => [
+             'get_module_training', 'get_trainings','get_material','finish_chapter','get_test','submit_test','review_test','next_chapter','request_access'
+        ]]);
+        
+    }
     
     public function get_module_training(){
     	$modul = new ModulTraining();
@@ -270,6 +278,10 @@ class TrainingController extends Controller
         return redirect('get_training/'.$module->id_parent);
     }
 
+    // ----------------------------------
+    // ADMIN AREA
+    // ----------------------------------
+
     public function schedule (){
         return view('admin.training_jadwal');
     }
@@ -364,9 +376,7 @@ class TrainingController extends Controller
         echo json_encode($json_data); 
     }
 
-    // ----------------------------------
-    // ADMIN AREA
-    // ----------------------------------
+    
 
     public function give_access ($id_user_training_access) {
         $access = UserTrainingAccess::find($id_user_training_access);
@@ -434,7 +444,7 @@ class TrainingController extends Controller
                 ]
             );
         }
-        if (count($request->trainer_name) >0) {
+        if ($request->trainer_name[0] != null) {
             for ($ii=0; $ii < count($request->trainer_name); $ii++) { 
                 $trainer = new Trainer;
                 $trainer->id_module = $id;
@@ -845,7 +855,7 @@ class TrainingController extends Controller
 
         DB::table('trainers')->where('id_module','=',$module->id)->delete();
 
-        if (count($request->trainer_name) >0) {
+        if ($request->trainer_name[0] != null) {
             for ($ii=0; $ii < count($request->trainer_name); $ii++) { 
                 $trainer = new Trainer;
                 $trainer->id_module = $module->id;

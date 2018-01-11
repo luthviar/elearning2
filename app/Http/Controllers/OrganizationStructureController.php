@@ -12,6 +12,12 @@ use App\OrganizationalStructure;
 
 class OrganizationStructureController extends Controller
 {
+    // MIDDLEWARE
+    public function __construct()
+    {
+        $this->middleware('auth');
+        
+    }
     
     public function get_unit (Request $request) {
     	$id_division = $request->id_division;

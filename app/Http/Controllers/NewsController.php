@@ -15,6 +15,17 @@ use Carbon\Carbon;
 
 class NewsController extends Controller
 {
+    // MIDDLEWARE
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => [
+             'index', 'viewnews','get_all_news', 'get_active_news','get_news','paginate_news','storeCommentByUser'
+        ]]);
+        $this->middleware('isAdmin', ['except' => [
+             'index', 'viewnews','get_all_news', 'get_active_news','get_news','paginate_news','storeCommentByUser'
+        ]]);
+        
+    }
 
     public function index(){
 //        $news = new News();

@@ -33,6 +33,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function role(){
+        return $this->role;
+    }
 
     public function get_user($id_user){
         $user = User::find($id_user);

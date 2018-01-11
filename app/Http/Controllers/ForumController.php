@@ -19,6 +19,17 @@ use Carbon\Carbon;
 
 class ForumController extends Controller
 {
+
+    // MIDDLEWARE
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isAdmin', ['except' => [
+             'index', 'get_all_forum', 'storeByUser', 'editByUser', 'updateByUser','get_user_forum', 'forum_public','get_forum','storeCommentByUser'
+        ]]);
+        
+    }
+
     public function index() {
         //user information
         $id_user = Auth::user()->id;

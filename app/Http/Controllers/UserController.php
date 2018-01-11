@@ -24,7 +24,16 @@ use App\OsSection;
 class UserController extends Controller
 {
     // MIDDLEWARE
-    // 
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => [
+             'forgot_password', 'forgot_password_submit'
+        ]]);
+        $this->middleware('isAdmin', ['except' => [
+             'forgot_password', 'forgot_password_submit', 'get_profile', 'change_password', 'change_photo'
+        ]]);
+        
+    }
     
     public function get_profile () {
 
