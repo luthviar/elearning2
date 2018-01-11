@@ -1,13 +1,11 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
-    <a href="{{ url(action('TrainingController@manage_chapter',$chapter->id)) }}">
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('TrainingController@manage_chapter',$chapter->id))); ?>">
         <i class="fa fa-arrow-left"></i>
     </a>
     Edit Chapter Training
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Main content -->
     <section class="content">
     <div class="row">
@@ -15,42 +13,43 @@
       <div class="box box-primary">
             <div class="box-header">
               <h3 class="box-title">
-                  {{-- fill here --}}
+                  
               </h3>
             </div>
             <div class="box-body">
 
-                 <form action="{{url(action('TrainingController@edit_chapter_submit'))}}" method="post">
-                 {{csrf_field()}}
-                  <input type="hidden" name="id_chapter" value="{{$chapter->id}}">
+                 <form action="<?php echo e(url(action('TrainingController@edit_chapter_submit'))); ?>" method="post">
+                 <?php echo e(csrf_field()); ?>
+
+                  <input type="hidden" name="id_chapter" value="<?php echo e($chapter->id); ?>">
                   <!-- Title -->
                   <div class="form-group col-md-6">
                     <label for="title">Chapter Name</label>
-                    <input type="text" class="form-control" name="chapter_name" value="{{$chapter->chapter_name}}" id="title" placeholder="Training title">
+                    <input type="text" class="form-control" name="chapter_name" value="<?php echo e($chapter->chapter_name); ?>" id="title" placeholder="Training title">
                   </div>
                     <!-- select -->
                   <div class="form-group col-md-6">
                     <label>Chapter Type</label>
                     <select class="form-control" id="add_chapter_type" name="category">
-                      @if($chapter->category == 0)
+                      <?php if($chapter->category == 0): ?>
                       <option value="0" selected="true">Material</option>
                       <option value="1">Test</option>
-                      @else
+                      <?php else: ?>
                       <option value="0">Material</option>
                       <option value="1" selected="true">Test</option>
-                      @endif
+                      <?php endif; ?>
                     </select>
                   </div>
                     <!-- Textarea -->
                   <div class="form-group">
                       <label>Chapter Description</label>
-                      @if($chapter->category == 0)
+                      <?php if($chapter->category == 0): ?>
                       <textarea class="textarea" id="summernote" name="description"
-                                placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$chapter['material']->description}}</textarea>
-                        @else
+                                placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($chapter['material']->description); ?></textarea>
+                        <?php else: ?>
                         <textarea class="textarea" id="summernote" name="description"
-                                  placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$chapter['test']->description}}</textarea>
-                        @endif
+                                  placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo e($chapter['test']->description); ?></textarea>
+                        <?php endif; ?>
                   </div>
                     
                   <div class="col-md-12 text-center">
@@ -78,9 +77,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $('#add_chapter_type').on('input', function(){
       var chapter_type = $('#add_chapter_type').val();
@@ -128,7 +127,8 @@ $(document).ready(function(){
 });
 </script>
 
-@include('admin.layouts.summernote')
+<?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

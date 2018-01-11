@@ -48,7 +48,7 @@
                     <!-- Textarea -->
                   <div class="form-group">
                       <label>Chapter Description</label>
-                      <textarea class="textarea" id="content" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      <textarea class="textarea" id="summernote" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                   </div>
                     
                   <div class="col-md-12 text-center">
@@ -103,8 +103,9 @@
 
 
 </script>
+@include('admin.layouts.summernote')
 
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<!-- <script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script>
 
   $(function () {
@@ -131,7 +132,7 @@
   });
 
 </script>
-
+ -->
 <script type="text/javascript">
 $(document).ready(function(){
   $('#title').on('input', function(){ 
