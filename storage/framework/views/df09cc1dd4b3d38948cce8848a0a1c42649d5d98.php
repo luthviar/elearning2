@@ -5,7 +5,7 @@
     <div class="col-md-12 clearfix">
         <div class="list-group">
           <?php $__currentLoopData = Session::get('schedule'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sched): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <a href="#" class="list-group-item">
+            <a href="<?php echo e(url(action('TrainingController@get_trainings',$sched->id))); ?>" class="list-group-item">
                 <h4 class="list-group-item-heading">
                     <?php echo e($sched->modul_name); ?>
 

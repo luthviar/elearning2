@@ -19,7 +19,7 @@ Add Personnel
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Personal Information</h3>
+              <h3 class="box-title">Personal Informationa</h3>
             </div>
             <div class="box-body">
 
@@ -178,9 +178,16 @@ Add Personnel
 
                 <!-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
                 <!-- /.form-group -->
+
               <div class="form-group col-md-6">
+                  <label>
+                      <h5 style="color: orangered;">
+                          Pilih Divisi, Unit dan Department dari Database.
+                          Jika tidak ada, maka Anda dapat menginput sendiri pada input text.
+                      </h5>
+                  </label>
                 <label>Division : </label>
-                <select class="form-control" name="division" id="division" style="width: 100%;">
+                <select class="form-control select3" name="division" id="division" style="width: 100%;">
                   <option value="0" >.....</option>
                   @foreach($division as $div)
                   <option value="{{$div->id}}" >{{$div->division_name}}</option>
@@ -295,39 +302,75 @@ Add Personnel
 
   $(function () {
     //Initialize Select2 Elements
-$(".select2").select2({
-  tags: true,
-  createTag: function (params) {
-    return {
-      id: params.term,
-      text: params.term,
-      newOption: true
-    }
-  },
-   templateResult: function (data) {
-    var $result = $("<span></span>");
+        $(".select2").select2({
+          tags: true,
+          createTag: function (params) {
+            return {
+              id: params.term,
+              text: params.term,
+              newOption: true
+            }
+          },
+           templateResult: function (data) {
+            var $result = $("<span name='division_input'></span>");
 
-    $result.text(data.text);
+            $result.text(data.text);
 
-    if (data.newOption) {
-      $result.append(" <em>(new)</em>");
-    }
+            if (data.newOption) {
+              $result.append(" <em>(new)</em>");
+            }
 
-    return $result;
-  }
-});
+            return $result;
+          }
+        });
+
+
+      $(".select3").select2({
+          tags: false,
+          createTag: function (params) {
+              return {
+                  id: params.term,
+                  text: params.term
+              }
+          }
+      });
 
 	
-    //Date picker
-    $('.datepicker').datepicker({
-      format: 'yyyy-mm-dd',
-      autoclose: true
-    });
+        //Date picker
+        $('.datepicker').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true
+        });
 
   });
 
 </script>
 
+    <script>
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select3").select3({
+                tags: true,
+                createTag: function (params) {
+                    return {
+                        id: params.term,
+                        text: params.term
+                    }
+                },
+                templateResult: function (data) {
+                    var $result = $("<span></span>");
+
+                    $result.text(data.text);
+
+                    if (data.newOption) {
+                        $result.append(" <em>(new)</em>");
+                    }
+
+                    return $result;
+                }
+            })});
+    </script>
 
 
 @endsection

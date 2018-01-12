@@ -208,81 +208,125 @@
 <!-- -hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
                 <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Division:</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                <label>Division : </label>
+                <select class="form-control" name="division" id="division" style="width: 100%;">
+                  <option value="0" >.....</option>
                   <?php if($user['org_structure'] != null): ?>
-                  <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <?php if($user['org_structure']->id_division == $div->id): ?>
-                      <input type="text" name="division" value="<?php echo e($div->division_name); ?>" class="form-control" placeholder="division">
+                      <option value="<?php echo e($div->id); ?>" selected="true"><?php echo e($div->division_name); ?></option>
+                      <?php else: ?>
+                      <option value="<?php echo e($div->id); ?>"><?php echo e($div->division_name); ?></option>
                       <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php else: ?>
-                  <input type="text" name="division" class="form-control" placeholder="division">
-                  <?php endif; ?>
+                    <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <option value="<?php echo e($div->id); ?>"><?php echo e($div->division_name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php endif; ?> 
                   
-                  
-                </div>
+                </select>
               </div>
 
-              <!-- Position name -->
+
+
               <div class="form-group col-md-6">
-                <label>Unit:</label>
+                <label>Division Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="division_input" class="form-control" placeholder="division">           
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Unit : </label>
+                <select class="form-control" name="unit" id="unit" style="width: 100%;">
+                  <option value="0" >.....</option>
                   <?php if($user['org_structure'] != null): ?>
+                    <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <?php if($user['org_structure']->id_unit == $unt->id): ?>
+                     <option value="<?php echo e($unt->id); ?>" selected="true"><?php echo e($unt->unit_name); ?></option>
+                      <?php else: ?>
+                      <option value="<?php echo e($unt->id); ?>"><?php echo e($unt->unit_name); ?></option>
+                      <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
                   <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php if($user['org_structure']->id_unit == $unt->id): ?>
-                    <input type="text" name="unit" value="<?php echo e($unt->unit_name); ?>" class="form-control" placeholder="unit">
-                    <?php endif; ?>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                  <?php else: ?>
-                  <input type="text" name="unit" class="form-control" placeholder="unit">
+                    <option value="<?php echo e($unt->id); ?>"><?php echo e($unt->unit_name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php endif; ?>
                   
-                  
-                </div>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Unit Input:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="unit_input" class="form-control" placeholder="unit">           
+                  </div>
               </div>
 
               <!-- Position name -->
+
               <div class="form-group col-md-6">
-                <label>Department:</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                <label>Department : </label>
+                <select class="form-control" name="department" id="department" style="width: 100%;">
+                  <option value="0" >.....</option>
                   <?php if($user['org_structure'] != null): ?>
-                  <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  
-                    <?php if($user['org_structure']->id_department == $deps->id): ?>
-                    <input type="text" name="department" value="<?php echo e($deps->department_name); ?>" class="form-control" placeholder="department">
-                    <?php endif; ?>
+                    <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <?php if($user['org_structure']->id_department == $deps->id): ?>
+                      <option value="<?php echo e($deps->id); ?>" selected="true"><?php echo e($deps->department_name); ?></option>
+                      <?php else: ?>
+                        <option value="<?php echo e($deps->id); ?>" selected="true"><?php echo e($deps->department_name); ?></option>
+                      <?php endif; ?>  
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php else: ?>
-                  <input type="text" name="department" class="form-control" placeholder="department">
+                    <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($deps->id); ?>" selected="true"><?php echo e($deps->department_name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php endif; ?>
                   
-                  
-                </div>
+                </select>
               </div>
 
-              <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Section:</label>
+                <label>Department Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="department_input" class="form-control" placeholder="division">           
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Section : </label>
+                <select class="form-control" name="section" id="section" style="width: 100%;">
+                  <option value="0" >.....</option>
                   <?php if($user['org_structure'] != null): ?>
-                  <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    
+                    <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($user['org_structure']->id_section == $sec->id): ?>
-                    <input type="text" name="section" value="<?php echo e($sec->section_name); ?>" class="form-control" placeholder="section">
+                    <option value="<?php echo e($sec->id); ?>" selected="true"><?php echo e($sec->section_name); ?></option>
+                    <?php else: ?>
+                    <option value="<?php echo e($sec->id); ?>" ><?php echo e($sec->section_name); ?></option>  
                     <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php else: ?>
-                  <input type="text" name="section" class="form-control" placeholder="section">
+                    <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($sec->id); ?>" ><?php echo e($sec->section_name); ?></option>  
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php endif; ?>
                   
-                  
-                </div>
+                </select>
               </div>
+
+              <div class="form-group col-md-6">
+                <label>Section Input:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="section_input" class="form-control" placeholder="section">           
+                  </div>
+              </div>
+
 
               <!-- /.form-group -->
               <div class="form-group col-md-6">
@@ -324,111 +368,7 @@
 
 <?php $__env->startSection('script'); ?>
 
-<script type="text/javascript">
 
-    $('#division').click(function() {
-      var id_division = $('#division').val();
-      $.ajax({
-        type:"POST",
-        url:"<?php echo e(url('get_unit')); ?>",
-        dataType: 'json',
-        data:{id_division:id_division,_token: '<?php echo e(csrf_token()); ?>'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(units) {
-            var html = '';
-            $.each(units.units, function(key, value){
-                html += '<option value="'+value.id+'">'+value.unit_name+'</option>';               
-                
-            });
-            $('#unit').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#unit').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      $.ajax({
-        type:"POST",
-        url:"<?php echo e(url('get_department')); ?>",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,_token: '<?php echo e(csrf_token()); ?>'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(departments) {
-            var html = '';
-            $.each(departments.departments, function(key, value){
-                html += '<option value="'+value.id+'">'+value.department_name+'</option>';               
-                
-            });
-            $('#department').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#department').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      var id_department = $('#department').val();
-      $.ajax({
-        type:"POST",
-        url:"<?php echo e(url('get_section')); ?>",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,id_department:id_department,_token: '<?php echo e(csrf_token()); ?>'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(sections) {
-            var html = '';
-            $.each(sections.sections, function(key, value){
-                html += '<option value="'+value.id+'">'+value.section_name+'</option>';               
-                
-            });
-            $('#section').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
 <script>
 
   $(function () {

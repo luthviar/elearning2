@@ -18,7 +18,7 @@ Add Personnel
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Personal Information</h3>
+              <h3 class="box-title">Personal Informationa</h3>
             </div>
             <div class="box-body">
 
@@ -176,40 +176,87 @@ Add Personnel
 
 
                 <!-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
+                <!-- /.form-group -->
+
+              <div class="form-group col-md-6">
+                  <label>
+                      <h5 style="color: orangered;">
+                          Pilih Divisi, Unit dan Department dari Database.
+                          Jika tidak ada, maka Anda dapat menginput sendiri pada input text.
+                      </h5>
+                  </label>
+                <label>Division : </label>
+                <select class="form-control select3" name="division" id="division" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($div->id); ?>" ><?php echo e($div->division_name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
+              </div>
 
                 <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Division:</label>
+                <label>Division Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="division" class="form-control" placeholder="division">
+                  <input type="text" name="division_input" class="form-control" placeholder="division">
                 </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Unit : </label>
+                <select class="form-control" name="unit" id="unit" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($unt->id); ?>" ><?php echo e($unt->unit_name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
               </div>
 
               <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Unit:</label>
+                <label>Unit Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="unit" class="form-control" placeholder="unit">
+                  <input type="text" name="unit_input" class="form-control" placeholder="unit">
                 </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Department : </label>
+                <select class="form-control" name="department" id="department" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($dept->id); ?>" ><?php echo e($dept->department_name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
               </div>
 
               <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Department:</label>
+                <label>Department Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="department" class="form-control" placeholder="department">
+                  <input type="text" name="department_input" class="form-control" placeholder="department">
                 </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Section : </label>
+                <select class="form-control" name="section" id="section" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sect): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($sect->id); ?>" ><?php echo e($sect->section_name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
               </div>
 
               <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Section:</label>
+                <label>Section Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="section" class="form-control" placeholder="section">
+                  <input type="text" name="section_input" class="form-control" placeholder="section">
                 </div>
               </div>
 
@@ -249,148 +296,80 @@ Add Personnel
 
 <?php $__env->startSection('script'); ?>
 
-<script type="text/javascript">
 
-    $('#division').click(function() {
-      var id_division = $('#division').val();
-      $.ajax({
-        type:"POST",
-        url:"<?php echo e(url('get_unit')); ?>",
-        dataType: 'json',
-        data:{id_division:id_division,_token: '<?php echo e(csrf_token()); ?>'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(units) {
-            var html = '';
-            $.each(units.units, function(key, value){
-                html += '<option value="'+value.id+'">'+value.unit_name+'</option>';               
-                
-            });
-            $('#unit').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#unit').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      $.ajax({
-        type:"POST",
-        url:"<?php echo e(url('get_department')); ?>",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,_token: '<?php echo e(csrf_token()); ?>'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(departments) {
-            var html = '';
-            $.each(departments.departments, function(key, value){
-                html += '<option value="'+value.id+'">'+value.department_name+'</option>';               
-                
-            });
-            $('#department').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#department').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      var id_department = $('#department').val();
-      $.ajax({
-        type:"POST",
-        url:"<?php echo e(url('get_section')); ?>",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,id_department:id_department,_token: '<?php echo e(csrf_token()); ?>'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(sections) {
-            var html = '';
-            $.each(sections.sections, function(key, value){
-                html += '<option value="'+value.id+'">'+value.section_name+'</option>';               
-                
-            });
-            $('#section').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
 <script>
 
   $(function () {
     //Initialize Select2 Elements
-$(".select2").select2({
-  tags: true,
-  createTag: function (params) {
-    return {
-      id: params.term,
-      text: params.term,
-      newOption: true
-    }
-  },
-   templateResult: function (data) {
-    var $result = $("<span></span>");
+        $(".select2").select2({
+          tags: true,
+          createTag: function (params) {
+            return {
+              id: params.term,
+              text: params.term,
+              newOption: true
+            }
+          },
+           templateResult: function (data) {
+            var $result = $("<span name='division_input'></span>");
 
-    $result.text(data.text);
+            $result.text(data.text);
 
-    if (data.newOption) {
-      $result.append(" <em>(new)</em>");
-    }
+            if (data.newOption) {
+              $result.append(" <em>(new)</em>");
+            }
 
-    return $result;
-  }
-});
+            return $result;
+          }
+        });
+
+
+      $(".select3").select2({
+          tags: false,
+          createTag: function (params) {
+              return {
+                  id: params.term,
+                  text: params.term
+              }
+          }
+      });
 
 	
-    //Date picker
-    $('.datepicker').datepicker({
-      format: 'yyyy-mm-dd',
-      autoclose: true
-    });
+        //Date picker
+        $('.datepicker').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true
+        });
 
   });
 
 </script>
 
+    <script>
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select3").select3({
+                tags: true,
+                createTag: function (params) {
+                    return {
+                        id: params.term,
+                        text: params.term
+                    }
+                },
+                templateResult: function (data) {
+                    var $result = $("<span></span>");
+
+                    $result.text(data.text);
+
+                    if (data.newOption) {
+                        $result.append(" <em>(new)</em>");
+                    }
+
+                    return $result;
+                }
+            })});
+    </script>
 
 
 <?php $__env->stopSection(); ?>

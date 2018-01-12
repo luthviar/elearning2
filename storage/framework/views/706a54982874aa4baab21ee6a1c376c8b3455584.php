@@ -23,7 +23,7 @@
                         <th>Name</th>
                         <th>Deskripsi</th>
                         <th>URL</th>
-                        <th>Icon</th>
+                        <th>Status Progress</th>
                         <th>Color</th>
                     </tr>
                     </thead>
@@ -41,7 +41,7 @@
                             </td>
                             <td><?php echo e($aero_link->detail_url); ?> </td>
                             <td><?php echo e($aero_link->url); ?></td>
-                            <td><img src="<?php echo e(URL::asset($aero_link->icon)); ?>" width="20%"/></td>
+                            <td><?php echo e($aero_link->status); ?></td>
                             <td><?php echo e($aero_link->color); ?></td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

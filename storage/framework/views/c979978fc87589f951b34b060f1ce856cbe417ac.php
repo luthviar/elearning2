@@ -88,13 +88,14 @@
                                        
                             </div>
 
-                            <!-- ICON -->
+                            <!-- STATUS -->
                             <div class="form-group">
                                 <label for="icon">
-                                    Icon
+                                    Status
                                 </label>
                                 <p>
-                                    <img src="<?php echo e(URL::asset($aero_link->icon)); ?>" width="40%" />
+                                    <?php echo e($aero_link->status); ?>
+
                                 </p>
                             </div>
 

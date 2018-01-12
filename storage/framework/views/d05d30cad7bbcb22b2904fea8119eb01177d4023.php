@@ -69,19 +69,16 @@
 
                             <!-- ICON -->
                             <div class="form-group">
-                                <label for="icon">
-                                    Icon
+                                <label for="status">
+                                    Status
                                     <i class="fa fa-info-circle"
                                        data-toggle="tooltip"
                                        data-placement="top"
-                                       title="Isi tanpa menulis HTTPS contoh: ims.aerofood.co.id"
+                                       title="Status dari sistem tersebut, seperti: on progress"
                                     ></i>
                                 </label>
-                                <p>
-                                    <img src="<?php echo e(URL::asset($aero_link->icon)); ?>" width="50%"  />
-                                </p>
-                                <p style="color: red;">* your previous icon will deleted if you choose icon again</p>
-                                <input type="file" name="icon" id="icon"/>
+                                <input type="text" class="form-control" id="status" value="<?php echo e($aero_link->status); ?>"
+                                       name="status" placeholder="Status of the System" required ="true">
 
                             </div>
 
@@ -96,7 +93,8 @@
                                     ></i>
                                 </label>
                                 <select class="form-control select2" name="color" style="width: 100%;">
-                                    <option value="<?php echo e($aero_link->color); ?>" selected="true"><?php echo e($aero_link->color); ?></option>
+                                    <option value="<?php echo e($aero_link->color); ?>"
+                                            selected="true"><?php echo e($aero_link->color); ?></option>
                                     <option value="green">green</option>
                                     <option value="purple">purple</option>
                                     <option value="blue">blue</option>

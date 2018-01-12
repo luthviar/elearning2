@@ -384,7 +384,7 @@ Route::prefix('admin')->group(function () {
     // ADMIN LINKS OF AEROFOOD SYSTEM
     // -------------------------------------
     Route::get('links', function(){
-        return redirect(action('TrainingController@admin_training'));
+        return redirect(action('AerofoodLinksController@index'));
     });
 
     Route::prefix('links')->group(function () {

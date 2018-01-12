@@ -289,7 +289,9 @@ class UserController extends Controller
         $status = EmployeeStatus::all();
         $job_family = JobFamily::all();
 
-        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status)->with('job_family',$job_family)->with('unit',$unit)->with('department',$department)->with('section',$section);
+        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)
+            ->with('status',$status)->with('job_family',$job_family)->with('unit',$unit)
+            ->with('department',$department)->with('section',$section);
     }
 
     public function user_add_submit (Request $request){

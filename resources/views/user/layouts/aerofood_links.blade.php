@@ -4,12 +4,14 @@
 <div class="row">
     <div class="col-md-12 clearfix">
         @foreach(Session::get('link') as $aero_link)
-        <a href="https://{{ $aero_link->url }}"
+        <a href="http://{{ $aero_link->url}}"
            class="btn btn-lg {{$aero_link->color}}"
            style="margin:5px 1px"
            data-toggle="tooltip"
            data-placement="top"
-           title="{{$aero_link->detail_url}}	({{$aero_link->url}})"
+           title="{{$aero_link->detail_url}}
+                   ({{$aero_link->url}})
+                   ({{$aero_link->status}})"
            target="_blank"
         >
 

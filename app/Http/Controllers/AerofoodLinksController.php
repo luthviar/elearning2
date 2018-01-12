@@ -41,20 +41,11 @@ class AerofoodLinksController extends Controller
     }
 
     public function update(Request $request){
-        $image = $request->file('icon');
-        $url = null;
-        if (!empty($image)) {
-            $destinationPath = 'file_img';
-            $movea = $image->move($destinationPath,$image->getClientOriginalName());
-            $url = "file_img/{$image->getClientOriginalName()}";
-        }
 
         $aero_link = AerofoodLink::find($request->id_link);
         $aero_link->name= $request->name;
         $aero_link->detail_url = $request->detail_url;
-        if ($url != null) {
-            $aero_link->icon = $url;
-        }
+        $aero_link->status = $request->status;
         $aero_link->save();
 
         return redirect(action('AerofoodLinksController@index'));
@@ -75,20 +66,13 @@ class AerofoodLinksController extends Controller
     }
 
     public function create(Request $request) {
-        $image = $request->file('icon');
-        $url = null;
-        if (!empty($image)) {
-            $destinationPath = 'file_img';
-            $movea = $image->move($destinationPath,$image->getClientOriginalName());
-            $url = "file_img/{$image->getClientOriginalName()}";
-        }
 
         DB::table('aerofood_links')->insertGetId(
             [
                 'name'         => $request->name,
                 'detail_url'         => $request->detail_url,
                 'url'         => $request->url,
-                'icon'         => $url,
+                'status'         => $request->status,
                 'color'         => $request->color,
             ]
         );

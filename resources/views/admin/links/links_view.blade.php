@@ -89,13 +89,13 @@
                                        {{--name="url" placeholder="URL of System" required ="true" disabled>--}}
                             </div>
 
-                            <!-- ICON -->
+                            <!-- STATUS -->
                             <div class="form-group">
                                 <label for="icon">
-                                    Icon
+                                    Status
                                 </label>
                                 <p>
-                                    <img src="{{ URL::asset($aero_link->icon) }}" width="40%" />
+                                    {{ $aero_link->status }}
                                 </p>
                             </div>
 

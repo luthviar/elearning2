@@ -25,7 +25,7 @@
                         <th>Name</th>
                         <th>Deskripsi</th>
                         <th>URL</th>
-                        <th>Icon</th>
+                        <th>Status Progress</th>
                         <th>Color</th>
                     </tr>
                     </thead>
@@ -42,7 +42,7 @@
                             </td>
                             <td>{{$aero_link->detail_url}} </td>
                             <td>{{$aero_link->url}}</td>
-                            <td><img src="{{ URL::asset($aero_link->icon) }}" width="20%"/></td>
+                            <td>{{ $aero_link->status }}</td>
                             <td>{{ $aero_link->color }}</td>
                         </tr>
                     @endforeach

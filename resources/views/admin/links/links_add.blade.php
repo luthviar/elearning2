@@ -66,7 +66,7 @@
                                        name="url" placeholder="URL of System" required ="true">
                             </div>
 
-                            <!-- ICON -->
+                            <!-- STATUS PROGRES -->
                             <div class="form-group">
                                 <label for="icon">
                                     Icon
@@ -77,7 +77,7 @@
                                     ></i>
                                 </label>
 
-                                <input type="file" name="icon" id="icon"/>
+                                <input type="text" name="status" id="status"/>
 
                             </div>
 
@@ -117,69 +117,6 @@
             </div>
 
         </form>
-        {{--<form method="post" action="{{url(action('SliderController@slider_add_submit'))}}" enctype="multipart/form-data">--}}
-            {{--<div class="row">--}}
-                {{--<div class="col-md-6">--}}
-
-
-                    {{--<div class="box box-primary">--}}
-                        {{--<div class="box-header">--}}
-                            {{--<h3 class="box-title">Add Slider</h3>--}}
-                        {{--</div>--}}
-                        {{--<div class="box-body">--}}
-                        {{--{{csrf_field()}}--}}
-
-
-                        {{--<!-- Title -->--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label for="title">Title</label>--}}
-                                {{--<input type="text" class="form-control" id="title" name="title" placeholder="Slider title">--}}
-                            {{--</div>--}}
-
-
-                            {{--<!-- Image -->--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label for="exampleInputFile">Image background</label>--}}
-                                {{--<input type="file" id="img" name="image">--}}
-                            {{--</div>--}}
-
-                            {{--<!-- Textarea -->--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label>Textarea</label>--}}
-                                {{--<textarea class="textarea" id="second_title" name="second_title" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>--}}
-                            {{--</div>--}}
-
-
-                        {{--</div>--}}
-                        {{--<!-- /.box-body -->--}}
-                    {{--</div>--}}
-                    {{--<!-- /.box -->--}}
-                {{--</div>--}}
-                {{--<div class="col-md-6">--}}
-
-
-                    {{--<div class="box box-primary">--}}
-                        {{--<div class="box-header">--}}
-                            {{--<h3 class="box-title">Preview Slider Image</h3>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="box-body">--}}
-                            {{--<div class="image">--}}
-                                {{--<img src="{{url('gambar.png')}}" id="image_preview" width="100%" height="250px">--}}
-                            {{--</div>--}}
-                            {{--<h4 id="title_preview"></h4>--}}
-                            {{--<p id="second_title_preview"></p>--}}
-
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.box -->--}}
-
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row text-center">--}}
-                {{--<button class="btn btn-success">submit</button>--}}
-            {{--</div>--}}
-        {{--</form>--}}
 
 
     </section>
