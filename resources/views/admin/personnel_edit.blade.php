@@ -208,81 +208,125 @@
 <!-- -hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
                 <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Division:</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                <label>Division : </label>
+                <select class="form-control" name="division" id="division" style="width: 100%;">
+                  <option value="0" >.....</option>
                   @if($user['org_structure'] != null)
-                  @foreach($division as $div)
+                    @foreach($division as $div)
                       @if($user['org_structure']->id_division == $div->id)
-                      <input type="text" name="division" value="{{$div->division_name}}" class="form-control" placeholder="division">
+                      <option value="{{$div->id}}" selected="true">{{$div->division_name}}</option>
+                      @else
+                      <option value="{{$div->id}}">{{$div->division_name}}</option>
                       @endif
                     @endforeach
                   @else
-                  <input type="text" name="division" class="form-control" placeholder="division">
-                  @endif
+                    @foreach($division as $div)
+                      <option value="{{$div->id}}">{{$div->division_name}}</option>
+                    @endforeach
+                  @endif 
                   
-                  
-                </div>
+                </select>
               </div>
 
-              <!-- Position name -->
+
+
               <div class="form-group col-md-6">
-                <label>Unit:</label>
+                <label>Division Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="division_input" class="form-control" placeholder="division">           
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Unit : </label>
+                <select class="form-control" name="unit" id="unit" style="width: 100%;">
+                  <option value="0" >.....</option>
                   @if($user['org_structure'] != null)
+                    @foreach($unit as $unt)
+                      @if($user['org_structure']->id_unit == $unt->id)
+                     <option value="{{$unt->id}}" selected="true">{{$unt->unit_name}}</option>
+                      @else
+                      <option value="{{$unt->id}}">{{$unt->unit_name}}</option>
+                      @endif
+                    @endforeach
+                  @else
                   @foreach($unit as $unt)
-                    @if($user['org_structure']->id_unit == $unt->id)
-                    <input type="text" name="unit" value="{{$unt->unit_name}}" class="form-control" placeholder="unit">
-                    @endif
-                    @endforeach
-                  @else
-                  <input type="text" name="unit" class="form-control" placeholder="unit">
+                    <option value="{{$unt->id}}">{{$unt->unit_name}}</option>
+                  @endforeach
                   @endif
                   
-                  
-                </div>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Unit Input:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="unit_input" class="form-control" placeholder="unit">           
+                  </div>
               </div>
 
               <!-- Position name -->
+
               <div class="form-group col-md-6">
-                <label>Department:</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                <label>Department : </label>
+                <select class="form-control" name="department" id="department" style="width: 100%;">
+                  <option value="0" >.....</option>
                   @if($user['org_structure'] != null)
-                  @foreach($department as $deps)
-                  
-                    @if($user['org_structure']->id_department == $deps->id)
-                    <input type="text" name="department" value="{{$deps->department_name}}" class="form-control" placeholder="department">
-                    @endif
+                    @foreach($department as $deps)
+                      @if($user['org_structure']->id_department == $deps->id)
+                      <option value="{{$deps->id}}" selected="true">{{$deps->department_name}}</option>
+                      @else
+                        <option value="{{$deps->id}}" selected="true">{{$deps->department_name}}</option>
+                      @endif  
                     @endforeach
                   @else
-                  <input type="text" name="department" class="form-control" placeholder="department">
+                    @foreach($department as $deps)
+                        <option value="{{$deps->id}}" selected="true">{{$deps->department_name}}</option>
+                    @endforeach
                   @endif
                   
-                  
-                </div>
+                </select>
               </div>
 
-              <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Section:</label>
+                <label>Department Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="department_input" class="form-control" placeholder="division">           
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Section : </label>
+                <select class="form-control" name="section" id="section" style="width: 100%;">
+                  <option value="0" >.....</option>
                   @if($user['org_structure'] != null)
-                  @foreach($section as $sec)
-                    
+                    @foreach($section as $sec)
                     @if($user['org_structure']->id_section == $sec->id)
-                    <input type="text" name="section" value="{{$sec->section_name}}" class="form-control" placeholder="section">
+                    <option value="{{$sec->id}}" selected="true">{{$sec->section_name}}</option>
+                    @else
+                    <option value="{{$sec->id}}" >{{$sec->section_name}}</option>  
                     @endif
                     @endforeach
                   @else
-                  <input type="text" name="section" class="form-control" placeholder="section">
+                    @foreach($section as $sec)
+                    <option value="{{$sec->id}}" >{{$sec->section_name}}</option>  
+                    @endforeach
                   @endif
                   
-                  
-                </div>
+                </select>
               </div>
+
+              <div class="form-group col-md-6">
+                <label>Section Input:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                      <input type="text" name="section_input" class="form-control" placeholder="section">           
+                  </div>
+              </div>
+
 
               <!-- /.form-group -->
               <div class="form-group col-md-6">
@@ -324,111 +368,7 @@
 
 @section('script')
 
-<script type="text/javascript">
 
-    $('#division').click(function() {
-      var id_division = $('#division').val();
-      $.ajax({
-        type:"POST",
-        url:"{{ url('get_unit') }}",
-        dataType: 'json',
-        data:{id_division:id_division,_token: '{{csrf_token()}}'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(units) {
-            var html = '';
-            $.each(units.units, function(key, value){
-                html += '<option value="'+value.id+'">'+value.unit_name+'</option>';               
-                
-            });
-            $('#unit').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#unit').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      $.ajax({
-        type:"POST",
-        url:"{{ url('get_department') }}",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,_token: '{{csrf_token()}}'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(departments) {
-            var html = '';
-            $.each(departments.departments, function(key, value){
-                html += '<option value="'+value.id+'">'+value.department_name+'</option>';               
-                
-            });
-            $('#department').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#department').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      var id_department = $('#department').val();
-      $.ajax({
-        type:"POST",
-        url:"{{ url('get_section') }}",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,id_department:id_department,_token: '{{csrf_token()}}'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(sections) {
-            var html = '';
-            $.each(sections.sections, function(key, value){
-                html += '<option value="'+value.id+'">'+value.section_name+'</option>';               
-                
-            });
-            $('#section').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
 <script>
 
   $(function () {

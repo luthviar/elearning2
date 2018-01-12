@@ -177,40 +177,80 @@ Add Personnel
 
 
                 <!-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
+                <!-- /.form-group -->
+              <div class="form-group col-md-6">
+                <label>Division : </label>
+                <select class="form-control" name="division" id="division" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  @foreach($division as $div)
+                  <option value="{{$div->id}}" >{{$div->division_name}}</option>
+                  @endforeach
+                </select>
+              </div>
 
                 <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Division:</label>
+                <label>Division Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="division" class="form-control" placeholder="division">
+                  <input type="text" name="division_input" class="form-control" placeholder="division">
                 </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Unit : </label>
+                <select class="form-control" name="unit" id="unit" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  @foreach($unit as $unt)
+                  <option value="{{$unt->id}}" >{{$unt->unit_name}}</option>
+                  @endforeach
+                </select>
               </div>
 
               <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Unit:</label>
+                <label>Unit Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="unit" class="form-control" placeholder="unit">
+                  <input type="text" name="unit_input" class="form-control" placeholder="unit">
                 </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Department : </label>
+                <select class="form-control" name="department" id="department" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  @foreach($department as $dept)
+                  <option value="{{$dept->id}}" >{{$dept->department_name}}</option>
+                  @endforeach
+                </select>
               </div>
 
               <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Department:</label>
+                <label>Department Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="department" class="form-control" placeholder="department">
+                  <input type="text" name="department_input" class="form-control" placeholder="department">
                 </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Section : </label>
+                <select class="form-control" name="section" id="section" style="width: 100%;">
+                  <option value="0" >.....</option>
+                  @foreach($section as $sect)
+                  <option value="{{$sect->id}}" >{{$sect->section_name}}</option>
+                  @endforeach
+                </select>
               </div>
 
               <!-- Position name -->
               <div class="form-group col-md-6">
-                <label>Section:</label>
+                <label>Section Input:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                  <input type="text" name="section" class="form-control" placeholder="section">
+                  <input type="text" name="section_input" class="form-control" placeholder="section">
                 </div>
               </div>
 
@@ -250,111 +290,7 @@ Add Personnel
 
 @section('script')
 
-<script type="text/javascript">
 
-    $('#division').click(function() {
-      var id_division = $('#division').val();
-      $.ajax({
-        type:"POST",
-        url:"{{ url('get_unit') }}",
-        dataType: 'json',
-        data:{id_division:id_division,_token: '{{csrf_token()}}'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(units) {
-            var html = '';
-            $.each(units.units, function(key, value){
-                html += '<option value="'+value.id+'">'+value.unit_name+'</option>';               
-                
-            });
-            $('#unit').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#unit').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      $.ajax({
-        type:"POST",
-        url:"{{ url('get_department') }}",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,_token: '{{csrf_token()}}'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(departments) {
-            var html = '';
-            $.each(departments.departments, function(key, value){
-                html += '<option value="'+value.id+'">'+value.department_name+'</option>';               
-                
-            });
-            $('#department').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
-<script type="text/javascript">
-
-    $('#department').click(function() {
-      var id_division = $('#division').val();
-      var id_unit = $('#unit').val();
-      var id_department = $('#department').val();
-      $.ajax({
-        type:"POST",
-        url:"{{ url('get_section') }}",
-        dataType: 'json',
-        data:{id_division:id_division,id_unit:id_unit,id_department:id_department,_token: '{{csrf_token()}}'},
-        beforeSend: function (xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-            }
-        },
-        success: function(sections) {
-            var html = '';
-            $.each(sections.sections, function(key, value){
-                html += '<option value="'+value.id+'">'+value.section_name+'</option>';               
-                
-            });
-            $('#section').html(html);        
-            
-            
-        },
-        error: function(data){
-            console.log(data);
-        },
-      });
-      
-    });
-
-</script>
 <script>
 
   $(function () {
