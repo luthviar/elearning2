@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Crypt;
 use Session;
 use App\RequestPassword;
 use App\Auth;
+use DB;
 use App\Chapter;
 use App\OsUnit;
 use App\OsDepartment;
+use App\JobFamily;
 use App\Test;
 use App\UserTestRecord;
 use App\OsSection;
@@ -282,14 +284,78 @@ class UserController extends Controller
         $level_position = LevelPosition::all();
         $division = OsDivision::all();
         $status = EmployeeStatus::all();
+        $job_family = JobFamily::all();
 
-        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status);
+        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)->with('status',$status)->with('job_family',$job_family);
     }
 
     public function user_add_submit (Request $request){
-        $structure = OrganizationalStructure::where('id_division',$request->division)->where('id_unit',$request->unit)->where('id_department',$request->department)->where('id_section',$request->section)->first();
+        $division = OsDivision::where('division_name', $request->division)->first();
+        $id_division = null;
+        if ($division == null) {
+            $id = DB::table('os_divisions')->insertGetId(
+                [
+                'division_name'    => $request->division,
+
+                ]
+            );
+            $id_division = $id;
+        } else {
+            $id_division = $division->id;
+        }
+
+        $unit = OsUnit::where('unit_name', $request->unit)->first();
+        $id_unit = null;
+        if ($division == null) {
+            $id = DB::table('os_units')->insertGetId(
+                [
+                'unit_name'    => $request->unit, 
+                ]
+            );
+            $id_unit = $id;
+        } else {
+            $id_unit = $unit->id;
+        }
+        $department = OsDepartment::where('department_name', $request->department)->first();
+        $id_department = null;
+        if ($department == null) {
+            $id = DB::table('os_departments')->insertGetId(
+                [
+                'department_name'    => $request->department, 
+                'id_job_family'    => $request->job_family,
+                ]
+            );
+            $id_department = $id;
+        } else {
+            $id_department = $department->id;
+        }
+        $section = OsSection::where('section_name', $request->section)->first();
+        $id_section = null;
+        if ($section == null) {
+            $id = DB::table('os_sections')->insertGetId(
+                [
+                'section_name'    => $request->section, 
+                ]
+            );
+            $id_section = $id;
+        } else {
+            $id_section = $section->id;
+        }
+
+        $structure = OrganizationalStructure::where('id_division',$id_division)->where('id_unit',$id_unit)->where('id_department',$id_department)->where('id_section',$id_section)->first();
+        $id_structure = null;
         if ($structure == null) {
-            return "error: organization structure not found";
+            $id = DB::table('organizational_structures')->insertGetId(
+                [
+                'id_division'    => $id_division, 
+                'id_unit'        => $id_unit, 
+                'id_department'  => $id_department, 
+                'id_section'    => $id_section, 
+                ]
+            );
+            $id_structure = $id;
+        } else {
+            $id_structure = $structure->id;
         }
 
         $user = new User;
@@ -306,7 +372,7 @@ class UserController extends Controller
         $user->flag_active = 1;
         $user->position = $request->level_position;
         $user->id_employee_status = $request->id_employee_status;
-        $user->id_organizational_structure = $structure->id;
+        $user->id_organizational_structure = $id_structure;
         $user->save();
 
         return redirect('admin/personnel');
@@ -328,20 +394,83 @@ class UserController extends Controller
         $section = OsSection::all();
         $level = LevelPosition::all();
         $status = EmployeeStatus::all();
+        $job_family = JobFamily::all();
+        $user_deps = OsDepartment::find($user['org_structure']->id_department);
+        $job_family_user = JobFamily::find($user_deps->id_job_family);
 
         return view('admin.personnel_edit')->with('user',$user)
             ->with('division',$division)->with('unit',$unit)
             ->with('section',$section)->with('department',$department)->with('level_position',$level)
-            ->with('status',$status);
+            ->with('status',$status)->with('job_family', $job_family)->with('job_family_user',$job_family_user);
     }
 
     public function edit_personnel_submit (Request $request){
-        $structure = OrganizationalStructure::where('id_division',$request->division)
-            ->where('id_unit',$request->unit)->where('id_department',$request->department)
-            ->where('id_section',$request->section)->first();
+        $division = OsDivision::where('division_name', $request->division)->first();
+        $id_division = null;
+        if ($division == null) {
+            $id = DB::table('os_divisions')->insertGetId(
+                [
+                'division_name'    => $request->division,
 
+                ]
+            );
+            $id_division = $id;
+        } else {
+            $id_division = $division->id;
+        }
+
+        $unit = OsUnit::where('unit_name', $request->unit)->first();
+        $id_unit = null;
+        if ($division == null) {
+            $id = DB::table('os_units')->insertGetId(
+                [
+                'unit_name'    => $request->unit, 
+                ]
+            );
+            $id_unit = $id;
+        } else {
+            $id_unit = $unit->id;
+        }
+        $department = OsDepartment::where('department_name', $request->department)->first();
+        $id_department = null;
+        if ($department == null) {
+            $id = DB::table('os_departments')->insertGetId(
+                [
+                'department_name'    => $request->department, 
+                'id_job_family'    => $request->job_family,
+                ]
+            );
+            $id_department = $id;
+        } else {
+            $id_department = $department->id;
+        }
+        $section = OsSection::where('section_name', $request->section)->first();
+        $id_section = null;
+        if ($section == null) {
+            $id = DB::table('os_sections')->insertGetId(
+                [
+                'section_name'    => $request->section, 
+                ]
+            );
+            $id_section = $id;
+        } else {
+            $id_section = $section->id;
+        }
+
+        $structure = OrganizationalStructure::where('id_division',$id_division)->where('id_unit',$id_unit)->where('id_department',$id_department)->where('id_section',$id_section)->first();
+        $id_structure = null;
         if ($structure == null) {
-            return "error: organization structure not found";
+            $id = DB::table('organizational_structures')->insertGetId(
+                [
+                'id_division'    => $id_division, 
+                'id_unit'        => $id_unit, 
+                'id_department'  => $id_department, 
+                'id_section'    => $id_section, 
+                ]
+            );
+            $id_structure = $id;
+        } else {
+            $id_structure = $structure->id;
         }
 
         $user = User::find($request->id_user);
@@ -364,7 +493,7 @@ class UserController extends Controller
         $user->flag_active = 1;
         $user->position = $request->level_position;
         $user->id_employee_status = $request->id_employee_status;
-        $user->id_organizational_structure = $structure->id;
+        $user->id_organizational_structure = $id_structure;
         $user->save();
 
         return redirect(action('UserController@personnel_list'));

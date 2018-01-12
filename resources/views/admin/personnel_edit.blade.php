@@ -203,64 +203,78 @@
               </div>
               <!-- /.form-group -->
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Division</label>
-                <select class="form-control" name="division" id="division" style="width: 100%;">
+             
+
+<!-- -hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
+                <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Division:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
                   @foreach($division as $div)
                   @if($user['org_structure']->id_division == $div->id)
-                  <option value="{{$div->id}}" selected="true" >{{$div->division_name}}</option>
-                  @else
-                  <option value="{{$div->id}}" >{{$div->division_name}}</option>
+                  <input type="text" name="division" value="{{$div->division_name}}" class="form-control" placeholder="division">
                   @endif
                   @endforeach
-                </select>
+                  
+                </div>
               </div>
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Unit</label>
-                <select class="form-control" name="unit" id="unit" style="width: 100%;">
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Unit:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
                   @foreach($unit as $unt)
                   @if($user['org_structure']->id_unit == $unt->id)
-                  <option value="{{$unt->id}}" selected="true" >{{$unt->unit_name}}</option>
-                  @else
-                  <option value="{{$unt->id}}" >{{$unt->unit_name}}</option>
+                  <input type="text" name="unit" value="{{$unt->unit_name}}" class="form-control" placeholder="unit">
                   @endif
                   @endforeach
-                </select>
-                </select>
+                  
+                </div>
               </div>
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Department</label>
-                <select class="form-control" name="department" id="department" style="width: 100%;">
-                  @foreach($department as $deps)
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Department:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                   @foreach($department as $deps)
                   @if($user['org_structure']->id_department == $deps->id)
-                  <option value="{{$deps->id}}" selected="true" >{{$deps->department_name}}</option>
-                  @else
-                  <option value="{{$deps->id}}" >{{$deps->department_name}}</option>
+                  <input type="text" name="department" value="{{$deps->department_name}}" class="form-control" placeholder="department">
                   @endif
                   @endforeach
-                </select>
+                  
+                </div>
               </div>
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Section</label>
-                <select class="form-control" name="section" id="section" style="width: 100%;">
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Section:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
                   @foreach($section as $sec)
                   @if($user['org_structure']->id_section == $sec->id)
-                  <option value="{{$sec->id}}" selected="true" >{{$sec->section_name}}</option>
+                  <input type="text" name="section" value="{{$sec->section_name}}" class="form-control" placeholder="section">
+                  @endif
+                  @endforeach
+                  
+                </div>
+              </div>
+
+              <!-- /.form-group -->
+              <div class="form-group col-md-6">
+                <label>Job Family</label>
+                <select class="form-control" name="job_family" id="division" style="width: 100%;">
+                  @foreach($job_family as $family)
+                  @if(!empty($job_family_user) and $family->id == $job_family_user->id)
+                  <option value="{{$family->id}}" selected="true" >{{$family->job_family_name}}</option>
                   @else
-                  <option value="{{$sec->id}}" >{{$sec->section_name}}</option>
+                  <option value="{{$family->id}}" >{{$family->job_family_name}}</option>
                   @endif
                   @endforeach
                 </select>
               </div>
-                </div>
-
              
 
             </div>
