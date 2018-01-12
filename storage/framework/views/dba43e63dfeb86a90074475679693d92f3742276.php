@@ -16,9 +16,9 @@
                                         <a href="#jobfamily" data-toggle="tab">Forum Job Family</a>
                                     </li>
                                 <?php endif; ?>
-                                <?php if(!empty($department)): ?>
+                                <?php if(!empty($unit)): ?>
                                     <li>
-                                        <a href="#dept" data-toggle="tab">Forum Department</a>
+                                        <a href="#dept" data-toggle="tab">Forum Unit</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -41,10 +41,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-
                                         <?php $__currentLoopData = $forum_umum; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <tr>
 
+                                            <tr>
                                                 <td>
                                                     <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
                                                         <?php echo e($forum->title); ?>
@@ -123,7 +122,11 @@
                                                     <?php if(count($forum['replie']) == 0): ?>
                                                         <td>-</td>
                                                     <?php else: ?>
-                                                        <td><?php echo e($forum['last_reply_personnel']['name']); ?> , <?php echo e(\Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')); ?></td>
+                                                        <td>
+                                                            <?php echo e($forum['last_reply_personnel']['name']); ?> ,
+                                                            <?php echo e(\Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')); ?>
+
+                                                        </td>
                                                     <?php endif; ?>
                                                     <td><?php echo e($forum->created_at); ?></td>
                                                 </tr>
@@ -136,11 +139,11 @@
                                 <?php endif; ?>
 
 
-                                <?php if($forum_department != null): ?>
+                                <?php if($forum_unit != null): ?>
                                     <div class="tab-pane" id="dept">
-                                        <h1>Forum <?php echo e($department->department_name); ?></h1>
+                                        <h1>Forum Unit <?php echo e($unit->unit_name); ?></h1>
                                         <p>
-                                            Forum ini ditujukan untuk karyawan <?php echo e($department->nama_departmen); ?>
+                                            Forum ini ditujukan untuk karyawan Unit <?php echo e($unit->unit_name); ?>
 
                                             PT Aerofood Indonesia
                                         </p>
@@ -159,7 +162,7 @@
                                             </thead>
                                             <tbody>
 
-                                            <?php $__currentLoopData = $forum_department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = $forum_unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td>
                                                         <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
@@ -313,6 +316,7 @@
 
 
                         <input type="hidden" name="id_department" value="">
+                        <input type="hidden" name="id_unit" value="">
                         <input type="hidden" name="id_job_family" value="">
 
 
@@ -399,17 +403,16 @@
 
                                 <button type="button" class="btn btn-danger btn-lg pull-right"
                                         data-dismiss="modal">X</button>
-                                <h1 class="modal-title text-center">New Thread</h1>
-
-                            <h1 class="modal-title text-center">New Thread - Forum Department</h1>
+                            <h1 class="modal-title text-center">New Thread - Forum Unit</h1>
                         </div>
 
                         <div class="modal-body">
                             <?php echo e(csrf_field()); ?>
 
 
-                            <input type="hidden" name="id_department" value="<?php echo e($department->id_department); ?>">
+                            <input type="hidden" name="id_unit" value="<?php echo e($unit->id); ?>">
                             <input type="hidden" name="id_job_family" value="">
+                            <input type="hidden" name="id_department" value="">
 
 
                             <div class="form-group">
@@ -435,7 +438,7 @@
                             <div class="form-group">
                                 <label for="content" class="col-md-3 control-label">Content</label>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8" name="content3">
                                     <textarea class="summernote" name="content3"></textarea>
                                 </div>
                             </div>
@@ -503,6 +506,7 @@
 
 
                             <input type="hidden" name="id_department" value="">
+                            <input type="hidden" name="id_unit" value="">
                             <input type="hidden" name="id_job_family" value="<?php echo e($job_family->id); ?>">
 
 
@@ -529,7 +533,7 @@
                             <div class="form-group">
                                 <label for="content" class="col-md-3 control-label">Content</label>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8" name="content">
                                     <textarea class="summernote" name="content2"></textarea>
                                 </div>
                             </div>

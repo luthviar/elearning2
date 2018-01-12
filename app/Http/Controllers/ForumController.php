@@ -8,6 +8,7 @@ use App\ForumCommentAttachment;
 use App\JobFamily;
 use App\OrganizationalStructure;
 use App\OsDepartment;
+use App\OsUnit;
 use Illuminate\Http\Request;
 use App\Forum;
 use App\ModulTraining;
@@ -36,13 +37,16 @@ class ForumController extends Controller
         $user = User::where('id',$id_user)->first();
 
         $struktur = OrganizationalStructure::find($user->id_organizational_structure);
+        $unit = null;
         $department = null;
         $job_family = null;
         if (!empty($struktur)) {
+            $unit = OsUnit::where('id', $struktur->id_unit)->first();
             $department = OsDepartment::where('id', $struktur->id_department)->first();
             $job_family = JobFamily::find($department->id_job_family);
         }
-        $forum_umum = Forum::where('id_department', null)->where('id_job_family', null)->get();
+        $forum_umum = Forum::where('category', 0)->where('id_department', null)
+            ->where('id_unit', null)->where('id_job_family', null)->get();
         foreach ($forum_umum as $key => $value) {
             $value['personnel'] = User::where('id',$value->created_by)->first();
             $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
@@ -53,11 +57,11 @@ class ForumController extends Controller
                 $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
             }
         }
-        $forum_department = null;
+        $forum_unit = null;
         $forum_job_family = null;
-        if ($department != null) {
-            $forum_department = Forum::where('id_department',$department->id_department)->get();
-            foreach ($forum_department as $key => $value) {
+        if ($unit != null) {
+            $forum_unit = Forum::where('id_unit',$unit->id)->where('category',2)->get();
+            foreach ($forum_unit as $key => $value) {
                 $value['personnel'] = User::where('id',$value->created_by)->first();
                 $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
                 if(empty($value['replie'][0])){
@@ -68,7 +72,7 @@ class ForumController extends Controller
                 }
             }
 
-            $forum_job_family = Forum::where('id_job_family',$department->id_job_family)->get();
+            $forum_job_family = Forum::where('id_job_family',$job_family->id)->where('category',1)->get();
             foreach ($forum_job_family as $key => $value) {
                 $value['personnel'] = User::where('id',$value->created_by)->first();
                 $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
@@ -82,13 +86,14 @@ class ForumController extends Controller
                 }
             }
         }
-//        dd($job_family);
+//        dd($forum_job_family);
 //        $module = Module::all();
         return view('user.forum.index')
             ->with('forum_umum', $forum_umum)
-            ->with('forum_department',$forum_department)
-            ->with('forum_job_family',$forum_job_family)
+            ->with('forum_unit',$forum_unit)
             ->with('department',$department)
+            ->with('forum_job_family',$forum_job_family)
+            ->with('unit',$unit)
             ->with('job_family',$job_family);
 
     }
@@ -104,14 +109,17 @@ class ForumController extends Controller
     {
         $id_user = Auth::user()->id;
 
-        $content = "";
-//        dd('masuk');
-        if ($request->id_department != null) {
+
+//        dd($request->id_unit);
+        if ($request->id_unit != null) {
             $content = $request->content3;
+            $category = 2;
         }elseif($request->id_job_family != null){
             $content = $request->content2;
+            $category = 1;
         }else{
             $content = $request->content;
+            $category = 0;
         }
 
         $id_forum = DB::table('forums')-> insertGetId(array(
@@ -119,8 +127,10 @@ class ForumController extends Controller
             'title' => $request->title,
             'content' => $content,
             'is_reply' => $request->can_reply,
+            'id_unit' => $request->id_unit,
             'id_department' => $request->id_department,
             'id_job_family' => $request->id_job_family,
+            'category' => $category,
             'created_at' => Carbon::now('Asia/Jakarta'),
         ));
 
