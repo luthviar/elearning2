@@ -52,7 +52,11 @@
                                     <small>Position : <br/> {{Auth::user()->position_name}}</small>
                                 </div>
                                 <div class="col-xs-4 text-center">
+                                    @if(Session::get('profile')['employee_data']['department'] != null)
                                     <small>Dept : <br/> {{Session::get('profile')['employee_data']['department']->department_name}}</small>
+                                    @else
+                                    <small>Dept : <br/> --</small>
+                                    @endif
                                 </div>
                             </div>
                             <!-- /.row -->

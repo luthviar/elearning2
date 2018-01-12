@@ -68,8 +68,12 @@
                             Add Training
                         </a>
                     </li>
-                    <li><a href="<?php echo e(url('admin/training/schedule')); ?>"><i class="fa fa-circle-o"></i>
-                            Schedule</a></li>
+                    <li class="<?php echo e(Request::is('admin/training/schedule')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url('admin/training/schedule')); ?>"><i class="fa fa-circle-o"></i>
+                            Schedule
+                        </a>
+                    </li>
                 </ul>
             </li>
 

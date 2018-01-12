@@ -211,11 +211,16 @@
                 <label>Division:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
                   <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_division == $div->id): ?>
-                  <input type="text" name="division" value="<?php echo e($div->division_name); ?>" class="form-control" placeholder="division">
+                      <?php if($user['org_structure']->id_division == $div->id): ?>
+                      <input type="text" name="division" value="<?php echo e($div->division_name); ?>" class="form-control" placeholder="division">
+                      <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="division" class="form-control" placeholder="division">
                   <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  
                   
                 </div>
               </div>
@@ -225,11 +230,16 @@
                 <label>Unit:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
                   <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_unit == $unt->id): ?>
-                  <input type="text" name="unit" value="<?php echo e($unt->unit_name); ?>" class="form-control" placeholder="unit">
+                    <?php if($user['org_structure']->id_unit == $unt->id): ?>
+                    <input type="text" name="unit" value="<?php echo e($unt->unit_name); ?>" class="form-control" placeholder="unit">
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="unit" class="form-control" placeholder="unit">
                   <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  
                   
                 </div>
               </div>
@@ -239,11 +249,17 @@
                 <label>Department:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                   <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_department == $deps->id): ?>
-                  <input type="text" name="department" value="<?php echo e($deps->department_name); ?>" class="form-control" placeholder="department">
+                  <?php if($user['org_structure'] != null): ?>
+                  <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  
+                    <?php if($user['org_structure']->id_department == $deps->id): ?>
+                    <input type="text" name="department" value="<?php echo e($deps->department_name); ?>" class="form-control" placeholder="department">
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="department" class="form-control" placeholder="department">
                   <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  
                   
                 </div>
               </div>
@@ -253,11 +269,17 @@
                 <label>Section:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
                   <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_section == $sec->id): ?>
-                  <input type="text" name="section" value="<?php echo e($sec->section_name); ?>" class="form-control" placeholder="section">
+                    
+                    <?php if($user['org_structure']->id_section == $sec->id): ?>
+                    <input type="text" name="section" value="<?php echo e($sec->section_name); ?>" class="form-control" placeholder="section">
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="section" class="form-control" placeholder="section">
                   <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  
                   
                 </div>
               </div>

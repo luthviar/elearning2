@@ -211,11 +211,16 @@
                 <label>Division:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  @if($user['org_structure'] != null)
                   @foreach($division as $div)
-                  @if($user['org_structure']->id_division == $div->id)
-                  <input type="text" name="division" value="{{$div->division_name}}" class="form-control" placeholder="division">
+                      @if($user['org_structure']->id_division == $div->id)
+                      <input type="text" name="division" value="{{$div->division_name}}" class="form-control" placeholder="division">
+                      @endif
+                    @endforeach
+                  @else
+                  <input type="text" name="division" class="form-control" placeholder="division">
                   @endif
-                  @endforeach
+                  
                   
                 </div>
               </div>
@@ -225,11 +230,16 @@
                 <label>Unit:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  @if($user['org_structure'] != null)
                   @foreach($unit as $unt)
-                  @if($user['org_structure']->id_unit == $unt->id)
-                  <input type="text" name="unit" value="{{$unt->unit_name}}" class="form-control" placeholder="unit">
+                    @if($user['org_structure']->id_unit == $unt->id)
+                    <input type="text" name="unit" value="{{$unt->unit_name}}" class="form-control" placeholder="unit">
+                    @endif
+                    @endforeach
+                  @else
+                  <input type="text" name="unit" class="form-control" placeholder="unit">
                   @endif
-                  @endforeach
+                  
                   
                 </div>
               </div>
@@ -239,11 +249,17 @@
                 <label>Department:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-                   @foreach($department as $deps)
-                  @if($user['org_structure']->id_department == $deps->id)
-                  <input type="text" name="department" value="{{$deps->department_name}}" class="form-control" placeholder="department">
+                  @if($user['org_structure'] != null)
+                  @foreach($department as $deps)
+                  
+                    @if($user['org_structure']->id_department == $deps->id)
+                    <input type="text" name="department" value="{{$deps->department_name}}" class="form-control" placeholder="department">
+                    @endif
+                    @endforeach
+                  @else
+                  <input type="text" name="department" class="form-control" placeholder="department">
                   @endif
-                  @endforeach
+                  
                   
                 </div>
               </div>
@@ -253,11 +269,17 @@
                 <label>Section:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  @if($user['org_structure'] != null)
                   @foreach($section as $sec)
-                  @if($user['org_structure']->id_section == $sec->id)
-                  <input type="text" name="section" value="{{$sec->section_name}}" class="form-control" placeholder="section">
+                    
+                    @if($user['org_structure']->id_section == $sec->id)
+                    <input type="text" name="section" value="{{$sec->section_name}}" class="form-control" placeholder="section">
+                    @endif
+                    @endforeach
+                  @else
+                  <input type="text" name="section" class="form-control" placeholder="section">
                   @endif
-                  @endforeach
+                  
                   
                 </div>
               </div>

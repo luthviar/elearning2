@@ -342,39 +342,34 @@ class UserController extends Controller
             $id_section = $section->id;
         }
 
-        $structure = OrganizationalStructure::where('id_division',$id_division)->where('id_unit',$id_unit)->where('id_department',$id_department)->where('id_section',$id_section)->first();
-        $id_structure = null;
-        if ($structure == null) {
-            $id = DB::table('organizational_structures')->insertGetId(
+       
+
+        $id_user = DB::table('users')->insertGetId(
                 [
-                'id_division'    => $id_division, 
-                'id_unit'        => $id_unit, 
-                'id_department'  => $id_department, 
-                'id_section'    => $id_section, 
+                'name'          => $request->name, 
+                'username'      => $request->username, 
+                'email'         => $request->email, 
+                'password'      => bcrypt($request->password), 
+                'role'          => $request->role, 
+                'education'     => $request->education, 
+                'gender'        => $request->gender, 
+                'birtdate'                      => $request->birtdate, 
+                'date_join_acs'                 => $request->date_join_acs, 
+                'position_name'                 => $request->position, 
+                'flag_active'                   => 1, 
+                'position'                      => $request->level_position, 
+                'id_employee_status'            => $request->id_employee_status, 
+                'id_organizational_structure'   => 0, 
                 ]
             );
-            $id_structure = $id;
-        } else {
-            $id_structure = $structure->id;
-        }
-
-        $user = new User;
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
-        $user->education = $request->education;
-        $user->gender = $request->gender;
-        $user->birtdate = $request->birtdate;
-        $user->date_join_acs = $request->date_join_acs;
-        $user->position_name = $request->position;
-        $user->flag_active = 1;
-        $user->position = $request->level_position;
-        $user->id_employee_status = $request->id_employee_status;
-        $user->id_organizational_structure = $id_structure;
-        $user->save();
-
+        $structure = new OrganizationalStructure;
+        $structure->id_user = $id_user;
+        $structure->id_division = $id_division;
+        $structure->id_unit = $id_unit;
+        $structure->id_section = $id_section;
+        $structure->id_department = $id_department;
+        $structure->save();
+        
         return redirect('admin/personnel');
 
     }
@@ -386,7 +381,7 @@ class UserController extends Controller
         }
         $user['level'] = LevelPosition::find($user->position);
         $user['employee_status'] = EmployeeStatus::find($user->id_employee_status);
-        $user['org_structure'] = OrganizationalStructure::find($user->id_organizational_structure);
+        $user['org_structure'] = OrganizationalStructure::where('id_user',$user->id)->first();
 
         $division = OsDivision::all();
         $unit = OsUnit::all();
@@ -395,8 +390,12 @@ class UserController extends Controller
         $level = LevelPosition::all();
         $status = EmployeeStatus::all();
         $job_family = JobFamily::all();
-        $user_deps = OsDepartment::find($user['org_structure']->id_department);
-        $job_family_user = JobFamily::find($user_deps->id_job_family);
+        $job_family_user = null;
+        if ($user['org_structure'] != null) {
+            $user_deps = OsDepartment::find($user['org_structure']->id_department);
+            $job_family_user = JobFamily::find($user_deps->id_job_family);
+        }
+        
 
         return view('admin.personnel_edit')->with('user',$user)
             ->with('division',$division)->with('unit',$unit)
@@ -456,23 +455,6 @@ class UserController extends Controller
         } else {
             $id_section = $section->id;
         }
-
-        $structure = OrganizationalStructure::where('id_division',$id_division)->where('id_unit',$id_unit)->where('id_department',$id_department)->where('id_section',$id_section)->first();
-        $id_structure = null;
-        if ($structure == null) {
-            $id = DB::table('organizational_structures')->insertGetId(
-                [
-                'id_division'    => $id_division, 
-                'id_unit'        => $id_unit, 
-                'id_department'  => $id_department, 
-                'id_section'    => $id_section, 
-                ]
-            );
-            $id_structure = $id;
-        } else {
-            $id_structure = $structure->id;
-        }
-
         $user = User::find($request->id_user);
         if ($user == null) {
             return 'error: user not found';
@@ -493,8 +475,19 @@ class UserController extends Controller
         $user->flag_active = 1;
         $user->position = $request->level_position;
         $user->id_employee_status = $request->id_employee_status;
-        $user->id_organizational_structure = $id_structure;
+        $user->id_organizational_structure = 0;
         $user->save();
+
+        $structure = OrganizationalStructure::where('id_user',$request->id_user)->first();
+        if ($structure == null) {
+            $structure = new OrganizationalStructure;
+            $structure->id_user = $request->id_user;
+        }
+        $structure->id_division = $id_division;
+        $structure->id_unit = $id_unit;
+        $structure->id_section = $id_section;
+        $structure->id_department = $id_department;
+        $structure->save();
 
         return redirect(action('UserController@personnel_list'));
 

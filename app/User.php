@@ -56,7 +56,7 @@ class User extends Authenticatable
 
         function get_employee_data () {
             $data['employee_status'] = EmployeeStatus::find(\Auth::user()->id_employee_status);
-            $org_structure = OrganizationalStructure::find(\Auth::user()->id_organizational_structure);
+            $org_structure = OrganizationalStructure::where('id_user',\Auth::user()->id)->first();
             if ($org_structure != null) {
                 if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
@@ -117,7 +117,7 @@ class User extends Authenticatable
 
         function get_employee_data ($user) {
             $data['employee_status'] = EmployeeStatus::find($user->id_employee_status);
-            $org_structure = OrganizationalStructure::find($user->id_organizational_structure);
+            $org_structure = OrganizationalStructure::where('id_user',$user->id)->first();
             if ($org_structure != null) {
                 if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
@@ -139,6 +139,11 @@ class User extends Authenticatable
                 } else {
                     $data['division'] = null;
                 }
+            } else {
+                $data['department'] = null;
+                $data['unit'] = null;
+                $data['section'] = null;
+                $data['division'] = null;
             }
             
             
