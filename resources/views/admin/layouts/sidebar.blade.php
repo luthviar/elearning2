@@ -74,8 +74,13 @@
                             Add Training
                         </a>
                     </li>
-                    <li><a href="{{ url('admin/training/schedule') }}"><i class="fa fa-circle-o"></i>
-                            Schedule</a></li>
+                    <li class="{{
+                     Request::is('admin/training/schedule')
+                     ? 'active' : '' }}">
+                        <a href="{{ url('admin/training/schedule') }}"><i class="fa fa-circle-o"></i>
+                            Schedule
+                        </a>
+                    </li>
                 </ul>
             </li>
 

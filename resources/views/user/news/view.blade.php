@@ -151,6 +151,8 @@
                                 @endforeach
                                 <br>
                             </div>
+                            <!--Recent Schedule -->
+                            @include('user.layouts.schedule')
                             <!--Links -->
                             @include('user.layouts.aerofood_links')
                         </div>

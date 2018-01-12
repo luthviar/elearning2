@@ -138,7 +138,10 @@
                                 @if($forum_department != null)
                                     <div class="tab-pane" id="dept">
                                         <h1>Forum {{$department->department_name}}</h1>
-                                        <p>forum ini ditujukan untuk karyawan {{$department->nama_departmen}} PT Aerofood Indonesia</p>
+                                        <p>
+                                            Forum ini ditujukan untuk karyawan {{$department->nama_departmen}}
+                                            PT Aerofood Indonesia
+                                        </p>
                                         <button  class="btn btn-info" data-toggle="modal"
                                                  data-target="#modal_department">New Thread</button><br><br>
 

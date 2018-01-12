@@ -348,7 +348,8 @@ class TrainingController extends Controller
                 $nestedData['modul_name'] = "<a href='".url('admin/training/manage-'.$module->id)."'>".$module->modul_name."</a>";
                 $nestedData['date'] = date('j M Y',strtotime($module->date));
                 $nestedData['time'] = $module->time;
-                $nestedData['partisipant'] = "<a href='".url('admin/training/participant/'.$module->id)."'> see partisipant<a>";
+                $nestedData['partisipant'] = "<a href='".url('admin/training/participant/'.$module->id)."'>
+                                                see participant<a>";
                 $trainer = Trainer::where('id_module',$module->id)->get();
                 $text ="<ul style='list-style-type: none;'>";
                 foreach ($trainer as $key => $trains) {
