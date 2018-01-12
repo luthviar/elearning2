@@ -18,9 +18,9 @@
                                         <a href="#jobfamily" data-toggle="tab">Forum Job Family</a>
                                     </li>
                                 @endif
-                                @if(!empty($department))
+                                @if(!empty($unit))
                                     <li>
-                                        <a href="#dept" data-toggle="tab">Forum Department</a>
+                                        <a href="#dept" data-toggle="tab">Forum Unit</a>
                                     </li>
                                 @endif
                             </ul>
@@ -43,10 +43,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-
                                         @foreach($forum_umum as $forum)
-                                            <tr>
 
+                                            <tr>
                                                 <td>
                                                     <a href="{{ url('forum/'.$forum->id) }}">
                                                         {{$forum->title}}
@@ -122,7 +121,10 @@
                                                     @if(count($forum['replie']) == 0)
                                                         <td>-</td>
                                                     @else
-                                                        <td>{{$forum['last_reply_personnel']['name']}} , {{ \Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')}}</td>
+                                                        <td>
+                                                            {{$forum['last_reply_personnel']['name']}} ,
+                                                            {{ \Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')}}
+                                                        </td>
                                                     @endif
                                                     <td>{{ $forum->created_at }}</td>
                                                 </tr>
@@ -135,11 +137,11 @@
                                 @endif
 
 
-                                @if($forum_department != null)
+                                @if($forum_unit != null)
                                     <div class="tab-pane" id="dept">
-                                        <h1>Forum {{$department->department_name}}</h1>
+                                        <h1>Forum Unit {{$unit->unit_name}}</h1>
                                         <p>
-                                            Forum ini ditujukan untuk karyawan {{$department->nama_departmen}}
+                                            Forum ini ditujukan untuk karyawan Unit {{$unit->unit_name}}
                                             PT Aerofood Indonesia
                                         </p>
                                         <button  class="btn btn-info" data-toggle="modal"
@@ -157,7 +159,7 @@
                                             </thead>
                                             <tbody>
 
-                                            @foreach($forum_department as $forum)
+                                            @foreach($forum_unit as $forum)
                                                 <tr>
                                                     <td>
                                                         <a href="{{ url('forum/'.$forum->id) }}">
@@ -308,6 +310,7 @@
                         {{ csrf_field() }}
 
                         <input type="hidden" name="id_department" value="">
+                        <input type="hidden" name="id_unit" value="">
                         <input type="hidden" name="id_job_family" value="">
 
 
@@ -394,16 +397,15 @@
 
                                 <button type="button" class="btn btn-danger btn-lg pull-right"
                                         data-dismiss="modal">X</button>
-                                <h1 class="modal-title text-center">New Thread</h1>
-
-                            <h1 class="modal-title text-center">New Thread - Forum Department</h1>
+                            <h1 class="modal-title text-center">New Thread - Forum Unit</h1>
                         </div>
 
                         <div class="modal-body">
                             {{ csrf_field() }}
 
-                            <input type="hidden" name="id_department" value="{{$department->id_department}}">
+                            <input type="hidden" name="id_unit" value="{{$unit->id}}">
                             <input type="hidden" name="id_job_family" value="">
+                            <input type="hidden" name="id_department" value="">
 
 
                             <div class="form-group">
@@ -429,7 +431,7 @@
                             <div class="form-group">
                                 <label for="content" class="col-md-3 control-label">Content</label>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8" name="content3">
                                     <textarea class="summernote" name="content3"></textarea>
                                 </div>
                             </div>
@@ -496,6 +498,7 @@
                             {{ csrf_field() }}
 
                             <input type="hidden" name="id_department" value="">
+                            <input type="hidden" name="id_unit" value="">
                             <input type="hidden" name="id_job_family" value="{{$job_family->id}}">
 
 
@@ -522,7 +525,7 @@
                             <div class="form-group">
                                 <label for="content" class="col-md-3 control-label">Content</label>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8" name="content">
                                     <textarea class="summernote" name="content2"></textarea>
                                 </div>
                             </div>

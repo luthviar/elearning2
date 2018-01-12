@@ -174,40 +174,54 @@ Add Personnel
                   </div>
                   <!-- /.form-group -->
 
-                  <!-- /.form-group -->
-                  <div class="form-group col-md-6 col-xs-6">
-                    <label>Division</label>
-                    <select class="form-control" name="division" id="division" style="width: 100%;">
-                      <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                      <option value="<?php echo e($div->id); ?>" ><?php echo e($div->division_name); ?></option>
-                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </select>
-                  </div>
 
-                  <!-- /.form-group -->
-                  <div class="form-group col-md-6 col-xs-6">
-                    <label>Unit</label>
-                    <select class="form-control" name="unit" id="unit" style="width: 100%;">
+                <!-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
 
-                    </select>
-                  </div>
-
-                  <!-- /.form-group -->
-                  <div class="form-group col-md-6 col-xs-6">
-                    <label>Department</label>
-                    <select class="form-control" name="department" id="department" style="width: 100%;">
-
-                    </select>
-                  </div>
-
-                  <!-- /.form-group -->
-                  <div class="form-group col-md-6 col-xs-6">
-                    <label>Section</label>
-                    <select class="form-control" name="section" id="section" style="width: 100%;">
-
-                    </select>
-                  </div>
+                <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Division:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <input type="text" name="division" class="form-control" placeholder="division">
                 </div>
+              </div>
+
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Unit:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <input type="text" name="unit" class="form-control" placeholder="unit">
+                </div>
+              </div>
+
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Department:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <input type="text" name="department" class="form-control" placeholder="department">
+                </div>
+              </div>
+
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Section:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <input type="text" name="section" class="form-control" placeholder="section">
+                </div>
+              </div>
+
+              <!-- /.form-group -->
+              <div class="form-group col-md-6">
+                <label>Job Family</label>
+                <select class="form-control" name="job_family" id="division" style="width: 100%;">
+                  <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $family): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($family->id); ?>" ><?php echo e($family->job_family_name); ?></option>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
+              </div>
 
              
 

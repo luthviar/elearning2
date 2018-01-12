@@ -53,7 +53,11 @@
                                     <small>Position : <br/> <?php echo e(Auth::user()->position_name); ?></small>
                                 </div>
                                 <div class="col-xs-4 text-center">
+                                    <?php if(Session::get('profile')['employee_data']['department'] != null): ?>
                                     <small>Dept : <br/> <?php echo e(Session::get('profile')['employee_data']['department']->department_name); ?></small>
+                                    <?php else: ?>
+                                    <small>Dept : <br/> --</small>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <!-- /.row -->

@@ -203,64 +203,100 @@
               </div>
               <!-- /.form-group -->
 
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Division</label>
-                <select class="form-control" name="division" id="division" style="width: 100%;">
+             
+
+<!-- -hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
+                <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Division:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
                   <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_division == $div->id): ?>
-                  <option value="<?php echo e($div->id); ?>" selected="true" ><?php echo e($div->division_name); ?></option>
+                      <?php if($user['org_structure']->id_division == $div->id): ?>
+                      <input type="text" name="division" value="<?php echo e($div->division_name); ?>" class="form-control" placeholder="division">
+                      <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php else: ?>
-                  <option value="<?php echo e($div->id); ?>" ><?php echo e($div->division_name); ?></option>
+                  <input type="text" name="division" class="form-control" placeholder="division">
                   <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-              </div>
-
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Unit</label>
-                <select class="form-control" name="unit" id="unit" style="width: 100%;">
-                  <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_unit == $unt->id): ?>
-                  <option value="<?php echo e($unt->id); ?>" selected="true" ><?php echo e($unt->unit_name); ?></option>
-                  <?php else: ?>
-                  <option value="<?php echo e($unt->id); ?>" ><?php echo e($unt->unit_name); ?></option>
-                  <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-                </select>
-              </div>
-
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Department</label>
-                <select class="form-control" name="department" id="department" style="width: 100%;">
-                  <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_department == $deps->id): ?>
-                  <option value="<?php echo e($deps->id); ?>" selected="true" ><?php echo e($deps->department_name); ?></option>
-                  <?php else: ?>
-                  <option value="<?php echo e($deps->id); ?>" ><?php echo e($deps->department_name); ?></option>
-                  <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-              </div>
-
-              <!-- /.form-group -->
-              <div class="form-group col-md-6 col-xs-6">
-                <label>Section</label>
-                <select class="form-control" name="section" id="section" style="width: 100%;">
-                  <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($user['org_structure']->id_section == $sec->id): ?>
-                  <option value="<?php echo e($sec->id); ?>" selected="true" ><?php echo e($sec->section_name); ?></option>
-                  <?php else: ?>
-                  <option value="<?php echo e($sec->id); ?>" ><?php echo e($sec->section_name); ?></option>
-                  <?php endif; ?>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-              </div>
+                  
+                  
                 </div>
+              </div>
 
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Unit:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
+                  <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($user['org_structure']->id_unit == $unt->id): ?>
+                    <input type="text" name="unit" value="<?php echo e($unt->unit_name); ?>" class="form-control" placeholder="unit">
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="unit" class="form-control" placeholder="unit">
+                  <?php endif; ?>
+                  
+                  
+                </div>
+              </div>
+
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Department:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
+                  <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  
+                    <?php if($user['org_structure']->id_department == $deps->id): ?>
+                    <input type="text" name="department" value="<?php echo e($deps->department_name); ?>" class="form-control" placeholder="department">
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="department" class="form-control" placeholder="department">
+                  <?php endif; ?>
+                  
+                  
+                </div>
+              </div>
+
+              <!-- Position name -->
+              <div class="form-group col-md-6">
+                <label>Section:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                  <?php if($user['org_structure'] != null): ?>
+                  <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    
+                    <?php if($user['org_structure']->id_section == $sec->id): ?>
+                    <input type="text" name="section" value="<?php echo e($sec->section_name); ?>" class="form-control" placeholder="section">
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                  <input type="text" name="section" class="form-control" placeholder="section">
+                  <?php endif; ?>
+                  
+                  
+                </div>
+              </div>
+
+              <!-- /.form-group -->
+              <div class="form-group col-md-6">
+                <label>Job Family</label>
+                <select class="form-control" name="job_family" id="division" style="width: 100%;">
+                  <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $family): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if(!empty($job_family_user) and $family->id == $job_family_user->id): ?>
+                  <option value="<?php echo e($family->id); ?>" selected="true" ><?php echo e($family->job_family_name); ?></option>
+                  <?php else: ?>
+                  <option value="<?php echo e($family->id); ?>" ><?php echo e($family->job_family_name); ?></option>
+                  <?php endif; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
+              </div>
              
 
             </div>
