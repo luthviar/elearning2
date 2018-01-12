@@ -139,7 +139,11 @@
                                 <?php if($forum_department != null): ?>
                                     <div class="tab-pane" id="dept">
                                         <h1>Forum <?php echo e($department->department_name); ?></h1>
-                                        <p>forum ini ditujukan untuk karyawan <?php echo e($department->nama_departmen); ?> PT Aerofood Indonesia</p>
+                                        <p>
+                                            Forum ini ditujukan untuk karyawan <?php echo e($department->nama_departmen); ?>
+
+                                            PT Aerofood Indonesia
+                                        </p>
                                         <button  class="btn btn-info" data-toggle="modal"
                                                  data-target="#modal_department">New Thread</button><br><br>
 

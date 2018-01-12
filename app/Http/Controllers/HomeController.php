@@ -53,11 +53,12 @@ class HomeController extends Controller
 //        $user = new User();
 //        $profile = $user->profile_view(Auth::user()->id);
 //        $profile['level'] = LevelPosition::find($profile['personal_data']->position);
-//
+
 //        Session::put('profile', $profile);
 
         Session::put('link',$link);
         Session::put('module',$modul);
+        Session::put('schedule',$schedule);
 
         return view('user.home')
                     ->with( 'newses' , $news )

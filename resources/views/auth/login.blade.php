@@ -5,8 +5,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="icon" href="{{URL::asset('Elegantic/images/ALS.png')}}" type="image/jpg" sizes="16x16">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('css/font-awesome.min.css')}}">
     <style>
         hr.style14 {
             border: 0;
@@ -47,11 +47,12 @@
                         <div style="margin-bottom: 25px" class="input-group{{ $errors->has('username') ? ' has-error' : '' }}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="username" type="text" class="form-control"
-                                   name="username" value="{{ old('username') }}" placeholder="username" required autofocus>
+                                   name="username" value="{{ old('username') }}"
+                                   placeholder="Username" required autofocus>
                             @if ($errors->has('username'))
                                 <span class="help-block">
-												<strong>{{ $errors->first('username') }}</strong>
-											</span>
+                                    <strong>{{ $errors->first('username') }}</strong>
+                                </span>
                             @endif
                         </div>
 

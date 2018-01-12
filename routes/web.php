@@ -13,6 +13,10 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/home', function (){
+    return redirect(action('HomeController@index'));
+});
+
 Route::get('/view-file/{id}', 'TrainingController@view_file');
 
 
@@ -64,6 +68,8 @@ Route::post('/test_submit', 'TrainingController@submit_test');
 Route::get('/review_test/{id_chapter}','TrainingController@review_test');
 
 Route::get('/get_chapter/{id}', 'TrainingController@next_chapter');
+
+Route::get('request_access/{id_training}', 'TrainingController@request_access');
 
 /*
 |--------------------------------------------------------------------------
@@ -161,14 +167,14 @@ Route::get('/admin', function(){
 Route::prefix('admin')->group(function () {
 
     // ----------------------------------
-    // SYSTEM
+    // ADMIN SYSTEM
     // ----------------------------------
     Route::get('system/access','UserController@system_access');
 
     Route::post('system/access/server','UserController@system_access_serverside');
 
     // ----------------------------------
-    // PERSONNEL
+    // ADMIN PERSONNEL
     // -----------------------------------
     Route::get('personnel', function(){
         return redirect(action('UserController@personnel_list'));
@@ -195,7 +201,7 @@ Route::prefix('admin')->group(function () {
         Route::get('view-{id}', 'UserController@profile_view');
 
         // -------------------------------------
-        // USER
+        // ADMIN USER
         // -------------------------------------
 
         Route::get('add', 'UserController@user_add');
@@ -205,7 +211,7 @@ Route::prefix('admin')->group(function () {
     });
 
     // ----------------------------------
-    // NEWS
+    // ADMIN NEWS
     // -----------------------------------
     Route::get('/news', function(){
         return redirect(action('NewsController@news_list'));
@@ -236,7 +242,7 @@ Route::prefix('admin')->group(function () {
 
 
     // -------------------------------------
-    // SLIDER
+    // ADMIN SLIDER
     // -------------------------------------
     Route::get('/slider', function(){
         return redirect(action('SliderController@slider_list'));
@@ -267,7 +273,7 @@ Route::prefix('admin')->group(function () {
 
 
     // -------------------------------------
-    // FORUM
+    // ADMIN FORUM
     // -------------------------------------
     Route::get('forum', function(){
         return redirect(action('ForumController@forum_public_list'));
@@ -292,7 +298,7 @@ Route::prefix('admin')->group(function () {
     });
 
     // -------------------------------------
-    // TRAINING
+    // ADMIN TRAINING
     // -------------------------------------
 
     Route::get('training', function(){
@@ -351,12 +357,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('training-unpublish-{id}', 'TrainingController@unpublish_training');
 
-
         Route::get('admin_access_training', 'TrainingController@admin_access_training');
 
         Route::post('admin_access_training','TrainingController@admin_access_training_serverside');
-
-        Route::get('request_access/{id_training}', 'TrainingController@request_access');
 
         Route::get('give_access/{id_access}', 'TrainingController@give_access');
 
@@ -378,7 +381,7 @@ Route::prefix('admin')->group(function () {
 
 
     // -------------------------------------
-    // LINKS OF AEROFOOD SYSTEM
+    // ADMIN LINKS OF AEROFOOD SYSTEM
     // -------------------------------------
     Route::get('links', function(){
         return redirect(action('TrainingController@admin_training'));
@@ -402,7 +405,7 @@ Route::prefix('admin')->group(function () {
     });
 });
     // -------------------------------------
-    // ORG. STRUCTURE
+    // ADMIN ORG. STRUCTURE
     // -------------------------------------
 
 
