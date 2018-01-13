@@ -1,20 +1,17 @@
 @extends('admin.layouts.app')
 
-@section('content')
+@section('page-name')
+    System Access
+@endsection
 
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        System Access
-        <small>System Access</small>
-      </h1>
-    </section>
+@section('content')
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">System Acceess</h3>
+              <p class="box-title">Ini adalah daftar user yang melakukan request akses lupa password ke sistem E-Learning.</p>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -24,7 +21,6 @@
                     <th>Email</th>
                     <th>Validation</th>
                     <th>Time</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 
@@ -54,7 +50,7 @@
             "columns": [
                 { "data": "email" },
                 { "data": "is_valid" },
-                { "data": "created_at" },
+                { "data": "created_at" }
             ]  
 
         });

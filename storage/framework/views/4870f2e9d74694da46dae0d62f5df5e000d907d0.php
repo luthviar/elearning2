@@ -9,6 +9,25 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">News</h3>
+                <?php if(Session::get('success') != null): ?>
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+
+                        <?php echo e(Session::get('success')); ?>
+
+                        <?php if(Session::get('success-news') != null): ?>
+                        <a href="<?php echo e(url(action('NewsController@admin_news_view',Session::get('success-news')))); ?>"
+                           class="btn btn-default btn-sm"
+                           style="color: black; text-underline: none;"
+                        >
+                            View The News
+                        </a>
+                        <?php endif; ?>
+
+                    </div>
+                <?php endif; ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -40,12 +59,13 @@
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
+            "order": [3, 'desc'],
             "ajax":{
-                     "url": "<?php echo e(URL::action('NewsController@news_list_serverside')); ?>",
-                     "dataType": "json",
-                     "type": "POST",
-                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
-                   },
+                "url": "<?php echo e(URL::action('NewsController@news_list_serverside')); ?>",
+                "dataType": "json",
+                "type": "POST",
+                "data":{ _token: "<?php echo e(csrf_token()); ?>"}
+            },
             "columns": [
                 { "data": "title" },
                 { "data": "created_by" },

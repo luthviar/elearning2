@@ -1,6 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('page-name')
+    <a href="{{ url(action('SliderController@slider_list')) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
     View Slider
 @endsection
 

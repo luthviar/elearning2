@@ -14,7 +14,7 @@
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add Slider</h3>
+              <h3 class="box-title">Add Slider Form</h3>
             </div>
             <div class="box-body">
               <?php echo e(csrf_field()); ?>
@@ -68,7 +68,9 @@
         </div>
     </div>
     <div class="row text-center">
-      <button class="btn btn-success">submit</button>
+        <div class="col-lg-12">
+            <button class="btn btn-block btn-success">Submit New Slider</button>
+        </div>
     </div>
     </form>
 

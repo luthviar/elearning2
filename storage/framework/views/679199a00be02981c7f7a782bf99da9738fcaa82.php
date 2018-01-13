@@ -1,24 +1,24 @@
 <?php $__env->startSection('page-name'); ?>
-    System Access
+    Forum Department
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <p class="box-title">Ini adalah daftar user yang melakukan request akses lupa password ke sistem E-Learning.</p>
-                
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th>Email</th>
-                    <th>Validation</th>
-                    <th>Time</th>
+                  <th>Title</th>
+                  <th>Created By</th>
+                  <th>Snippet</th>
+                  <th>Unit Name</th>
+                  <th>Created At</th>
                 </tr>
                 </thead>
                 
@@ -40,15 +40,17 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "<?php echo e(url(action('UserController@system_access_serverside'))); ?>",
+                     "url": "<?php echo e(url(action('ForumController@forum_unit_list_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
-                { "data": "email" },
-                { "data": "is_valid" },
-                { "data": "created_at" }
+                { "data": "title" },
+                { "data": "created_by" },
+                { "data": "snippet" },
+                { "data": "unit" },
+                { "data": "created_at" },
             ]  
 
         });

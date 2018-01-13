@@ -1,4 +1,7 @@
 <?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('SliderController@slider_list'))); ?>">
+        <i class="fa fa-arrow-left"></i>
+    </a>
     View Slider
 <?php $__env->stopSection(); ?>
 

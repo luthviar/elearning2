@@ -2,6 +2,11 @@
 
 @section('page-name')
 Add News
+<i class="fa fa-question-circle"
+   data-toggle="tooltip"
+   data-placement="bottom"
+   title="Setelah di submit, lalu Anda harus melakukan publish agar dapat tertera pada halaman utama."
+></i>
 @endsection
 
 @section('content')
@@ -16,7 +21,7 @@ Add News
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add News</h3>
+              <h3 class="box-title">Add News Form</h3>
             </div>
             <div class="box-body">
               {{csrf_field()}}
@@ -99,7 +104,9 @@ Add News
         </div>
     </div>
     <div class="row text-center">
-      <button class="btn btn-success">submit</button>
+        <div class="col-lg-12">
+            <button class="btn btn-block btn-success">Submit News</button>
+        </div>
     </div>
     </form>
 

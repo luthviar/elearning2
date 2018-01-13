@@ -19,7 +19,7 @@
                   <th>Title</th>
                   <th>Created By</th>
                   <th>Snippet</th>
-                  <th>Department Name</th>
+                  <th>Unit Name</th>
                   <th>Created At</th>
                 </tr>
                 </thead>
@@ -42,7 +42,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url(action('ForumController@forum_department_list_serverside')) }}",
+                     "url": "{{ url(action('ForumController@forum_unit_list_serverside')) }}",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "{{csrf_token()}}"}
@@ -51,7 +51,7 @@
                 { "data": "title" },
                 { "data": "created_by" },
                 { "data": "snippet" },
-                { "data": "department" },
+                { "data": "unit" },
                 { "data": "created_at" },
             ]  
 

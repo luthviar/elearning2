@@ -5,7 +5,7 @@
     <div class="col-md-12 clearfix">
         <div class="list-group">
           @foreach(Session::get('schedule') as $sched)
-            <a href="{{ url(action('TrainingController@get_trainings',$sched->id)) }}" class="list-group-item">
+            <a href="{{ url(action('TrainingController@get_trainings',$sched->id)) }}" target="_blank" class="list-group-item">
                 <h4 class="list-group-item-heading">
                     {{$sched->modul_name}}
                 </h4>

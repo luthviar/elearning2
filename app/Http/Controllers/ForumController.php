@@ -569,16 +569,16 @@ class ForumController extends Controller
     }
 
 
-    public function forum_department_list(){
-        return view('admin.forum.forum_department');
+    public function forum_unit_list(){
+        return view('admin.forum.forum_unit');
     }
 
-    public function forum_department_list_serverside(Request $request){
+    public function forum_unit_list_serverside(Request $request){
         $columns = array( 
                             0 =>    'title', 
                             1 =>    'created_by',
                             2 =>    'content',
-                            3 =>    'id_department',
+                            3 =>    'id_unit',
                             4 =>    'created_at',
                             
                         );
@@ -640,8 +640,8 @@ class ForumController extends Controller
                 }
                 $nestedData['created_by'] = $user->name;
                 $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
-                $department = OsDepartment::find($forum->id_department);
-                $nestedData['department'] = $department->department_name;
+                $unit = OsUnit::find($forum->id_unit);
+                $nestedData['unit'] = $unit->unit_name;
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
                 
                 $data[] = $nestedData;
@@ -666,5 +666,15 @@ class ForumController extends Controller
             echo $forum['message'];
         }
         return view('admin.forum.forum_view')->with('forum', $forum);
+    }
+
+    public function forum_remove ($id_forum){
+        $forum = Forum::find($id_forum);
+        if ($forum == null) {
+            return 'error: news not found';
+        }
+        DB::table('forums')->where('id','=',$id_forum)->delete();
+
+        return redirect(action('ForumController@forum_public_list'));
     }
 }

@@ -85,7 +85,9 @@
             </li>
 
             {{-- Menu Request Access --}}
-            <li class="treeview">
+            <li class="treeview {{
+                     Request::is('admin/request/*')
+                     ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-laptop"></i>
                     <span>Request Access</span>
@@ -94,8 +96,16 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('admin/training/admin_access_training')}}"><i class="fa fa-circle-o"></i> Training Access</a></li>
-                    <li><a href="{{url('admin/system/access')}}"><i class="fa fa-circle-o"></i> System Access</a></li>
+                    <li class="treeview {{
+                     Request::is('admin/request/training*')
+                     ? 'active' : '' }}">
+                        <a href="{{url(action('TrainingController@admin_access_training'))}}">
+                            <i class="fa fa-circle-o"></i> Training Access</a>
+                    </li>
+                    <li class="treeview {{
+                     Request::is('admin/request/system/*')
+                     ? 'active' : '' }}">
+                        <a href="{{url(action('UserController@system_access'))}}"><i class="fa fa-circle-o"></i> System Access</a></li>
                 </ul>
             </li>
 
@@ -187,11 +197,11 @@
                         </a>
                     </li>
                     <li class="{{
-                     Request::is('admin/forum/department*')
+                     Request::is('admin/forum/unit*')
                      ? 'active' : '' }}">
-                        <a href="{{url(action('ForumController@forum_department_list'))}}">
+                        <a href="{{url(action('ForumController@forum_unit_list'))}}">
                             <i class="fa fa-circle-o"></i>
-                            Department Forum
+                            Unit Forum
                         </a>
                     </li>
                 </ul>

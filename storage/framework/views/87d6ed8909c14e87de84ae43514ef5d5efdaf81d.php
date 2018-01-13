@@ -144,7 +144,7 @@ Add Personnel
               <div class="form-group">
                 <label>Employee Status:</label>
                   <div class="input-group col-lg-12">
-                <select class="form-control select2" name="id_employee_status" style="width: 100%;">
+                <select class="form-control select3" name="id_employee_status" style="width: 100%;">
                   <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $emp_stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option value="<?php echo e($emp_stat->id); ?>"><?php echo e($emp_stat->name); ?></option>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -157,7 +157,7 @@ Add Personnel
                 <div class="row">
                   <div class="form-group col-md-6 col-xs-6">
                     <label>Level of Position</label>
-                    <select class="form-control select2" name="level_position" style="width: 100%;">
+                    <select class="form-control select3" name="level_position" style="width: 100%;">
                       <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <option value="<?php echo e($level->id); ?>"><?php echo e($level->nama_level); ?></option>
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -167,7 +167,7 @@ Add Personnel
                    <!-- /.form-group -->
                   <div class="form-group col-md-6 col-xs-6">
                     <label>Role</label>
-                    <select class="form-control select2" name="role" style="width: 100%;">
+                    <select class="form-control select3" name="role" style="width: 100%;">
                       <option value="0">User</option>
                       <option value="1">Administrator</option>
                     </select>
@@ -175,19 +175,21 @@ Add Personnel
                   <!-- /.form-group -->
 
 
-                <!-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
                 <!-- /.form-group -->
-
+                <div class="col-lg-12">
+                    <hr/>
+                    <h5 style="color: orangered;" class="text-center">
+                        Pilih Divisi, Unit dan Department dari Database.
+                        Jika tidak ada, maka Anda dapat menginput sendiri pada input text.
+                    </h5>
+                </div>
               <div class="form-group col-md-6">
-                  <label>
-                      <h5 style="color: orangered;">
-                          Pilih Divisi, Unit dan Department dari Database.
-                          Jika tidak ada, maka Anda dapat menginput sendiri pada input text.
-                      </h5>
-                  </label>
+                  
+                      
+                  
                 <label>Division : </label>
                 <select class="form-control select3" name="division" id="division" style="width: 100%;">
-                  <option value="0" >.....</option>
+                  <option value="0" >-- Choose The Division --</option>
                   <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option value="<?php echo e($div->id); ?>" ><?php echo e($div->division_name); ?></option>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -205,8 +207,8 @@ Add Personnel
 
               <div class="form-group col-md-6">
                 <label>Unit : </label>
-                <select class="form-control" name="unit" id="unit" style="width: 100%;">
-                  <option value="0" >.....</option>
+                <select class="form-control select3" name="unit" id="unit" style="width: 100%;">
+                    <option value="0" >-- Choose The Unit --</option>
                   <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option value="<?php echo e($unt->id); ?>" ><?php echo e($unt->unit_name); ?></option>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -224,8 +226,8 @@ Add Personnel
 
               <div class="form-group col-md-6">
                 <label>Department : </label>
-                <select class="form-control" name="department" id="department" style="width: 100%;">
-                  <option value="0" >.....</option>
+                <select class="form-control select3" name="department" id="department" style="width: 100%;">
+                    <option value="0" >-- Choose The Department --</option>
                   <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option value="<?php echo e($dept->id); ?>" ><?php echo e($dept->department_name); ?></option>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -243,8 +245,8 @@ Add Personnel
 
               <div class="form-group col-md-6">
                 <label>Section : </label>
-                <select class="form-control" name="section" id="section" style="width: 100%;">
-                  <option value="0" >.....</option>
+                <select class="form-control select3" name="section" id="section" style="width: 100%;">
+                    <option value="0" >-- Choose The Section --</option>
                   <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sect): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option value="<?php echo e($sect->id); ?>" ><?php echo e($sect->section_name); ?></option>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -261,9 +263,9 @@ Add Personnel
               </div>
 
               <!-- /.form-group -->
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-12">
                 <label>Job Family</label>
-                <select class="form-control" name="job_family" id="division" style="width: 100%;">
+                <select class="form-control select3" name="job_family" id="division" style="width: 100%;">
                   <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $family): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option value="<?php echo e($family->id); ?>" ><?php echo e($family->job_family_name); ?></option>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

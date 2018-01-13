@@ -17,7 +17,7 @@
                 <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Second Title</th>
+                  <th>Content</th>
                   <th>Created At</th>
                   <th>Status</th>
                 </tr>

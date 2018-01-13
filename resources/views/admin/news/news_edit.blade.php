@@ -115,7 +115,9 @@
         </div>
     </div>
     <div class="row text-center">
-      <button class="btn btn-success">submit</button>
+        <div class="col-lg-12">
+            <button class="btn btn-block btn-success">Update the News</button>
+        </div>
     </div>
     </form>
 

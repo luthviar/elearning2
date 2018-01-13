@@ -273,7 +273,7 @@ class UserController extends Controller
 
         $profile['level'] = LevelPosition::find($profile['personal_data']->position);
 
-        return view('admin.personnel.personnel_view')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
+        return view('admin.personnel.personnel_view_v1')->with('profile', $profile)->with('training_record', $training_record)->with('employee_record', $employee_record);
     }
 
     // ---------------------------------
@@ -289,7 +289,7 @@ class UserController extends Controller
         $status = EmployeeStatus::all();
         $job_family = JobFamily::all();
 
-        return view('admin.personnel_add')->with('level_position',$level_position)->with('division',$division)
+        return view('admin.personnel.personnel_add')->with('level_position',$level_position)->with('division',$division)
             ->with('status',$status)->with('job_family',$job_family)->with('unit',$unit)
             ->with('department',$department)->with('section',$section);
     }
@@ -373,7 +373,10 @@ class UserController extends Controller
         $structure->id_section = $id_section;
         $structure->id_department = $id_department;
         $structure->save();
-        
+
+
+        Session::flash('success', 'Anda berhasil melakukan "PUBLISH" pada news ini, news akan tampil di halaman utama web.');
+
         return redirect('admin/personnel');
 
     }
@@ -401,7 +404,7 @@ class UserController extends Controller
         }
         
 
-        return view('admin.personnel_edit')->with('user',$user)
+        return view('admin.personnel.personnel_edit')->with('user',$user)
             ->with('division',$division)->with('unit',$unit)
             ->with('section',$section)->with('department',$department)->with('level_position',$level)
             ->with('status',$status)->with('job_family', $job_family)->with('job_family_user',$job_family_user);
@@ -492,7 +495,9 @@ class UserController extends Controller
         $structure->id_department = $id_department;
         $structure->save();
 
-        return redirect(action('UserController@personnel_list'));
+        Session::flash('success', 'Personnel berhasil di UPDATE');
+
+        return redirect(action('UserController@profile_view',$request->id_user));
 
     }
 
@@ -576,11 +581,11 @@ class UserController extends Controller
 
         }
 
-        return view('admin.personnel_see_record')->with('user',$user)->with('training', $training)->with('status',$status)->with('user_chapter',$user_chapter);
+        return view('admin.personnel.personnel_see_record')->with('user',$user)->with('training', $training)->with('status',$status)->with('user_chapter',$user_chapter);
     }
 
     public function system_access () {
-        return view('admin.access_system');
+        return view('admin.request.access_system');
     }
 
     public function system_access_serverside (Request $request) {
@@ -625,6 +630,7 @@ class UserController extends Controller
         $data = array();
         if(!empty($accesses))
         {
+            $user = new User();
             foreach ($accesses as $access)
             {
 

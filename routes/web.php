@@ -167,13 +167,6 @@ Route::get('/admin', function(){
 Route::prefix('admin')->group(function () {
 
     // ----------------------------------
-    // ADMIN SYSTEM
-    // ----------------------------------
-    Route::get('system/access','UserController@system_access');
-
-    Route::post('system/access/server','UserController@system_access_serverside');
-
-    // ----------------------------------
     // ADMIN PERSONNEL
     // -----------------------------------
     Route::get('personnel', function(){
@@ -285,9 +278,9 @@ Route::prefix('admin')->group(function () {
 
         Route::post('admin_forum_public','ForumController@forum_public_list_serverside');
 
-        Route::get('department-all','ForumController@forum_department_list');
+        Route::get('unit-all','ForumController@forum_unit_list');
 
-        Route::post('admin_forum_department','ForumController@forum_department_list_serverside');
+        Route::post('admin_forum_unit','ForumController@forum_unit_list_serverside');
 
         Route::get('job-family-all','ForumController@forum_job_family_list');
 
@@ -357,14 +350,6 @@ Route::prefix('admin')->group(function () {
 
         Route::get('training-unpublish-{id}', 'TrainingController@unpublish_training');
 
-        Route::get('admin_access_training', 'TrainingController@admin_access_training');
-
-        Route::post('admin_access_training','TrainingController@admin_access_training_serverside');
-
-        Route::get('give_access/{id_access}', 'TrainingController@give_access');
-
-        Route::get('cancel_access/{id_access}','TrainingController@cancel_access');
-
         Route::get('participant/{id_training}','TrainingController@add_participant');
 
         Route::post('add_participant','TrainingController@add_participant_submit');
@@ -403,6 +388,53 @@ Route::prefix('admin')->group(function () {
 
         Route::get('add', 'AerofoodLinksController@add');
     });
+
+
+    // -------------------------------------
+    // ADMIN REQUEST ACCESS
+    // -------------------------------------
+    Route::get('request', function(){
+        return redirect(action('TrainingController@admin_access_training'));
+    });
+
+    Route::prefix('request')->group(function () {
+
+        // -------------------------------------
+        // ADMIN TRAINING REQUEST
+        // -------------------------------------
+        Route::get('training', function(){
+            return redirect(action('TrainingController@admin_access_training'));
+        });
+        Route::prefix('training')->group(function () {
+
+            Route::get('access', 'TrainingController@admin_access_training');
+
+            Route::post('admin_access_training','TrainingController@admin_access_training_serverside');
+
+            Route::get('give_access/{id_access}', 'TrainingController@give_access');
+
+            Route::get('cancel_access/{id_access}','TrainingController@cancel_access');
+
+        });
+
+
+        // ----------------------------------
+        // ADMIN SYSTEM REQUEST ACCESS, IF SOMEONE NEED TO REQUEST FORGET PASSWORD
+        // ----------------------------------
+        Route::get('system', function(){
+            return redirect(action('UserController@system_access'));
+        });
+        Route::prefix('system')->group(function () {
+
+            Route::get('access','UserController@system_access');
+
+            Route::post('server','UserController@system_access_serverside');
+
+        });
+
+    });
+
+
 });
     // -------------------------------------
     // ADMIN ORG. STRUCTURE

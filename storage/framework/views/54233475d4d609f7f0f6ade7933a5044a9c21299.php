@@ -78,7 +78,8 @@
             </li>
 
             
-            <li class="treeview">
+            <li class="treeview <?php echo e(Request::is('admin/request/*')
+                     ? 'active' : ''); ?>">
                 <a href="#">
                     <i class="fa fa-laptop"></i>
                     <span>Request Access</span>
@@ -87,8 +88,14 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('admin/training/admin_access_training')); ?>"><i class="fa fa-circle-o"></i> Training Access</a></li>
-                    <li><a href="<?php echo e(url('admin/system/access')); ?>"><i class="fa fa-circle-o"></i> System Access</a></li>
+                    <li class="treeview <?php echo e(Request::is('admin/request/training*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url(action('TrainingController@admin_access_training'))); ?>">
+                            <i class="fa fa-circle-o"></i> Training Access</a>
+                    </li>
+                    <li class="treeview <?php echo e(Request::is('admin/request/system/*')
+                     ? 'active' : ''); ?>">
+                        <a href="<?php echo e(url(action('UserController@system_access'))); ?>"><i class="fa fa-circle-o"></i> System Access</a></li>
                 </ul>
             </li>
 
@@ -170,11 +177,11 @@
                             Job Family Forum
                         </a>
                     </li>
-                    <li class="<?php echo e(Request::is('admin/forum/department*')
+                    <li class="<?php echo e(Request::is('admin/forum/unit*')
                      ? 'active' : ''); ?>">
-                        <a href="<?php echo e(url(action('ForumController@forum_department_list'))); ?>">
+                        <a href="<?php echo e(url(action('ForumController@forum_unit_list'))); ?>">
                             <i class="fa fa-circle-o"></i>
-                            Department Forum
+                            Unit Forum
                         </a>
                     </li>
                 </ul>

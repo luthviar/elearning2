@@ -1,6 +1,10 @@
 @extends('admin.layouts.app')
+
 @section('page-name')
-Personnel View
+    <a href="{{ url(action('UserController@personnel_list')) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Personnel View
 @endsection
 
 @section('content')
@@ -16,7 +20,7 @@ Personnel View
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('AdminLTE/dist/img/user4-128x128.jpg')}}" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('photo/user-default.png')}}" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{$profile['personal_data']->name}}</h3>
 
@@ -68,7 +72,8 @@ Personnel View
                  @endif
                 </li>
               </ul>
-              <a href="{{url('/admin/personnel/edit',$profile['personal_data']->id)}}" class="btn btn-info btn-block"><b>Edit Personnel</b></a>
+              <a href="{{url(action('UserController@edit_personnel',$profile['personal_data']->id))}}"
+                 class="btn btn-info btn-block"><b>Edit Personnel</b></a>
               @if ($profile['personal_data']->flag_active == 1)
               <a href="{{url('admin/personnel/nonactivate',$profile['personal_data']->id)}}" class="btn btn-danger btn-block"><b>Non-Activate</b></a>
               @else
@@ -120,7 +125,7 @@ Personnel View
 		            </div>
 		            <!-- /.box-body -->
 		          </div>
-		          <!-- /.box -->a
+		          <!-- /.box -->
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="timeline">

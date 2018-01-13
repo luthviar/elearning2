@@ -1,6 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('page-name')
+    <a href="{{ url(action('NewsController@news_list')) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
     View News
 @endsection
 
@@ -10,9 +13,16 @@
     <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h4>
-                  {{--Fill here--}}
-              </h4>
+                @if(Session::get('success') != null)
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+
                 <span class="pull-right">
                     @if($news->is_publish == 0)
 

@@ -1,4 +1,7 @@
 <?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('NewsController@news_list'))); ?>">
+        <i class="fa fa-arrow-left"></i>
+    </a>
     View News
 <?php $__env->stopSection(); ?>
 
@@ -8,9 +11,24 @@
     <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h4>
-                  
-              </h4>
+                <?php if(Session::get('success') != null): ?>
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+
+                        <?php echo e(Session::get('success')); ?>
+
+                        
+                           
+                           
+                        
+                            
+                        
+
+                    </div>
+                <?php endif; ?>
+
                 <span class="pull-right">
                     <?php if($news->is_publish == 0): ?>
 

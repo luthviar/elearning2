@@ -1,8 +1,7 @@
-@extends('admin.layouts.app')
-@section('page-name')
+<?php $__env->startSection('page-name'); ?>
 Personnel View
-@endsection
-@section('header')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('header'); ?>
     <style>
         dt{
             width: 40% !important;
@@ -11,8 +10,8 @@ Personnel View
             margin-left: 50% !important;
         }
     </style>
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
 
@@ -25,129 +24,129 @@ Personnel View
           <!-- Profile Image -->
           <div class="box box-solid">
               <div class="box-header with-border">
-                  @if($profile['personal_data']->photo == null)
+                  <?php if($profile['personal_data']->photo == null): ?>
                       <img class="profile-user-img img-responsive img-circle"
-                           src="{{URL::asset('photo/user-default.png')}}" alt="User profile picture">
-                  @else
+                           src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="User profile picture">
+                  <?php else: ?>
                       <img class="profile-user-img img-responsive img-circle"
-                           src="{{URL::asset($profile['personal_data']->photo)}}" alt="User profile picture">
-                  @endif
+                           src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="User profile picture">
+                  <?php endif; ?>
 
-                  <h3 class="profile-username text-center">{{$profile['personal_data']->name}}</h3>
+                  <h3 class="profile-username text-center"><?php echo e($profile['personal_data']->name); ?></h3>
 
-                  <p class="text-muted text-center">{{$profile['personal_data']->position_name}}</p>
+                  <p class="text-muted text-center"><?php echo e($profile['personal_data']->position_name); ?></p>
               </div>
 
               <div class="box-body">
                   <dl class="dl-horizontal">
-                  @if ($profile['personal_data']->role == 1)
+                  <?php if($profile['personal_data']->role == 1): ?>
                       <dt>
                           <b>Role</b>
                       <dd>
                           <a>Administrator</a>
                       </dd>
-                  @else
+                  <?php else: ?>
                       <dt>
                           <b>Role</b>
                       <dd>
                           <a>User</a>
                       </dd>
-                  @endif
+                  <?php endif; ?>
                       <dt>
                           <b>Email</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['personal_data']->email}}</a>
+                          <a ><?php echo e($profile['personal_data']->email); ?></a>
                       </dd>
                       <dt>
                           <b>Level</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['level']->nama_level}}</a>
+                          <a ><?php echo e($profile['level']->nama_level); ?></a>
                       </dd>
                       <dt>
                           <b>Employee Status</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['employee_data']['employee_status']->name}}</a>
+                          <a ><?php echo e($profile['employee_data']['employee_status']->name); ?></a>
                       </dd>
                       <dt>
                           <b>Birtdate</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['personal_data']->birtdate}}</a>
+                          <a ><?php echo e($profile['personal_data']->birtdate); ?></a>
                       </dd>
                       <dt>
                           <b>Education</b>
                       </dt>
                       <dd>
-                          <a >{{ $profile['personal_data']->education}}</a>
+                          <a ><?php echo e($profile['personal_data']->education); ?></a>
                       </dd>
                       <dt>
                           <b>Date Join</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['personal_data']->date_join_acs}}</a>
+                          <a ><?php echo e($profile['personal_data']->date_join_acs); ?></a>
                       </dd>
                       <dt>
                           <b>Division</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['employee_data']['division']->division_name or null}}</a>
+                          <a ><?php echo e(isset($profile['employee_data']['division']->division_name) ? $profile['employee_data']['division']->division_name : null); ?></a>
                       </dd>
                       <dt>
                           <b>Unit</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['employee_data']['unit']->unit_name or null}}</a>
+                          <a ><?php echo e(isset($profile['employee_data']['unit']->unit_name) ? $profile['employee_data']['unit']->unit_name : null); ?></a>
                       </dd>
                       <dt>
                           <b>Department</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['employee_data']['department']->department_name or null}}</a>
+                          <a ><?php echo e(isset($profile['employee_data']['department']->department_name) ? $profile['employee_data']['department']->department_name : null); ?></a>
                       </dd>
                       <dt>
                           <b>Section</b>
                       </dt>
                       <dd>
-                          <a >{{$profile['employee_data']['section']->section_name or null}}</a>
+                          <a ><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></a>
                       </dd>
 
-                  @if ($profile['personal_data']->flag_active == 1)
+                  <?php if($profile['personal_data']->flag_active == 1): ?>
                       <dt>
                           <b>Status</b>
                       </dt>
                       <dd>
                           <a >Active</a>
                       </dd>
-                  @else
+                  <?php else: ?>
                       <dt>
                           <b>Status</b>
                       </dt>
                       <dd>
                           <a >Non-Active</a>
                       </dd>
-                  @endif
+                  <?php endif; ?>
 
                   </dl>
-                  <a href="{{url(action('UserController@edit_personnel',$profile['personal_data']->id))}}"
+                  <a href="<?php echo e(url(action('UserController@edit_personnel',$profile['personal_data']->id))); ?>"
                      class="btn btn-info btn-block">
                       <b>Edit Personnel</b>
                   </a>
-                  @if ($profile['personal_data']->flag_active == 1)
+                  <?php if($profile['personal_data']->flag_active == 1): ?>
 
-                      <a href="{{url(action('UserController@nonactivate',$profile['personal_data']->id))}}"
+                      <a href="<?php echo e(url(action('UserController@nonactivate',$profile['personal_data']->id))); ?>"
                          class="btn btn-danger btn-block">
                           <b>Non-Activate</b>
                       </a>
-                  @else
+                  <?php else: ?>
 
-                      <a href="{{url(action('UserController@activate',$profile['personal_data']->id))}}"
+                      <a href="<?php echo e(url(action('UserController@activate',$profile['personal_data']->id))); ?>"
                          class="btn btn-success btn-block">
                           <b>Activate</b>
                       </a>
-                  @endif
+                  <?php endif; ?>
 
               </div>
             <!-- /.box-body -->
@@ -181,14 +180,14 @@ Personnel View
 		                </tr>
 		                </thead>
 		                <tbody>
-		                @foreach ( $training_record['records']  as $key => $record)
+		                <?php $__currentLoopData = $training_record['records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
-		                	<td>{{ $key+1}}</td>
-		                	<td>{{ $record['module']->modul_name}}</td>
-		                	<td>{{ $record['status']}}</td>
-		                	<td><span><a href="{{url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)}}"><i class="fa fa-eye" style="color: blue;" aria-hidden="true">see_record</i></a></span></td>
+		                	<td><?php echo e($key+1); ?></td>
+		                	<td><?php echo e($record['module']->modul_name); ?></td>
+		                	<td><?php echo e($record['status']); ?></td>
+		                	<td><span><a href="<?php echo e(url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)); ?>"><i class="fa fa-eye" style="color: blue;" aria-hidden="true">see_record</i></a></span></td>
 		                </tr>
-		                @endforeach	
+		                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
 		                </tbody>
 		              </table>
 		            </div>
@@ -213,13 +212,13 @@ Personnel View
 		                </tr>
 		                </thead>
 		                <tbody>
-		                @foreach($employee_record as $key => $record)
+		                <?php $__currentLoopData = $employee_record; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
-		                	<td>{{$key+1}}</td>
-		                	<td><a href="{{URL::asset($record->attachment_url)}}">{{$record->attachment_name}}</a></td>
-		                	<td>{{ date('j M Y',strtotime($record->created_at))}}</td>
+		                	<td><?php echo e($key+1); ?></td>
+		                	<td><a href="<?php echo e(URL::asset($record->attachment_url)); ?>"><?php echo e($record->attachment_name); ?></a></td>
+		                	<td><?php echo e(date('j M Y',strtotime($record->created_at))); ?></td>
 		                </tr>	
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 		                </tbody>
 		              </table>
 		            </div>
@@ -243,16 +242,17 @@ Personnel View
 <div class="modal fade" id="add_score" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form action="{{url('admin/personnel/add_score')}}" method="post" enctype="multipart/form-data">
+      <form action="<?php echo e(url('admin/personnel/add_score')); ?>" method="post" enctype="multipart/form-data">
 
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add <strong>{{$profile['personal_data']->name}}</strong> Score</h4>
+        <h4 class="modal-title" id="myModalLabel">Add <strong><?php echo e($profile['personal_data']->name); ?></strong> Score</h4>
       </div>
       <div class="modal-body">
-      {{csrf_field()}}
-          <input type="hidden" name="id_user" value="{{$profile['personal_data']->id}}">
+      <?php echo e(csrf_field()); ?>
+
+          <input type="hidden" name="id_user" value="<?php echo e($profile['personal_data']->id); ?>">
           <!-- Name -->
           <div class="form-group col-md-12">
             <label>Attachment Name:</label>
@@ -276,9 +276,9 @@ Personnel View
 </div>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script>
   $(function () {
     $("#record").DataTable();
@@ -286,4 +286,5 @@ Personnel View
   });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

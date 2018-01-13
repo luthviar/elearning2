@@ -283,7 +283,7 @@ class TrainingController extends Controller
     // ----------------------------------
 
     public function schedule (){
-        return view('admin.training_jadwal');
+        return view('admin.training.training_jadwal');
     }
 
     public function schedule_serverside(Request $request){
@@ -386,7 +386,11 @@ class TrainingController extends Controller
         }
         $access->status = 1;
         $access->save();
-        return redirect('admin_access_training');
+
+        $user = User::find($id_user_training_access);
+        Session::flash('success', 'Anda berhasil melakukan "GIVE ACCESS" pada karyawan yang bernama: '.$user->name);
+
+        return redirect(action('TrainingController@admin_access_training'));
     }
 
     public function cancel_access ( $id_user_training_access ){
@@ -396,7 +400,11 @@ class TrainingController extends Controller
         }
         $access->status = 0;
         $access->save();
-        return redirect('admin_access_training');   
+
+        $user = User::find($id_user_training_access);
+        Session::flash('success', 'Anda berhasil melakukan "CANCEL ACCESS" pada karyawan yang bernama: '.$user->name);
+
+        return redirect(action('TrainingController@admin_access_training'));
     }
 
     public function add_training (){
@@ -932,7 +940,7 @@ class TrainingController extends Controller
     }
 
     public function admin_access_training(){
-        return view('admin.access_training');
+        return view('admin.request.access_training');
     }
 
     public function admin_access_training_serverside(Request $request){
@@ -987,12 +995,13 @@ class TrainingController extends Controller
                     $nestedData['status'] = "requested";
                 }
                 if ($access->status == 0) {
-                    $nestedData['action'] = "<a href='".url('give_access',$access->id)."' class='btn btn-success'>give access</a>";
+                    $nestedData['action'] = "<a href='".url(action('TrainingController@give_access',$access->id)).
+                        "' class='btn btn-success'>give access</a>";
                 } else {
-                    $nestedData['action'] = "<a href='".url('cancel_access',$access->id)."' class='btn btn-danger'>cancel access</a>";
+                    $nestedData['action'] = "<a href='".url(action('TrainingController@cancel_access',$access->id)).
+                        "' class='btn btn-danger'>cancel access</a>";
                 }
-                
-                
+
                 
                 $data[] = $nestedData;
 

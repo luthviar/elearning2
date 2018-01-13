@@ -12,6 +12,7 @@ use App\ModulTraining;
 use App\User;
 use DB;
 use Carbon\Carbon;
+use Session;
 
 class NewsController extends Controller
 {
@@ -239,7 +240,7 @@ class NewsController extends Controller
                 }
                 $nestedData['created_by'] = $user->name;
                 $nestedData['snippet'] = substr(strip_tags($det_news->content),0,50)."...";
-                $nestedData['created_at'] = date('j M Y',strtotime($det_news->created_at));
+                $nestedData['created_at'] = date('Y-M-d H:i:s',strtotime($det_news->created_at));
                 if ($det_news->is_publish == 1) {
                     $nestedData['is_publish'] = "published";
                 } else {
@@ -309,6 +310,9 @@ class NewsController extends Controller
                 $attachment->save();
             }
         }
+        Session::flash('success',
+            'Anda berhasil menambahkan NEWS baru, silahkan PUBLISH news tersebut agar tampil pada halaman utama. PUBLISH dapat dilakukan pada tombol berikut: ');
+        Session::flash('success-news', $id);
 
         return redirect(action('NewsController@news_list'));
     }
@@ -359,12 +363,16 @@ class NewsController extends Controller
             }
         }
 
+        Session::flash('success', 'News telah berubah. Anda berhasil melakukan "UPDATE" pada news ini');
+
         return redirect(action('NewsController@admin_news_view',$request->id_news));
         
     } 
 
     public function news_remove ($id_news){
         $news = News::find($id_news);
+        Session::flash('success', 'Anda berhasil MENGHAPUS news: '. $news->title);
+
         if ($news == null) {
             return 'error: news not found';
         }
@@ -380,6 +388,8 @@ class NewsController extends Controller
         }
         $news->is_publish = 1;
         $news->save();
+
+        Session::flash('success', 'Anda berhasil melakukan "PUBLISH" pada news ini, news akan tampil di halaman utama web.');
 
         return redirect(action('NewsController@admin_news_view',$id_news));
     }
@@ -397,6 +407,7 @@ class NewsController extends Controller
         $news->is_publish = 0;
         $news->save();
 
+        Session::flash('success', 'Anda berhasil melakukan "UN-PUBLISH" pada news ini, sehingga news tidak tampil di halaman utama web.');
         return redirect(action('NewsController@admin_news_view',$id_news));
     }
 }
