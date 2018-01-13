@@ -138,10 +138,12 @@
                     </div>
                     <!-- /.box-body -->
                       <div class="row text-center">
-                          <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
-                             class="btn btn-block btn-success">
-                              Save This Chapter
-                          </a>
+                          <div class="col-lg-12">
+                              <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
+                                 class="btn btn-block btn-success">
+                                  Save This Chapter
+                              </a>
+                          </div>
                       </div>
                   </div>
 
@@ -222,10 +224,12 @@
                     </div>
                     <!-- /.box-body -->
                         <div class="row text-center">
-                            <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
-                               class="btn btn-block btn-success">
-                                Save This Chapter
-                            </a>
+                            <div class="col-lg-12">
+                                <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
+                                   class="btn btn-block btn-success">
+                                    Save This Chapter
+                                </a>
+                            </div>
                         </div>
                   </div>
                       <?php endif; ?>
