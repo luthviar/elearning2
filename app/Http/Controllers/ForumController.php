@@ -36,7 +36,7 @@ class ForumController extends Controller
         $id_user = Auth::user()->id;
         $user = User::where('id',$id_user)->first();
 
-        $struktur = OrganizationalStructure::find($user->id_organizational_structure);
+        $struktur = OrganizationalStructure::where('id_user',$user->id)->first();
         $unit = null;
         $department = null;
         $job_family = null;

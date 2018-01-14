@@ -5,8 +5,8 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
     <link rel="icon" href="<?php echo e(URL::asset('Elegantic/images/ALS.png')); ?>" type="image/jpg" sizes="16x16">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo e(URL::asset('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::asset('css/font-awesome.min.css')); ?>">
     <style>
         hr.style14 {
             border: 0;
@@ -23,7 +23,8 @@
 <div class="container">
     <div class="card">
         <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="text-align:center;">
-            <img class="card-img-top" style="margin-top:50px;" src="<?php echo e(url('/Elegantic/images/ALS.jpg')); ?>" alt="Card image cap" width="60%"></div>
+            <a href="<?php echo e(url(action('HomeController@index'))); ?>"><img class="card-img-top" style="margin-top:50px;" src="<?php echo e(url('/Elegantic/images/ALS.jpg')); ?>" alt="Card image cap" width="60%"></a>
+        </div>
         <div id="loginbox"  class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <br>
             <hr class="style14">
@@ -49,11 +50,12 @@
                         <div style="margin-bottom: 25px" class="input-group<?php echo e($errors->has('username') ? ' has-error' : ''); ?>">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="username" type="text" class="form-control"
-                                   name="username" value="<?php echo e(old('username')); ?>" placeholder="username" required autofocus>
+                                   name="username" value="<?php echo e(old('username')); ?>"
+                                   placeholder="Username" required autofocus>
                             <?php if($errors->has('username')): ?>
                                 <span class="help-block">
-												<strong><?php echo e($errors->first('username')); ?></strong>
-											</span>
+                                    <strong><?php echo e($errors->first('username')); ?></strong>
+                                </span>
                             <?php endif; ?>
                         </div>
 

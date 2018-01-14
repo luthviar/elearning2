@@ -80,7 +80,7 @@
 
                                 </div>
 
-                                @if($forum_job_family != null)
+                                @if($job_family != null)
                                     <div class="tab-pane" id="jobfamily">
                                         <h1>Forum {{$job_family->job_family_name}}</h1>
                                         <p>Forum ini ditujukan untuk karyawan {{$job_family->name}} PT Aerofood Indonesia.</p>
@@ -137,7 +137,7 @@
                                 @endif
 
 
-                                @if($forum_unit != null)
+                                @if($unit != null)
                                     <div class="tab-pane" id="dept">
                                         <h1>Forum Unit {{$unit->unit_name}}</h1>
                                         <p>
