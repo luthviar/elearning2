@@ -8,7 +8,7 @@
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">News</h3>
+              <h3 class="box-title">List of News</h3>
                 <?php if(Session::get('success') != null): ?>
                     <hr/>
                     <div class="alert alert-success alert-dismissible">
