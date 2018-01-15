@@ -1,10 +1,8 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+    Forum Department
+<?php $__env->stopSection(); ?>
 
-@section('page-name')
-    Forum Job Family
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Main content -->
     <section class="content">
       <div class="box">
@@ -19,7 +17,7 @@
                   <th>Title</th>
                   <th>Created By</th>
                   <th>Snippet</th>
-                  <th>Job Family Name</th>
+                  <th>Unit Name</th>
                   <th>Created At</th>
                   <th>Delete</th>
                 </tr>
@@ -33,9 +31,9 @@
     </section>
     <!-- /.content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -43,16 +41,16 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url(action('ForumController@forum_job_family_list_serverside')) }}",
+                     "url": "<?php echo e(url(action('ForumController@forum_unit_list_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
+                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "title" },
                 { "data": "created_by" },
                 { "data": "snippet" },
-                { "data": "job_family" },
+                { "data": "unit" },
                 { "data": "created_at" },
                 { "data": "delete" }
             ]  
@@ -62,4 +60,5 @@
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

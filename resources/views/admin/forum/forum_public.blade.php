@@ -21,6 +21,7 @@ Forum Public
                   <th>Created By</th>
                   <th>Snippet</th>
                   <th>Created At</th>
+                  <th>Delete</th>
                 </tr>
                 </thead>
                 
@@ -52,6 +53,7 @@ Forum Public
                 { "data": "created_by" },
                 { "data": "snippet" },
                 { "data": "created_at" },
+                { "data": "delete" },
             ]  
 
         });

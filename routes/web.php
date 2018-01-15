@@ -290,6 +290,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('view-{id_forum}','ForumController@forum_admin_view');
 
+        Route::get('delete/{id_forum}','ForumController@forum_remove');
+
     });
 
     // -------------------------------------

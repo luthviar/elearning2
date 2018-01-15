@@ -19,6 +19,7 @@
                   <th>Snippet</th>
                   <th>Job Family Name</th>
                   <th>Created At</th>
+                  <th>Delete</th>
                 </tr>
                 </thead>
                 
@@ -51,6 +52,7 @@
                 { "data": "snippet" },
                 { "data": "job_family" },
                 { "data": "created_at" },
+                { "data": "delete" }
             ]  
 
         });
