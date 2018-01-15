@@ -111,6 +111,8 @@ Route::get('/activate_slider/{id}','SliderController@activate_slider');
 
 Route::get('/nonactivate_slider/{id}','SliderController@nonactivate_slider');
 
+Route::get('slider/view-{id}','SliderController@view_slider_user');
+
 
 
 

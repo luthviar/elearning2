@@ -71,18 +71,18 @@
 </script>
 
 <!-- loading preloader -->
-
-    
-        
-            
-            
-            
-            
-            
-        
-        
-    
-
+<div id="loading">
+    <div id="loading-container" class="fullwidth">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p id='loading-text'>Loading...</p>
+    </div>
+</div>
 <script>
 
     $(window).load(function(){
