@@ -255,7 +255,7 @@
                             @foreach($question['option'] as $option)
                             @if($option->is_true == 1)
                             <li><input type="radio" name="{{$option->id}}" checked>
-                                {{$option->option_text}}
+                                {!! $option->option_text !!}
                                 <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
                             @else
                             <li><input type="radio" name="{{$option->id}}" >

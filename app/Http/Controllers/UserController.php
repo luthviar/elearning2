@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\User;
 use App\ModulTraining;
@@ -12,6 +13,7 @@ use App\LevelPosition;
 use App\EmployeeStatus;
 use App\OsDivision;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 use Session;
 use App\RequestPassword;
 use App\Auth;
@@ -24,22 +26,55 @@ use App\Test;
 use App\UserTestRecord;
 use App\OsSection;
 use Mail;
+use URL;
 
 class UserController extends Controller
 {
     // MIDDLEWARE
     public function __construct()
     {
-        $this->middleware('auth', ['except' => [
-             'forgot_password', 'forgot_password_submit', 'send_password'
-        ]]);
-        $this->middleware('isAdmin', ['except' => [
-             'forgot_password', 'forgot_password_submit', 'get_profile',
-            'change_password', 'change_photo','send_password'
-        ]]);
+//        $this->middleware('auth', ['except' => [
+//             'forgot_password', 'forgot_password_submit', 'send_password', 'cobapdf', 'storepdf'
+//        ]]);
+//        $this->middleware('isAdmin', ['except' => [
+//             'forgot_password', 'forgot_password_submit', 'get_profile',
+//            'change_password', 'change_photo','send_password', 'cobapdf', 'storepdf'
+//        ]]);
         
     }
-    
+
+    public function cobapdf(){
+        return view('cobapdf');
+    }
+
+    public function storepdf(Request $request){
+//        dd('masuk');
+//        $file = $request->encoded;
+        $file = $request->file('score');
+        $filename1 = $request->file('files');
+        $filename2 = $filename1->getClientOriginalName();
+        $filename = $filename1->getClientOriginalName().'.txt';
+//        File::put('file_encoded')
+//        $thefile = file_put_contents($filename,$request->encoded);
+//        Storage::
+        $thefile = Storage::disk('public')->put($filename, $request->encoded);
+        $theurl = Storage::disk('local')->url($filename);
+
+//        "http://localhost/code_rohmat/public/viewer-pdf/viewer.html?file=WORKSHEET%205_3.pdf"
+//        $to_file =
+//        URL::asset
+        $accessURL = URL::asset('viewer-pdf/viewer.html?file='.$filename2);
+        dd($accessURL);
+
+//        $destinationPath = 'file_encoded';
+//        $movea = $thefile->move($destinationPath,$thefile->getClientOriginalName());
+//        $url = "file_encoded/file={$file->getClientOriginalName()}";
+//        dd($url);
+//        $url =
+        return redirect($accessURL);
+//        return view('cobapdf')->with('url',$url);
+    }
+
     public function get_profile () {
 
     	//get modul training
@@ -524,25 +559,42 @@ class UserController extends Controller
     }
 
     public function add_score (Request $request) {
-        $file = $request->file('score');
-        $url = null;
-        if (!empty($file)) {
-            $destinationPath = 'file_attachments';
-            $movea = $file->move($destinationPath,$file->getClientOriginalName());
-            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
-        }
-        if ($url == null) {
-            return 'error: file not found';
-        }
+//        dd(empty($request->attachment_name));
+//        $file = $request->file('score');
+//        $url = null;
+//        if (!empty($file)) {
+//            $destinationPath = 'file_attachments';
+//            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+//            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+//        }
+//        if ($url == null) {
+//            return 'error: file not found';
+//        }
+
         $user = User::find($request->id_user);
         if ($user == null) {
-            return 'error: user not found';
+            return 'error: user not found in database';
         }
+
+        if(empty($request->attachment_name) || empty($request->encoded_file_score) || empty($request->file('score'))) {
+            Session::flash('failed', 'Semua field input pada ADD SCORE wajib diisi.');
+            return redirect(action('UserController@profile_view',$user->id));
+        }
+
+        $file = $request->file('score');
+        $filename_ori = $file->getClientOriginalName();
+        $filename_save = $file->getClientOriginalName().'.txt';
+
+        Storage::disk('public')->put($filename_save, $request->encoded_file_score);
+
+        $saveURL = 'viewer-pdf/viewer.html?file='.$filename_ori;
+
         $score = new EmployeeScore;
         $score->id_user = $request->id_user;
         $score->attachment_name = $request->attachment_name;
-        $score->attachment_url  = $url;
+        $score->attachment_url  = $saveURL;
         $score->save();
+
 
         return redirect(action('UserController@profile_view',$user->id));
     }

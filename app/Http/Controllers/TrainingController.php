@@ -560,6 +560,9 @@ class TrainingController extends Controller
             $test = new Test();
             $chapter['test'] = $test->get_manage_test($id_chapter);
         }
+
+        Session::put('id_chapter',$id_chapter);
+
         return view('admin.training.training_manage_chapter')->with('chapter',$chapter);
     }
 
@@ -986,9 +989,11 @@ class TrainingController extends Controller
             foreach ($accesses as $access)
             {
                 $user = User::find($access->id_user);
-                $nestedData['name'] = "<a href='".url('/admin/personnel/view-'.$user->id)."'>".$user->name."</a>";
+                $nestedData['name'] = "<a target='_blank' href='".url(action('UserController@profile_view',$user->id))."'>"
+                    .$user->name."</a>";
                 $modul = ModulTraining::find($access->id_module);
-                $nestedData['training'] = "<a href='".url('/manage_training/'.$modul->id)."'>".$modul->modul_name."</a>";
+                $nestedData['training'] = "<a target='_blank' href='".url(action('TrainingController@manage_training',$modul->id))."'>"
+                    .$modul->modul_name."</a>";
                 if ($access->status == 1) {
                     $nestedData['status'] = "accepted";
                 } else {

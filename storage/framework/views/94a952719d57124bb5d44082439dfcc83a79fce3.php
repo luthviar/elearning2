@@ -34,6 +34,20 @@
                 </div>
             </div>
         <?php endif; ?>
+
+            <?php if(Session::get('failed') != null): ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr/>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                            <?php echo e(Session::get('failed')); ?>
+
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
       <div class="row">
         <div class="col-md-4">
 
@@ -192,7 +206,7 @@
 		                  <th>No</th>
 		                  <th>Training</th>
 		                  <th>Status</th>
-		                  <th>See Record</th>
+		                  <th>See Records</th>
 		                </tr>
 		                </thead>
 		                <tbody>
@@ -201,7 +215,14 @@
 		                	<td><?php echo e($key+1); ?></td>
 		                	<td><?php echo e($record['module']->modul_name); ?></td>
 		                	<td><?php echo e($record['status']); ?></td>
-		                	<td><span><a href="<?php echo e(url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)); ?>"><i class="fa fa-eye" style="color: blue;" aria-hidden="true">see_record</i></a></span></td>
+		                	<td>
+                                <span>
+                                    <a href="<?php echo e(url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)); ?>">
+                                        <i class="fa fa-eye" style="color: blue;" aria-hidden="true"></i>
+                                        see record
+                                    </a>
+                                </span>
+                            </td>
 		                </tr>
 		                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
 		                </tbody>
@@ -215,7 +236,7 @@
               <div class="tab-pane" id="timeline">
                 <div class="box">
 		            <div class="box-header">
-		              <h3 class="box-title">Employee Score</h3> <span class="pull-right"><a href="#" data-toggle="modal" data-target="#add_score"><i style="color:green;" class="fa fa-plus" aria-hidden="true">add_score</i></a></span>
+		              <h3 class="box-title">Employee Score</h3> <span class="pull-right"><a href="#" data-toggle="modal" data-target="#add_score"><i style="color:green;" class="fa fa-plus" aria-hidden="true"></i>Add Score</a></span>
 		            </div>
 		            <!-- /.box-header -->
 		            <div class="box-body">
@@ -231,7 +252,16 @@
 		                <?php $__currentLoopData = $employee_record; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 		                <tr>
 		                	<td><?php echo e($key+1); ?></td>
-		                	<td><a href="<?php echo e(URL::asset($record->attachment_url)); ?>"><?php echo e($record->attachment_name); ?></a></td>
+		                	<td>
+                                <a
+                                    onclick="window.open('<?php echo e(URL::asset($record->attachment_url)); ?>',width='+screen.availWidth+',
+                                            height='+screen.availHeight')"
+                                    style="cursor:pointer;"
+                                >
+                                    <?php echo e($record->attachment_name); ?>
+
+                                </a>
+                            </td>
 		                	<td><?php echo e(date('j M Y',strtotime($record->created_at))); ?></td>
 		                </tr>	
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -258,7 +288,7 @@
 <div class="modal fade" id="add_score" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form action="<?php echo e(url('admin/personnel/add_score')); ?>" method="post" enctype="multipart/form-data">
+      <form action="<?php echo e(url(action('UserController@add_score'))); ?>" method="post" enctype="multipart/form-data">
 
 
       <div class="modal-header">
@@ -279,7 +309,9 @@
           <!-- Score -->
           <div class="form-group">
               <label for="exampleInputFile">Score File</label>
-              <input type="file" name="score" accept=".pdf">
+              
+              <input type="file" name="score" id="my_file_score" value="" accept=".pdf">
+              <textarea type="text" id="base64" name="encoded_file_score" cols="50" hidden></textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -300,6 +332,21 @@
     $("#record").DataTable();
     $('#score').DataTable();
   });
+</script>
+
+<script>
+    document.getElementById('my_file_score').addEventListener('change', function(event){
+
+        var input = document.getElementById("my_file_score");
+
+        var fReader = new FileReader();
+        fReader.readAsDataURL(input.files[0]);
+        fReader.onloadend = function(event){
+            document.getElementById("base64").innerHTML = event.target.result;
+            console.log(event.target.result);
+
+        }
+    });
 </script>
 
 <?php $__env->stopSection(); ?>
