@@ -1,7 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('page-name')
-    View Personnel
+    View All Personnels
+    <small>List of All Employees in PT Aerofood Indonesia.</small>
 @endsection
 
 @section('content')

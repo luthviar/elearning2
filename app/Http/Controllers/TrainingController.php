@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\ModulTraining;
 use App\Auth;
 use App\UserChapterRecord;
@@ -817,22 +818,45 @@ class TrainingController extends Controller
 
     public function material_add (Request $request){
         $material = Material::find($request->id_material);
+
         if ($material == null) {
             return "error : material not found";
         }
-        $file = $request->file('file');
-        $url = null;
-        if (!empty($file)) {
-            $destinationPath = 'file_attachments';
-            $movea = $file->move($destinationPath,$file->getClientOriginalName());
-            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+
+        if(empty($request->attachment_name) ||
+            empty($request->encoded_file) ||
+            empty($request->file('file'))
+        ) {
+            Session::flash('failed', 'Semua field input pada Form Upload File Material wajib diisi.');
+            return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
         }
+
+        // file pdf process
+        $file = $request->file('file');
+        $filename_ori = $file->getClientOriginalName();
+        $filename_save = $file->getClientOriginalName().'.txt';
+
+        Storage::disk('public')->put($filename_save, $request->encoded_file);
+
+        $saveURL = 'viewer-pdf/viewer.html?file='.$filename_ori;
+        // end of file pdf process
+
+        // old pdf process
+        //$url = null;
+        //if (!empty($file)) {
+        //    $destinationPath = 'file_attachments';
+        //    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+        //    $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+        //}
+        // end of old pdf process
 
         $attachment = new FilesMaterial;
         $attachment->id_material = $request->id_material;
         $attachment->name = $request->attachment_name;
-        $attachment->url = $url;
+        $attachment->url = $saveURL;
         $attachment->save();
+
+        Session::flash('success', 'File Material berhasil ditambahkan');
 
         return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
     }

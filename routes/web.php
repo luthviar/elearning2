@@ -195,7 +195,7 @@ Route::prefix('admin')->group(function () {
 
 	    Route::post('/personnel/add_score','UserController@add_score');
 
-	    Route::get('{id_personnel}/training/{id_training}','UserController@see_record');
+	    Route::get('record-{id_personnel}-training-{id_training}','UserController@see_record');
 
         Route::get('view-{id}', 'UserController@profile_view');
 
@@ -358,7 +358,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('training-unpublish-{id}', 'TrainingController@unpublish_training');
 
-        Route::get('participant/{id_training}','TrainingController@add_participant');
+        Route::get('participant-{id_training}','TrainingController@add_participant');
 
         Route::post('add_participant','TrainingController@add_participant_submit');
 

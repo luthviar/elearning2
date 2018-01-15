@@ -35,19 +35,19 @@
             </div>
         <?php endif; ?>
 
-            <?php if(Session::get('failed') != null): ?>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <hr/>
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h4><i class="icon fa fa-check"></i> Gagal!</h4>
-                            <?php echo e(Session::get('failed')); ?>
+        <?php if(Session::get('failed') != null): ?>
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr/>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                        <?php echo e(Session::get('failed')); ?>
 
-                        </div>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
+        <?php endif; ?>
       <div class="row">
         <div class="col-md-4">
 
@@ -217,7 +217,10 @@
 		                	<td><?php echo e($record['status']); ?></td>
 		                	<td>
                                 <span>
-                                    <a href="<?php echo e(url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)); ?>">
+                                    <a href="<?php echo e(url(action('UserController@see_record',[$profile['personal_data']->id,$record['module']->id]))); ?>
+
+
+                                            ">
                                         <i class="fa fa-eye" style="color: blue;" aria-hidden="true"></i>
                                         see record
                                     </a>

@@ -87,14 +87,14 @@ class UserController extends Controller
     	$training_record = new UserChapterRecord();
     	$training_record = $training_record->get_user_training_record(\Auth::user()->id);
 
-        $score = EmployeeScore::where('id_user',\Auth::user()->id)->orderBy('id','desc')->first();
+        $scores = EmployeeScore::where('id_user',\Auth::user()->id)->orderBy('id','desc')->limit(10)->get();
 
-        if ($score == null){
-            $score;
+        if ($scores == null){
+            $scores;
         }
 
     	return view('user.profile')->with('profile', $profile)
-            ->with('training_record', $training_record)->with('module', $modul)->with('score',$score);
+            ->with('training_record', $training_record)->with('module', $modul)->with('scores',$scores);
     }
 
     public function change_password ( Request $request) {
@@ -581,6 +581,7 @@ class UserController extends Controller
             return redirect(action('UserController@profile_view',$user->id));
         }
 
+        // file pdf process
         $file = $request->file('score');
         $filename_ori = $file->getClientOriginalName();
         $filename_save = $file->getClientOriginalName().'.txt';
@@ -588,6 +589,7 @@ class UserController extends Controller
         Storage::disk('public')->put($filename_save, $request->encoded_file_score);
 
         $saveURL = 'viewer-pdf/viewer.html?file='.$filename_ori;
+        // end of file pdf process
 
         $score = new EmployeeScore;
         $score->id_user = $request->id_user;

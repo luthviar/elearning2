@@ -1,4 +1,7 @@
 <?php $__env->startSection('page-name'); ?>
+  <a href="<?php echo e(url(action('UserController@profile_view',$user->id))); ?>">
+    <i class="fa fa-arrow-left"></i>
+  </a>
 Personnel View
 <?php $__env->stopSection(); ?>
 

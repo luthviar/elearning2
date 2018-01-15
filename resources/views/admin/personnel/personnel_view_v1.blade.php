@@ -36,18 +36,18 @@
             </div>
         @endif
 
-            @if(Session::get('failed') != null)
-                <div class="row">
-                    <div class="col-lg-12">
-                        <hr/>
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h4><i class="icon fa fa-check"></i> Gagal!</h4>
-                            {{ Session::get('failed') }}
-                        </div>
+        @if(Session::get('failed') != null)
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr/>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                        {{ Session::get('failed') }}
                     </div>
                 </div>
-            @endif
+            </div>
+        @endif
       <div class="row">
         <div class="col-md-4">
 
@@ -217,7 +217,9 @@
 		                	<td>{{ $record['status']}}</td>
 		                	<td>
                                 <span>
-                                    <a href="{{url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)}}">
+                                    <a href="{{ url(action('UserController@see_record',[$profile['personal_data']->id,$record['module']->id])) }}
+{{--{{url('admin/personnel/'.$profile['personal_data']->id.'/training/'.$record['module']->id)}}--}}
+                                            ">
                                         <i class="fa fa-eye" style="color: blue;" aria-hidden="true"></i>
                                         see record
                                     </a>

@@ -1,29 +1,29 @@
 <?php $__env->startSection('page-name'); ?>
-    View All Personnels
-    <small>List of All Employees in PT Aerofood Indonesia.</small>
+All Training
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-
-  <!-- Content Header (Page header) -->
-
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Personnel Data</h3>
+              <h3 class="box-title">
+                  
+              </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Role</th>
-                  <th>Position</th>
-                  <th>Date Join</th>
+                  <th>Modul Name</th>
+                  <th>Parent</th>
+                  <th>Snippet</th>
+                  <th>Date</th>
+                  <th>Time</th>
                   <th>Status</th>
+                  <th>Created At</th>
                 </tr>
                 </thead>
                 
@@ -44,18 +44,21 @@
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
+            "order": [[6, 'dsc']],
             "ajax":{
-                     "url": "<?php echo e(URL::action('UserController@personnel_list_serverside')); ?>",
+                     "url": "<?php echo e(url(action('TrainingController@admin_training_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
                      "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
-                { "data": "name" },
-                { "data": "role" },
-                { "data": "position" },
-                { "data": "date_join" },
-                { "data": "flag_active" }
+                { "data": "modul_name" },
+                { "data": "parent" },
+                { "data": "snippet" },
+                { "data": "date" },
+                { "data": "time" },
+                { "data": "is_publish" },
+                { "data": "created_at" }
             ]  
 
         });

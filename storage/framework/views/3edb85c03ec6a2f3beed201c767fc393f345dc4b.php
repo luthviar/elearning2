@@ -1,15 +1,14 @@
-@extends('user.layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
-      @if($profile['personal_data']->photo != null)
-      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="{{ URL::asset($profile['personal_data']->photo) }}" alt="..." style="height: 100%;" class="img-circle"></a>
-      @else
-      <a style=" height: 58%;" class="btn btn-lg btn-default" data-toggle="modal" data-target="#change_photo"><img src="{{URL::asset('photo/user-default.png') }}" alt="..." style="height: 100%; " class="img-circle"></a>
-      @endif
-      <h3 class="green_color"><strong>{{$profile['personal_data']->name}}</strong></h3>
-      <h4> {{$profile['personal_data']->position_name}} . Aerofood ACS</h4>
+      <?php if($profile['personal_data']->photo != null): ?>
+      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="..." style="height: 100%;" class="img-circle"></a>
+      <?php else: ?>
+      <a style=" height: 58%;" class="btn btn-lg btn-default" data-toggle="modal" data-target="#change_photo"><img src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="..." style="height: 100%; " class="img-circle"></a>
+      <?php endif; ?>
+      <h3 class="green_color"><strong><?php echo e($profile['personal_data']->name); ?></strong></h3>
+      <h4> <?php echo e($profile['personal_data']->position_name); ?> . Aerofood ACS</h4>
     </div>
     <div class="col-xs-12 col-md-12" style="padding-top: 10px;">
 
@@ -30,27 +29,27 @@
               <tbody>
               <tr>
                 <td width="50%">Name</td>
-                <td>{{ $profile['personal_data']->name}}</td>
+                <td><?php echo e($profile['personal_data']->name); ?></td>
               </tr>
               <tr>
                 <td width="50%">Email</td>
-                <td>{{ $profile['personal_data']->email}}</td>
+                <td><?php echo e($profile['personal_data']->email); ?></td>
               </tr>
               <tr>
                 <td>Birtdate</td>
-                <td>{{ $profile['personal_data']->birtdate}}</td>
+                <td><?php echo e($profile['personal_data']->birtdate); ?></td>
               </tr>
               <tr>
                 <td width="50%">Gender</td>
-                @if($profile['personal_data']->gender == 1)
+                <?php if($profile['personal_data']->gender == 1): ?>
                 <td>Male</td>
-                @else
+                <?php else: ?>
                 <td>Female</td>
-                @endif
+                <?php endif; ?>
               </tr>
               <tr>
                 <td width="50%">Education</td>
-                <td>{{ $profile['personal_data']->education}}</td>
+                <td><?php echo e($profile['personal_data']->education); ?></td>
               </tr>
               </tbody>
             </table>
@@ -61,27 +60,27 @@
               <tbody>
               <tr>
                 <td width="50%">Employee Status</td>
-                <td>{{$profile['employee_data']['employee_status']->name}}</td>
+                <td><?php echo e($profile['employee_data']['employee_status']->name); ?></td>
               </tr>
               <tr>
                 <td width="50%">Years of working</td>
-                <td>{{$profile['personal_data']->years_of_working}} years</td>
+                <td><?php echo e($profile['personal_data']->years_of_working); ?> years</td>
               </tr>
               <tr>
                 <td width="50%">Division</td>
-                <td>{{$profile['employee_data']['division']->division_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['division']->division_name) ? $profile['employee_data']['division']->division_name : null); ?></td>
               </tr>
               <tr>
                 <td>Unit</td>
-                <td>{{$profile['employee_data']['unit']->unit_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['unit']->unit_name) ? $profile['employee_data']['unit']->unit_name : null); ?></td>
               </tr>
               <tr>
                 <td width="50%">Department</td>
-                <td>{{$profile['employee_data']['department']->department_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['department']->department_name) ? $profile['employee_data']['department']->department_name : null); ?></td>
               </tr>
               <tr>
                 <td>Section</td>
-                <td>{{$profile['employee_data']['section']->section_name or null}}</td>
+                <td><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></td>
               </tr>
               </tbody>
             </table>
@@ -89,14 +88,15 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="profile">
-          <form action="{{url('/change_password')}}" method="post">
-            {{ csrf_field() }}
+          <form action="<?php echo e(url('/change_password')); ?>" method="post">
+            <?php echo e(csrf_field()); ?>
+
             <div class="col-xs-12 col-md-6 col-md-offset-3">
               <table class="table">
                 <tbody>
                 <tr>
                   <td width="50%">Username</td>
-                  <td>{{ $profile['personal_data']->username }}</td>
+                  <td><?php echo e($profile['personal_data']->username); ?></td>
                 </tr>
 
                 <tr>
@@ -120,11 +120,11 @@
           <div class="col-xs-12 col-md-12 text-center">
             <div class="col-xs-12 col-md-6">
               <h4>Training Included</h4>
-              <h1 style="font-size: 40px">{{ count($training_record['records']) }}</h1>
+              <h1 style="font-size: 40px"><?php echo e(count($training_record['records'])); ?></h1>
             </div>
             <div class="col-xs-12 col-md-6 green_color">
               <h4>Training Finished</h4>
-              <h1 style="font-size: 40px">{{ $training_record['total_finish'] }}</h1>
+              <h1 style="font-size: 40px"><?php echo e($training_record['total_finish']); ?></h1>
             </div>
 
             <div class="col-xs-6 col-md-6 col-lg-offset-3 text-center">
@@ -139,17 +139,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if (count($training_record['records']) == 0)
+                <?php if(count($training_record['records']) == 0): ?>
                   <tr>
                     <th scope="row">no training record</th>
                   </tr>
-                @else @foreach ( $training_record['records'] as $key=>$record)
+                <?php else: ?> <?php $__currentLoopData = $training_record['records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
-                    <th scope="row">{{ ++$key }}</th>
-                    <td><a href="{{ url('/get_training',  $record['module']->id)}}">{{ $record['module']->modul_name}}</a></td>
-                    <td>{{ $record['status']}}</td>
+                    <th scope="row"><?php echo e(++$key); ?></th>
+                    <td><a href="<?php echo e(url('/get_training',  $record['module']->id)); ?>"><?php echo e($record['module']->modul_name); ?></a></td>
+                    <td><?php echo e($record['status']); ?></td>
                   </tr>
-                @endforeach @endif
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?>
 
                 </tbody>
               </table>
@@ -161,27 +161,27 @@
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="row text-center">
             <div class="col-lg-8 col-lg-offset-2">
-              @if(isset($scores))
-                @foreach ( $scores as $score)
-                {{--<iframe id="iframe" src="{{URL::to($score->attachment_url)}}"--}}
-                {{--width='100%' height='600' allowfullscreen webkitallowfullscreen>--}}
+              <?php if(isset($scores)): ?>
+                <?php $__currentLoopData = $scores; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $score): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                
+                
                 <a
                     class="btn btn-block btn-default btn-lg"
-                    onclick="window.open('{{URL::asset($score->attachment_url)}}',width='+screen.availWidth+',
+                    onclick="window.open('<?php echo e(URL::asset($score->attachment_url)); ?>',width='+screen.availWidth+',
                             height='+screen.availHeight')"
                     style="cursor:pointer; text-decoration: none;"
 
                 >
-                  {{$score->attachment_name}} <br/>
-                  <small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>
+                  <?php echo e($score->attachment_name); ?> <br/>
+                  <small><b>published: <?php echo e($score->created_at->diffForHumans()); ?></b></small>
                 </a>
-                @endforeach
-              @else
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              <?php else: ?>
                 no score
-              @endif
+              <?php endif; ?>
             </div>
 
-            {{--</iframe>--}}
+            
           </div>
         </div>
       </div>
@@ -197,20 +197,21 @@
 <div class="modal fade" id="change_photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method="post" action="{{ url('/change_photo') }}" enctype="multipart/form-data">
-      {{csrf_field()}}
-      <input type="hidden" name="id_user" value="{{$profile['personal_data']->id}}">
+      <form method="post" action="<?php echo e(url('/change_photo')); ?>" enctype="multipart/form-data">
+      <?php echo e(csrf_field()); ?>
+
+      <input type="hidden" name="id_user" value="<?php echo e($profile['personal_data']->id); ?>">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Change Photo</h4>
       </div>
       <div class="modal-body text-center">
         <div class="text-center">
-          @if($profile['personal_data']->photo == null)
-          <img id="img_prev" src="{{ URL::asset('photo/user-default.png')}}" style="width: 35%; height: 200px;">
-          @else
-          <img id="img_prev" src="{{ URL::asset($profile['personal_data']->photo)}}" style="width: 35%; height: 200px;">
-          @endif
+          <?php if($profile['personal_data']->photo == null): ?>
+          <img id="img_prev" src="<?php echo e(URL::asset('photo/user-default.png')); ?>" style="width: 35%; height: 200px;">
+          <?php else: ?>
+          <img id="img_prev" src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" style="width: 35%; height: 200px;">
+          <?php endif; ?>
         </div>
         <!-- Image -->
         <div class="form-group">
@@ -227,9 +228,9 @@
   </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
 $(document).ready(function() {
   $('iframe').ready(function() {
@@ -259,4 +260,5 @@ $("#img").change(function() {
   readURL(this);
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
