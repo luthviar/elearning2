@@ -18,13 +18,19 @@
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">Personal Informationa</h3>
+                        <h3 class="box-title">Personal Information</h3>
                     </div>
                     <div class="box-body">
                         <!-- Username -->
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label>Username:
+                                <label>
+                                    Username: (NIP)
+                                    <i class="fa fa-question-circle"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="username merupakan NIP karyawan."
+                                    ></i>
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-addon">@</span>
@@ -47,7 +53,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-address-book"></i>
                                     </span>
-                                <input type="text" class="form-control" name="name" placeholder="name">
+                                <input type="text" class="form-control" name="name" placeholder="Full Name of the Employee">
                             </div>
                         </div>
                         <!-- Email -->
@@ -57,7 +63,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-envelope"></i>
                                         </span>
-                                <input type="email" name="email" class="form-control" placeholder="email">
+                                <input type="email" name="email" class="form-control" placeholder="E-mail">
                             </div>
                         </div>
                         <!-- /.form-group -->
@@ -70,7 +76,7 @@
                         </div>
                         <!-- Date -->
                         <div class="form-group">
-                            <label>Birtdate:</label>
+                            <label>Birth date:</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
@@ -166,13 +172,15 @@
                             </div>
                             <!-- /.form-group -->
                             <!-- /.form-group -->
-                            <div class="col-lg-12">
+                            
+                            <div class="form-group col-md-12">
                                 <hr/>
                                 <h5 style="color: orangered;" class="text-center">
                                     Pilih Divisi, Unit dan Department dari Database.
                                     Jika tidak ada, maka Anda dapat menginput sendiri pada input text.
                                 </h5>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label>Division : </label>
                                 <select class="form-control select3" name="division" id="division" style="width: 100%;">
@@ -338,32 +346,6 @@
 
         });
 
-
-    </script>
-    <script>
-
-        //        $(function () {
-        //            //Initialize Select2 Elements
-        //            $(".select3").select3({
-        //                tags: true,
-        //                createTag: function (params) {
-        //                    return {
-        //                        id: params.term,
-        //                        text: params.term
-        //                    }
-        //                },
-        //                templateResult: function (data) {
-        //                    var $result = $("<span></span>");
-//
-//                    $result.text(data.text);
-//
-//                    if (data.newOption) {
-//                        $result.append("<em>(new)</em>");
-        //                    }
-        //
-        //                    return $result;
-        //                }
-        //            })});
 
     </script>
 

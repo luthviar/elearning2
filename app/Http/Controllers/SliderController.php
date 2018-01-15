@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Slider;
+use Session;
+use Carbon\Carbon;
 
 class SliderController extends Controller
 {
@@ -138,12 +140,25 @@ class SliderController extends Controller
         
 
 
-        $slider = new Slider;
-        $slider->created_by = \Auth::user()->id;
-        $slider->title = $request->title;
-        $slider->second_title = $request->second_title;
-        $slider->url_image = $url;
-        $slider->save();
+//        $slider = new Slider;
+//        $slider->created_by = \Auth::user()->id;
+//        $slider->title = $request->title;
+//        $slider->second_title = $request->second_title;
+//        $slider->url_image = $url;
+//        $slider->save();
+
+        $id_slider = DB::table('sliders')-> insertGetId(array(
+            'created_by' => \Auth::user()->id,
+            'title' => $request->title,
+            'second_title' => $request->second_title,
+            'url_image' => $url,
+            'created_at' => Carbon::now('Asia/Jakarta'),
+        ));
+
+        Session::flash('success',
+            'Anda berhasil menambahkan SLIDER baru, silahkan PUBLISH slider tersebut agar tampil pada halaman utama. 
+            PUBLISH dapat dilakukan pada tombol berikut: ');
+        Session::flash('success-slider', $id_slider);
 
         return redirect(action('SliderController@slider_list'));
     }

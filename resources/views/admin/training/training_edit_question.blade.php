@@ -25,13 +25,13 @@
               <h3 class="box-title">Edit Question</h3>
             </div>
             <div class="box-body">
-                 <form action="{{url('edit_question_submit')}}" method="post">
+                 <form action="{{url(action('TrainingController@edit_question_submit'))}}" method="post">
                    {{csrf_field()}}
                  
                   <input type="hidden" name="question_id" value="{{$question->id}}">
                  <div class="form-group">
                     <label>Question</label>
-                    <textarea class="textarea" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$question->question_text}}</textarea>
+                    <textarea class="textarea" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>
                 </div>
                 
                   <h5><strong>Options</strong></h5>
@@ -39,7 +39,9 @@
                   <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
                     @foreach ($question['option'] as $key => $option)
                     @if($key < 2)
-                    <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]"></div>
+                    <div class="col-md-12" style="padding-bottom: 5px;">
+                        <input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]">
+                    </div>
                     @else
                     <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]"><a href="#" class="remove_field">Remove</a></div>
                     @endif

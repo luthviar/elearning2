@@ -65,7 +65,7 @@
                                        name="url" placeholder="URL of System" required ="true">
                             </div>
 
-                            <!-- ICON -->
+                            <!-- STATUS PROGRES -->
                             <div class="form-group">
                                 <label for="icon">
                                     Icon
@@ -76,7 +76,7 @@
                                     ></i>
                                 </label>
 
-                                <input type="file" name="icon" id="icon"/>
+                                <input type="text" name="status" id="status"/>
 
                             </div>
 
@@ -116,69 +116,6 @@
             </div>
 
         </form>
-        
-            
-                
-
-
-                    
-                        
-                            
-                        
-                        
-                        
-
-
-                        
-                            
-                                
-                                
-                            
-
-
-                            
-                            
-                                
-                                
-                            
-
-                            
-                            
-                                
-                                
-                            
-
-
-                        
-                        
-                    
-                    
-                
-                
-
-
-                    
-                        
-                            
-                        
-
-                        
-                            
-                                
-                            
-                            
-                            
-
-                        
-                    
-                    
-
-                
-            
-            
-                
-            
-        
 
 
     </section>

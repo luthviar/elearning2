@@ -12,6 +12,24 @@
       <div class="box">
             <div class="box-header">
                 {{-- fill something here --}}
+                @if(Session::get('success') != null)
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+
+                        {{ Session::get('success') }}
+                        @if(Session::get('success-slider') != null)
+                            <a href="{{ url(action('SliderController@view_slider',Session::get('success-slider'))) }}"
+                               class="btn btn-default btn-sm"
+                               style="color: black; text-decoration: none;"
+                            >
+                                View The Slider
+                            </a>
+                        @endif
+
+                    </div>
+                @endif
             </div>
             <!-- /.box-header -->
             <div class="box-body">
