@@ -13,6 +13,14 @@
       <div class="col-md-12">
       <div class="box box-primary text-center">
             <div class="box-header">
+              <?php if(Session::get('success') != null): ?>
+                <hr/>
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                  <p><?php echo e(Session::get('success')); ?></p>
+                </div>
+              <?php endif; ?>
               <h1 class="box-title">
                Training name:
                 <strong><?php echo e($training->modul_name); ?></strong>
@@ -22,9 +30,46 @@
                   <a href="<?php echo e(url(action('TrainingController@publish_training',$training->id))); ?>"
                      class="btn btn-success">PUBLISH TRAINING</a>
                 <?php else: ?>
-                  <a href="<?php echo e(url(action('TrainingController@unpublish_training',$training->id))); ?>"
+                  <a
+                     data-toggle="modal" data-target="#myModal"
+                     
                      class="btn btn-danger">UN-PUBLISH TRAINING</a>
+
+
+
                 <?php endif; ?>
+                  <script>
+                        function submit_modal(){
+                            window.open('<?php echo e(url(action('TrainingController@unpublish_training',$training->id))); ?>','_self')
+                            //$('#form_delete').submit();
+                        }
+                    </script>
+                <!-- Modal Delete Chapter -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to UN-PUBLISH this training?</strong></h1>
+                            </div>
+                            <div class="modal-body text-center">
+                              <p>
+                                Un-publish merupakan perintah untuk menghilangkan training dari tampilan user.
+                                Namun, admin masih bisa mengelola training ini dan bisa melakukan publish training kembali jika ingin ditampilkan ke user.
+                              </p>
+                              
+                              
+                              
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                              <button type="button" id="submit_button" onclick="submit_modal()" class="btn btn-danger">Yes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 <a href="<?php echo e(url(action('TrainingController@see_participant',$training->id))); ?>"
                    class="btn btn-info">SEE RESULT</a>
 
@@ -33,7 +78,8 @@
                         <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         EDIT TRAINING
                    </a>
-                   <a href="<?php echo e(url('admin/training/participant',$training->id)); ?>" class="btn btn-success">SEE PARTICIPANT</a>
+                   <a href="<?php echo e(url(action('TrainingController@add_participant',$training->id))); ?>"
+                      class="btn btn-success">SEE PARTICIPANT</a>
 
               </span>
             </div>

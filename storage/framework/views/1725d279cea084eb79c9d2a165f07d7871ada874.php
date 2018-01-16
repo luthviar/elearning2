@@ -10,6 +10,78 @@
     <!-- Main content -->
     <section class="content">
     <div class="row">
+        <?php if(Session::get('training') != null): ?>
+        <div class="col-md-12">
+            <div class="box box-primary text-center">
+                <div class="box-header">
+                    <h1 class="box-title">
+                        Training name:
+                        <strong><?php echo e(Session::get('training')->modul_name); ?></strong>
+                    </h1>
+
+                </div>
+                <div class="box-body">
+
+
+                    <!-- select -->
+                    <div class="form-group col-md-4">
+                        <label>Training Parent</label>
+                        <select class="form-control" disabled="true">
+                            <?php $__currentLoopData = Session::get('parent'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($par->id == Session::get('training')->id_parent): ?>
+                                    <option selected="true" value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
+                                <?php else: ?>
+                                    <option><?php echo e($par->modul_name); ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group col-md-4">
+                        <label>Training Date:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" value="<?php echo e(Session::get('training')->date); ?>" id="datepicker" disabled="true">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <!-- time Picker -->
+                    <div class="bootstrap-timepicker col-md-4">
+                        <div class="form-group">
+                            <label>Training Start:</label>
+
+                            <div class="input-group">
+                                <input type="text" value="<?php echo e(Session::get('training')->time); ?>" class="form-control" disabled="true">
+
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+
+                    <div class="col-md-12">
+                        <h5><strong>Trainer </strong></h5>
+                        <ul style="list-style-type: none;">
+                            <?php $__currentLoopData = Session::get('trainer'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $trains): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($key+1); ?>. <strong><?php echo e($trains->trainer_name); ?></strong> - <?php echo e($trains->trainer_info); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <?php endif; ?>
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
@@ -52,13 +124,44 @@
                         Edit Chapter
                     </a>
 
-                    <a href="<?php echo e(url(action('TrainingController@remove_chapter',$chapter->id))); ?>"
-                       class="btn btn-danger" style="word-spacing: normal;">
+                    <a
+                        data-toggle="modal" data-target="#myModal"
+                        
+                        class="btn btn-danger" style="word-spacing: normal;">
 
                         <i style="" class="fa fa-remove" aria-hidden="true"></i>
 
                         Delete Chapter
                     </a>
+
+                    <script>
+                        function submit_modal(){
+                            window.open('<?php echo e(url(action('TrainingController@remove_chapter',$chapter->id))); ?>','_self')
+                            //$('#form_delete').submit();
+                        }
+                    </script>
+                    <!-- Modal Delete Chapter -->
+                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to delete this chapter ?</strong></h1>
+                            </div>
+                            <div class="modal-body text-center">
+                              
+                              
+                              
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                              <button type="button" id="submit_button" onclick="submit_modal()" class="btn btn-danger">Yes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
                 </span>
             </div>

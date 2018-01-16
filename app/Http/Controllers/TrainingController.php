@@ -467,7 +467,7 @@ class TrainingController extends Controller
         return redirect(action('TrainingController@manage_training', $id));
     }
 
-    public function manage_training ($id_training){
+    public function manage_training($id_training){
         // get parent training
         $parent = ModulTraining::where('is_child',0)->get();
 
@@ -499,6 +499,10 @@ class TrainingController extends Controller
         }
         $training['chapter'] = $chapter;
         $trainer = Trainer::where('id_module',$id_training)->get();
+
+        Session::put('training',$training);
+        Session::put('parent',$parent);
+        Session::put('trainer',$trainer);
 
 //        dd($training['chapter']);
         return view('admin.training.training_manage')->with('training',$training)->with('parent',$parent)->with('trainer',$trainer);
@@ -925,6 +929,8 @@ class TrainingController extends Controller
         $module->is_publish = 1;
         $module->save();
 
+        Session::flash('success', 'Traininig ini berhasil di-PUBLISH. User sudah dapat mengakses training ini.');
+
         return redirect(action('TrainingController@manage_training',$id_module));
     }
 
@@ -935,6 +941,8 @@ class TrainingController extends Controller
         }
         $module->is_publish = 0;
         $module->save();
+
+        Session::flash('success', 'Traininig ini berhasil di UN-PUBLISH. User TIDAK dapat mengakses training ini.');
 
         return redirect(action('TrainingController@manage_training',$id_module));
     }
