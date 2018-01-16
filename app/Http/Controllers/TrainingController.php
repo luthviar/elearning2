@@ -9,11 +9,11 @@ use App\Auth;
 use App\UserChapterRecord;
 use App\User;
 use App\Material;
+use App\FilesMaterial;
 use App\Trainer;
 use App\Chapter;
 use App\UserTrainingAccess;
 use App\Test;
-use App\FilesMaterial;
 use App\UserTestRecord;
 use App\OrganizationalStructure;
 use App\OsDepartment;
@@ -925,6 +925,38 @@ class TrainingController extends Controller
         $module = ModulTraining::find($id_module);
         if ($module == null) {
             return "error: module not found";
+        }
+        $chapters = Chapter::where('id_module',$module->id)->get();
+        if(count($chapters) == 0){
+            return "error: training mush have 1 or more chapter";
+        }
+        foreach($chapters as $chapter){
+            if( $chapter->category == 0){
+                $material = Material::where('id_chapter', $chapter->id)->first();
+                if($material == null){
+                    return "error: Material in Chapter".$chapter->chapter_name." not found";
+                }
+                $material_attachments = FilesMaterial::where('id_material',$material->id)->get();
+                if(count($material_attachments)== 0){
+                    return "error: File Material in Chapter ".$chapter->chapter_name." cannot must more than 1";
+                }
+            }else{
+                $test = Test::where('id_chapter', $chapter->id)->first();
+                if($test == null) {
+                    return "error: Test in Chapter ".$chapter->chapter_name." not found";
+                }
+                $questions = Question::where('id_test',$test->id)->get();
+                if(count($questions) == 0){
+                    return "error: Question in chapter ".$chapter->chapter_name." must more than one";
+                }
+                foreach($questions as $question){
+                    $options = QuestionOption::where('id_question',$question->id)->get();
+                    if(count($options) == 0){
+                        return "error: Option in chapter ". $chapter->chapter_name." not found";
+                    }
+                }
+                
+            }
         }
         $module->is_publish = 1;
         $module->save();
