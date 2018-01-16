@@ -151,9 +151,7 @@
                               <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to delete this chapter ?</strong></h1>
                             </div>
                             <div class="modal-body text-center">
-                              
-                              
-                              
+                                <p>The deleted chapter cannot be restored.</p>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
@@ -301,65 +299,113 @@
                         <?php if(count($chapter['test']['questions']) == 0): ?>
                         no question
                         <?php else: ?>
-                        <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key + 1); ?>. <?php echo html_entity_decode($question->question_text); ?> 
-                        <span class="pull-right">
-                          <a href="<?php echo e(url(action('TrainingController@edit_question',$question->id))); ?>">
-                            <i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true"></i>edit
-                          </a>
-                          <a href="<?php echo e(url(action('TrainingController@remove_question',$question->id))); ?>">
-                            <i class="fa fa-times" style="color: red" aria-hidden="true"></i>remove
-                          </a>
-                        </span>
-                          <ul style="list-style-type: none;">
-                            <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($option->is_true == 1): ?>
-                            <li><input type="radio" name="<?php echo e($question->id); ?>" checked>
-                                <?php echo html_entity_decode($option->option_text); ?>
+                            <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><hr/>
+                                <?php echo e($key + 1); ?>. <?php echo html_entity_decode($question->question_text); ?>
 
-                                <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
-                            <?php else: ?>
-                            <li><input type="radio" name="<?php echo e($question->id); ?>" value="option1">
-                               <?php echo html_entity_decode($option->option_text); ?></li>
-                            <?php endif; ?>
+                                <span class="pull-right">
+                                  <a href="<?php echo e(url(action('TrainingController@edit_question',$question->id))); ?>">
+                                    <i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true"></i>edit
+                                  </a>
+                                    <br/>
+                                  <a
+                                      data-toggle="modal" data-target="#myModalRemoveQuestion"
+                                      style="cursor: pointer;"
+                                  >
+                                    <i class="fa fa-times" style="color: red" aria-hidden="true"></i>remove
+                                  </a>
+                                </span>
+                              <ul style="list-style-type: none;">
+                                <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($option->is_true == 1): ?>
+                                <li><input type="radio" name="<?php echo e($question->id); ?>" checked>
+                                    <?php echo html_entity_decode($option->option_text); ?>
+
+                                    <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
+                                <?php else: ?>
+                                <li><input type="radio" name="<?php echo e($question->id); ?>" value="option1">
+                                   <?php echo html_entity_decode($option->option_text); ?></li>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                              </ul>
+                            </li>
+
+                              <script>
+                                  function submit_remove_question(){
+                                      window.open('<?php echo e(url(action('TrainingController@remove_question',$question->id))); ?>','_self')
+                                      //$('#form_delete').submit();
+                                  }
+                              </script>
+                              <!-- Modal Delete Chapter -->
+                              <div class="modal fade" id="myModalRemoveQuestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                  <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                              </button>
+                                              <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to delete this question ?</strong></h1>
+                                          </div>
+                                          <div class="modal-body text-center">
+                                              <p>The deleted question cannot be restored.</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                              <button type="button" id="submit_button" onclick="submit_remove_question()" class="btn btn-danger">Yes</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                          </ul>
-                        </li>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                         <?php endif; ?>
-                      </ul><br>
+
+                      </ul>
+                        <br>
 
                       <!-- FORM ADD QUESTION -->
-                      <h5><strong>Add Question</strong></h5>
-                      <form action="<?php echo e(url(action('TrainingController@add_question_submit'))); ?>" method="post">
-                        <?php echo e(csrf_field()); ?>
+                    <div class="box box-info col-lg-6">
 
-                        <input type="hidden" name="id_chapter" value="<?php echo e($chapter->id); ?>">
-                        <input type="hidden" name="id_test" value="<?php echo e($chapter['test']->id); ?>">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                          <h2><strong>Add Question</strong></h2>
+                          <form action="<?php echo e(url(action('TrainingController@add_question_submit'))); ?>" method="post">
+                            <?php echo e(csrf_field()); ?>
 
-                          <!-- Question -->
-                          <div class="form-group">
-                              <label>Question</label>
-                              <textarea class="textarea" id="summernote"
-                                        name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                          </div>
-                          <!-- Option -->
-                          <h5><strong>Options</strong></h5>
-                          <button class="add_field_button btn btn-default">Add More Fields</button>
+                            <input type="hidden" name="id_chapter" value="<?php echo e($chapter->id); ?>">
+                            <input type="hidden" name="id_test" value="<?php echo e($chapter['test']->id); ?>">
 
-                          <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
-                            <div class="col-md-12" style="padding-bottom: 5px;">
-                                <input type="text" class="form-control" style="width: 80%;" placeholder="input option" name="option[]">
-                            </div>
-                            <div class="col-md-12" style="padding-bottom: 5px;">
-                                <input type="text" class="form-control" style="width: 80%;"  placeholder="input option" name="option[]">
-                            </div>
-                          </div>
+                              <!-- Question -->
+                              <div class="form-group">
+                                  <label>Question Content</label>
+                                  <textarea class="textarea" id="summernote"
+                                            name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                              </div>
+                              <!-- Option -->
+                              <h5>
+                                  <strong>Options</strong>
+                                  <span><button class="add_field_button btn btn-success">+ Add More Option</button></span>
+                              </h5>
 
-                          <div class="col-md-12 text-center">
-                           <input type="submit" name="submit" class="btn btn-default">
-                          </div>
-                      </form>
+                              <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
+                                <div class="col-md-12" style="padding-bottom: 5px;">
+                                    <input type="text" class="form-control" style="width: 80%;" placeholder="input option" name="option[]">
+                                </div>
+                                <div class="col-md-12" style="padding-bottom: 5px;">
+                                    <input type="text" class="form-control" style="width: 80%;"  placeholder="input option" name="option[]">
+                                </div>
+                              </div>
+
+                              <div class="col-md-12 text-center">
+                                
+                                  <button type="submit" name="submit" class="btn btn-info">
+                                      <i class="fa fa-save" aria-hidden="true"></i>
+                                      Submit This Question
+                                  </button>
+                              </div>
+                          </form>
+                        </div>
+                    </div>
                       
 
 
