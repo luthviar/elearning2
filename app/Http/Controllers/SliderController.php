@@ -164,8 +164,8 @@ class SliderController extends Controller
         ));
 
         Session::flash('success',
-            'Anda berhasil menambahkan SLIDER baru, silahkan PUBLISH slider tersebut agar tampil pada halaman utama. 
-            PUBLISH dapat dilakukan pada tombol berikut: ');
+            'Anda berhasil menambahkan SLIDER baru, silahkan ACTIVATE slider tersebut agar tampil pada halaman utama. 
+            ACTIVATE dapat dilakukan pada tombol berikut: ');
         Session::flash('success-slider', $id_slider);
 
         return redirect(action('SliderController@slider_list'));
@@ -223,6 +223,10 @@ class SliderController extends Controller
         }
         $slider->flag_active = 1;
         $slider->save();
+
+        Session::flash('success',
+            'Slider ini berhasil diaktifkan. Slider ini akan tampil di halaman utama user.');
+
         return redirect(action('SliderController@view_slider',$id_slider));
     }
 
@@ -237,6 +241,10 @@ class SliderController extends Controller
         }
         $slider->flag_active = 0;
         $slider->save();
+
+        Session::flash('success',
+            'Slider ini berhasil NON-AKTIF. Slider ini sudah tidak tampil di halaman utama user.');
+
         return redirect(action('SliderController@view_slider',$id_slider));
 
     }
