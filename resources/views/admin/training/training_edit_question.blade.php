@@ -1,20 +1,13 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    <a href="{{ url(action('TrainingController@manage_chapter',Session::get('id_chapter'))) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Manage Chapter Training
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Manage Chapter Training
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{url('/personnel')}}">Training</a></li>
-        <li class="active">Manage Chapter Training</li>
-      </ol>
-    </section>
-
-
 
     <!-- Main content -->
     <section class="content">
@@ -31,7 +24,9 @@
                   <input type="hidden" name="question_id" value="{{$question->id}}">
                  <div class="form-group">
                     <label>Question</label>
-                    <textarea class="textarea" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>
+                     <textarea class="textarea" id="summernote"
+                               name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>
+                    {{--<textarea class="textarea" id="summernote" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>--}}
                 </div>
                 
                   <h5><strong>Options</strong></h5>
@@ -140,5 +135,5 @@ $(document).ready(function(){
 });
 </script>
 
-
+@include('admin.layouts.summernote')
 @endsection

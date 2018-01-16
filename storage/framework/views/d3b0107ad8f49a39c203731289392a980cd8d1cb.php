@@ -9,15 +9,24 @@
       <h4>Attachments :</h4>
       <?php $__currentLoopData = $chapter['material']['files_material']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div style="padding-bottom: 10px;">
-        <a
+        
             
            
                    
-            onclick="openPDF()"
-           class="btn btn-default" style="width: 100%;">
-          <?php echo e($file->name); ?>
+            
+           
+          
+        
+          <a
+              class="btn btn-default btn-block btn-lg"
+              onclick="window.open('<?php echo e(URL::asset($file->url)); ?>',width='+screen.availWidth+',
+                      height='+screen.availHeight')"
+              style="cursor:pointer; text-decoration: none;"
 
-        </a>
+          >
+              <?php echo e($file->name); ?> <br/>
+              
+          </a>
       </div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

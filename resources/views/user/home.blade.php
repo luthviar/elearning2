@@ -24,7 +24,7 @@
                                     <h1>{{$slide->title}}</h1>
                                     <p>{!! html_entity_decode(str_limit($slide->second_title, $limit = 360, $end = '...')) !!}</p>
                                     <div class="top-left">
-                                        <a class="btn btn-ghost"  href="/slider/{{$slide->id}}">Read More</a>
+                                        <a class="btn btn-ghost"  href="{{url('slider/view-'.$slide->id)}}">Read More</a>
                                     </div>
                                 </div>
                             </div>

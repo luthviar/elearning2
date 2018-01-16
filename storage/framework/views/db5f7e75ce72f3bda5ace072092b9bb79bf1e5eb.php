@@ -212,8 +212,17 @@
                   <h5><strong>Attachments</strong></h5>
                   <div>
                     <?php $__currentLoopData = $chapter['material']->files_material; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $material): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                      <button onclick="window.location.href='<?php echo e(URL::asset($material->url)); ?>'"
-                              class="btn btn-block btn-flat"> <?php echo e($material->name); ?></button>
+                      
+                              
+                      <a
+                          class="btn btn-default"
+                          onclick="window.open('<?php echo e(URL::asset($material->url)); ?>',width='+screen.availWidth+',
+                                  height='+screen.availHeight')"
+                          style="cursor:pointer; text-decoration: none; width: 90%;"
+                      >
+                        <?php echo e($material->name); ?> <br/>
+                        
+                      </a>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </div>
                 </div>
@@ -249,13 +258,16 @@
                       <ul style="list-style-type: none;">
                         <?php if(count($chapter['test']['questions']) >0): ?>
                         <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($key+1); ?>. <?php echo e($question->question_text); ?> 
+
+                        <li><hr/>
+                          <?php echo e($key+1); ?>. <?php echo html_entity_decode($question->question_text); ?>
+
                           <ul style="list-style-type: none;">
                             <?php if(count($question['option']) >0): ?>
                             <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($option->is_true == 1): ?>
                             <li><input type="radio" name="<?php echo e($option->id); ?>" checked>
-                                <?php echo e($option->option_text); ?>
+                                <?php echo $option->option_text; ?>
 
                                 <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
                             <?php else: ?>

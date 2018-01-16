@@ -11,14 +11,24 @@
       <h4>Attachments :</h4>
       @foreach ($chapter['material']['files_material'] as $file)
       <div style="padding-bottom: 10px;">
-        <a
+        {{--<a--}}
             {{--href="{{URL::asset($file->url)}}"--}}
            {{--onclick="window.open('{{URL::asset($file->url)}}',--}}
                    {{--'newWin', 'width='+screen.availWidth+',height='+screen.availHeight)"--}}
-            onclick="openPDF()"
-           class="btn btn-default" style="width: 100%;">
-          {{ $file->name}}
-        </a>
+            {{--onclick="openPDF()"--}}
+           {{--class="btn btn-default" style="width: 100%;">--}}
+          {{--{{ $file->name}}--}}
+        {{--</a>--}}
+          <a
+              class="btn btn-default btn-block btn-lg"
+              onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',
+                      height='+screen.availHeight')"
+              style="cursor:pointer; text-decoration: none;"
+
+          >
+              {{$file->name}} <br/>
+              {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
+          </a>
       </div>
       @endforeach
 

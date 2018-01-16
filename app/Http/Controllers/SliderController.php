@@ -14,12 +14,20 @@ class SliderController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => [
-             'get_active_slider', 'get_all_slider'
+             'get_active_slider', 'get_all_slider','view_slider_user'
         ]]);
         $this->middleware('isAdmin', ['except' => [
-             'get_active_slider', 'get_all_slider'
+             'get_active_slider', 'get_all_slider', 'view_slider_user'
         ]]);
         
+    }
+
+    public function view_slider_user($id_slider){
+        $slider = Slider::find($id_slider);
+        if($slider == null){
+            return "error: slider not found";
+        }
+        return view('user.slider_view')->with('slider',$slider);
     }
     
     public function get_all_slider () {

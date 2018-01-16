@@ -1,20 +1,19 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    <a href="{{ url(action('TrainingController@manage_training',$training->id)) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Participant Training
+    <small>Daftar semua participant yang bisa mengikuti training ini.</small>
+@endsection
+
 @section('content')
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Participant Training
-        <small>Participant Training</small>
-      </h1>
-    </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Training {{$training->modul_name}} . Participant</h3>
+              <h3 class="box-title"> Participants of Training: {{$training->modul_name}}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

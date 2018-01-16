@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\User;
 use App\ModulTraining;
@@ -12,6 +13,7 @@ use App\LevelPosition;
 use App\EmployeeStatus;
 use App\OsDivision;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 use Session;
 use App\RequestPassword;
 use App\Auth;
@@ -24,6 +26,7 @@ use App\Test;
 use App\UserTestRecord;
 use App\OsSection;
 use Mail;
+use URL;
 
 class UserController extends Controller
 {
@@ -31,15 +34,50 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => [
-             'forgot_password', 'forgot_password_submit', 'send_password'
+             'forgot_password', 'forgot_password_submit', 'send_password', 'cobapdf', 'storepdf', 'view_pdf'
         ]]);
         $this->middleware('isAdmin', ['except' => [
              'forgot_password', 'forgot_password_submit', 'get_profile',
-            'change_password', 'change_photo','send_password'
+            'change_password', 'change_photo','send_password', 'cobapdf', 'storepdf', 'view_pdf'
         ]]);
-        
     }
-    
+
+    public function cobapdf(){
+        return view('cobapdf');
+    }
+
+    public function view_pdf(){
+        return view('viewer-pdf.index');
+    }
+
+    public function storepdf(Request $request){
+//        dd('masuk');
+//        $file = $request->encoded;
+        $file = $request->file('score');
+        $filename1 = $request->file('files');
+        $filename2 = $filename1->getClientOriginalName();
+        $filename = $filename1->getClientOriginalName().'.txt';
+//        File::put('file_encoded')
+//        $thefile = file_put_contents($filename,$request->encoded);
+//        Storage::
+        $thefile = Storage::disk('public')->put($filename, $request->encoded);
+        $theurl = Storage::disk('local')->url($filename);
+
+//        "http://localhost/code_rohmat/public/viewer-pdf/viewer.html?file=WORKSHEET%205_3.pdf"
+//        $to_file =
+//        URL::asset
+        $accessURL = URL::asset('viewer-pdf/viewer.html?file='.$filename2);
+        dd($accessURL);
+
+//        $destinationPath = 'file_encoded';
+//        $movea = $thefile->move($destinationPath,$thefile->getClientOriginalName());
+//        $url = "file_encoded/file={$file->getClientOriginalName()}";
+//        dd($url);
+//        $url =
+        return redirect($accessURL);
+//        return view('cobapdf')->with('url',$url);
+    }
+
     public function get_profile () {
 
     	//get modul training
@@ -52,14 +90,14 @@ class UserController extends Controller
     	$training_record = new UserChapterRecord();
     	$training_record = $training_record->get_user_training_record(\Auth::user()->id);
 
-        $score = EmployeeScore::where('id_user',\Auth::user()->id)->orderBy('id','desc')->first();
+        $scores = EmployeeScore::where('id_user',\Auth::user()->id)->orderBy('id','desc')->limit(10)->get();
 
-        if ($score == null){
-            $score;
+        if ($scores == null){
+            $scores;
         }
 
     	return view('user.profile')->with('profile', $profile)
-            ->with('training_record', $training_record)->with('module', $modul)->with('score',$score);
+            ->with('training_record', $training_record)->with('module', $modul)->with('scores',$scores);
     }
 
     public function change_password ( Request $request) {
@@ -524,25 +562,44 @@ class UserController extends Controller
     }
 
     public function add_score (Request $request) {
-        $file = $request->file('score');
-        $url = null;
-        if (!empty($file)) {
-            $destinationPath = 'file_attachments';
-            $movea = $file->move($destinationPath,$file->getClientOriginalName());
-            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
-        }
-        if ($url == null) {
-            return 'error: file not found';
-        }
+//        dd(empty($request->attachment_name));
+//        $file = $request->file('score');
+//        $url = null;
+//        if (!empty($file)) {
+//            $destinationPath = 'file_attachments';
+//            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+//            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+//        }
+//        if ($url == null) {
+//            return 'error: file not found';
+//        }
+
         $user = User::find($request->id_user);
         if ($user == null) {
-            return 'error: user not found';
+            return 'error: user not found in database';
         }
+
+        if(empty($request->attachment_name) || empty($request->encoded_file_score) || empty($request->file('score'))) {
+            Session::flash('failed', 'Semua field input pada ADD SCORE wajib diisi.');
+            return redirect(action('UserController@profile_view',$user->id));
+        }
+
+        // file pdf process
+        $file = $request->file('score');
+        $filename_ori = $file->getClientOriginalName();
+        $filename_save = $file->getClientOriginalName().'.txt';
+
+        Storage::disk('public')->put($filename_save, $request->encoded_file_score);
+
+        $saveURL = 'view-pdf?file='.$filename_ori;
+        // end of file pdf process
+
         $score = new EmployeeScore;
         $score->id_user = $request->id_user;
         $score->attachment_name = $request->attachment_name;
-        $score->attachment_url  = $url;
+        $score->attachment_url  = $saveURL;
         $score->save();
+
 
         return redirect(action('UserController@profile_view',$user->id));
     }

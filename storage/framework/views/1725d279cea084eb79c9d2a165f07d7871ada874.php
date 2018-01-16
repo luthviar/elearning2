@@ -13,6 +13,32 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
+            <?php if(Session::get('failed') != null): ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr/>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                            <?php echo e(Session::get('failed')); ?>
+
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if(Session::get('success') != null): ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr/>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                            <?php echo e(Session::get('success')); ?>
+
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
               <h3 class="box-title">
                   
               </h3>
@@ -76,11 +102,19 @@
                               no file material uploaded
                               <?php else: ?>
                               <?php $__currentLoopData = $chapter['material']['files_material']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <a href="<?php echo e(URL::asset($file->url)); ?>"
-                                 class="btn btn-default" style="width: 90%">
-                                  <?php echo e($file->name); ?>
-
-                              </a>
+                              
+                                 
+                                  
+                              
+                                <a
+                                    class="btn btn-default"
+                                    onclick="window.open('<?php echo e(URL::asset($file->url)); ?>',width='+screen.availWidth+',
+                                            height='+screen.availHeight')"
+                                    style="cursor:pointer; text-decoration: none; width: 90%;"
+                                >
+                                    <?php echo e($file->name); ?> <br/>
+                                    
+                                </a>
                                 <span class="pull-right">
                                     <a href="<?php echo e(url(action('TrainingController@remove_material_file', $file->id))); ?>">
                                       <i class="fa fa-times" style="color: red" aria-hidden="true">remove</i>
@@ -105,7 +139,7 @@
                                    style="color: skyblue"
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   title="Pilih file materi training seperti pdf/ppt atau sejenisnya"
+                                   title="Pilih file materi training wajib pdf"
                                    aria-hidden="true"></i>
                             </h5>
                             <!-- Title -->
@@ -115,13 +149,18 @@
 
                             <div class="form-group col-md-6">
                               <label for="title">Attachment Name</label>
-                              <input type="text" class="form-control" name="attachment_name" id="title" placeholder="Attachment Name" required>
+                              <input type="text" class="form-control"
+                                     name="attachment_name" id="title" placeholder="Attachment Name" required>
                             </div>
 
                             <!-- File -->
                             <div class="form-group col-md-6">
-                                <label for="exampleInputFile">Image Thumbnail</label>
-                                <input type="file" id="exampleInputFile" name="file" accept=".pdf" required>
+                                <label for="exampleInputFile">The File</label>
+                                
+
+                                <input type="file" name="file" id="my_file" value="" accept=".pdf" required>
+                                <textarea type="text" id="base64" name="encoded_file" cols="50" hidden></textarea>
+
                             </div>
                             <div class="form-group col-md-12 text-center">
                                 <button type="submit" name="submit" class="btn btn-info">
@@ -318,6 +357,21 @@ $(document).ready(function(){
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
 });
+</script>
+
+<script>
+    document.getElementById('my_file').addEventListener('change', function(event){
+
+        var input = document.getElementById("my_file");
+
+        var fReader = new FileReader();
+        fReader.readAsDataURL(input.files[0]);
+        fReader.onloadend = function(event){
+            document.getElementById("base64").innerHTML = event.target.result;
+            console.log(event.target.result);
+
+        }
+    });
 </script>
 
     <?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

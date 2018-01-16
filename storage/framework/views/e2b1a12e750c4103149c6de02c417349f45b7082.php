@@ -1,5 +1,6 @@
 <?php $__env->startSection('page-name'); ?>
-    View Personnel
+    View All Personnels
+    <small>List of All Employees in PT Aerofood Indonesia.</small>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

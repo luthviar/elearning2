@@ -1,5 +1,8 @@
 @extends('admin.layouts.app')
 @section('page-name')
+  <a href="{{ url(action('UserController@profile_view',$user->id)) }}">
+    <i class="fa fa-arrow-left"></i>
+  </a>
 Personnel View
 @endsection
 

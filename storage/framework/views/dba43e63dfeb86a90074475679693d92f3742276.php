@@ -80,7 +80,7 @@
 
                                 </div>
 
-                                <?php if($forum_job_family != null): ?>
+                                <?php if($job_family != null): ?>
                                     <div class="tab-pane" id="jobfamily">
                                         <h1>Forum <?php echo e($job_family->job_family_name); ?></h1>
                                         <p>Forum ini ditujukan untuk karyawan <?php echo e($job_family->name); ?> PT Aerofood Indonesia.</p>
@@ -139,7 +139,7 @@
                                 <?php endif; ?>
 
 
-                                <?php if($forum_unit != null): ?>
+                                <?php if($unit != null): ?>
                                     <div class="tab-pane" id="dept">
                                         <h1>Forum Unit <?php echo e($unit->unit_name); ?></h1>
                                         <p>

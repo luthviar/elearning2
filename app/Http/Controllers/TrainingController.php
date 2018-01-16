@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\ModulTraining;
 use App\Auth;
 use App\UserChapterRecord;
@@ -560,6 +561,9 @@ class TrainingController extends Controller
             $test = new Test();
             $chapter['test'] = $test->get_manage_test($id_chapter);
         }
+
+        Session::put('id_chapter',$id_chapter);
+
         return view('admin.training.training_manage_chapter')->with('chapter',$chapter);
     }
 
@@ -814,22 +818,45 @@ class TrainingController extends Controller
 
     public function material_add (Request $request){
         $material = Material::find($request->id_material);
+
         if ($material == null) {
             return "error : material not found";
         }
-        $file = $request->file('file');
-        $url = null;
-        if (!empty($file)) {
-            $destinationPath = 'file_attachments';
-            $movea = $file->move($destinationPath,$file->getClientOriginalName());
-            $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+
+        if(empty($request->attachment_name) ||
+            empty($request->encoded_file) ||
+            empty($request->file('file'))
+        ) {
+            Session::flash('failed', 'Semua field input pada Form Upload File Material wajib diisi.');
+            return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
         }
+
+        // file pdf process
+        $file = $request->file('file');
+        $filename_ori = $file->getClientOriginalName();
+        $filename_save = $file->getClientOriginalName().'.txt';
+
+        Storage::disk('public')->put($filename_save, $request->encoded_file);
+
+        $saveURL = 'view-pdf?file='.$filename_ori;
+        // end of file pdf process
+
+        // old pdf process
+        //$url = null;
+        //if (!empty($file)) {
+        //    $destinationPath = 'file_attachments';
+        //    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+        //    $url = "ViewerJS/index.html#../file_attachments/{$file->getClientOriginalName()}";
+        //}
+        // end of old pdf process
 
         $attachment = new FilesMaterial;
         $attachment->id_material = $request->id_material;
         $attachment->name = $request->attachment_name;
-        $attachment->url = $url;
+        $attachment->url = $saveURL;
         $attachment->save();
+
+        Session::flash('success', 'File Material berhasil ditambahkan');
 
         return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
     }
@@ -986,9 +1013,11 @@ class TrainingController extends Controller
             foreach ($accesses as $access)
             {
                 $user = User::find($access->id_user);
-                $nestedData['name'] = "<a href='".url('/admin/personnel/view-'.$user->id)."'>".$user->name."</a>";
+                $nestedData['name'] = "<a target='_blank' href='".url(action('UserController@profile_view',$user->id))."'>"
+                    .$user->name."</a>";
                 $modul = ModulTraining::find($access->id_module);
-                $nestedData['training'] = "<a href='".url('/manage_training/'.$modul->id)."'>".$modul->modul_name."</a>";
+                $nestedData['training'] = "<a target='_blank' href='".url(action('TrainingController@manage_training',$modul->id))."'>"
+                    .$modul->modul_name."</a>";
                 if ($access->status == 1) {
                     $nestedData['status'] = "accepted";
                 } else {

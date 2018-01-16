@@ -15,6 +15,30 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
+            @if(Session::get('failed') != null)
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr/>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                            {{ Session::get('failed') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+            @if(Session::get('success') != null)
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr/>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                            {{ Session::get('success') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
               <h3 class="box-title">
                   {{--Manage Chapter--}}
               </h3>
@@ -78,10 +102,19 @@
                               no file material uploaded
                               @else
                               @foreach ( $chapter['material']['files_material'] as $file)
-                              <a href="{{URL::asset($file->url)}}"
-                                 class="btn btn-default" style="width: 90%">
-                                  {{$file->name}}
-                              </a>
+                              {{--<a href="{{URL::asset($file->url)}}"--}}
+                                 {{--class="btn btn-default" style="width: 90%">--}}
+                                  {{--{{$file->name}}--}}
+                              {{--</a>--}}
+                                <a
+                                    class="btn btn-default"
+                                    onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',
+                                            height='+screen.availHeight')"
+                                    style="cursor:pointer; text-decoration: none; width: 90%;"
+                                >
+                                    {{$file->name}} <br/>
+                                    {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
+                                </a>
                                 <span class="pull-right">
                                     <a href="{{url(action('TrainingController@remove_material_file', $file->id))}}">
                                       <i class="fa fa-times" style="color: red" aria-hidden="true">remove</i>
@@ -106,7 +139,7 @@
                                    style="color: skyblue"
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   title="Pilih file materi training seperti pdf/ppt atau sejenisnya"
+                                   title="Pilih file materi training wajib pdf"
                                    aria-hidden="true"></i>
                             </h5>
                             <!-- Title -->
@@ -115,13 +148,18 @@
                             {{csrf_field()}}
                             <div class="form-group col-md-6">
                               <label for="title">Attachment Name</label>
-                              <input type="text" class="form-control" name="attachment_name" id="title" placeholder="Attachment Name" required>
+                              <input type="text" class="form-control"
+                                     name="attachment_name" id="title" placeholder="Attachment Name" required>
                             </div>
 
                             <!-- File -->
                             <div class="form-group col-md-6">
-                                <label for="exampleInputFile">Image Thumbnail</label>
-                                <input type="file" id="exampleInputFile" name="file" accept=".pdf" required>
+                                <label for="exampleInputFile">The File</label>
+                                {{--<input type="file" id="exampleInputFile" name="file" accept=".pdf" required>--}}
+
+                                <input type="file" name="file" id="my_file" value="" accept=".pdf" required>
+                                <textarea type="text" id="base64" name="encoded_file" cols="50" hidden></textarea>
+
                             </div>
                             <div class="form-group col-md-12 text-center">
                                 <button type="submit" name="submit" class="btn btn-info">
@@ -316,6 +354,21 @@ $(document).ready(function(){
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
 });
+</script>
+
+<script>
+    document.getElementById('my_file').addEventListener('change', function(event){
+
+        var input = document.getElementById("my_file");
+
+        var fReader = new FileReader();
+        fReader.readAsDataURL(input.files[0]);
+        fReader.onloadend = function(event){
+            document.getElementById("base64").innerHTML = event.target.result;
+            console.log(event.target.result);
+
+        }
+    });
 </script>
 
     @include('admin.layouts.summernote')

@@ -212,8 +212,17 @@
                   <h5><strong>Attachments</strong></h5>
                   <div>
                     @foreach($chapter['material']->files_material as $material)
-                      <button onclick="window.location.href='{{ URL::asset($material->url) }}'"
-                              class="btn btn-block btn-flat"> {{ $material->name }}</button>
+                      {{--<button onclick="window.location.href='{{ URL::asset($material->url) }}'"--}}
+                              {{--class="btn btn-block btn-flat"> {{ $material->name }}</button>--}}
+                      <a
+                          class="btn btn-default"
+                          onclick="window.open('{{URL::asset($material->url)}}',width='+screen.availWidth+',
+                                  height='+screen.availHeight')"
+                          style="cursor:pointer; text-decoration: none; width: 90%;"
+                      >
+                        {{$material->name}} <br/>
+                        {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
+                      </a>
                     @endforeach
                   </div>
                 </div>
@@ -249,13 +258,15 @@
                       <ul style="list-style-type: none;">
                         @if(count($chapter['test']['questions']) >0)
                         @foreach ($chapter['test']['questions'] as $key => $question)
-                        <li>{{$key+1}}. {!! html_entity_decode($question->question_text) !!} 
+
+                        <li><hr/>
+                          {{$key+1}}. {!! html_entity_decode($question->question_text) !!}
                           <ul style="list-style-type: none;">
                             @if(count($question['option']) >0)
                             @foreach($question['option'] as $option)
                             @if($option->is_true == 1)
                             <li><input type="radio" name="{{$option->id}}" checked>
-                                {{$option->option_text}}
+                                {!! $option->option_text !!}
                                 <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
                             @else
                             <li><input type="radio" name="{{$option->id}}" >

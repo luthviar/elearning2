@@ -4,9 +4,9 @@
   <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="col-xs-12 col-md-12 text center" style="height: 230px;text-align: center; border-bottom: 1px solid green;">
       @if($profile['personal_data']->photo != null)
-      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="{{ URL::asset($profile['personal_data']->photo) }}" alt="..." style="height: 100%; border: 1px solid green;" class="img-circle"></a>
+      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="{{ URL::asset($profile['personal_data']->photo) }}" alt="..." style="height: 100%;" class="img-circle"></a>
       @else
-      <a style=" height: 58%;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#change_photo"><img src="{{URL::asset('photo/user-default.png') }}" alt="..." style="height: 100%; border: 1px solid green;" class="img-circle"></a>
+      <a style=" height: 58%;" class="btn btn-lg btn-default" data-toggle="modal" data-target="#change_photo"><img src="{{URL::asset('photo/user-default.png') }}" alt="..." style="height: 100%; " class="img-circle"></a>
       @endif
       <h3 class="green_color"><strong>{{$profile['personal_data']->name}}</strong></h3>
       <h4> {{$profile['personal_data']->position_name}} . Aerofood ACS</h4>
@@ -159,14 +159,29 @@
 
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
-          <div class="container text-center">
-            @if($score == "empty")
-            <iframe id="iframe" src="{{URL::to($score->attachment_url)}}"
-                    width='100%' height='600' allowfullscreen webkitallowfullscreen>
-            @else
-              no score
-            @endif
-            </iframe>
+          <div class="row text-center">
+            <div class="col-lg-8 col-lg-offset-2">
+              @if(isset($scores))
+                @foreach ( $scores as $score)
+                {{--<iframe id="iframe" src="{{URL::to($score->attachment_url)}}"--}}
+                {{--width='100%' height='600' allowfullscreen webkitallowfullscreen>--}}
+                <a
+                    class="btn btn-block btn-default btn-lg"
+                    onclick="window.open('{{URL::asset($score->attachment_url)}}',width='+screen.availWidth+',
+                            height='+screen.availHeight')"
+                    style="cursor:pointer; text-decoration: none;"
+
+                >
+                  {{$score->attachment_name}} <br/>
+                  <small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>
+                </a>
+                @endforeach
+              @else
+                no score
+              @endif
+            </div>
+
+            {{--</iframe>--}}
           </div>
         </div>
       </div>
