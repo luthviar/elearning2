@@ -983,7 +983,8 @@ class TrainingController extends Controller
                             0 =>'id_user', 
                             1 =>'id_module',
                             2 => 'status',
-                            3 => 'id'
+                            3 => 'updated_at',
+                            4 => 'id'
                         );
   
         $totalData = UserTrainingAccess::count();
@@ -1031,6 +1032,7 @@ class TrainingController extends Controller
                 } else {
                     $nestedData['status'] = "requested";
                 }
+                $nestedData['updated_at'] = date('j M Y',strtotime($access->updated_at));
                 if ($access->status == 0) {
                     $nestedData['action'] = "<a href='".url(action('TrainingController@give_access',$access->id)).
                         "' class='btn btn-success'>give access</a>";

@@ -1,6 +1,4 @@
-@extends('admin.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -15,14 +13,15 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">The List of Training Acceess</h3>
-                @if(Session::get('success') != null)
+                <?php if(Session::get('success') != null): ?>
                 <hr/>
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-                    {{ Session::get('success') }}
+                    <?php echo e(Session::get('success')); ?>
+
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -53,9 +52,9 @@
     </section>
     <!-- /.content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -64,10 +63,10 @@
             "serverSide": true,
             "order": [3, 'desc'],
             "ajax":{
-                     "url": "{{ url(action('TrainingController@admin_access_training_serverside')) }}",
+                     "url": "<?php echo e(url(action('TrainingController@admin_access_training_serverside'))); ?>",
                      "dataType": "json",
                      "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
+                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "name" },
@@ -82,4 +81,5 @@
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
