@@ -1,5 +1,7 @@
 <?php $__env->startSection('content_training'); ?>
 
+
+
   <?php $__currentLoopData = Session::get('training')['chapter']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php if($key < $finish_chapter): ?>
           <div style="padding-bottom: 10px;">

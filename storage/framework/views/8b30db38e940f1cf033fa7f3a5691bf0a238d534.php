@@ -9,28 +9,18 @@
       <h4>Attachments :</h4>
       <?php $__currentLoopData = $chapter['material']['files_material']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div style="padding-bottom: 10px;">
-        <a href="<?php echo e(URL::asset($file->url)); ?>" class="btn btn-default" style="width: 100%;">
+        <a
+            
+           
+                   
+            onclick="openPDF()"
+           class="btn btn-default" style="width: 100%;">
           <?php echo e($file->name); ?>
 
         </a>
       </div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      
-      
-        
-        
-        
-        
-      
-      
-      
 
-              
-              
-              
-              
-      
-      
           <a
                   
                   onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
@@ -44,4 +34,22 @@
 </div>
 
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+    <script>
+        function openPDF() {
+            var myWindow = window.open('', 'MsgWindow', 'width='+screen.availWidth+',height='+screen.availHeight);
+            var coba = 'satu';
+            myWindow.document.write("<iframe id='iframe' src ='<?php echo e(URL::asset($file->url)); ?>' width='90%' height='90%' allowfullscreen webkitallowfullscreen></iframe>");
+
+            myWindow.document.getElementById('iframe').textContent().removeChild(document.getElementById('download'));
+        }
+//        $('#iframe').ready(function() {
+//            setTimeout(function() {
+//                $('#iframe').contents().find('#download').remove();
+//            }, 100);
+//        });
+    </script>
+<?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('user.training.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

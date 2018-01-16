@@ -20,15 +20,22 @@
                 <li class="dropdown user user-menu">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo e(URL::asset('AdminLTE/dist/img/user2-160x160.jpg')); ?>" class="user-image" alt="User Image">
+                        <?php if(Auth::user()->photo == null): ?>
+                        <img src="<?php echo e(URL::asset('photo/user-default.png')); ?>" class="user-image" alt="User Image">
+                        <?php else: ?>
+                        <img src="<?php echo e(URL::asset(Auth::user()->photo)); ?>" class="user-image" alt="User Image">
+                        <?php endif; ?>
                         <span class="hidden-xs"><?php echo e(Auth::user()->name); ?></span>
                     </a>
 
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?php echo e(URL::asset('AdminLTE/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
-
+                            <?php if(Auth::user()->photo == null): ?>
+                            <img src="<?php echo e(URL::asset('photo/user-default.png')); ?>" class="img-circle" alt="User Image">
+                            <?php else: ?>
+                            <img src="<?php echo e(URL::asset(Auth::user()->photo)); ?>" class="img-circle" alt="User Image">
+                            <?php endif; ?>
                             <p>
                                 <?php echo e(Auth::user()->name); ?>
 
@@ -46,7 +53,11 @@
                                     <small>Position : <br/> <?php echo e(Auth::user()->position_name); ?></small>
                                 </div>
                                 <div class="col-xs-4 text-center">
+                                    <?php if(Session::get('profile')['employee_data']['department'] != null): ?>
                                     <small>Dept : <br/> <?php echo e(Session::get('profile')['employee_data']['department']->department_name); ?></small>
+                                    <?php else: ?>
+                                    <small>Dept : <br/> --</small>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <!-- /.row -->
