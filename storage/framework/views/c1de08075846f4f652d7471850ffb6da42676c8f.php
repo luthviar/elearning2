@@ -1,3 +1,4 @@
+<script type="text/javascript">
 /* Copyright 2016 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,10 +14,9 @@
  * limitations under the License.
  */
 'use strict';
-var BASE_URL = 'http://localhost/code_rohmat/public/';
-//var BASE_URL = {{ url(action('HomeController@index')) }};
-// var BASE_URL = window.location.host;
-//var BASE_URL = BASE_URL+'/';
+//var BASE_URL = 'http://localhost/code_rohmat/public/';
+//var BASE_URL = <?php echo e(url(action('HomeController@index'))); ?>;
+var BASE_URL = window.location.host;
 console.log(BASE_URL);
 var DEFAULT_URL = 'assignment';
 var folderFiles = BASE_URL+"storage/";
@@ -1836,12 +1836,12 @@ var pdfjsWebLibs; {
                             return mozL10n.get('document_properties_kb', {
                                 size_kb: (+kb.toPrecision(3)).toLocaleString(),
                                 size_b: fileSize.toLocaleString()
-                            }, '{{size_kb}} KB ({{size_b}} bytes)');
+                            }, '<?php echo e(size_kb); ?> KB (<?php echo e(size_b); ?> bytes)');
                         }
                         return mozL10n.get('document_properties_mb', {
                             size_mb: (+(kb / 1024).toPrecision(3)).toLocaleString(),
                             size_b: fileSize.toLocaleString()
-                        }, '{{size_mb}} MB ({{size_b}} bytes)');
+                        }, '<?php echo e(size_mb); ?> MB (<?php echo e(size_b); ?> bytes)');
                     },
                     _parseDate: function PDFDocumentProperties_parseDate(inputDate) {
                         var dateToParse = inputDate;
@@ -1873,7 +1873,7 @@ var pdfjsWebLibs; {
                         return mozL10n.get('document_properties_date_string', {
                             date: dateString,
                             time: timeString
-                        }, '{{date}}, {{time}}');
+                        }, '<?php echo e(date); ?>, <?php echo e(time); ?>');
                     }
                 };
                 return PDFDocumentProperties;
@@ -2610,7 +2610,7 @@ var pdfjsWebLibs; {
                     anchor.href = linkService.getAnchorUrl('#page=' + id);
                     anchor.title = mozL10n.get('thumb_page_title', {
                         page: id
-                    }, 'Page {{page}}');
+                    }, 'Page <?php echo e(page); ?>');
                     anchor.onclick = function stopNavigation() {
                         linkService.page = id;
                         return false;
@@ -2714,7 +2714,7 @@ var pdfjsWebLibs; {
                         var className = 'thumbnailImage';
                         var ariaLabel = mozL10n.get('thumb_page_canvas', {
                             page: this.pageId
-                        }, 'Thumbnail of Page {{page}}');
+                        }, 'Thumbnail of Page <?php echo e(page); ?>');
                         if (this.disableCanvasToImageConversion) {
                             this.canvas.id = id;
                             this.canvas.className = className;
@@ -2838,13 +2838,13 @@ var pdfjsWebLibs; {
                         this.pageLabel = typeof label === 'string' ? label : null;
                         this.anchor.title = mozL10n.get('thumb_page_title', {
                             page: this.pageId
-                        }, 'Page {{page}}');
+                        }, 'Page <?php echo e(page); ?>');
                         if (this.renderingState !== RenderingStates.FINISHED) {
                             return;
                         }
                         var ariaLabel = mozL10n.get('thumb_page_canvas', {
                             page: this.pageId
-                        }, 'Thumbnail of Page {{page}}');
+                        }, 'Thumbnail of Page <?php echo e(page); ?>');
                         if (this.image) {
                             this.image.setAttribute('aria-label', ariaLabel);
                         } else if (this.disableCanvasToImageConversion && this.canvas) {
@@ -3146,7 +3146,7 @@ var pdfjsWebLibs; {
                                 var customScale = Math.round(scale * 10000) / 100;
                                 items.customScaleOption.textContent = mozL10n.get('page_scale_percent', {
                                     scale: customScale
-                                }, '{{scale}}%');
+                                }, '<?php echo e(scale); ?>%');
                                 items.customScaleOption.selected = true;
                             }
                         }
@@ -3165,7 +3165,7 @@ var pdfjsWebLibs; {
                                 items.pageNumber.type = 'number';
                                 items.numPages.textContent = mozL10n.get('of_pages', {
                                     pagesCount: pagesCount
-                                }, 'of {{pagesCount}}');
+                                }, 'of <?php echo e(pagesCount); ?>');
                             }
                             items.pageNumber.max = pagesCount;
                         }
@@ -3174,7 +3174,7 @@ var pdfjsWebLibs; {
                             items.numPages.textContent = mozL10n.get('page_of_pages', {
                                 pageNumber: pageNumber,
                                 pagesCount: pagesCount
-                            }, '({{pageNumber}} of {{pagesCount}})');
+                            }, '(<?php echo e(pageNumber); ?> of <?php echo e(pagesCount); ?>)');
                         } else {
                             items.pageNumber.value = pageNumber;
                         }
@@ -6173,25 +6173,25 @@ var pdfjsWebLibs; {
                     var moreInfoText = mozL10n.get('error_version_info', {
                         version: pdfjsLib.version || '?',
                         build: pdfjsLib.build || '?'
-                    }, 'PDF.js v{{version}} (build: {{build}})') + '\n';
+                    }, 'PDF.js v<?php echo e(version); ?> (build: <?php echo e(build); ?>)') + '\n';
                     if (moreInfo) {
                         moreInfoText += mozL10n.get('error_message', {
                             message: moreInfo.message
-                        }, 'Message: {{message}}');
+                        }, 'Message: <?php echo e(message); ?>');
                         if (moreInfo.stack) {
                             moreInfoText += '\n' + mozL10n.get('error_stack', {
                                 stack: moreInfo.stack
-                            }, 'Stack: {{stack}}');
+                            }, 'Stack: <?php echo e(stack); ?>');
                         } else {
                             if (moreInfo.filename) {
                                 moreInfoText += '\n' + mozL10n.get('error_file', {
                                     file: moreInfo.filename
-                                }, 'File: {{file}}');
+                                }, 'File: <?php echo e(file); ?>');
                             }
                             if (moreInfo.lineNumber) {
                                 moreInfoText += '\n' + mozL10n.get('error_line', {
                                     line: moreInfo.lineNumber
-                                }, 'Line: {{line}}');
+                                }, 'Line: <?php echo e(line); ?>');
                             }
                         }
                     }
@@ -7366,7 +7366,7 @@ var pdfjsWebLibs; {
                     }
                     this.pageStyleSheet = document.createElement('style');
                     var pageSize = this.pagesOverview[0];
-                    this.pageStyleSheet.textContent = '@supports ((size:A4) and (size:1pt 1pt)) {' + '@page { size: ' + pageSize.width + 'pt ' + pageSize.height + 'pt;}' + '}';
+                    this.pageStyleSheet.textContent = '@supports ((size:A4) and (size:1pt 1pt)) {' + '@page  { size: ' + pageSize.width + 'pt ' + pageSize.height + 'pt;}' + '}';
                     body.appendChild(this.pageStyleSheet);
                 },
                 destroy: function() {
@@ -7681,3 +7681,4 @@ if (document.readyState === 'interactive' || document.readyState === 'complete')
 } else {
     document.addEventListener('DOMContentLoaded', webViewerLoad, true);
 }
+</script>

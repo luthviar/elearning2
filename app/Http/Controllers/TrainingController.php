@@ -838,7 +838,7 @@ class TrainingController extends Controller
 
         Storage::disk('public')->put($filename_save, $request->encoded_file);
 
-        $saveURL = 'viewer-pdf/viewer.html?file='.$filename_ori;
+        $saveURL = 'view-pdf?file='.$filename_ori;
         // end of file pdf process
 
         // old pdf process

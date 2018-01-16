@@ -26,6 +26,8 @@ Route::get('cobapdf','UserController@cobapdf');
 
 Route::post('storepdf','UserController@storepdf');
 
+Route::get('view-pdf','UserController@view_pdf');
+
 /*
 |--------------------------------------------------------------------------
 | USER Routes

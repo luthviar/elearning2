@@ -33,18 +33,21 @@ class UserController extends Controller
     // MIDDLEWARE
     public function __construct()
     {
-//        $this->middleware('auth', ['except' => [
-//             'forgot_password', 'forgot_password_submit', 'send_password', 'cobapdf', 'storepdf'
-//        ]]);
-//        $this->middleware('isAdmin', ['except' => [
-//             'forgot_password', 'forgot_password_submit', 'get_profile',
-//            'change_password', 'change_photo','send_password', 'cobapdf', 'storepdf'
-//        ]]);
-        
+        $this->middleware('auth', ['except' => [
+             'forgot_password', 'forgot_password_submit', 'send_password', 'cobapdf', 'storepdf', 'view_pdf'
+        ]]);
+        $this->middleware('isAdmin', ['except' => [
+             'forgot_password', 'forgot_password_submit', 'get_profile',
+            'change_password', 'change_photo','send_password', 'cobapdf', 'storepdf', 'view_pdf'
+        ]]);
     }
 
     public function cobapdf(){
         return view('cobapdf');
+    }
+
+    public function view_pdf(){
+        return view('viewer-pdf.index');
     }
 
     public function storepdf(Request $request){
@@ -588,7 +591,7 @@ class UserController extends Controller
 
         Storage::disk('public')->put($filename_save, $request->encoded_file_score);
 
-        $saveURL = 'viewer-pdf/viewer.html?file='.$filename_ori;
+        $saveURL = 'view-pdf?file='.$filename_ori;
         // end of file pdf process
 
         $score = new EmployeeScore;

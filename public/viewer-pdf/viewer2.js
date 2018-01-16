@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 'use strict';
-var BASE_URL = 'http://localhost/code_rohmat/public/';
+//var BASE_URL = 'http://localhost/code_rohmat/public/';
 //var BASE_URL = {{ url(action('HomeController@index')) }};
 // var BASE_URL = window.location.host;
-//var BASE_URL = BASE_URL+'/';
+var BASE_URL = BASE_URL+'/';
 console.log(BASE_URL);
 var DEFAULT_URL = 'assignment';
 var folderFiles = BASE_URL+"storage/";
