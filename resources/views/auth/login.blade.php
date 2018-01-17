@@ -23,7 +23,9 @@
 <div class="container">
     <div class="card">
         <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="text-align:center;">
-            <a href="{{ url(action('HomeController@index')) }}"><img class="card-img-top" style="margin-top:50px;" src="{{ url('/Elegantic/images/ALS.jpg') }}" alt="Card image cap" width="60%"></a>
+            <a href="{{ url(action('HomeController@index')) }}">
+                <img class="card-img-top" style="margin-top:50px;" src="{{ url('/Elegantic/images/ALS.jpg') }}" alt="Card image cap" width="60%">
+            </a>
         </div>
         <div id="loginbox"  class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <br>

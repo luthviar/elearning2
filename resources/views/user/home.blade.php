@@ -14,10 +14,14 @@
             <!-- ********************************************** -->
             <div class="promo" >
                 <ul class="slider">
-                    @foreach ($sliders as $slide)
-
+                    @foreach($sliders->reverse() as $slide)
+                        @if(empty($slide->url_image))
+                        <li style="background: url({{ url('gambar.png')  }})
+                                no-repeat 100% 100%; width:100% !important;">
+                        @else
                         <li style="background: url({{ (url($slide->url_image) or 'Elegantic/images/ALS.jpg') ?
                                                         url($slide->url_image) : 'Elegantic/images/ALS.jpg'  }})
+                        @endif
                                 no-repeat 100% 100%; width:100% !important;">
                             <div class="slide-holder">
                                 <div class="slide-info">

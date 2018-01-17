@@ -59,10 +59,10 @@
         <!-- BEGIN HORIZANTAL MENU -->
         <div class="hor-menu hidden-sm hidden-xs navbar-collapse collapse pull-right">
             <ul class="nav navbar-nav" style="margin-right:0px !important;">
-                <li class="classic-menu-dropdown <?php echo e(Request::is('/') ? 'active' : ''); ?>">
+                <li class="classic-menu-dropdown <?php echo e(Request::is('/') || Request::is('slider/*') ? 'active' : ''); ?>">
                     <a href="<?php echo e(url('/')); ?>">
                         Home
-                        <span class="<?php echo e(Request::is('/') ? 'selected' : ''); ?>"></span>
+                        <span class="<?php echo e(Request::is('/') || Request::is('slider/*') ? 'selected' : ''); ?>"></span>
                     </a>
                 </li>
                 <li

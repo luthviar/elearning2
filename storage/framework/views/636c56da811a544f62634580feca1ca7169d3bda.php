@@ -12,10 +12,14 @@
             <!-- ********************************************** -->
             <div class="promo" >
                 <ul class="slider">
-                    <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
+                    <?php $__currentLoopData = $sliders->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if(empty($slide->url_image)): ?>
+                        <li style="background: url(<?php echo e(url('gambar.png')); ?>)
+                                no-repeat 100% 100%; width:100% !important;">
+                        <?php else: ?>
                         <li style="background: url(<?php echo e((url($slide->url_image) or 'Elegantic/images/ALS.jpg') ?
                                                         url($slide->url_image) : 'Elegantic/images/ALS.jpg'); ?>)
+                        <?php endif; ?>
                                 no-repeat 100% 100%; width:100% !important;">
                             <div class="slide-holder">
                                 <div class="slide-info">
