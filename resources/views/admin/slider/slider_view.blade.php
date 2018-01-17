@@ -130,7 +130,12 @@
 
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-12 col-md-12">
-                    <img src="{{ URL::asset($slider->url_image)}}" style="width: 100%; height: 250px;border: 1px solid green;">
+                      @if(empty($slider->url_image))
+                          No Image
+                      @else
+                          <img src="{{ URL::asset($slider->url_image)}}" style="width: 100%; height: 250px;border: 1px solid green;">
+                      @endif
+
                     <h3><strong>{{$slider->title}}</strong></h3>
                     <p>{{ $slider->second_title }}</p>
                   </div>
