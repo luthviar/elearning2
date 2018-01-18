@@ -1,5 +1,12 @@
 @extends('admin.layouts.app')
 
+@section('page-name')
+    <a href="{{ url(action('TrainingController@manage_training',$module->id)) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Edit Training
+@endsection
+
 @section('content')
 
     <!-- Main content -->
@@ -21,14 +28,14 @@
             
               <!-- Title -->
               <div class="form-group">
-                <label for="title">Title</label>
+                <label for="title">Title*</label>
                 <input type="text" class="form-control" id="title" name="modul_name" value="{{$module->modul_name}}" placeholder="Training title">
               </div>
 
 
               <!-- select -->
                 <div class="form-group col-md-4">
-                  <label>Training Parent</label>
+                  <label>Training Parent*</label>
                   <select class="form-control" name="id_parent" id="parent">
                     @foreach($parent as $par)
                     @if ($par->id == $module->id_parent)
@@ -42,7 +49,7 @@
 
              <!-- Date -->
               <div class="form-group col-md-4">
-                <label>Training Date:</label>
+                <label>Training Date Start*</label>
 
                 <div class="input-group date">
                   <div class="input-group-addon">
@@ -57,7 +64,7 @@
               <!-- time Picker -->
               <div class="bootstrap-timepicker col-md-4">
                 <div class="form-group">
-                  <label>Training Start:</label>
+                  <label>Training Time Start*</label>
 
                   <div class="input-group">
                     <input type="text" name="time" value="{{$module->time}}" class="form-control" placeholder="00:00:00 -- 24 hours format">
@@ -93,19 +100,32 @@
 
               <!-- Textarea -->
               <div class="form-group">
-                  <label>Training Overview</label>
-                  <textarea class="textarea" id="summernote" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$module->description}}</textarea>
+                  <label>Training Overview*</label>
+                  <textarea class="textarea" id="summernote"
+                            name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>
+                      {{$module->description}}
+                  </textarea>
               </div>
 
-              <h5><strong>Trainer</strong></h5>
-              <button class="add_field_button btn btn-default">Add More Trainer</button>
+              <h5>
+                  <strong>Trainer</strong>
+                  <span><button class="add_field_button btn btn-success">+ Add More Trainer</button></span>
+              </h5>
+
               <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
               @foreach($trainer as $key => $trains)
               @if($key == 0)
               <div class="col-md-12" style="padding-bottom: 5px;">
-                <h6>Trainer Name</h6>
+                <h6>Trainer Name*</h6>
                 <input type="text" class="form-control" style="width: 50%;" value="{{$trains->trainer_name}}" name="trainer_name[]">
-                <h6>Trainer Info</h6>
+                <h6>Trainer Info*
+                    <i class="fa fa-question-circle"
+                       style="color: darkseagreen"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       title="Info mengenai trainer tersebut, seperti: berasal dari mana atau apapun."
+                       aria-hidden="true"></i>
+                </h6>
                 <input type="text" class="form-control" style="width: 50%;" value="{{$trains->trainer_info}}" name="trainer_info[]">
                 
               </div>
@@ -122,7 +142,10 @@
               </div>
 
               <div class="row text-center">
-                <button class="btn btn-success">Submit</button>
+                  <div class="col-lg-12">
+                      <button class="btn btn-block btn-success">Update This Training</button>
+                  </div>
+              </div>
               </div>
 
               </form>

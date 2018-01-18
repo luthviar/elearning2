@@ -109,7 +109,13 @@ class SliderController extends Controller
             {
                 $nestedData['title'] = "<a href='".url(action('SliderController@view_slider',$slider->id))."'>".$slider->title."</a>";
                 $nestedData['second_title'] = $slider->second_title;
-                $nestedData['created_at'] = date('j M Y',strtotime($slider->created_at));
+//                $nestedData['created_at'] = date('j M Y',strtotime($slider->created_at));
+                $nestedData['created_at'] =
+                    '<i class="fa fa-question-circle"
+       data-toggle="tooltip"
+       data-placement="bottom"
+       title='.date('jS_F_Y_g:i:s_a',strtotime($slider->created_at)).'
+       aria-hidden="true"></i> '. $slider->created_at->diffForHumans() ;
                 if ($slider->flag_active == 1) {
                     $nestedData['status'] = "active";
                 } else {

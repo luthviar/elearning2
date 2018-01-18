@@ -201,6 +201,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('view-{id}', 'UserController@profile_view');
 
+        Route::get('delete-score-{id}', 'UserController@delete_score');
+
         // -------------------------------------
         // ADMIN USER
         // -------------------------------------

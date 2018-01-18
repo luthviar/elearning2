@@ -40,7 +40,7 @@
                           ></i>
                       </p>
                   </th>
-                  <th><p>Update At</p></th>
+                  <th><p>Recent Access</p></th>
                   <th><p>Action</p></th>
                 </tr>
                 </thead>

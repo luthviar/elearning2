@@ -464,7 +464,9 @@ class ForumController extends Controller
                 $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
                 $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
-                
+
+
+
                 $data[] = $nestedData;
 
             }

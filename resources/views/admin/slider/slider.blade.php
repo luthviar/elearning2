@@ -2,7 +2,12 @@
 
 @section('page-name')
     Slider
-    <small>view slider</small>
+    <i class="fa fa-question-circle"
+       data-toggle="tooltip"
+       data-placement="bottom"
+       title="Maksimal jumlah slider yang bisa ditampilkan di halaman utama adalah 5. Jika ingin mengaktifkan slider lain, harus de-active slider yang sedang aktif."
+       aria-hidden="true"></i>
+    <small>List of all sliders.</small>
 @endsection
 
 @section('content')
@@ -20,7 +25,8 @@
 
                         {{ Session::get('success') }}
                         @if(Session::get('success-slider') != null)
-                            <a href="{{ url(action('SliderController@view_slider',Session::get('success-slider'))) }}"
+                            <a href="{{ url(action('SliderController@view_slider',
+                            Session::get('success-slider'))) }}"
                                class="btn btn-default btn-sm"
                                style="color: black; text-decoration: none;"
                             >
@@ -60,6 +66,7 @@
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
+            "order":[2,'desc'],
             "ajax":{
                      "url": "{{ url(action('SliderController@slider_list_serverside')) }}",
                      "dataType": "json",

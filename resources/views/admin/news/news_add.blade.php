@@ -29,8 +29,8 @@ Add News
             
               <!-- Title -->
               <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="News title" required ="true">
+                <label for="title">Title*</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="News title" required>
               </div>
 
 
@@ -41,7 +41,14 @@ Add News
               </div>
 
               <div class="form-group col-md-6">
-                  <label>Can Reply ?</label>
+                  <label>
+                      Can Reply?
+                      <i class="fa fa-question-circle"
+                         data-toggle="tooltip"
+                         data-placement="bottom"
+                         title="Maksudnya adalah, apakah news ini diizinkan untuk ada fitur memberi komentar dari user lain?"
+                         aria-hidden="true"></i>
+                  </label>
                   <select class="form-control" name="can_reply">
                     <option value="1">Ya</option>
                     <option value="0">Tidak</option>
@@ -50,8 +57,9 @@ Add News
 
               <!-- Textarea -->
               <div class="form-group">
-                  <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required ="true"></textarea>
+                  <label>Text Area</label>
+                  <textarea class="textarea" id="summernote" name="content"
+                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
               </div>
 
               <div class="form-group">
@@ -122,6 +130,8 @@ Add News
 <script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script>
 
+</script>
+<script>
   // $(function () {
     
   //   //bootstrap WYSIHTML5 - text editor

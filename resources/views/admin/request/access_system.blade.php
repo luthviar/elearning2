@@ -20,7 +20,7 @@
                 <tr>
                     <th>Email</th>
                     <th>Validation</th>
-                    <th>Time</th>
+                    <th>Time Requested</th>
                 </tr>
                 </thead>
                 
@@ -41,6 +41,7 @@
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
+            "order" : [2, 'desc'],
             "ajax":{
                      "url": "{{ url(action('UserController@system_access_serverside')) }}",
                      "dataType": "json",

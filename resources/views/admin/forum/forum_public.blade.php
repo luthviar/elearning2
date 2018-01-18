@@ -33,6 +33,28 @@ Forum Public
     </section>
     <!-- /.content -->
 
+    <!-- Modal Delete Chapter -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1 class="modal-title text-center" id="myModalLabel">
+                        <strong>Are you serious to delete this slider?</strong>
+                    </h1>
+                </div>
+                <div class="modal-body text-center">
+                    <p>The deleted slider cannot be restored.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" id="submit_button" onclick="submit_modal()" class="btn btn-danger">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -53,11 +75,27 @@ Forum Public
                 { "data": "created_by" },
                 { "data": "snippet" },
                 { "data": "created_at" },
-                { "data": "delete" },
+                { "data": "delete" }
             ]  
 
         });
     });
+</script>
+
+<script>
+    function submit_modal(){
+        var a = document.getElementById("myText"+e).value;
+{{--        window.open('{{url(action('SliderController@delete_slider',a))}}','_self');--}}
+
+        //$('#form_delete').submit();
+    }
+
+    function show_modal(e){
+        var a = document.getElementById("myText"+e).value;
+{{--        window.open('{{url(action('SliderController@delete_slider',a))}}','_self');--}}
+
+        //$('#form_delete').submit();
+    }
 </script>
 
 

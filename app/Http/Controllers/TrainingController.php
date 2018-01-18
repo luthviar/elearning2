@@ -1064,7 +1064,15 @@ class TrainingController extends Controller
                 } else {
                     $nestedData['status'] = "requested";
                 }
-                $nestedData['updated_at'] = date('j M Y',strtotime($access->updated_at));
+//                $nestedData['updated_at'] = date('j M Y',strtotime($access->updated_at));
+//                $nestedData['updated_at'] = $access->updated_at->diffForHumans();
+                $nestedData['updated_at'] =
+                    '<i class="fa fa-info-circle"
+       data-toggle="tooltip"
+       data-placement="bottom"
+       title='.date('jS_F_Y_g:i:s_a',strtotime($access->updated_at)).'
+       aria-hidden="true"></i> '. $access->updated_at->diffForHumans() ;
+
                 if ($access->status == 0) {
                     $nestedData['action'] = "<a href='".url(action('TrainingController@give_access',$access->id)).
                         "' class='btn btn-success'>give access</a>";

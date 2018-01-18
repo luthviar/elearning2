@@ -161,7 +161,7 @@
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="row text-center">
             <div class="col-lg-8 col-lg-offset-2">
-              @if(isset($scores))
+              @if(empty($scores) == false)
                 @foreach ( $scores as $score)
                 {{--<iframe id="iframe" src="{{URL::to($score->attachment_url)}}"--}}
                 {{--width='100%' height='600' allowfullscreen webkitallowfullscreen>--}}
@@ -176,8 +176,13 @@
                   <small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>
                 </a>
                 @endforeach
-              @else
-                no score
+              @elseif(empty($scores))
+                <a
+                    class="btn btn-block btn-default btn-lg"
+                    style="cursor:pointer; text-decoration: none;"
+                >
+                  No Score
+                </a>
               @endif
             </div>
 
