@@ -5,42 +5,44 @@
 
 <div class="container" style="padding-bottom: 100px;">
   <div class="row">
-    <div class="text-center">
-      <h1>{{ $chapter->chapter_name }}</h1>
-      <p>{!! html_entity_decode($chapter['material']->description)     !!}</p>
-      <h4>Attachments :</h4>
-      @foreach ($chapter['material']['files_material'] as $file)
-      <div style="padding-bottom: 10px;">
-        {{--<a--}}
-            {{--href="{{URL::asset($file->url)}}"--}}
-           {{--onclick="window.open('{{URL::asset($file->url)}}',--}}
-                   {{--'newWin', 'width='+screen.availWidth+',height='+screen.availHeight)"--}}
-            {{--onclick="openPDF()"--}}
-           {{--class="btn btn-default" style="width: 100%;">--}}
-          {{--{{ $file->name}}--}}
-        {{--</a>--}}
-          <a
-              class="btn btn-default btn-block btn-lg"
-              onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',
-                      height='+screen.availHeight')"
-              style="cursor:pointer; text-decoration: none;"
+      <div class="col-lg-10 col-lg-offset-1">
+        <div class="text-center">
+          <h1>{{ $chapter->chapter_name }}</h1>
+          <p>{!! html_entity_decode($chapter['material']->description)     !!}</p>
+          <h4>Attachments :</h4>
+          @foreach ($chapter['material']['files_material'] as $file)
+          <div style="padding-bottom: 10px;">
+            {{--<a--}}
+                {{--href="{{URL::asset($file->url)}}"--}}
+               {{--onclick="window.open('{{URL::asset($file->url)}}',--}}
+                       {{--'newWin', 'width='+screen.availWidth+',height='+screen.availHeight)"--}}
+                {{--onclick="openPDF()"--}}
+               {{--class="btn btn-default" style="width: 100%;">--}}
+              {{--{{ $file->name}}--}}
+            {{--</a>--}}
+              <a
+                  class="btn btn-default btn-block btn-lg"
+                  onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',
+                          height='+screen.availHeight')"
+                  style="cursor:pointer; text-decoration: none;"
 
-          >
-              {{$file->name}} <br/>
-              {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
-          </a>
+              >
+                  {{$file->name}} <br/>
+                  {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
+              </a>
+          </div>
+          @endforeach
+
+              <a
+                      {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
+                      onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
+                      class="btn color-std">
+                Finish this chapter
+              </a>
+
+
+        </div>
       </div>
-      @endforeach
-
-          <a
-                  {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
-                  onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
-                  class="btn color-std">
-            Finish this chapter
-          </a>
-
-
-    </div>
   </div>
 </div>
 

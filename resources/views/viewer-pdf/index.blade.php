@@ -56,6 +56,26 @@ See https://github.com/adobe-type-tools/cmap-resources
 			$('#print').hide();
 		});
 	</script>
+    <script>
+        window.onbeforeunload = function () {//Prevent Ctrl+W
+            return "Really want to quit the game?";
+        };
+
+        document.onkeydown = function (e) {
+            e = e || window.event;//Get event
+            if (e.ctrlKey) {
+                var c = e.which || e.keyCode;//Get key code
+                switch (c) {
+                    case 83://Block Ctrl+S
+                    case 87://Block Ctrl+W --Not work in Chrome
+                        e.preventDefault();
+                        e.stopPropagation();
+                        break;
+                }
+            }
+        };
+
+    </script>
   </head>
 
   <body tabindex="1" class="loadingInProgress">

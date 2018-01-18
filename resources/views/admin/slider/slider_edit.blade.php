@@ -30,7 +30,7 @@
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{$slider->title}}">
+                <input type="text" class="form-control" id="title" name="title" value="{{$slider->title}}" required>
               </div>
 
 
@@ -38,13 +38,17 @@
               <div class="form-group">
                   <label for="exampleInputFile">New Image background</label>
                   <p style="color: red">* select if you want to change image</p>
-                  <input type="file" id="img" name="image">
+                  @if(empty($slider->url_image))
+                      <input type="file" id="img" name="image" required>
+                  @else
+                      <input type="file" id="img" name="image">
+                  @endif
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title" value ="{{$slider->second_title}}" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$slider->second_title}}</textarea>
+                  <textarea class="textarea" id="second_title" name="second_title" value ="{{$slider->second_title}}" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>{{$slider->second_title}}</textarea>
               </div>
 
 
@@ -63,7 +67,11 @@
             
             <div class="box-body">
                 <div class="image">
-                  <img src="{{url($slider->url_image)}}" id="image_preview" width="100%" height="250px">
+                    @if(empty($slider->url_image) || file_exists($slider->url_image) )
+                        No Image
+                    @else
+                        <img src="{{url($slider->url_image)}}" id="image_preview" width="100%" height="250px">
+                    @endif
                 </div>  
                 <h4 id="title_preview">{{$slider->title}}</h4>
                 <p id="second_title_preview">{{$slider->second_title}}</p>
@@ -75,7 +83,9 @@
         </div>
     </div>
     <div class="row text-center">
-      <button class="btn btn-success">submit</button>
+        <div class="col-lg-12">
+            <button class="btn btn-block btn-info">Update This Slider</button>
+        </div>
     </div>
     </form>
 

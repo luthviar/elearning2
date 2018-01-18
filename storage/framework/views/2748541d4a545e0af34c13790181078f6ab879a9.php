@@ -1,10 +1,8 @@
 <?php $__env->startSection('page-name'); ?>
-Add News
-<i class="fa fa-question-circle"
-   data-toggle="tooltip"
-   data-placement="bottom"
-   title="Setelah di submit, lalu Anda harus melakukan publish agar dapat tertera pada halaman utama."
-></i>
+    <a href="<?php echo e(url(action('SliderController@view_slider',$slider->id))); ?>">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Edit Slider
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -12,54 +10,45 @@ Add News
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="<?php echo e(URL::action('NewsController@news_add_submit')); ?>" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url(action('SliderController@edit_slider_submit'))); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add News Form</h3>
+              <h3 class="box-title">Edit Slider</h3>
             </div>
             <div class="box-body">
               <?php echo e(csrf_field()); ?>
 
 
+              <input type="hidden" name="id_slider" value="<?php echo e($slider->id); ?>">
+
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="News title" required ="true">
+                <input type="text" class="form-control" id="title" name="title" value="<?php echo e($slider->title); ?>" required>
               </div>
 
 
               <!-- Image -->
-              <div class="form-group col-md-6">
-                  <label for="exampleInputFile">Image Thumbnail</label>
-                  <input type="file" id="img" name="image">
-              </div>
-
-              <div class="form-group col-md-6">
-                  <label>Can Reply ?</label>
-                  <select class="form-control" name="can_reply">
-                    <option value="1">Ya</option>
-                    <option value="0">Tidak</option>
-                  </select>
+              <div class="form-group">
+                  <label for="exampleInputFile">New Image background</label>
+                  <p style="color: red">* select if you want to change image</p>
+                  <?php if(empty($slider->url_image)): ?>
+                      <input type="file" id="img" name="image" required>
+                  <?php else: ?>
+                      <input type="file" id="img" name="image">
+                  <?php endif; ?>
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required ="true"></textarea>
+                  <textarea class="textarea" id="second_title" name="second_title" value ="<?php echo e($slider->second_title); ?>" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required><?php echo e($slider->second_title); ?></textarea>
               </div>
-
-              <div class="form-group">
-                  <label>Attachment</label>
-                  <input type="file" name="attachment[]" id="file" multiple 
-                      onchange="javascript:updateList()" />
-              </div>
-
-              
 
 
             </div>
@@ -72,29 +61,19 @@ Add News
 
           <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Preview News</h3>
+              <h3 class="box-title">Preview Slider Image</h3>
              </div> 
             
             <div class="box-body">
-                <!-- CONTENT -->
-                <div id="news_content">
-                  <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img id="img_prev" src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
-                  </div>
-                  <div class="col-xs-12 col-sm-6 col-md-8">
-                    <h3><strong id="preview_news_title">News Title</strong></h3>
-                  </div>
-                  
-                  <div id="preview_news_content">
-                    Waiting for input content
-                  </div>
-
-                  <!-- Attachments -->
-                  <div>
-                    <h5><strong>Attachments : </strong></h5>
-                        <div id="file_list"></div>
-                  </div>
-                </div>
+                <div class="image">
+                    <?php if(empty($slider->url_image) || file_exists($slider->url_image) ): ?>
+                        No Image
+                    <?php else: ?>
+                        <img src="<?php echo e(url($slider->url_image)); ?>" id="image_preview" width="100%" height="250px">
+                    <?php endif; ?>
+                </div>  
+                <h4 id="title_preview"><?php echo e($slider->title); ?></h4>
+                <p id="second_title_preview"><?php echo e($slider->second_title); ?></p>
               
             </div>
           </div>
@@ -104,7 +83,7 @@ Add News
     </div>
     <div class="row text-center">
         <div class="col-lg-12">
-            <button class="btn btn-block btn-success">Submit News</button>
+            <button class="btn btn-block btn-info">Update This Slider</button>
         </div>
     </div>
     </form>
@@ -117,7 +96,6 @@ Add News
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('script'); ?>
-	<?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
@@ -150,21 +128,29 @@ Add News
 $(document).ready(function(){
   $('#title').on('input', function(){ 
     var input = $('#title').val();
-    $('#preview_news_title').html(input);
+    $('#title_preview').html(input);
 
    });
 });
 </script>
 <script type="text/javascript">
+$(document).ready(function(){
+  $('#second_title').on('input', function(){ 
+    var input = $('#second_title').val();
+    $('#second_title_preview').html(input);
 
+   });
+});
+</script>
+
+<script type="text/javascript">
   function readURL(input) {
-
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('#img_prev').attr('src', e.target.result);
+      $('#image_preview').attr('src', e.target.result);
     }
 
     reader.readAsDataURL(input.files[0]);

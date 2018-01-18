@@ -423,15 +423,10 @@
                       <?php endif; ?>
             </div>
             <!-- /.box-body -->
-
           </div>
           <!-- /.box -->
-
         </div>
-
     </div>
-    
-
 
     </section>
     <!-- /.content -->
@@ -524,6 +519,8 @@ $(document).ready(function(){
 </script>
 
     <?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+    <?php echo $__env->make('layouts.loading', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 

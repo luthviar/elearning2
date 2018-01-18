@@ -58,10 +58,10 @@
         <!-- BEGIN HORIZANTAL MENU -->
         <div class="hor-menu hidden-sm hidden-xs navbar-collapse collapse pull-right">
             <ul class="nav navbar-nav" style="margin-right:0px !important;">
-                <li class="classic-menu-dropdown {{ Request::is('/') ? 'active' : '' }}">
+                <li class="classic-menu-dropdown {{ Request::is('/') || Request::is('slider/*') ? 'active' : '' }}">
                     <a href="{{ url('/') }}">
                         Home
-                        <span class="{{ Request::is('/') ? 'selected' : '' }}"></span>
+                        <span class="{{ Request::is('/') || Request::is('slider/*') ? 'selected' : '' }}"></span>
                     </a>
                 </li>
                 <li
@@ -107,7 +107,7 @@
                          ? 'selected' : ''
                         }}"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            @foreach (Session::get('module') as $modul)
+                            @foreach (Session::get('modules') as $modul)
                                 <li><a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a></li>
                             @endforeach
                         </ul>
@@ -152,11 +152,17 @@
                     My Modules <i class="arrow fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    @foreach (Session::get('module') as $modul)
-                                <li>
-									<a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a>
-								</li>
-                            @endforeach
+                    @if(Session::get('modules') == null)
+                        <li>
+                            empty
+                        </li>
+                    @else
+                    @foreach (Session::get('modules') as $modul)
+                        <li>
+                            <a href="{{ url('/get_training', $modul->id) }}">{{ $modul->modul_name }}</a>
+                        </li>
+                    @endforeach
+                    @endif
                 </ul>
 
             </li>
