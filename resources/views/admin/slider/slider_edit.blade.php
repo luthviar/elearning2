@@ -39,9 +39,9 @@
                   <label for="exampleInputFile">New Image background</label>
                   <p style="color: red">* select if you want to change image</p>
                   @if(empty($slider->url_image))
-                      <input type="file" id="img" name="image" >
+                      <input type="file" id="img" name="image" Accept="image/x-png,image/gif,image/jpeg" >
                   @else
-                      <input type="file" id="img" name="image">
+                      <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
                   @endif
               </div>
 

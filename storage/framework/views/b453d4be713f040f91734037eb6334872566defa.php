@@ -31,7 +31,7 @@
               <!-- Image -->
               <div class="form-group">
                   <label for="exampleInputFile">Image background</label>
-                  <input type="file" id="img" name="image" required>
+                  <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
               </div>
 
               <!-- Textarea -->
