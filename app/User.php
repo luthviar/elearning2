@@ -49,13 +49,9 @@ class User extends Authenticatable
     }
 
     public function get_user_profile (){
-        function get_personal_data(){
-            $data = \Auth::user();
-            return $data;
-        }
-
-        function get_employee_data () {
-            $data['employee_status'] = EmployeeStatus::find(\Auth::user()->id_employee_status);
+        $user['personal_data'] = \Auth::user();
+        // employee data
+        $data['employee_status'] = EmployeeStatus::find(\Auth::user()->id_employee_status);
             $org_structure = OrganizationalStructure::where('id_user',\Auth::user()->id)->first();
             if ($org_structure != null) {
                 if ($org_structure->id_department != 0) {
@@ -79,13 +75,7 @@ class User extends Authenticatable
                     $data['division'] = null;
                 }
             }
-            
-            
-            return $data;
-        }
-
-        $user['personal_data'] = get_personal_data();
-        $user['employee_data'] = get_employee_data();
+        $user['employee_data'] = $data;
 
         return $user;
     }
@@ -105,19 +95,25 @@ class User extends Authenticatable
     }
 
     public function profile_view ($id_user){
-        function get_personal_data( $id_user){
-            $data = User::find($id_user);
-            if ($data == null) {
-                $data['status'] = 'error';
-                $data['message'] = 'user not found';
-                return $data;
-            }
+        
+        $data = User::find($id_user);
+        if ($data == null) {
+            $data['status'] = 'error';
+            $data['message'] = 'user not found';
             return $data;
         }
 
-        function get_employee_data ($user) {
-            $data['employee_status'] = EmployeeStatus::find($user->id_employee_status);
-            $org_structure = OrganizationalStructure::where('id_user',$user->id)->first();
+        $user['personal_data'] = $data;
+
+        
+
+        if ($user['personal_data']['status'] == 'error') {
+//            dd($user['personal_data']);
+            return $user['personal_data'];
+        }
+        $data_user = User::find($id_user);
+        $data['employee_status'] = EmployeeStatus::find($data_user->id_employee_status);
+            $org_structure = OrganizationalStructure::where('id_user',$data_user->id)->first();
             if ($org_structure != null) {
                 if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
@@ -145,19 +141,7 @@ class User extends Authenticatable
                 $data['section'] = null;
                 $data['division'] = null;
             }
-            
-            
-            return $data;
-        }
-
-        $user['personal_data'] = get_personal_data($id_user);
-
-        if ($user['personal_data']['status'] == 'error') {
-//            dd($user['personal_data']);
-            return $user['personal_data'];
-        }
-        $data = User::find($id_user);
-        $user['employee_data'] = get_employee_data($data);
+        $user['employee_data'] = $data;
 
         return $user;
     }

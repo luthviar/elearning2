@@ -349,7 +349,7 @@ class TrainingController extends Controller
                 $nestedData['modul_name'] = "<a href='".url('admin/training/manage-'.$module->id)."'>".$module->modul_name."</a>";
                 $nestedData['date'] = date('j M Y',strtotime($module->date));
                 $nestedData['time'] = $module->time;
-                $nestedData['partisipant'] = "<a href='".url('admin/training/participant/'.$module->id)."'>
+                $nestedData['partisipant'] = "<a href='".url('admin/training/participant-'.$module->id)."'>
                                                 see participant<a>";
                 $trainer = Trainer::where('id_module',$module->id)->get();
                 $text ="<ul style='list-style-type: none;'>";
@@ -737,8 +737,9 @@ class TrainingController extends Controller
                             2 => 'description',
                             3 => 'date',
                             4 => 'time',
-                            5 => 'is_publish',
-                            6 => 'created_at'
+                            5 => 'created_by',
+                            6 => 'is_publish',
+                            7 => 'created_at'
                         );
   
         $totalData = ModulTraining::where('is_child', 1)->count();
@@ -801,6 +802,8 @@ class TrainingController extends Controller
                 } else {
                     $nestedData['is_publish'] = "not published";
                 }
+                $user = User::find($module->created_by);
+                $nestedData['created_by'] = "<a href='".url('admin/personnel/view-'.$user->id)."'>".$user->name."</a>";
                 $nestedData['created_at'] = date('j M Y',strtotime($module->created_at));
                 
                 
@@ -872,9 +875,13 @@ class TrainingController extends Controller
             return "error : file material not found";
         }
         $material = Material::find($file->id_material);
-        DB::table('files_materials')->where('id','=',$id_file)->delete();
+        $filename = substr($file->url,14);
+        $path = public_path() . "\storage\\" . $filename.".txt";
+        unlink($path);
+        
+       DB::table('files_materials')->where('id','=',$id_file)->delete();
 
-        return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
+       return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
     }
 
     public function edit_training( $id_training){
@@ -1224,6 +1231,77 @@ class TrainingController extends Controller
         }
         
         return redirect('admin/training/participant/'.$request->id_training);
+    }
+
+    public function delete_training ( $id_training ) {
+        $training = ModulTraining::find($id_training);
+        if($training == null) {
+            return "error: training not found";
+        }
+        if($training->is_child == 0){
+            return "error: training is module training";
+        }
+        $chapters = Chapter::where('id_module', $id_training)->get();
+        if(count($chapters) == 0){
+            // training with no chapter -- delete and return to view all
+            DB::table('user_chapter_records')->where('id_module_training','=',$id_training)->delete();
+            DB::table('user_training_accesses')->where('id_module','=',$id_training)->delete();
+            DB::table('modul_trainings')->where('id','=',$id_training)->delete();
+            return redirect('admin/training/all');
+        }else {
+            // training with chapter
+            foreach($chapters as $chapter){
+                if($chapter->category == 0){
+                    // chapter is material
+                    $material = Material::where('id_chapter', $chapter->id)->first();
+                    if($material == null) {
+                        // if no material --> delete chapter
+                        DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                    }else{
+                        // delete file material, material, and chapter
+                        $file_material = FilesMaterial::where('id_material', $material->id)->get();
+                        if(count($file_material) == 0){
+                            DB::table('materials')->where('id','=',$material->id)->delete();
+                        }else {
+                            foreach($file_material as $file){
+                                $filename = substr($file->url,14);
+                                $path = public_path() . "\storage\\" . $filename.".txt";
+                                unlink($path);
+                            }
+                            DB::table('files_materials')->where('id_material','=',$material->id)->delete();
+                            DB::table('materials')->where('id','=',$material->id)->delete();
+                        }
+                        DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                    }
+                }else{
+                    // chapter is test
+                    $test = Test::where('id_chapter', $chapter->id)->first();
+                    if($test == null){
+                        // if no test found
+                        DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                    } else {
+                        $questions = Question::where('id_test', $test->id)->get();
+                        if (count($questions) == 0){
+                            DB::table('tests')->where('id','=',$test->id)->delete();
+                            DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                        }else {
+                            foreach($questions as $question){
+                                DB::table('question_options')->where('id_question','=',$question->id)->delete();
+                            }
+                            DB::table('questions')->where('id_test','=',$test->id)->delete();
+                            DB::table('user_test_records')->where('id_test','=',$test->id)->delete();
+                            DB::table('tests')->where('id','=',$test->id)->delete();
+                            DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                        }
+                    }
+                }
+                
+            }
+            DB::table('user_chapter_records')->where('id_module_training','=',$id_training)->delete();
+            DB::table('user_training_accesses')->where('id_module','=',$id_training)->delete();
+            DB::table('modul_trainings')->where('id','=',$id_training)->delete();
+            return redirect('admin/training/all');
+        }
     }
 
 }

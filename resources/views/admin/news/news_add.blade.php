@@ -37,7 +37,7 @@ Add News
               <!-- Image -->
               <div class="form-group col-md-6">
                   <label for="exampleInputFile">Image Thumbnail</label>
-                  <input type="file" id="img" name="image">
+                  <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
               </div>
 
               <div class="form-group col-md-6">

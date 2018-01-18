@@ -1,66 +1,60 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+Add News
+<i class="fa fa-question-circle"
+   data-toggle="tooltip"
+   data-placement="bottom"
+   title="Setelah di submit, lalu Anda harus melakukan publish agar dapat tertera pada halaman utama."
+></i>
+<?php $__env->stopSection(); ?>
 
-@section('page-name')
-    <a href="{{ url(action('NewsController@admin_news_view',$news->id)) }}">
-        <i class="fa fa-arrow-left"></i>
-    </a>
-    Edit News
-@endsection
+<?php $__env->startSection('content'); ?>
 
-@section('content')
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url(action('NewsController@news_edit_submit'))}}" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(URL::action('NewsController@news_add_submit')); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Add News</h3>
+              <h3 class="box-title">Add News Form</h3>
             </div>
             <div class="box-body">
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
 
-              <input type="hidden" name="id_news" value="{{$news->id}}">
+
+            
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" value="{{$news->title}}" name="title" placeholder="News title" required ="true">
+                <input type="text" class="form-control" id="title" name="title" placeholder="News title" required ="true">
               </div>
 
-              <div class="col-md-12">
+
               <!-- Image -->
               <div class="form-group col-md-6">
                   <label for="exampleInputFile">Image Thumbnail</label>
-                  <p style="color: red;">* your previous image will deleted if you choose image again</p>
                   <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
               </div>
 
               <div class="form-group col-md-6">
                   <label>Can Reply ?</label>
                   <select class="form-control" name="can_reply">
-                    @if($news->is_reply == 1)
-                    <option value="1" selected="true">Ya</option>
-                    <option value="0">Tidak</option>
-                    @else
                     <option value="1">Ya</option>
-                    <option value="0" selected="true">Tidak</option>
-                    @endif
+                    <option value="0">Tidak</option>
                   </select>
-              </div>
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required ="true">{{$news->content}}</textarea>
+                  <textarea class="textarea" id="summernote" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required ="true"></textarea>
               </div>
 
               <div class="form-group">
                   <label>Attachment</label>
-                  <p style="color: red">* your previous attachment will deleted if you choose attachment again</p>
                   <input type="file" name="attachment[]" id="file" multiple 
                       onchange="javascript:updateList()" />
               </div>
@@ -85,26 +79,20 @@
                 <!-- CONTENT -->
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-6 col-md-4">
-                    <img id="img_prev" src="{{ URL::asset($news->url_image)}}" style="width: 100%; height: 100px;">
+                    <img id="img_prev" src="<?php echo e(URL::asset('gambar.png')); ?>" style="width: 100%; height: 100px;">
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-8">
-                    <h3><strong id="preview_news_title">{{$news->title}}</strong></h3>
+                    <h3><strong id="preview_news_title">News Title</strong></h3>
                   </div>
                   
                   <div id="preview_news_content">
-                    {!! html_entity_decode($news->content) !!}
+                    Waiting for input content
                   </div>
 
                   <!-- Attachments -->
                   <div>
                     <h5><strong>Attachments : </strong></h5>
-                        <div id="file_list">
-                          <ul>
-                          @foreach($news['attachments'] as $file)
-                            <li><a href="{{url::asset($file->attachment_url)}}">{{$file->attachment_name}}</a></li>
-                          @endforeach
-                          </ul>
-                        </div>
+                        <div id="file_list"></div>
                   </div>
                 </div>
               
@@ -116,7 +104,7 @@
     </div>
     <div class="row text-center">
         <div class="col-lg-12">
-            <button class="btn btn-block btn-success">Update the News</button>
+            <button class="btn btn-block btn-success">Submit News</button>
         </div>
     </div>
     </form>
@@ -126,10 +114,11 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+	<?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -166,23 +155,10 @@ $(document).ready(function(){
    });
 });
 </script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
- <script>
- $(document).ready(function() {
-      $('#summernote').summernote({
-        callbacks: {
-          onChange: function(contents, $editable) {
-            console.log('onChange:', contents, $editable);
-            $('#preview_news_content').html(contents, $editable);
-          }
-        },
-        height: 100,
-        
-      });
-});
-</script>
 <script type="text/javascript">
+
   function readURL(input) {
+
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -213,4 +189,5 @@ $("#img").change(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

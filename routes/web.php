@@ -312,6 +312,8 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('training')->group(function () {
 
+        Route::get('delete-{id}','TrainingController@delete_training');
+
         Route::get('add_training', 'TrainingController@add_training');
 
         Route::get('manage-{id}', 'TrainingController@manage_training');

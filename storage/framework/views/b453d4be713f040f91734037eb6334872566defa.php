@@ -1,54 +1,44 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+  Add Slider
+<?php $__env->stopSection(); ?>
 
-@section('page-name')
-    <a href="{{ url(action('SliderController@view_slider',$slider->id)) }}">
-        <i class="fa fa-arrow-left"></i>
-    </a>
-    Edit Slider
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url(action('SliderController@edit_slider_submit'))}}" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url(action('SliderController@slider_add_submit'))); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
 
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Edit Slider</h3>
+              <h3 class="box-title">Add Slider Form</h3>
             </div>
             <div class="box-body">
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
 
-              <input type="hidden" name="id_slider" value="{{$slider->id}}">
 
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{$slider->title}}" required>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Slider title" required>
               </div>
 
 
               <!-- Image -->
               <div class="form-group">
-                  <label for="exampleInputFile">New Image background</label>
-                  <p style="color: red">* select if you want to change image, or leave it if you want to use the old image.</p>
-                  @if(empty($slider->url_image))
-                      <input type="file" id="img" name="image" Accept="image/x-png,image/gif,image/jpeg" >
-                  @else
-                      <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
-                  @endif
+                  <label for="exampleInputFile">Image background</label>
+                  <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
                   <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title" value ="{{$slider->second_title}}" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>{{$slider->second_title}}</textarea>
+                  <textarea class="textarea" id="second_title" name="second_title"
+                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
               </div>
 
 
@@ -67,14 +57,10 @@
             
             <div class="box-body">
                 <div class="image">
-                    @if(empty($slider->url_image) || file_exists($slider->url_image) )
-                        No Image
-                    @else
-                        <img src="{{url($slider->url_image)}}" id="image_preview" width="100%" height="250px">
-                    @endif
+                  <img src="<?php echo e(url('gambar.png')); ?>" id="image_preview" width="100%" height="250px">
                 </div>  
-                <h4 id="title_preview">{{$slider->title}}</h4>
-                <p id="second_title_preview">{{$slider->second_title}}</p>
+                <h4 id="title_preview"></h4>
+                <p id="second_title_preview"></p>
               
             </div>
           </div>
@@ -84,7 +70,7 @@
     </div>
     <div class="row text-center">
         <div class="col-lg-12">
-            <button class="btn btn-block btn-info">Update This Slider</button>
+            <button class="btn btn-block btn-success">Submit New Slider</button>
         </div>
     </div>
     </form>
@@ -94,10 +80,10 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -176,4 +162,5 @@ $("#img").change(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
