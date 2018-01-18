@@ -49,75 +49,6 @@ class ModulTraining extends Model
 	    	return $super_module;
     	}
 
-    	
-    	function getTraining($super_module){
-
-    // 		// mendapatkan material pada chapter
-    // 		function getMaterial ( $chapter ) {
-
-	   //  		function getFileMaterial ( $material ) {
-	   //  			$file_materials = FilesMaterial::where( "id_material" , $material->id )->get();
-	   //  			if ( $file_materials == null ) {
-	   //  				return "";
-	   //  			} else {
-	   //  				return $file_materials;
-	   //  			}
-	   //  		}
-
-	   //  		$material = Material::where( "id_chapter" , $chapter->id )->first();
-				// $material["files_material"] = getFileMaterial( $material );
-
-				// return $material;
-	   //  	}
-
-	   //  	// mendapatkan test pada chapter
-	   //  	function getTest ( $chapter ) {
-	    		
-	   //  		function get_question_option( $question ) {
-	   //  			$options = QuestionOption::where( 'id_question' , $question->id )->get();
-	   //  			if ( count($options) == 0) {
-	   //  				return "tidak ada opsi";
-	   //  			} else {
-	   //  				return $options;
-	   //  			}
-	   //  		}
-
-	   //  		$test = Test::where( 'id_chapter' , $chapter->id )->first();
-	   //  		$questions = Question::where( 'id_test' , $test->id )->get();
-	   //  		if ( count($questions) == 0 ) {
-	   //  			$test['questions'] = " tidak ada pertanyaan";
-	   //  		} else {
-	   //  			foreach ($questions as $question) {
-		  //   			$question['option'] = get_question_option( $question );
-		  //   		}	
-		  //   		$test['questions'] = $questions;
-	   //  		}
-	    		
-	   //  		return $test;
-	   //  	}
-
-
-	    	// --------------MAIN-------------------
-
-    		$chapters = Chapter::where( 'id_module' , $super_module->id )->orderBy( "sequence" , "asc" )->get();
-    		if ( count($chapters) == 0 ) {
-    			return "belum ada chapter";
-    		} else {
-    			// foreach ( $chapters as $chapter ) {
-    			// 	//check apakah chapter berupa konten atau test
-    			// 	if ($chapter->category == 0) {
-    			// 		// materials
-    			// 		$chapter['material'] = getMaterial ( $chapter );
-    			// 	} else {
-    			// 		// test
-    			// 		$chapter['test'] = getTest ( $chapter );
-    			// 	}
-    			// }
-    		}
-    		return $chapters;
-
-    	}
-
     	// ------------------------------------------------
     	//				Main
     	// ------------------------------------------------
@@ -139,7 +70,11 @@ class ModulTraining extends Model
 
     		return $output;
     	}else{
-    		$super_module['chapter'] = getTraining($super_module);
+			$chapters = Chapter::where( 'id_module' , $super_module->id )->orderBy( "sequence" , "asc" )->get();
+    		if ( count($chapters) == 0 ) {
+    			return "belum ada chapter";
+    		} 
+    		$super_module['chapter'] = $chapters;
             $super_module['status'] ="children";
 
     		return $super_module;

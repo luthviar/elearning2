@@ -29,35 +29,7 @@ class News extends Model
     }
 
     public function get_news ( $id_news ) {
-
-    	// get news attachment
-    	function get_news_attachment ( $news ) {
-    		$attachments = NewsAttachment::where( 'id_news' , $news->id )->get();
-    		return $attachments;
-    	}
-
-    	// get news comments
-    	function get_comments ( $news ) {
-    		
-    		function get_comment_attachments ( $comment ) {
-    			$attachments = NewsCommentAttachment::where( 'id_comment' , $comment->id )->get();
-    			if ( count($attachments) == 0 ) {
-    				return "no attachments";
-    			}
-    			return $attachments;
-    		}
-
-    		$comments = NewsComment::where( 'id_news' , $news->id )->get();
-    		if ( count($comments) == 0 ) {
-    			return "no comments";
-    		}
-    		foreach ($comments as $comment ) {
-    			$comment["attachments"] = get_comment_attachments( $comment );
-    		}
-
-    		return $comments;
-    	}
-
+ 
 
     	//-------------------------------
     	//		       MAIN
@@ -68,9 +40,24 @@ class News extends Model
     		return "news not found";
     	}
 
-    	$news['attachments'] = get_news_attachment( $news );
+    	$news['attachments'] = NewsAttachment::where( 'id_news' , $news->id )->get();
 
-    	$news['comments'] = get_comments( $news );
+		$comments = NewsComment::where( 'id_news' , $news->id )->get();
+		if ( count($comments) == 0 ) {
+			$news['comments'] = "no comments";
+		} else {
+			foreach ($comments as $comment ) {
+				$attachments = NewsCommentAttachment::where( 'id_comment' , $comment->id )->get();
+    			if ( count($attachments) == 0 ) {
+    				$comment["attachments"] = "no attachments";
+    			} else {
+					$comment["attachments"] =	$attachments;
+				}
+			}
+				
+			$news['comments'] = $comments;
+		}
+		
 
     	return $news;
 

@@ -82,6 +82,9 @@
                    </a>
                    <a href="{{url(action('TrainingController@add_participant',$training->id))}}"
                       class="btn btn-success">SEE PARTICIPANT</a>
+                    
+                      <a href="{{url(action('TrainingController@delete_training',$training->id))}}"
+                      class="btn btn-danger">DELETE TRAINING</a>
 
               </span>
             </div>
