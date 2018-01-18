@@ -1,27 +1,66 @@
+<!-- Scripts 
+    <script src="{{ asset('js/app.js') }}"></script>-->
 
-<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.bxslider.min.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.placeholder.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.uniform.min.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/fancySelect.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/main.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/app.js')); ?>"></script>
+<style>
+    a.page_link.active_page {
+        background-color: #ccc;
+        color: #000;
+    }
+    
+    a.page_link {
+        background-color: #f2f2f2;
+        color: #666;
+    }
+</style>
 <script>
-    $(function () {
+    $(window).load(function() {
+
+        setTimeout(function() {
+            $("#loading").fadeOut(function() {
+
+                $(this).remove();
+                $('body').removeAttr('style');
+            })
+        }, 300);
+    });
+
+
+    jQuery(document).ready(function() {
+        // initiate layout and plugins
+        App.init();
+
+    });
+
+</script>
+<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.bxslider.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.placeholder.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.uniform.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('Elegantic/js/fancySelect.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('Elegantic/js/main.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('Elegantic/js/app.js')}}"></script>
+<script>
+    $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
 </script>
 <!-- END CORE PLUGINS -->
 <style>
-    .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    .pagination>li>a,
+    .pagination>li>span {
+        border-radius: 3px !important;
+        margin: 0 5px;
+    }
+
 </style>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
         //how much items per page to show
         var show_per_page = 6;
         //getting the amount of elements inside content div
         var number_of_items = $('#content').children().length;
         //calculate the number of pages we are going to have
-        var number_of_pages = Math.ceil(number_of_items/show_per_page);
+        var number_of_pages = Math.ceil(number_of_items / show_per_page);
         //set the value of our hidden input fields
         $('#current_page').val(0);
         $('#show_per_page').val(show_per_page);
@@ -34,8 +73,8 @@
          */
         var navigation_html = '';
         var current_link = 0;
-        while(number_of_pages > current_link){
-            navigation_html += '<li><a class="page_link" href="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a></li>';
+        while (number_of_pages > current_link) {
+            navigation_html += '<li><a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a></li>';
             current_link++;
         }
         navigation_html += '';
@@ -48,21 +87,24 @@
         //and show the first n (show_per_page) elements
         $('#content').children().slice(0, show_per_page).css('display', 'block');
     });
-    function previous(){
+
+    function previous() {
         new_page = parseInt($('#current_page').val()) - 1;
         //if there is an item before the current active link run the function
-        if($('.active_page').prev('.page_link').length==true){
+        if ($('.active_page').prev('.page_link').length == true) {
             go_to_page(new_page);
         }
     }
-    function next(){
+
+    function next() {
         new_page = parseInt($('#current_page').val()) + 1;
         //if there is an item after the current active link run the function
-        if($('.active_page').next('.page_link').length==true){
+        if ($('.active_page').next('.page_link').length == true) {
             go_to_page(new_page);
         }
     }
-    function go_to_page(page_num){
+
+    function    go_to_page(page_num) {
         //get the number of items shown per page
         var show_per_page = parseInt($('#show_per_page').val());
         //get the element number where to start the slice from
@@ -73,18 +115,24 @@
         $('#content').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
         /*get the page link that has longdesc attribute of the current page and add active_page class to it
          and remove that class from previously active page link*/
-        $('.page_link[longdesc=' + page_num +']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+        //  $('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
         //update the current page input field
         $('#current_page').val(page_num);
+        $('.page_link').removeClass('active_page');
+        $('.page_link[longdesc=' + page_num + ']').addClass('active_page');
+        
     }
+
 </script>
 
-<link rel="stylesheet" href="<?php echo e(url('css/jquery.dataTables.min.css')); ?>">
-<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table_training').DataTable({
-            "order": [[ 3, "desc" ]],
+            "order": [
+                [3, "desc"]
+            ],
         });
     });
 
@@ -92,27 +140,30 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table_raport').DataTable({
-            "order": [[ 1, "desc" ]],
+            "order": [
+                [1, "desc"]
+            ],
         });
     });
 
 </script>
 
 
-
+{{--view-forum.blade script--}}
 <script>
     $(document).ready(function() {
         $('.summernote').summernote({
-            height: 200,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
+            height: 200, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
 
         });
 
     });
+
 </script>
 
-
+{{--modal edit forum--}}
 
 
 <script>
@@ -163,54 +214,40 @@
         }
         output.innerHTML += '</ul>';
     }
+
 </script>
 
-
+{{--edit forum script--}}
 <script>
-var password = document.getElementById("change_password")
-  , confirm_password = document.getElementById("confirm_password");
-
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-</script>
-
-
-<script>
-    function editForum($id_edit,$title,$can_reply,$content,$attachments) {
+    function editForum($id_edit, $title, $can_reply, $content, $attachments) {
         window.location.href = '...';
         $("#id_forum_edit").val($id_edit);
         $("#title_edit").val($title);
         $("#can_reply_edit").val($can_reply);
 
         $("#summernote_edit").summernote("code", $content);
-//                $("#content_edit").html($content);
+        //                $("#content_edit").html($content);
 
         $("#attachments_edit").html($attachments);
 
         $('#modal_edit_forum').modal("show");
     }
+
 </script>
 
+{{--end of view-forum.blade script--}}
 
 
-
-<link rel="stylesheet" href="<?php echo e(url('css/jquery.dataTables.min.css')); ?>">
-<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.detailTable').DataTable({
-            "order": [[ 4, "desc" ]]
+            "order": [
+                [0, "desc"]
+            ]
         });
     });
-</script>
-<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
 
-<script src="<?php echo e(url('js/tabs/cbpFWTabs.js')); ?>"></script>
+</script>
+<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
