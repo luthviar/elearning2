@@ -102,7 +102,7 @@
                         Request::is('review_test/*')
                          ? 'selected' : ''); ?>"></span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?php $__currentLoopData = Session::get('module'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = Session::get('modules'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li><a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a></li>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
@@ -147,11 +147,17 @@
                     My Modules <i class="arrow fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <?php $__currentLoopData = Session::get('module'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <li>
-									<a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a>
-								</li>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php if(Session::get('modules') == null): ?>
+                        <li>
+                            empty
+                        </li>
+                    <?php else: ?>
+                    <?php $__currentLoopData = Session::get('modules'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li>
+                            <a href="<?php echo e(url('/get_training', $modul->id)); ?>"><?php echo e($modul->modul_name); ?></a>
+                        </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
                 </ul>
 
             </li>

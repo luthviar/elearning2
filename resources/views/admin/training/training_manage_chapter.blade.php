@@ -419,15 +419,10 @@
                       @endif
             </div>
             <!-- /.box-body -->
-
           </div>
           <!-- /.box -->
-
         </div>
-
     </div>
-    
-
 
     </section>
     <!-- /.content -->
@@ -520,5 +515,7 @@ $(document).ready(function(){
 </script>
 
     @include('admin.layouts.summernote')
+
+    @include('layouts.loading')
 
 @endsection

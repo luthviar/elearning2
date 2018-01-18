@@ -57,15 +57,15 @@ class HomeController extends Controller
 //        Session::put('profile', $profile);
 
         Session::put('link',$link);
-        Session::put('module',$modul);
+        Session::put('modules',$modul);
         Session::put('schedule',$schedule);
 
         return view('user.home')
                     ->with( 'newses' , $news )
                     ->with( 'sliders' , $sliders )
-                    ->with( 'module' , $modul )
-                    ->with( 'schedule', $schedule)
-                    ->with( 'link', $link);
+                    ->with( 'modules' , $modul )
+                    ->with( 'schedules', $schedule)
+                    ->with( 'links', $link);
     }
 
     public function test(){
