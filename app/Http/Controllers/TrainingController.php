@@ -388,7 +388,7 @@ class TrainingController extends Controller
         $access->status = 1;
         $access->save();
 
-        $user = User::find($id_user_training_access);
+        $user = User::find($access->id_user);
         Session::flash('success', 'Anda berhasil melakukan "GIVE ACCESS" pada karyawan yang bernama: '.$user->name);
 
         return redirect(action('TrainingController@admin_access_training'));
@@ -402,7 +402,7 @@ class TrainingController extends Controller
         $access->status = 0;
         $access->save();
 
-        $user = User::find($id_user_training_access);
+        $user = User::find($access->id_user);
         Session::flash('success', 'Anda berhasil melakukan "CANCEL ACCESS" pada karyawan yang bernama: '.$user->name);
 
         return redirect(action('TrainingController@admin_access_training'));
@@ -1022,7 +1022,7 @@ class TrainingController extends Controller
                             0 =>'id_user', 
                             1 =>'id_module',
                             2 => 'status',
-                            3 => 'updated_at',
+                            3 => 'created_at',
                             4 => 'id'
                         );
   
@@ -1073,7 +1073,7 @@ class TrainingController extends Controller
                 }
 //                $nestedData['updated_at'] = date('j M Y',strtotime($access->updated_at));
 //                $nestedData['updated_at'] = $access->updated_at->diffForHumans();
-                $nestedData['updated_at'] =
+                $nestedData['created_at'] =
                     '<i class="fa fa-info-circle"
        data-toggle="tooltip"
        data-placement="bottom"
