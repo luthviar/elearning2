@@ -412,10 +412,13 @@ class UserController extends Controller
         $structure->id_department = $id_department;
         $structure->save();
 
+        $user_name = User::find($id_user);
 
-        Session::flash('success', 'Anda berhasil melakukan "PUBLISH" pada news ini, news akan tampil di halaman utama web.');
+//        dd('masuk');
+        Session::flash('success', 'Anda berhasil menambahkan USER/Personnel baru dengan nama: '.$user_name->name.' dan profile-nya dapat dilihat di: ');
+        Session::flash('success-personnel', $id_user);
 
-        return redirect('admin/personnel');
+        return redirect(url(action('UserController@personnel_list')));
 
     }
 
@@ -547,6 +550,8 @@ class UserController extends Controller
         $user->flag_active = 1;
         $user->save();
 
+        Session::flash('success', 'Personnel berhasil di-AKTIFKAN, sehingga user ini dapat login ke dalam E-Learning.');
+
         return redirect(action('UserController@profile_view',$user->id));
     }
 
@@ -557,6 +562,8 @@ class UserController extends Controller
         }
         $user->flag_active = 0;
         $user->save();
+
+        Session::flash('success', 'Personnel berhasil di-NONAKTIFKAN, sehingga user ini tidak dapat login ke dalam E-Learning.');
 
         return redirect(action('UserController@profile_view',$user->id));
     }

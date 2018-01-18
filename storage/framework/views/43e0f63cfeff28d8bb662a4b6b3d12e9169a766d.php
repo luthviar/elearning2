@@ -61,7 +61,7 @@
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
-            "order": [4, 'asc'],
+            "order": [3, 'desc'],
             "ajax":{
                      "url": "<?php echo e(url(action('TrainingController@admin_access_training_serverside'))); ?>",
                      "dataType": "json",

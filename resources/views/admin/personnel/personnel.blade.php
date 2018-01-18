@@ -15,6 +15,24 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">Personnel Data</h3>
+                @if(empty(Session::get('success')) == false)
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+
+                        {{ Session::get('success') }}
+                        @if(Session::get('success-personnel') != null)
+                            <a href="{{ url(action('UserController@profile_view',Session::get('success-personnel'))) }}"
+                               class="btn btn-default btn-sm"
+                               style="color: black; text-decoration: none;"
+                            >
+                                View The User
+                            </a>
+                        @endif
+
+                    </div>
+                @endif
             </div>
             <!-- /.box-header -->
             <div class="box-body">

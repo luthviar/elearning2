@@ -1058,7 +1058,7 @@ class TrainingController extends Controller
         $data = array();
         if(!empty($accesses))
         {
-            foreach ($accesses as $access)
+            foreach ($accesses as $key=>$access)
             {
                 $user = User::find($access->id_user);
                 $nestedData['name'] = "<a target='_blank' href='".url(action('UserController@profile_view',$user->id))."'>"
@@ -1077,8 +1077,8 @@ class TrainingController extends Controller
                     '<i class="fa fa-info-circle"
        data-toggle="tooltip"
        data-placement="bottom"
-       title='.date('jS_F_Y_g:i:s_a',strtotime($access->updated_at)).'
-       aria-hidden="true"></i> '. $access->updated_at->diffForHumans() ;
+       title='.date('jS_F_Y_g:i:s_a',strtotime($access->created_at)).'
+       aria-hidden="true"></i> '. $access->created_at->diffForHumans() ;
 
                 if ($access->status == 0) {
                     $nestedData['action'] = "<a href='".url(action('TrainingController@give_access',$access->id)).
