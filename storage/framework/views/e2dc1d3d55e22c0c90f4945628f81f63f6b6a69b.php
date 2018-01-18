@@ -1,3 +1,15 @@
+<div id="loadingz" style="display: none; background-color: black;">
+    <div id="loading-container" class="fullwidth" style="background-color: black;">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p id='loading-text'>Loading...</p>
+    </div>
+</div>
 <header class="main-header">
     <!-- Logo -->
     <a href="<?php echo e(url(action('UserController@personnel_list'))); ?>" class="logo">

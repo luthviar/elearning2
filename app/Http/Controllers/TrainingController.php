@@ -876,11 +876,12 @@ class TrainingController extends Controller
         }
         $material = Material::find($file->id_material);
         $filename = substr($file->url,14);
-        Storage::delete(storage_path($filename));
+        $path = public_path() . "\storage\\" . $filename.".txt";
+        unlink($path);
         
-    //    DB::table('files_materials')->where('id','=',$id_file)->delete();
+       DB::table('files_materials')->where('id','=',$id_file)->delete();
 
-    //    return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
+       return redirect(action('TrainingController@manage_chapter',$material->id_chapter));
     }
 
     public function edit_training( $id_training){
@@ -1254,6 +1255,11 @@ class TrainingController extends Controller
                         if(count($file_material) == 0){
                             DB::table('materials')->where('id','=',$material->id)->delete();
                         }else {
+                            foreach($file_material as $file){
+                                $filename = substr($file->url,14);
+                                $path = public_path() . "\storage\\" . $filename.".txt";
+                                unlink($path);
+                            }
                             DB::table('files_materials')->where('id_material','=',$material->id)->delete();
                             DB::table('materials')->where('id','=',$material->id)->delete();
                         }
