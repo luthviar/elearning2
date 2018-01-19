@@ -1,13 +1,11 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
-    <a href="{{ url(action('TrainingController@manage_chapter',Session::get('id_chapter'))) }}">
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('TrainingController@manage_chapter',Session::get('id_chapter')))); ?>">
         <i class="fa fa-arrow-left"></i>
     </a>
     Manage Chapter Training
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
@@ -23,45 +21,47 @@
                      title="Question content and option should not empty."
                   ></i>
               </h3>
-                @if(Session::get('failed') != null)
+                <?php if(Session::get('failed') != null): ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <hr/>
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <h4><i class="icon fa fa-check"></i> Gagal!</h4>
-                                {{ Session::get('failed') }}
+                                <?php echo e(Session::get('failed')); ?>
+
                             </div>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
             <div class="box-body">
-                 <form action="{{url(action('TrainingController@edit_question_submit'))}}" method="post">
-                   {{csrf_field()}}
+                 <form action="<?php echo e(url(action('TrainingController@edit_question_submit'))); ?>" method="post">
+                   <?php echo e(csrf_field()); ?>
+
                  
-                  <input type="hidden" name="question_id" value="{{$question->id}}">
+                  <input type="hidden" name="question_id" value="<?php echo e($question->id); ?>">
                  <div class="form-group">
                     <label>Question*:</label>
                      <textarea class="textarea" id="summernote"
-                               name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>
-                    {{--<textarea class="textarea" id="summernote" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>--}}
+                               name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?php echo $question->question_text; ?></textarea>
+                    
                 </div>
                 
                   <h5><strong>Options*:</strong>
                       <span><button class="add_field_button btn btn-success">+ Add More Option</button></span>
                   </h5>
                   <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
-                    @foreach ($question['option'] as $key => $option)
-                    @if($key < 2)
+                    <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($key < 2): ?>
                     <div class="col-md-12" style="padding-bottom: 5px;">
-                        <input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;"
+                        <input type="text" class="form-control" value="<?php echo e($option->option_text); ?>" style="width: 80%;"
                                placeholder="input option" name="option[]" required>
                     </div>
-                    @else
-                    <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]"><a href="#" class="remove_field">Remove</a></div>
-                    @endif
-                    @endforeach
+                    <?php else: ?>
+                    <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="<?php echo e($option->option_text); ?>" style="width: 80%;" placeholder="input option" name="option[]"><a href="#" class="remove_field">Remove</a></div>
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </div>
 
                 <div class="col-md-12 text-center">
@@ -88,9 +88,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $('#add_chapter_type').on('input', function(){
       var chapter_type = $('#add_chapter_type').val();
@@ -118,7 +118,7 @@
 
 </script>
 
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -159,5 +159,6 @@ $(document).ready(function(){
 });
 </script>
 
-@include('admin.layouts.summernote')
-@endsection
+<?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

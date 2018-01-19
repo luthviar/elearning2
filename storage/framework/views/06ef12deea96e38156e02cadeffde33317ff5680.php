@@ -1,14 +1,12 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
+<?php $__env->startSection('page-name'); ?>
     Add New Link
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
-        <form method="post" action="{{url(action('AerofoodLinksController@create'))}}"
+        <form method="post" action="<?php echo e(url(action('AerofoodLinksController@create'))); ?>"
               enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6">
@@ -17,11 +15,12 @@
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">
-                                {{--FILL HERE--}}
+                                
                             </h3>
                         </div>
                         <div class="box-body">
-                            {{csrf_field()}}
+                            <?php echo e(csrf_field()); ?>
+
 
                             <!-- name -->
                             <div class="form-group">
@@ -78,6 +77,7 @@
                                 </label>
                                 <input type="text" class="form-control" id="status"
                                        name="status" placeholder="Status of the system" required ="true">
+                                
 
                             </div>
 
@@ -123,10 +123,10 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-    <script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+    <script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
     <script>
 
         // $(function () {
@@ -205,4 +205,5 @@
     </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

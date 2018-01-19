@@ -1,83 +1,86 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="page-container" id="wrapper">
         <div class="page-content-wrapper" style="padding:30px">
             <div class ="col-md-8">
                 <div class="row">
-                    <h3>{{ $forum['title'] }}</h3>
-                    <h6>{{$forum['personnel']->name}},
-                        {{ \Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')}}</h6>
+                    <h3><?php echo e($forum['title']); ?></h3>
+                    <h6><?php echo e($forum['personnel']->name); ?>,
+                        <?php echo e(\Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')); ?></h6>
                     <hr class="style14">
                     <p align="justify" class="big">
-                        {!! html_entity_decode($forum['content']) !!}
+                        <?php echo html_entity_decode($forum['content']); ?>
+
 
                     </p>
                     <hr class="style14">
                     <div class=''>
-                        @if(!empty($forum['file_pendukung'][0]))
+                        <?php if(!empty($forum['file_pendukung'][0])): ?>
                             Attachment(s) : <br>
-                            @foreach($forum['file_pendukung'] as $file)
-                                <a href="{{URL::asset($file->attachment_url)}}">
-                                    <i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}}
+                            <?php $__currentLoopData = $forum['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?>
+
                                 </a><br>
-                            @endforeach
-                        @endif
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
 
                     </div>
                 </div>
                 <br>
 
-                @if($forum->is_reply == 1)
+                <?php if($forum->is_reply == 1): ?>
                     <div class="block-advice">
-                        <h3>Comments({{count($forum['replie'])}})</h3>
+                        <h3>Comments(<?php echo e(count($forum['replie'])); ?>)</h3>
                         <br>
-                        @foreach($forum['replie'] as $reply)
+                        <?php $__currentLoopData = $forum['replie']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="panel panel-default">
-                                <div class="panel-heading"><strong>{{ $reply['title'] }}</strong><br>
-                                    {{$reply['personnel']->name}} ,
-                                    {{ \Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')}}</div>
+                                <div class="panel-heading"><strong><?php echo e($reply['title']); ?></strong><br>
+                                    <?php echo e($reply['personnel']->name); ?> ,
+                                    <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')); ?></div>
                                 <div class="panel-body">
-                                    {!! html_entity_decode($reply['content']) !!}
+                                    <?php echo html_entity_decode($reply['content']); ?>
+
                                     <div class='pull-right'>
-                                        @if(!empty($reply['file_pendukung'][0]))
+                                        <?php if(!empty($reply['file_pendukung'][0])): ?>
                                             Attachments : <br>
-                                            @foreach($reply['file_pendukung'] as $file)
-                                                <a href="{{URL::asset($file->attachment_url)}}">
+                                            <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
                                                     <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                    {{$file->attachment_name}}
+                                                    <?php echo e($file->attachment_name); ?>
+
                                                 </a><br>
-                                            @endforeach
-                                        @endif
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
 
                                     </div>
                                 </div>
 
                             </div>
                             <br>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @if(Auth::user() == null)
-                        @else
+                        <?php if(Auth::user() == null): ?>
+                        <?php else: ?>
                             <form id="myform" class="form-horizontal" role="form" method="POST"
-                                  action="{{ URL::action('ForumController@storeCommentByUser') }}" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
-                                <input type="hidden" name="id_forum" value="{{$forum->id}}">
+                                  action="<?php echo e(URL::action('ForumController@storeCommentByUser')); ?>" enctype="multipart/form-data">
+                                <?php echo e(csrf_field()); ?>
+
+                                <input type="hidden" name="id_user" value="<?php echo e(Auth::user()->id); ?>">
+                                <input type="hidden" name="id_forum" value="<?php echo e($forum->id); ?>">
                                 <div class="form-group">
                                     <label for="title" class="col-md-2 control-label">Title*</label>
 
                                     <div class="col-md-8">
                                         <input id="title" type="text"
                                                class="form-control" name="title" required
-                                               value="[RE:] {{$forum['title']}}">
+                                               value="[RE:] <?php echo e($forum['title']); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="content" class="col-md-2 control-label">Content*</label>
 
                                     <div class="col-md-8">
-                                        {{--<textarea id="summernote" type="text" class="form-control" name="content" required  style="resize: none;"></textarea>--}}
+                                        
                                         <textarea class="form-control" rows="5" id="comment" name="content" required></textarea>
                                     </div>
                                 </div>
@@ -114,8 +117,8 @@
                                 </div>
                             </form>
                     </div>
-                @endif
-                @endif
+                <?php endif; ?>
+                <?php endif; ?>
 
             </div>
 
@@ -126,13 +129,13 @@
                             <div class="well">
                                 <h4>Recent Forum</h4>
                                 <hr class="style14">
-                                @foreach($recent as $rct)
-                                    <a href="{{ url(action('ForumController@get_forum',$rct->id)) }}"><p>{{$rct->title}}</p></a>
-                                @endforeach
+                                <?php $__currentLoopData = $recent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <a href="<?php echo e(url(action('ForumController@get_forum',$rct->id))); ?>"><p><?php echo e($rct->title); ?></p></a>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <br>
                             </div>
                             <!--Links -->
-                            @include('user.layouts.aerofood_links')
+                            <?php echo $__env->make('user.layouts.aerofood_links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         </div>
                 </div>
             </div>
@@ -140,9 +143,9 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         updateList = function() {
             var input = document.getElementById('file');
@@ -186,4 +189,5 @@
             font-size : 15px;
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

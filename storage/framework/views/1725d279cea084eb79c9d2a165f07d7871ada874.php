@@ -1,24 +1,22 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
-    <a href="{{ url(action('TrainingController@manage_training',$chapter->id_module)) }}">
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>">
         <i class="fa fa-arrow-left"></i>
     </a>
     Manage Chapter Training
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
     <div class="row">
-        @if(Session::get('training') != null)
+        <?php if(Session::get('training') != null): ?>
         <div class="col-md-12">
             <div class="box box-primary text-center">
                 <div class="box-header">
                     <h1 class="box-title">
                         Training name:
-                        <strong>{{Session::get('training')->modul_name}}</strong>
+                        <strong><?php echo e(Session::get('training')->modul_name); ?></strong>
                     </h1>
 
                 </div>
@@ -29,13 +27,13 @@
                     <div class="form-group col-md-4">
                         <label>Training Parent</label>
                         <select class="form-control" disabled="true">
-                            @foreach(Session::get('parent') as $par)
-                                @if($par->id == Session::get('training')->id_parent)
-                                    <option selected="true" value="{{$par->id}}">{{$par->modul_name}}</option>
-                                @else
-                                    <option>{{$par->modul_name}}</option>
-                                @endif
-                            @endforeach
+                            <?php $__currentLoopData = Session::get('parent'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($par->id == Session::get('training')->id_parent): ?>
+                                    <option selected="true" value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
+                                <?php else: ?>
+                                    <option><?php echo e($par->modul_name); ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
 
@@ -47,7 +45,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control pull-right" value="{{Session::get('training')->date}}" id="datepicker" disabled="true">
+                            <input type="text" class="form-control pull-right" value="<?php echo e(Session::get('training')->date); ?>" id="datepicker" disabled="true">
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -59,7 +57,7 @@
                             <label>Training Start:</label>
 
                             <div class="input-group">
-                                <input type="text" value="{{Session::get('training')->time}}" class="form-control" disabled="true">
+                                <input type="text" value="<?php echo e(Session::get('training')->time); ?>" class="form-control" disabled="true">
 
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
@@ -73,9 +71,9 @@
                     <div class="col-md-12">
                         <h5><strong>Trainer </strong></h5>
                         <ul style="list-style-type: none;">
-                            @foreach(Session::get('trainer') as $key => $trains)
-                                <li>{{$key+1}}. <strong>{{$trains->trainer_name}}</strong> - {{$trains->trainer_info}}</li>
-                            @endforeach
+                            <?php $__currentLoopData = Session::get('trainer'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $trains): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($key+1); ?>. <strong><?php echo e($trains->trainer_name); ?></strong> - <?php echo e($trains->trainer_info); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
 
@@ -83,40 +81,42 @@
                 <!-- /.box-body -->
             </div>
         </div>
-        @endif
+        <?php endif; ?>
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-            @if(Session::get('failed') != null)
+            <?php if(Session::get('failed') != null): ?>
                 <div class="row">
                     <div class="col-lg-12">
                         <hr/>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h4><i class="icon fa fa-check"></i> Gagal!</h4>
-                            {{ Session::get('failed') }}
+                            <?php echo e(Session::get('failed')); ?>
+
                         </div>
                     </div>
                 </div>
-            @endif
-            @if(Session::get('success') != null)
+            <?php endif; ?>
+            <?php if(Session::get('success') != null): ?>
                 <div class="row">
                     <div class="col-lg-12">
                         <hr/>
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-                            {{ Session::get('success') }}
+                            <?php echo e(Session::get('success')); ?>
+
                         </div>
                     </div>
                 </div>
-            @endif
+            <?php endif; ?>
               <h3 class="box-title">
-                  {{--Manage Chapter--}}
+                  
               </h3>
                 <span class="pull-right">
 
-                    <a href="{{url(action('TrainingController@edit_chapter',$chapter->id))}}"
+                    <a href="<?php echo e(url(action('TrainingController@edit_chapter',$chapter->id))); ?>"
                        class="btn btn-warning" style="word-spacing: normal;">
 
                         <i style="" class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -126,7 +126,7 @@
 
                     <a
                         data-toggle="modal" data-target="#myModal"
-                        {{--href="{{url(action('TrainingController@remove_chapter',$chapter->id))}}"--}}
+                        
                         class="btn btn-danger" style="word-spacing: normal;">
 
                         <i style="" class="fa fa-remove" aria-hidden="true"></i>
@@ -136,7 +136,7 @@
 
                     <script>
                         function submit_modal(){
-                            window.open('{{url(action('TrainingController@remove_chapter',$chapter->id))}}','_self')
+                            window.open('<?php echo e(url(action('TrainingController@remove_chapter',$chapter->id))); ?>','_self')
                             //$('#form_delete').submit();
                         }
                     </script>
@@ -166,19 +166,19 @@
             <div class="box-body">
             <div class="text-center">
                   <!-- Title -->
-                  <h4> {{$chapter->chapter_name}}</h4>
+                  <h4> <?php echo e($chapter->chapter_name); ?></h4>
                     <!-- select -->
-                  @if($chapter->category == 0)
+                  <?php if($chapter->category == 0): ?>
                   <h5>Chapter Category : Material</h5>
-                  <p>{!! html_entity_decode($chapter['material']->description) !!}</p>
-                  @else
+                  <p><?php echo html_entity_decode($chapter['material']->description); ?></p>
+                  <?php else: ?>
                   <h5>Chapter Type : Test</h5>
-                  <h5>Test Time : {{$chapter['test']->time}} minutes</h5>
-                  <p>{!! html_entity_decode($chapter['test']->description) !!}</p>
-                  @endif
+                  <h5>Test Time : <?php echo e($chapter['test']->time); ?> minutes</h5>
+                  <p><?php echo html_entity_decode($chapter['test']->description); ?></p>
+                  <?php endif; ?>
             </div>
 
-                  @if($chapter->category == 0)
+                  <?php if($chapter->category == 0): ?>
                   <!-- ADD MATERIAL  -->
                   <div class="box box-success text-left col-md-6" id="add_material_form">
                     <div class="box-header">
@@ -199,30 +199,30 @@
                                    aria-hidden="true"></i>
                             </h5>
                             <p>
-                              @if (count($chapter['material']['files_material']) == 0)
+                              <?php if(count($chapter['material']['files_material']) == 0): ?>
                               no file material uploaded
-                              @else
-                              @foreach ( $chapter['material']['files_material'] as $file)
-                              {{--<a href="{{URL::asset($file->url)}}"--}}
-                                 {{--class="btn btn-default" style="width: 90%">--}}
-                                  {{--{{$file->name}}--}}
-                              {{--</a>--}}
+                              <?php else: ?>
+                              <?php $__currentLoopData = $chapter['material']['files_material']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              
+                                 
+                                  
+                              
                                 <a
                                     class="btn btn-default"
-                                    onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',
+                                    onclick="window.open('<?php echo e(URL::asset($file->url)); ?>',width='+screen.availWidth+',
                                             height='+screen.availHeight')"
                                     style="cursor:pointer; text-decoration: none; width: 90%;"
                                 >
-                                    {{$file->name}} <br/>
-                                    {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
+                                    <?php echo e($file->name); ?> <br/>
+                                    
                                 </a>
                                 <span class="pull-right">
-                                    <a href="{{url(action('TrainingController@remove_material_file', $file->id))}}">
+                                    <a href="<?php echo e(url(action('TrainingController@remove_material_file', $file->id))); ?>">
                                       <i class="fa fa-times" style="color: red" aria-hidden="true">remove</i>
                                     </a>
                                 </span>
-                              @endforeach
-                              @endif
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                              <?php endif; ?>
                             </p>
                           </div>
                           <!-- /.box-body -->
@@ -233,7 +233,7 @@
 
                           <!-- /.box-header -->
                           <div class="box-body">
-                          <form method="post" action="{{url(action('TrainingController@material_add'))}}" enctype="multipart/form-data">
+                          <form method="post" action="<?php echo e(url(action('TrainingController@material_add'))); ?>" enctype="multipart/form-data">
                             <h5>
                                 Form Upload File Material
                                 <i class="fa fa-question-circle"
@@ -244,9 +244,10 @@
                                    aria-hidden="true"></i>
                             </h5>
                             <!-- Title -->
-                            <input type="hidden" name="id_material" value="{{$chapter['material']->id}}">
+                            <input type="hidden" name="id_material" value="<?php echo e($chapter['material']->id); ?>">
 
-                            {{csrf_field()}}
+                            <?php echo e(csrf_field()); ?>
+
                             <div class="form-group col-md-6">
                               <label for="title">Attachment Name</label>
                               <input type="text" class="form-control"
@@ -256,7 +257,7 @@
                             <!-- File -->
                             <div class="form-group col-md-6">
                                 <label for="exampleInputFile">The File</label>
-                                {{--<input type="file" id="exampleInputFile" name="file" accept=".pdf" required>--}}
+                                
 
                                 <input type="file" name="file" id="my_file" value="" accept=".pdf" required>
                                 <textarea type="text" id="base64" name="encoded_file" cols="50" hidden></textarea>
@@ -278,7 +279,7 @@
                     <!-- /.box-body -->
                       <div class="row text-center">
                           <div class="col-lg-12">
-                              <a href="{{url(action('TrainingController@manage_training',$chapter->id_module))}}"
+                              <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
                                  class="btn btn-block btn-success">
                                   Save This Chapter
                               </a>
@@ -286,7 +287,7 @@
                       </div>
                   </div>
 
-                  @else
+                  <?php else: ?>
                   <!-- ADD TEST QUESTION AND ANSWER -->
                     <div class="box box-warning text-left" id="add_test_form">
                     <div class="box-header">
@@ -295,14 +296,15 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                       <ul style="list-style-type: none;">
-                        @if(count($chapter['test']['questions']) == 0)
+                        <?php if(count($chapter['test']['questions']) == 0): ?>
                         no question
-                        @else
-                            @foreach($chapter['test']['questions'] as $key => $question)
+                        <?php else: ?>
+                            <?php $__currentLoopData = $chapter['test']['questions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li><hr/>
-                                {{$key + 1}}. {!! html_entity_decode($question->question_text) !!}
+                                <?php echo e($key + 1); ?>. <?php echo html_entity_decode($question->question_text); ?>
+
                                 <span class="pull-right">
-                                  <a href="{{url(action('TrainingController@edit_question',$question->id))}}">
+                                  <a href="<?php echo e(url(action('TrainingController@edit_question',$question->id))); ?>">
                                     <i style="color:orange;" class="fa fa-pencil-square-o" aria-hidden="true"></i>edit
                                   </a>
                                     <br/>
@@ -314,22 +316,23 @@
                                   </a>
                                 </span>
                               <ul style="list-style-type: none;">
-                                @foreach($question['option'] as $option)
-                                @if($option->is_true == 1)
-                                <li><input type="radio" name="{{$question->id}}" checked>
-                                    {!! html_entity_decode($option->option_text) !!}
+                                <?php $__currentLoopData = $question['option']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($option->is_true == 1): ?>
+                                <li><input type="radio" name="<?php echo e($question->id); ?>" checked>
+                                    <?php echo html_entity_decode($option->option_text); ?>
+
                                     <span style="color: green"><i class="fa fa-check" aria-hidden="true"></i> true answer</span></li>
-                                @else
-                                <li><input type="radio" name="{{$question->id}}" value="option1">
-                                   {!! html_entity_decode($option->option_text) !!}</li>
-                                @endif
-                                @endforeach
+                                <?php else: ?>
+                                <li><input type="radio" name="<?php echo e($question->id); ?>" value="option1">
+                                   <?php echo html_entity_decode($option->option_text); ?></li>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                               </ul>
                             </li>
 
                               <script>
                                   function submit_remove_question(){
-                                      window.open('{{url(action('TrainingController@remove_question',$question->id))}}','_self')
+                                      window.open('<?php echo e(url(action('TrainingController@remove_question',$question->id))); ?>','_self')
                                       //$('#form_delete').submit();
                                   }
                               </script>
@@ -353,9 +356,9 @@
                                       </div>
                                   </div>
                               </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @endif
+                        <?php endif; ?>
 
                       </ul>
                         <br>
@@ -373,10 +376,11 @@
                                  title="Question content and option should not empty."
                               ></i>
                           </h2>
-                          <form id="FormQuestion" action="{{url(action('TrainingController@add_question_submit'))}}" method="post">
-                            {{csrf_field()}}
-                            <input type="hidden" name="id_chapter" value="{{$chapter->id}}">
-                            <input type="hidden" name="id_test" value="{{$chapter['test']->id}}">
+                          <form id="FormQuestion" action="<?php echo e(url(action('TrainingController@add_question_submit'))); ?>" method="post">
+                            <?php echo e(csrf_field()); ?>
+
+                            <input type="hidden" name="id_chapter" value="<?php echo e($chapter->id); ?>">
+                            <input type="hidden" name="id_test" value="<?php echo e($chapter['test']->id); ?>">
 
                               <!-- Question -->
                               <div class="form-group">
@@ -405,7 +409,7 @@
                               </div>
 
                               <div class="col-md-12 text-center">
-                                {{--<input type="submit" name="submit" value="Submit This Question" class="btn btn-default">--}}
+                                
                                   <button type="submit" name="submit" class="btn btn-info">
                                       <i class="fa fa-save" aria-hidden="true"></i>
                                       Submit This Question
@@ -414,21 +418,21 @@
                           </form>
                         </div>
                     </div>
-                      {{--@endif--}}
+                      
 
 
                     </div>
                     <!-- /.box-body -->
                         <div class="row text-center">
                             <div class="col-lg-12">
-                                <a href="{{url(action('TrainingController@manage_training',$chapter->id_module))}}"
+                                <a href="<?php echo e(url(action('TrainingController@manage_training',$chapter->id_module))); ?>"
                                    class="btn btn-block btn-success">
                                     Save This Chapter
                                 </a>
                             </div>
                         </div>
                   </div>
-                      @endif
+                      <?php endif; ?>
             </div>
             <!-- /.box-body -->
           </div>
@@ -440,9 +444,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $('#add_chapter_type').on('input', function(){
       var chapter_type = $('#add_chapter_type').val();
@@ -470,7 +474,7 @@
 
 </script>
 
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -542,8 +546,10 @@ $(document).ready(function(){
     })
 </script>
 
-    @include('admin.layouts.summernote')
+    <?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-    @include('layouts.loading')
+    <?php echo $__env->make('layouts.loading', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

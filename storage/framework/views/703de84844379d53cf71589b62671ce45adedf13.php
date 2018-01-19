@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>
-                                    Username: (NIP)
+                                    Username*: (NIP)
                                     <i class="fa fa-question-circle"
                                        data-toggle="tooltip"
                                        data-placement="top"
@@ -34,54 +34,55 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-addon">@</span>
-                                    <input type="text" class="form-control" name="username" placeholder="username">
+                                    <input type="text" class="form-control" name="username" placeholder="username" required>
                                 </div>
                             </div>
                             <!-- Password -->
                             <div class="form-group col-md-6">
-                                <label>Password:</label>
+                                <label>Password*:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">**</span>
-                                    <input type="password" name="password" class="form-control" placeholder="password">
+                                    <input type="password" name="password" class="form-control" placeholder="password" required>
                                 </div>
                             </div>
                         </div>
                         <!-- name -->
                         <div class="form-group">
-                            <label>Name:</label>
+                            <label>Name*:</label>
                             <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-address-book"></i>
                                     </span>
-                                <input type="text" class="form-control" name="name" placeholder="Full Name of the Employee">
+                                <input type="text" class="form-control" name="name" placeholder="Full Name of the Employee" required>
                             </div>
                         </div>
                         <!-- Email -->
                         <div class="form-group">
-                            <label>Email:</label>
+                            <label>Email*:</label>
                             <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-envelope"></i>
                                         </span>
-                                <input type="email" name="email" class="form-control" placeholder="E-mail">
+                                <input type="email" name="email" class="form-control" placeholder="E-mail" required>
                             </div>
                         </div>
                         <!-- /.form-group -->
                         <div class="form-group">
-                            <label>Gender:</label>
-                            <select class="form-control" name="gender" style="width: 100%;">
+                            <label>Gender*:</label>
+                            <select class="form-control" name="gender" style="width: 100%;" required>
                                 <option value="1">male</option>
                                 <option value="0">female</option>
                             </select>
                         </div>
                         <!-- Date -->
                         <div class="form-group">
-                            <label>Birth date:</label>
+                            <label>Birth Date*:</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" name="birtdate" placeholder="birtdate" class="form-control pull-right datepicker" >
+                                <input type="text" name="birtdate" placeholder="birtdate"
+                                       class="form-control pull-right datepicker" required>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -89,7 +90,7 @@
                         <!-- Education -->
                         <div class="form-group">
                             <label>
-                                Education:
+                                Education*:
 
                                 <i class="fa fa-question-circle"
                                    data-toggle="tooltip"
@@ -101,7 +102,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-institution"></i>
                                                 </span>
-                                <input type="text" name="education" class="form-control" placeholder="education">
+                                <input type="text" name="education" class="form-control" placeholder="education" required>
                             </div>
                         </div>
                     </div>
@@ -117,31 +118,31 @@
                     <div class="box-body">
                         <!-- Date -->
                         <div class="form-group">
-                            <label>Date Join ACS:</label>
+                            <label>Date Join ACS*:</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" name="date_join_acs" placeholder="date join acs" class="form-control pull-right datepicker" >
+                                <input type="text" name="date_join_acs" placeholder="date join acs" class="form-control pull-right datepicker"  required>
                             </div>
                             <!-- /.input group -->
                         </div>
                         <!-- /.form group -->
                         <!-- Position name -->
                         <div class="form-group">
-                            <label>Position Name:</label>
+                            <label>Position Name*:</label>
                             <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-address-card"></i>
-                                                        </span>
-                                <input type="text" name="position" class="form-control" placeholder="position">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-address-card"></i>
+                                </span>
+                                <input type="text" name="position" class="form-control" placeholder="position" required>
                             </div>
                         </div>
                         <!-- Email -->
                         <div class="form-group">
-                            <label>Employee Status:</label>
+                            <label>Employee Status*:</label>
                             <div class="input-group col-lg-12">
-                                <select class="form-control select3" name="id_employee_status" style="width: 100%;">
+                                <select class="form-control select3" name="id_employee_status" style="width: 100%;" required>
                                     <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $emp_stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                         <option value="<?php echo e($emp_stat->id); ?>"><?php echo e($emp_stat->name); ?></option>
@@ -153,8 +154,8 @@
                         <!-- /.form-group -->
                         <div class="row">
                             <div class="form-group col-md-6 col-xs-6">
-                                <label>Level of Position</label>
-                                <select class="form-control select3" name="level_position" style="width: 100%;">
+                                <label>Level of Position*:</label>
+                                <select class="form-control select3" name="level_position" style="width: 100%;" required>
                                     <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                         <option value="<?php echo e($level->id); ?>"><?php echo e($level->nama_level); ?></option>

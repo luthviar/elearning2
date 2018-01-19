@@ -1,6 +1,4 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="page-container" id="wrapper">
 
@@ -9,90 +7,95 @@
                 <div class ="col-md-8">
                     <div class="col-md-3">
                         <br>
-                        @if(empty($news->image))
-                            <img src="{{URL::asset('Elegantic/images/ALS.jpg')}}" alt="Card image cap" style="width:100%;height:60px;">
-                        @else
-                            <img src="{{URL::asset($news['image'])}}" alt="Card image cap" style="width:100%;height:60px;">
-                        @endif
+                        <?php if(empty($news->image)): ?>
+                            <img src="<?php echo e(URL::asset('Elegantic/images/ALS.jpg')); ?>" alt="Card image cap" style="width:100%;height:60px;">
+                        <?php else: ?>
+                            <img src="<?php echo e(URL::asset($news['image'])); ?>" alt="Card image cap" style="width:100%;height:60px;">
+                        <?php endif; ?>
                     </div>
                     <div class ="col-md-9">
-                        <h3>{{ $news['title'] }}</h3>
-                        <h6>{{ \Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')}}</h6>
+                        <h3><?php echo e($news['title']); ?></h3>
+                        <h6><?php echo e(\Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')); ?></h6>
                     </div>
                 </div>
                 <div class ="col-md-12">
                     <hr class="style14">
                     <p align="justify" class="big">
-                        {!! html_entity_decode($news['content']) !!}
+                        <?php echo html_entity_decode($news['content']); ?>
+
 
                     </p>
                     <hr class="style14">
                     <div class=''>
-                        @if(!empty($news['file_pendukung'][0]))
+                        <?php if(!empty($news['file_pendukung'][0])): ?>
                             Attachments : <br>
-                            @foreach($news['file_pendukung'] as $file)
-                                <a href="{{URL::asset($file->attachment_url)}}">
-                                    <i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}}
+                            <?php $__currentLoopData = $news['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?>
+
                                 </a><br>
-                            @endforeach
-                        @endif
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </div>
                     <hr class="style14">
                     <br><br><br>
 
-                    @if($news->is_reply == 1)
+                    <?php if($news->is_reply == 1): ?>
                         <div class="block-advice">
-                            <h3>Comments({{count($replies)}})</h3>
+                            <h3>Comments(<?php echo e(count($replies)); ?>)</h3>
                             <br>
-                            @foreach($replies as $reply)
+                            <?php $__currentLoopData = $replies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading"><strong>{{ $reply['title'] }}</strong><br>
-                                        {{$reply['user']->name}} ,
-                                        {{ \Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')}}</div>
+                                    <div class="panel-heading"><strong><?php echo e($reply['title']); ?></strong><br>
+                                        <?php echo e($reply['user']->name); ?> ,
+                                        <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')); ?></div>
                                     <div class="panel-body">
 
-                                        {!! html_entity_decode($reply['content']) !!}
+                                        <?php echo html_entity_decode($reply['content']); ?>
+
                                         <br>
                                         <div class ="pull-right">
 
-                                            @if(!empty($reply['file_pendukung'][0]))
+                                            <?php if(!empty($reply['file_pendukung'][0])): ?>
                                                 Attachments : <br>
-                                                @foreach($reply['file_pendukung'] as $file)
-                                                    <a href="{{URL::asset($file->attachment_url)}}">
+                                                <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
                                                         <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                        {{$file->attachment_name}}
+                                                        <?php echo e($file->attachment_name); ?>
+
                                                     </a><br>
-                                                @endforeach
-                                            @endif
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
 
                                         </div>
 
                                     </div>
                                 </div>
                                 <br>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                            @if(Auth::user() == null)
+                            <?php if(Auth::user() == null): ?>
 
-                            @else
+                            <?php else: ?>
                                 <form id="myform" class="form-horizontal" role="form" method="POST"
-                                      action="{{ URL::action('NewsController@storeCommentByUser') }}"
+                                      action="<?php echo e(URL::action('NewsController@storeCommentByUser')); ?>"
                                       enctype="multipart/form-data">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
-                                    <input type="hidden" name="id_news" value="{{$news->id}}">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="id_user" value="<?php echo e(Auth::user()->id); ?>">
+                                    <input type="hidden" name="id_news" value="<?php echo e($news->id); ?>">
                                     <div class="form-group">
                                         <label for="title" class="col-md-2 control-label">Title*</label>
 
                                         <div class="col-md-8">
                                             <input id="title" type="text" class="form-control"
-                                                   name="title" required  value="[RE:] {{$news['title']}}">
+                                                   name="title" required  value="[RE:] <?php echo e($news['title']); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="content" class="col-md-2 control-label">Content*</label>
                                         <div class="col-md-8">
-                                            {{--<textarea title="content" id="content" id="summernote" name="content" required></textarea>--}}
+                                            
                                             <textarea class="form-control" rows="5" id="comment" name="content" required></textarea>
                                         </div>
                                     </div>
@@ -131,9 +134,9 @@
                                         </div>
                                     </div>
                                 </form>
-                            @endif
+                            <?php endif; ?>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -144,17 +147,17 @@
                             <div class="well">
                                 <h4>Recent News</h4>
                                 <hr class="style14">
-                                @foreach($beritas as $brt)
-                                    <a href="{{ url(action('NewsController@get_news',$brt->id)) }}">
-                                        <p>{{$brt->title}}</p>
+                                <?php $__currentLoopData = $beritas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <a href="<?php echo e(url(action('NewsController@get_news',$brt->id))); ?>">
+                                        <p><?php echo e($brt->title); ?></p>
                                     </a>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <br>
                             </div>
                             <!--Recent Schedule -->
-                            @include('user.layouts.schedule')
+                            <?php echo $__env->make('user.layouts.schedule', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                             <!--Links -->
-                            @include('user.layouts.aerofood_links')
+                            <?php echo $__env->make('user.layouts.aerofood_links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         </div>
                     </nav>
                 </div>
@@ -163,9 +166,9 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         updateList = function() {
             var input = document.getElementById('file');
@@ -209,4 +212,5 @@
             font-size : 15px;
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

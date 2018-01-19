@@ -572,6 +572,12 @@ class TrainingController extends Controller
     }
 
     public function add_question_submit(Request $request){
+
+        if (empty($request->question_text)) {
+            Session::flash('failed', 'Field Question Content tidak boleh kosong.');
+            return redirect()->back();
+        }
+
         $id = DB::table('questions')->insertGetId(
             [
             'id_test'     => $request->id_test, 
@@ -639,6 +645,12 @@ class TrainingController extends Controller
         if ($question == null) {
             return "error : question not found";
         }
+
+        if (empty($request->question_text)) {
+            Session::flash('failed', 'Field Question Content tidak boleh kosong.');
+            return redirect()->back();
+        }
+
         DB::table('question_options')->where('id_question','=',$question->id)->delete();
         $question->question_text = $request->question_text;
         $question->save();
@@ -1229,8 +1241,11 @@ class TrainingController extends Controller
             }
             
         }
-        
-        return redirect('admin/training/participant/'.$request->id_training);
+
+        $nama_user = User::find($request->user);
+
+        Session::flash('success', 'Anda berhasil menambah participant pada training ini dengan nama karyawan : '.$nama_user->name);
+        return redirect()->back();
     }
 
     public function delete_training ( $id_training ) {
