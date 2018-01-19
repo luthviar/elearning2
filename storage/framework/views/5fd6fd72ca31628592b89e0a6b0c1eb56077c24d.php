@@ -1,15 +1,13 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
+<?php $__env->startSection('page-name'); ?>
   Add Slider
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
 
-    <form method="post" action="{{url(action('SliderController@slider_add_submit'))}}" enctype="multipart/form-data">
+    <form method="post" action="<?php echo e(url(action('SliderController@slider_add_submit'))); ?>" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-6">
       
@@ -19,7 +17,8 @@
               <h3 class="box-title">Add Slider Form</h3>
             </div>
             <div class="box-body">
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
+
 
             
               <!-- Title -->
@@ -67,7 +66,7 @@
             
             <div class="box-body">
                 <div class="image">
-                  <img src="{{url('gambar.png')}}" id="image_preview" width="100%" height="250px">
+                  <img src="<?php echo e(url('gambar.png')); ?>" id="image_preview" width="100%" height="250px">
                 </div>  
                 <h4 id="title_preview"></h4>
                 <p id="second_title_preview"></p>
@@ -90,10 +89,10 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+<script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   // $(function () {
@@ -172,4 +171,5 @@ $("#img").change(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
