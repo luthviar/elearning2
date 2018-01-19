@@ -21,7 +21,7 @@
                         @if(Session::get('success-news') != null)
                         <a href="{{ url(action('NewsController@admin_news_view',Session::get('success-news'))) }}"
                            class="btn btn-default btn-sm"
-                           style="color: black; text-underline: none;"
+                           style="color: black; text-decoration: none;"
                         >
                             View The News
                         </a>

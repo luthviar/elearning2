@@ -177,12 +177,12 @@
                   <p>{!! html_entity_decode($chapter['test']->description) !!}</p>
                   @endif
             </div>
-                  
+
                   @if($chapter->category == 0)
                   <!-- ADD MATERIAL  -->
                   <div class="box box-success text-left col-md-6" id="add_material_form">
                     <div class="box-header">
-                      <h3 class="box-title">Add Material Attachments</h3>  
+                      <h3 class="box-title">Add Material Attachments</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -290,7 +290,7 @@
                   <!-- ADD TEST QUESTION AND ANSWER -->
                     <div class="box box-warning text-left" id="add_test_form">
                     <div class="box-header">
-                      <h3 class="box-title">Test Question</h3> 
+                      <h3 class="box-title">Test Question</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -365,30 +365,42 @@
 
                         <!-- /.box-header -->
                         <div class="box-body">
-                          <h2><strong>Add Question</strong></h2>
-                          <form action="{{url(action('TrainingController@add_question_submit'))}}" method="post">
+                          <h2><strong>Add Question</strong>
+                              <i class="fa fa-info-circle"
+                                 style="color: red;"
+                                 data-toggle="tooltip"
+                                 data-placement="top"
+                                 title="Question content and option should not empty."
+                              ></i>
+                          </h2>
+                          <form id="FormQuestion" action="{{url(action('TrainingController@add_question_submit'))}}" method="post">
                             {{csrf_field()}}
                             <input type="hidden" name="id_chapter" value="{{$chapter->id}}">
                             <input type="hidden" name="id_test" value="{{$chapter['test']->id}}">
 
                               <!-- Question -->
                               <div class="form-group">
-                                  <label>Question Content</label>
+                                  <label>Question Content*:</label>
                                   <textarea class="textarea" id="summernote"
-                                            name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            name="question_text" placeholder="add question here"
+                                            autofocus="autofocus"
+                                            required>
+
+                                  </textarea>
                               </div>
                               <!-- Option -->
                               <h5>
-                                  <strong>Options</strong>
+                                  <strong>Options*:</strong>
                                   <span><button class="add_field_button btn btn-success">+ Add More Option</button></span>
                               </h5>
 
                               <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
                                 <div class="col-md-12" style="padding-bottom: 5px;">
-                                    <input type="text" class="form-control" style="width: 80%;" placeholder="input option" name="option[]">
+                                    <input type="text" class="form-control" style="width: 80%;"
+                                           placeholder="input option" name="option[]" required>
                                 </div>
                                 <div class="col-md-12" style="padding-bottom: 5px;">
-                                    <input type="text" class="form-control" style="width: 80%;"  placeholder="input option" name="option[]">
+                                    <input type="text" class="form-control" style="width: 80%;"  placeholder="input option" name="option[]" required>
                                 </div>
                               </div>
 
@@ -462,7 +474,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#title').on('input', function(){ 
+  $('#title').on('input', function(){
     var input = $('#title').val();
     $('#preview_news_title').html(input);
 
@@ -471,7 +483,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#content').on('input', function(){ 
+  $('#content').on('input', function(){
     var input = $('#content').val();
     $('#preview_news_content').html(input);
 
@@ -483,16 +495,16 @@ $(document).ready(function(){
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
-    
+
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div class="col-md-12" style="padding-bottom: 5px;"><input type="text" style="width: 80%;" class="form-control" placeholder="input option" name="option[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapper).append('<div class="col-md-12" style="padding-bottom: 5px;"><input type="text" style="width: 80%;" class="form-control" placeholder="input option" name="option[]" required/><a href="#" class="remove_field">Remove</a></div>'); //add input box
         }
     });
-    
+
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
@@ -512,6 +524,22 @@ $(document).ready(function(){
 
         }
     });
+</script>
+
+<script>
+    $('#FormQuestion').on('submit', function(e) {
+
+        if($('#summernote').summernote('isEmpty')) {
+            alert('Questoin Content should not empty');
+            console.log('masuk question kosong')
+
+            // cancel submit
+            e.preventDefault();
+        }
+        else {
+            // do action
+        }
+    })
 </script>
 
     @include('admin.layouts.summernote')

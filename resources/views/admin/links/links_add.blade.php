@@ -68,16 +68,16 @@
 
                             <!-- STATUS PROGRES -->
                             <div class="form-group">
-                                <label for="icon">
-                                    Icon
+                                <label for="status">
+                                    Status
                                     <i class="fa fa-info-circle"
                                        data-toggle="tooltip"
                                        data-placement="top"
-                                       title="Logo dari sistem tersebut"
+                                       title="Status progres dari sistem tersebut. misalkan: on-going"
                                     ></i>
                                 </label>
-
-                                <input type="text" name="status" id="status"/>
+                                <input type="text" class="form-control" id="status"
+                                       name="status" placeholder="Status of the system" required ="true">
 
                             </div>
 

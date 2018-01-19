@@ -14,6 +14,14 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title"> Participants of Training: {{$training->modul_name}}</h3>
+                @if(Session::get('success') != null)
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                        <p>{{ Session::get('success') }}</p>
+                    </div>
+                @endif
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -38,7 +46,7 @@
               <div class="col-md-4">
                   <!-- form add participant -->
                   <h3>Add Participant</h3>
-                  <form action="{{url('admin/training/add_participant')}}" method="post">
+                  <form action="{{url(action('TrainingController@add_participant_submit'))}}" method="post">
 
                   {{csrf_field()}}
                   <input type="hidden" name="id_training" value="{{$training->id}}">

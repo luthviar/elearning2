@@ -17,6 +17,7 @@ use App\AerofoodLink;
 use DB;
 use Auth;
 use Carbon\Carbon;
+use Session;
 
 class ForumController extends Controller
 {
@@ -109,15 +110,26 @@ class ForumController extends Controller
     {
         $id_user = Auth::user()->id;
 
-
 //        dd($request->id_unit);
         if ($request->id_unit != null) {
+            if(empty($request->content3)) {
+                Session::flash('failed', 'Field content thread FORUM UNIT wajib diisi.');
+                return redirect()->back();
+            }
             $content = $request->content3;
             $category = 2;
         }elseif($request->id_job_family != null){
+            if(empty($request->content2)) {
+                Session::flash('failed', 'Field content thread FORUM JOB FAMILY wajib diisi.');
+                return redirect()->back();
+            }
             $content = $request->content2;
             $category = 1;
         }else{
+            if(empty($request->content)) {
+                Session::flash('failed', 'Field content thread FORUM UMUM wajib diisi.');
+                return redirect()->back();
+            }
             $content = $request->content;
             $category = 0;
         }
@@ -464,7 +476,9 @@ class ForumController extends Controller
                 $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
                 $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
-                
+
+
+
                 $data[] = $nestedData;
 
             }

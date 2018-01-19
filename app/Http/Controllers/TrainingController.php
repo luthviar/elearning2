@@ -388,7 +388,7 @@ class TrainingController extends Controller
         $access->status = 1;
         $access->save();
 
-        $user = User::find($id_user_training_access);
+        $user = User::find($access->id_user);
         Session::flash('success', 'Anda berhasil melakukan "GIVE ACCESS" pada karyawan yang bernama: '.$user->name);
 
         return redirect(action('TrainingController@admin_access_training'));
@@ -402,7 +402,7 @@ class TrainingController extends Controller
         $access->status = 0;
         $access->save();
 
-        $user = User::find($id_user_training_access);
+        $user = User::find($access->id_user);
         Session::flash('success', 'Anda berhasil melakukan "CANCEL ACCESS" pada karyawan yang bernama: '.$user->name);
 
         return redirect(action('TrainingController@admin_access_training'));
@@ -572,6 +572,12 @@ class TrainingController extends Controller
     }
 
     public function add_question_submit(Request $request){
+
+        if (empty($request->question_text)) {
+            Session::flash('failed', 'Field Question Content tidak boleh kosong.');
+            return redirect()->back();
+        }
+
         $id = DB::table('questions')->insertGetId(
             [
             'id_test'     => $request->id_test, 
@@ -639,6 +645,12 @@ class TrainingController extends Controller
         if ($question == null) {
             return "error : question not found";
         }
+
+        if (empty($request->question_text)) {
+            Session::flash('failed', 'Field Question Content tidak boleh kosong.');
+            return redirect()->back();
+        }
+
         DB::table('question_options')->where('id_question','=',$question->id)->delete();
         $question->question_text = $request->question_text;
         $question->save();
@@ -1067,7 +1079,7 @@ class TrainingController extends Controller
                             0 =>'id_user', 
                             1 =>'id_module',
                             2 => 'status',
-                            3 => 'updated_at',
+                            3 => 'created_at',
                             4 => 'id'
                         );
   
@@ -1103,7 +1115,7 @@ class TrainingController extends Controller
         $data = array();
         if(!empty($accesses))
         {
-            foreach ($accesses as $access)
+            foreach ($accesses as $key=>$access)
             {
                 $user = User::find($access->id_user);
                 $nestedData['name'] = "<a target='_blank' href='".url(action('UserController@profile_view',$user->id))."'>"
@@ -1116,7 +1128,15 @@ class TrainingController extends Controller
                 } else {
                     $nestedData['status'] = "requested";
                 }
-                $nestedData['updated_at'] = date('j M Y',strtotime($access->updated_at));
+//                $nestedData['updated_at'] = date('j M Y',strtotime($access->updated_at));
+//                $nestedData['updated_at'] = $access->updated_at->diffForHumans();
+                $nestedData['created_at'] =
+                    '<i class="fa fa-info-circle"
+       data-toggle="tooltip"
+       data-placement="bottom"
+       title='.date('jS_F_Y_g:i:s_a',strtotime($access->created_at)).'
+       aria-hidden="true"></i> '. $access->created_at->diffForHumans() ;
+
                 if ($access->status == 0) {
                     $nestedData['action'] = "<a href='".url(action('TrainingController@give_access',$access->id)).
                         "' class='btn btn-success'>give access</a>";
@@ -1266,8 +1286,11 @@ class TrainingController extends Controller
             }
             
         }
-        
-        return redirect('admin/training/participant/'.$request->id_training);
+
+        $nama_user = User::find($request->user);
+
+        Session::flash('success', 'Anda berhasil menambah participant pada training ini dengan nama karyawan : '.$nama_user->name);
+        return redirect()->back();
     }
 
     public function delete_training ( $id_training ) {

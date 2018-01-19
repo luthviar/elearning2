@@ -15,7 +15,26 @@
       <div class="col-md-12">
       <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Edit Question</h3>
+              <h3 class="box-title">Edit Question
+                  <i class="fa fa-info-circle"
+                     style="color: red;"
+                     data-toggle="tooltip"
+                     data-placement="top"
+                     title="Question content and option should not empty."
+                  ></i>
+              </h3>
+                @if(Session::get('failed') != null)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <hr/>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                                {{ Session::get('failed') }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
             <div class="box-body">
                  <form action="{{url(action('TrainingController@edit_question_submit'))}}" method="post">
@@ -23,19 +42,21 @@
                  
                   <input type="hidden" name="question_id" value="{{$question->id}}">
                  <div class="form-group">
-                    <label>Question</label>
+                    <label>Question*:</label>
                      <textarea class="textarea" id="summernote"
                                name="question_text" placeholder="add question here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>
                     {{--<textarea class="textarea" id="summernote" name="question_text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{!! $question->question_text !!}</textarea>--}}
                 </div>
                 
-                  <h5><strong>Options</strong></h5>
-                  <button class="add_field_button btn btn-default">Add More Fields</button>
+                  <h5><strong>Options*:</strong>
+                      <span><button class="add_field_button btn btn-success">+ Add More Option</button></span>
+                  </h5>
                   <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
                     @foreach ($question['option'] as $key => $option)
                     @if($key < 2)
                     <div class="col-md-12" style="padding-bottom: 5px;">
-                        <input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]">
+                        <input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;"
+                               placeholder="input option" name="option[]" required>
                     </div>
                     @else
                     <div class="col-md-12" style="padding-bottom: 5px;"><input type="text" class="form-control" value="{{$option->option_text}}" style="width: 80%;" placeholder="input option" name="option[]"><a href="#" class="remove_field">Remove</a></div>
@@ -44,7 +65,10 @@
                   </div>
 
                 <div class="col-md-12 text-center">
-                 <input type="submit" name="submit" class="btn btn-default">
+                 <button type="submit" name="submit" class="btn btn-block btn-info">
+                     <i class="fa fa-save" aria-hidden="true"></i>
+                     Update This Question
+                 </button>
                 </div>
 
                 </form>
@@ -125,7 +149,7 @@ $(document).ready(function(){
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div class="col-md-12" style="padding-bottom: 5px;"><input type="text" style="width: 80%;" class="form-control" placeholder="input option" name="option[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapper).append('<div class="col-md-12" style="padding-bottom: 5px;"><input type="text" style="width: 80%;" class="form-control" placeholder="input option" name="option[]" required/><a href="#" class="remove_field">Remove</a></div>'); //add input box
         }
     });
     

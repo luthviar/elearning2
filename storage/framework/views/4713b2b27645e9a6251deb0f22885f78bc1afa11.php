@@ -22,6 +22,7 @@ All Training
                   <th>Snippet</th>
                   <th>Date</th>
                   <th>Time</th>
+                  <th>Created By</th>
                   <th>Status</th>
                   <th>Created At</th>
                 </tr>
@@ -57,6 +58,7 @@ All Training
                 { "data": "snippet" },
                 { "data": "date" },
                 { "data": "time" },
+                { "data": "created_by" },
                 { "data": "is_publish" },
                 { "data": "created_at" }
             ]  

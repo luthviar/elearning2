@@ -412,10 +412,13 @@ class UserController extends Controller
         $structure->id_department = $id_department;
         $structure->save();
 
+        $user_name = User::find($id_user);
 
-        Session::flash('success', 'Anda berhasil melakukan "PUBLISH" pada news ini, news akan tampil di halaman utama web.');
+//        dd('masuk');
+        Session::flash('success', 'Anda berhasil menambahkan USER/Personnel baru dengan nama: '.$user_name->name.' dan profile-nya dapat dilihat di: ');
+        Session::flash('success-personnel', $id_user);
 
-        return redirect('admin/personnel');
+        return redirect(url(action('UserController@personnel_list')));
 
     }
 
@@ -547,6 +550,8 @@ class UserController extends Controller
         $user->flag_active = 1;
         $user->save();
 
+        Session::flash('success', 'Personnel berhasil di-AKTIFKAN, sehingga user ini dapat login ke dalam E-Learning.');
+
         return redirect(action('UserController@profile_view',$user->id));
     }
 
@@ -557,6 +562,8 @@ class UserController extends Controller
         }
         $user->flag_active = 0;
         $user->save();
+
+        Session::flash('success', 'Personnel berhasil di-NONAKTIFKAN, sehingga user ini tidak dapat login ke dalam E-Learning.');
 
         return redirect(action('UserController@profile_view',$user->id));
     }
@@ -600,6 +607,7 @@ class UserController extends Controller
         $score->attachment_url  = $saveURL;
         $score->save();
 
+        Session::flash('success', 'Score bernama: '.$request->attachment_name. ' berhasil ditambahkan.');
 
         return redirect(action('UserController@profile_view',$user->id));
     }
@@ -690,18 +698,14 @@ class UserController extends Controller
             $user = new User();
             foreach ($accesses as $access)
             {
-
-
-
-
                 $nestedData['email'] = $access->email;
                 if ($access->is_valid == 1) {
                     $nestedData['is_valid'] = "valid";
                 } else {
                     $nestedData['is_valid'] = "not valid";
                 }
-                $nestedData['created_at'] = date('j M Y',strtotime($access->created_at));
-
+//                $nestedData['created_at'] = date('j M Y',strtotime($access->created_at));
+                $nestedData['created_at'] = $access->created_at->diffForHumans();
 
                 $nestedData['action'] =
                     "<a href='".url(action('UserController@profile_view',$user->id))."'>"
@@ -721,5 +725,17 @@ class UserController extends Controller
                     );
             
         echo json_encode($json_data); 
+    }
+
+    public function delete_score($id_score) {
+        $score = EmployeeScore::find($id_score);
+
+        if ($score == null) {
+            return "error: score not found";
+        }
+        DB::table('employee_scores')->where('id','=',$id_score)->delete();
+
+        Session::flash('success', 'Score bernama: '.$score->attachment_name. ' berhasil dihapus.');
+        return redirect(action('UserController@profile_view',$score->id_user));
     }
 }

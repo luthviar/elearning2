@@ -65,7 +65,7 @@
                                 <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
                                 <input type="hidden" name="id_forum" value="{{$forum->id}}">
                                 <div class="form-group">
-                                    <label for="title" class="col-md-2 control-label">Title</label>
+                                    <label for="title" class="col-md-2 control-label">Title*</label>
 
                                     <div class="col-md-8">
                                         <input id="title" type="text"
@@ -74,14 +74,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="content" class="col-md-2 control-label">Content</label>
+                                    <label for="content" class="col-md-2 control-label">Content*</label>
 
                                     <div class="col-md-8">
-                                        <textarea id="summernote" type="text" class="form-control" name="content" required  style="resize: none;"></textarea>
+                                        {{--<textarea id="summernote" type="text" class="form-control" name="content" required  style="resize: none;"></textarea>--}}
+                                        <textarea class="form-control" rows="5" id="comment" name="content" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="image" class="col-md-2 control-label">Upload attachment</label>
+                                    <label for="image" class="col-md-2 control-label">Upload attachment (optional)</label>
 
                                     <div class="col-md-8">
                                         <div class="input-group">

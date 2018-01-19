@@ -23,14 +23,14 @@
                   
                   <h3><strong>{{$forum->title}}</strong></h3>
                   
-                  <p>{{$forum->content}}</p>
+                  <p>{!! $forum->content !!}</p>
 
                   <!-- Attachments -->
                   <div>
                     <h5><strong>Attachments : </strong></h5>
                     @if($forum['attachment'] instanceof Traversable)
-                      @foreach($forum['attachment'] as $attchment)
-                        <h6 style="text-indent: 20px;">* {{$attachment->attachment->name}}</h6>
+                      @foreach($forum['attachment'] as $attachment)
+                        <h6 style="text-indent: 20px;">* {{$attachment->name}}</h6>
                       @endforeach
                     @else
                       no attachment

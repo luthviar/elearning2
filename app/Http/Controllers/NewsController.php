@@ -278,6 +278,10 @@ class NewsController extends Controller
 
         $image = $request->file('image');
         $url = null;
+        if(empty($request->content)) {
+            Session::flash('failed', 'Field content Text Area NEWS wajib diisi.');
+            return redirect()->back();
+        }
         if (!empty($image)) {
             $destinationPath = 'file_img';
             $movea = $image->move($destinationPath,$image->getClientOriginalName());

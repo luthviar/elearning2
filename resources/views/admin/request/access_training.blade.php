@@ -40,7 +40,7 @@
                           ></i>
                       </p>
                   </th>
-                  <th><p>Update At</p></th>
+                  <th><p>Recent Access</p></th>
                   <th><p>Action</p></th>
                 </tr>
                 </thead>
@@ -73,7 +73,7 @@
                 { "data": "name" },
                 { "data": "training" },
                 { "data": "status" },
-                { "data": "updated_at" },
+                { "data": "created_at" },
                 { "data": "action" }
             ]  
 

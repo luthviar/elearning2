@@ -16,6 +16,17 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">List of Links</h3>
+                @if(Session::get('success') != null)
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+
+                        {{ Session::get('success') }}
+
+
+                    </div>
+                @endif
             </div>
             <!-- /.box-header -->
             <div class="box-body">

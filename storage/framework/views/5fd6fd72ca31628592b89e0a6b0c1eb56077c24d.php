@@ -23,7 +23,7 @@
             
               <!-- Title -->
               <div class="form-group">
-                <label for="title">Title</label>
+                <label for="title">Title*</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Slider title" required>
               </div>
 
@@ -31,14 +31,23 @@
               <!-- Image -->
               <div class="form-group">
                   <label for="exampleInputFile">Image background</label>
-                  <input type="file" id="img" name="image" required>
+                  <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
               </div>
 
               <!-- Textarea -->
               <div class="form-group">
-                  <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title"
-                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
+                  <label>Textarea*
+                      <i class="fa fa-question-circle"
+                         style="color: red;"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="hanya 360 karakter yang
+                          ditampilkan di halaman utama, namun saat 'read more' akan tampil semuanya."
+                         aria-hidden="true"></i>
+                  </label>
+                  <textarea class="textarea" id="second_title" name="second_title" maxlength="50"
+                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>
+                  </textarea>
               </div>
 
 
