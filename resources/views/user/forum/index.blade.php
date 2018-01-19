@@ -7,6 +7,14 @@
 
             <div class="page-content" style="background-color: rgb(243, 247, 248);opacity: 1;">
                 <div class="block-advice">
+                    @if(empty(Session::get('failed')) == false)
+                        <div class="alert alert-danger text-center" role="alert">
+                            <h3>Failed!</h3>
+                            <p>
+                                {{ Session::get('failed') }}
+                            </p>
+                        </div>
+                    @endif
                     <div class = "text-center">
                         <div id="exTab1">
                             <ul  class="nav nav-tabs nav-justified">
@@ -227,7 +235,7 @@
 
 
                         <div class="form-group">
-                            <label for="title" class="col-md-3 control-label">Title</label>
+                            <label for="title" class="col-md-3 control-label">Title*:</label>
 
                             <div class="col-md-6">
                                 <input required type="text" name="title">
@@ -236,7 +244,7 @@
 
                         <div class="form-group">
                             <label for="can_reply" class="col-md-3 control-label">
-                                Can Reply
+                                Can Reply*:
                                 <i class="fa fa-question-circle"
                                    data-toggle="tooltip"
                                    data-placement="bottom"
@@ -256,7 +264,7 @@
 
                         <div class="form-group" >
                             <label for="content" class="col-md-3 control-label">
-                                Content
+                                Content*:
                                 <i class="fa fa-question-circle"
                                    data-toggle="tooltip"
                                    data-placement="bottom"
@@ -265,12 +273,12 @@
                             </label>
 
                             <div class="col-md-8" name="content">
-                                <textarea class="summernote" name="content"></textarea>
+                                <textarea class="summernote" name="content" required></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="image" class="col-md-3 control-label">Upload attachment</label>
+                            <label for="image" class="col-md-3 control-label">Upload Attachment (Optional)</label>
 
                             <div class="col-md-6">
                                 <div class="input-group">
@@ -301,7 +309,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Submit
+                                    Submit New Thread
                                 </button>
                             </div>
                         </div>
@@ -335,7 +343,7 @@
 
 
                             <div class="form-group">
-                                <label for="title" class="col-md-3 control-label">Title</label>
+                                <label for="title" class="col-md-3 control-label">Title*:</label>
 
                                 <div class="col-md-6">
                                     <input required type="text" name="title"/>
@@ -344,7 +352,7 @@
 
                             <div class="form-group">
                                 <label for="can_reply" class="col-md-3 control-label">
-                                    Can Reply
+                                    Can Reply*:
                                     <i class="fa fa-question-circle"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
@@ -364,7 +372,7 @@
 
                             <div class="form-group">
                                 <label for="content" class="col-md-3 control-label">
-                                    Content
+                                    Content*:
                                     <i class="fa fa-question-circle"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
@@ -373,11 +381,11 @@
                                 </label>
 
                                 <div class="col-md-8" name="content3">
-                                    <textarea class="summernote" name="content3"></textarea>
+                                    <textarea class="summernote" name="content3" required></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="image" class="col-md-3 control-label">Upload attachment</label>
+                                <label for="image" class="col-md-3 control-label">Upload Attachment (Optional)</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -408,7 +416,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Submit
+                                        Submit New Thread
                                     </button>
                                 </div>
                             </div>
@@ -444,7 +452,7 @@
 
 
                             <div class="form-group">
-                                <label for="title" class="col-md-3 control-label">Title</label>
+                                <label for="title" class="col-md-3 control-label">Title*:</label>
 
                                 <div class="col-md-6">
                                     <input required type="text" name="title"/>
@@ -453,7 +461,7 @@
 
                             <div class="form-group" >
                                 <label for="can_reply" class="col-md-3 control-label">
-                                    Can Reply
+                                    Can Reply*:
                                     <i class="fa fa-question-circle"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
@@ -473,7 +481,7 @@
 
                             <div class="form-group">
                                 <label for="content" class="col-md-3 control-label">
-                                    Content
+                                    Content*:
                                     <i class="fa fa-question-circle"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
@@ -482,11 +490,11 @@
                                 </label>
 
                                 <div class="col-md-8" name="content">
-                                    <textarea class="summernote" name="content2"></textarea>
+                                    <textarea class="summernote" name="content2" required></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="image" class="col-md-3 control-label">Upload attachment</label>
+                                <label for="image" class="col-md-3 control-label">Upload Attachment (Optional)</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -517,7 +525,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Submit
+                                        Submit New Thread
                                     </button>
                                 </div>
                             </div>
