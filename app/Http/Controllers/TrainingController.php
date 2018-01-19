@@ -720,6 +720,51 @@ class TrainingController extends Controller
         if ($chapter== null) {
             return "error:chapter not found";
         }
+        if($chapter->category == 0){
+            // chapter is material
+            $material = Material::where('id_chapter', $chapter->id)->first();
+            if($material == null) {
+                // if no material --> delete chapter
+                DB::table('chapters')->where('id','=',$chapter->id)->delete();
+            }else{
+                // delete file material, material, and chapter
+                $file_material = FilesMaterial::where('id_material', $material->id)->get();
+                if(count($file_material) == 0){
+                    DB::table('materials')->where('id','=',$material->id)->delete();
+                }else {
+                    foreach($file_material as $file){
+                        $filename = substr($file->url,14);
+                        $path = public_path() . "\storage\\" . $filename.".txt";
+                        unlink($path);
+                    }
+                    DB::table('files_materials')->where('id_material','=',$material->id)->delete();
+                    DB::table('materials')->where('id','=',$material->id)->delete();
+                }
+                DB::table('chapters')->where('id','=',$chapter->id)->delete();
+            }
+        }else{
+            // chapter is test
+            $test = Test::where('id_chapter', $chapter->id)->first();
+            if($test == null){
+                // if no test found
+                DB::table('chapters')->where('id','=',$chapter->id)->delete();
+            } else {
+                $questions = Question::where('id_test', $test->id)->get();
+                if (count($questions) == 0){
+                    DB::table('tests')->where('id','=',$test->id)->delete();
+                    DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                }else {
+                    foreach($questions as $question){
+                        DB::table('question_options')->where('id_question','=',$question->id)->delete();
+                    }
+                    DB::table('questions')->where('id_test','=',$test->id)->delete();
+                    DB::table('user_test_records')->where('id_test','=',$test->id)->delete();
+                    DB::table('tests')->where('id','=',$test->id)->delete();
+                    DB::table('chapters')->where('id','=',$chapter->id)->delete();
+                }
+            }
+        }
+        DB::table('user_chapter_records')->where('id_chapter_training','=',$id_chapter)->delete();
         $id_module = $chapter->id_module;
         DB::table('chapters')->where('id','=',$id_chapter)->delete();
 
