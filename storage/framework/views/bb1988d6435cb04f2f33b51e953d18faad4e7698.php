@@ -170,7 +170,7 @@
               <!-- Employee Status -->
               <div class="form-group">
                 <label>Employee Status*:</label>
-                <select class="form-control select2" name="id_employee_status" style="width: 100%;">
+                <select class="form-control select3" name="id_employee_status" style="width: 100%;">
                   <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $emp_stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($emp_stat->id == $user->id_employee_status): ?>
                   <option value="<?php echo e($emp_stat->id); ?>" selected="true"><?php echo e($emp_stat->name); ?></option>

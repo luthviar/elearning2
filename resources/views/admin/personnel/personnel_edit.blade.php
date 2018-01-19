@@ -170,7 +170,7 @@
               <!-- Employee Status -->
               <div class="form-group">
                 <label>Employee Status*:</label>
-                <select class="form-control select2" name="id_employee_status" style="width: 100%;">
+                <select class="form-control select3" name="id_employee_status" style="width: 100%;">
                   @foreach($status as $emp_stat)
                   @if($emp_stat->id == $user->id_employee_status)
                   <option value="{{$emp_stat->id}}" selected="true">{{$emp_stat->name}}</option>

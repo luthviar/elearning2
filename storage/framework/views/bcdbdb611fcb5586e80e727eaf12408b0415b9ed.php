@@ -28,20 +28,27 @@ Add News
             
               <!-- Title -->
               <div class="form-group">
-                <label for="title">Title*</label>
+                <label for="title">Title*:</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="News title" required>
               </div>
 
 
               <!-- Image -->
               <div class="form-group col-md-6">
-                  <label for="exampleInputFile">Image Thumbnail</label>
+                  <label for="exampleInputFile">
+                      Image Thumbnail*:
+                      <i class="fa fa-question-circle"
+                         data-toggle="tooltip"
+                         data-placement="bottom"
+                         title="The file format should be image format."
+                         aria-hidden="true"></i>
+                  </label>
                   <input type="file" id="img" name="image" accept="image/x-png,image/gif,image/jpeg">
               </div>
 
               <div class="form-group col-md-6">
                   <label>
-                      Can Reply?
+                      Can Reply?*:
                       <i class="fa fa-question-circle"
                          data-toggle="tooltip"
                          data-placement="bottom"
