@@ -77,7 +77,6 @@
                                 </label>
                                 <input type="text" class="form-control" id="status"
                                        name="status" placeholder="Status of the system" required ="true">
-                                
 
                             </div>
 
@@ -105,7 +104,7 @@
 
                             <div class="row text-center">
                                 <div class="col-lg-12">
-                                    <button class="btn btn-block btn-success">SUBMIT</button>
+                                    <button class="btn btn-block btn-success">SUBMIT NEW LINK</button>
                                 </div>
                             </div>
                         </div>

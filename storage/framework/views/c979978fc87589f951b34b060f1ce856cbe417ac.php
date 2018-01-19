@@ -20,6 +20,15 @@
                             <h3 class="box-title">
                             
                             </h3>
+                            <?php if(Session::get('success') != null): ?>
+                                <hr/>
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                                    <?php echo e(Session::get('success')); ?>
+
+                                </div>
+                            <?php endif; ?>
                             <span class="pull-right">
                             <a href="<?php echo e(url(action('AerofoodLinksController@edit',$aero_link->id))); ?>"
                                class="btn btn-warning" style="word-spacing: normal;">
@@ -28,13 +37,53 @@
 
                                 Edit
                             </a>
-                            <a href="<?php echo e(url(action('AerofoodLinksController@remove',$aero_link->id))); ?>"
-                               class="btn btn-danger" style="word-spacing: normal;">
+                            
+                               
 
-                            <i style="" class="fa fa-remove" aria-hidden="true"></i>
+                            
 
-                                Delete
-                            </a>
+                                
+                            
+
+                                <a
+                                        
+                                        data-toggle="modal" data-target="#myModal"
+                                        class="btn btn-danger" style="word-spacing: normal;"
+                                >
+
+                        <i style="" class="fa fa-remove" aria-hidden="true"></i>
+
+                        Delete
+                    </a>
+
+
+                    <script>
+                        function submit_modal(){
+                            window.open('<?php echo e(url(action('AerofoodLinksController@remove',$aero_link->id))); ?>','_self')
+                            //$('#form_delete').submit();
+                        }
+                    </script>
+                                <!-- Modal Delete Chapter -->
+                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to delete this LINK?</strong></h1>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>The deleted LINK cannot be restored.</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                              <button type="button" id="submit_button" onclick="submit_modal()" class="btn btn-danger">Yes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
 
                             </span>
                         </div>
