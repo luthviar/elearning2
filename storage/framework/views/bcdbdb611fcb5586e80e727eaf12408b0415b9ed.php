@@ -20,6 +20,21 @@ Add News
       <div class="box box-primary">
             <div class="box-header">
               <h3 class="box-title">Add News Form</h3>
+
+                <?php if(Session::get('failed') != null): ?>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <hr/>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                                <?php echo e(Session::get('failed')); ?>
+
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
             </div>
             <div class="box-body">
               <?php echo e(csrf_field()); ?>
@@ -36,7 +51,7 @@ Add News
               <!-- Image -->
               <div class="form-group col-md-6">
                   <label for="exampleInputFile">
-                      Image Thumbnail*:
+                      Image Thumbnail:
                       <i class="fa fa-question-circle"
                          data-toggle="tooltip"
                          data-placement="bottom"
@@ -65,7 +80,7 @@ Add News
               <div class="form-group">
                   <label>Text Area</label>
                   <textarea class="textarea" id="summernote" name="content"
-                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
+                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
 
               <div class="form-group">

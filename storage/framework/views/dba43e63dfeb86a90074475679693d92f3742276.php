@@ -279,7 +279,7 @@
                             </label>
 
                             <div class="col-md-8" name="content">
-                                <textarea class="summernote" name="content" required></textarea>
+                                <textarea class="summernote" name="content"></textarea>
                             </div>
                         </div>
 
@@ -388,7 +388,7 @@
                                 </label>
 
                                 <div class="col-md-8" name="content3">
-                                    <textarea class="summernote" name="content3" required></textarea>
+                                    <textarea class="summernote" name="content3"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -498,7 +498,7 @@
                                 </label>
 
                                 <div class="col-md-8" name="content">
-                                    <textarea class="summernote" name="content2" required></textarea>
+                                    <textarea class="summernote" name="content2"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
