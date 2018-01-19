@@ -104,7 +104,7 @@
 
                             <div class="row text-center">
                                 <div class="col-lg-12">
-                                    <button class="btn btn-block btn-success">SUBMIT NEW LINK</button>
+                                    <button class="btn btn-block btn-success">SUBMIT</button>
                                 </div>
                             </div>
                         </div>

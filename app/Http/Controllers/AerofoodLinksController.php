@@ -49,7 +49,9 @@ class AerofoodLinksController extends Controller
         $aero_link->status = $request->status;
         $aero_link->save();
 
-        return redirect(action('AerofoodLinksController@index'));
+        Session::flash('success', 'Anda berhasil meng-update LINK ini.');
+
+        return redirect(action('AerofoodLinksController@view',$aero_link->id));
     }
 
     public function remove($id){
@@ -70,7 +72,7 @@ class AerofoodLinksController extends Controller
 
     public function create(Request $request) {
 
-        DB::table('aerofood_links')->insertGetId(
+        $id_link = DB::table('aerofood_links')->insertGetId(
             [
                 'name'         => $request->name,
                 'detail_url'         => $request->detail_url,
@@ -80,6 +82,9 @@ class AerofoodLinksController extends Controller
             ]
         );
 
+        $url_link = AerofoodLink::find($id_link);
+
+        Session::flash('success', 'Anda berhasil menambahkan LINK berikut : '.$url_link->url);
         return redirect(action('AerofoodLinksController@index'));
     }
 

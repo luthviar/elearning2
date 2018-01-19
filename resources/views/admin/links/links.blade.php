@@ -23,14 +23,7 @@
                         <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
 
                         {{ Session::get('success') }}
-                        @if(Session::get('success-news') != null)
-                            <a href="{{ url(action('NewsController@admin_news_view',Session::get('success-news'))) }}"
-                               class="btn btn-default btn-sm"
-                               style="color: black; text-decoration: none;"
-                            >
-                                View The News
-                            </a>
-                        @endif
+
 
                     </div>
                 @endif
