@@ -6,6 +6,15 @@
 
         <div class="page-content-wrapper" style="padding:30px">
             <div class ="col-md-8">
+                @if(empty(Session::get('success')) == false)
+                    <div class="alert alert-success text-center" role="alert">
+                        <h3>Success!</h3>
+                        <p>
+                            {{ Session::get('success') }}
+                        </p>
+                    </div>
+                @endif
+
                 <div class ="col-md-8">
                     <div class="col-md-3">
                         <br>
@@ -44,31 +53,90 @@
                         <div class="block-advice">
                             <h3>Comments({{count($replies)}})</h3>
                             <br>
-                            @foreach($replies as $reply)
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><strong>{{ $reply['title'] }}</strong><br>
-                                        {{$reply['user']->name}} ,
-                                        {{ \Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')}}</div>
-                                    <div class="panel-body">
+                            @foreach($replies as $key=>$reply)
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @if($reply->created_by == Auth::user()->id)
+                                        <div class="pull-right">
+                                            <a
+                                                    data-toggle="modal" data-target="#myModal{{$key}}"
+                                                    style="cursor: pointer; color: red;"
+                                            >
+                                                <i style="" class="fa fa-remove" aria-hidden="true"></i>
 
-                                        {!! html_entity_decode($reply['content']) !!}
-                                        <br>
-                                        <div class ="pull-right">
+                                            </a>
 
-                                            @if(!empty($reply['file_pendukung'][0]))
-                                                Attachments : <br>
-                                                @foreach($reply['file_pendukung'] as $file)
-                                                    <a href="{{URL::asset($file->attachment_url)}}">
-                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                        {{$file->attachment_name}}
-                                                    </a><br>
-                                                @endforeach
-                                            @endif
+
+                                            <script>
+                                                function submit_modal{{$key}}(){
+                                                    window.open('{{url(action('NewsController@comment_delete',$reply->id))}}','_self')
+                                                    //$('#form_delete').submit();
+                                                }
+                                            </script>
+                                            <!-- Modal Delete Chapter -->
+                                            <div class="modal fade" id="myModal{{$key}}"
+                                                 tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <h1 class="modal-title text-center" id="myModalLabel"><strong>
+                                                                    Are you serious to delete this comment?</strong></h1>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <p>The deleted comment cannot be restored.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                            <button type="button" id="submit_button" onclick="submit_modal{{$key}}()"
+                                                                    class="btn btn-danger">Yes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </div>
+                                    @endif
 
-                                    </div>
+                                    <strong>{{ $reply['title'] }}
+                                        @if($reply->created_by == Auth::user()->id)
+                                            <a href="{{ url(action('NewsController@editCommentByUser',$reply->id)) }}">
+                                                <i class="fa fa-pencil-square-o"
+                                                   data-toggle="tooltip"
+                                                   data-placement="top"
+                                                   title="Edit this comment."
+                                                   aria-hidden="true"></i>
+                                            </a>
+                                        @endif
+                                    </strong><br>
+                                    {{$reply['user']->name}} ,
+                                    {{ \Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')}}
+
                                 </div>
+                                <div class="panel-body">
+
+                                    {!! html_entity_decode($reply['content']) !!}
+                                    <br>
+                                        @if(!empty($reply['file_pendukung'][0]))
+                                        <div class ="">
+                                            <hr class="style14">
+                                            Attachments : <br>
+                                            @foreach($reply['file_pendukung'] as $file)
+                                                <a href="{{URL::asset($file->attachment_url)}}">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                    {{$file->attachment_name}}
+                                                </a><br>
+                                            @endforeach
+                                        </div>
+                                        @endif
+
+
+
+                                </div>
+                            </div>
+
                                 <br>
                             @endforeach
 

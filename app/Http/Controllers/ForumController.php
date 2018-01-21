@@ -27,7 +27,7 @@ class ForumController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('isAdmin', ['except' => [
-             'index', 'get_all_forum', 'storeByUser', 'editByUser', 'updateByUser','get_user_forum', 'forum_public','get_forum','storeCommentByUser'
+             'index', 'get_all_forum', 'storeByUser', 'editByUser', 'updateByUser','get_user_forum', 'forum_public','get_forum','storeCommentByUser','comment_delete','editCommentByUser'
         ]]);
         
     }
@@ -173,6 +173,20 @@ class ForumController extends Controller
             ->with('forum',$forum);
     }
 
+    public function deleteAttachmentByUser($id) {
+        $file = ForumAttachment::find($id);
+
+        if (empty($file)) {
+            return 'error: file not found';
+        }
+
+        DB::table('forum_attachments')->where('id','=',$id)->delete();
+
+        Session::flash('success', 'Attachment Anda berhasil dihapus.');
+
+        return \Redirect::back();
+    }
+
     public function updateByUser(Request $request) {
         $this -> validate($request, [
             'title' => 'required',
@@ -231,8 +245,9 @@ class ForumController extends Controller
             }
         }
 
-
-        return redirect('forum');
+        $forum = Forum::find($request->id_forum);
+        Session::flash('success', 'Thread Anda berhasil di-UPDATE.');
+        return redirect(url(action('ForumController@get_forum',$forum->id)));
     }
 
 
@@ -257,6 +272,7 @@ class ForumController extends Controller
             echo "error";
         }
     }
+
 
     public function forum_public (Request $request) {
         $columns = array( 
@@ -395,10 +411,111 @@ class ForumController extends Controller
             }
         }
 
-
+        Session::flash('success', 'Comment Anda berhasil di-posting.');
         return redirect()->action(
             'ForumController@get_forum', ['id' => $request->id_forum]
         );
+    }
+
+
+    public function comment_delete($id_forum_comment) {
+        $comment = ForumComment::find($id_forum_comment);
+
+        if (empty($comment)) {
+            return 'error: comment not found';
+        }
+
+        DB::table('forum_comments')->where('id','=',$id_forum_comment)->delete();
+        DB::table('forum_comment_attachments')->where('id_comment','=',$id_forum_comment)->delete();
+
+        Session::flash('success', 'Comment Anda berhasil dihapus.');
+
+        return \Redirect::back();
+    }
+
+    public function editCommentByUser($id_forum_comment) {
+        $comment = ForumComment::find($id_forum_comment);
+        $comment['file_pendukung'] = ForumCommentAttachment::where('id_comment', $id_forum_comment)->get();
+
+        return view('user.forum.edit_comment')
+            ->with('forum',$comment);
+    }
+
+    public function updateCommentByuser(Request $request) {
+        $forum = ForumComment::find($request->id_forum);
+
+        $this -> validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $file = $request->file('image');
+        if (empty($file)) {
+            $forum = ForumComment::find($request->id_forum);
+            $forum->title = $request->title;
+            $forum->content = $request->content;
+            $forum->save();
+
+            $file_pendukung = $request->file('file_pendukung');
+            if (!empty($file_pendukung)) {
+
+                foreach ($file_pendukung as $key => $file) {
+                    $destinationPath = 'Uploads';
+                    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                    $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                    $new_file_pendukung = new ForumCommentAttachment();
+                    $new_file_pendukung->id_comment = $request->id_forum;
+                    $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                    $new_file_pendukung->attachment_url = $url_file;
+                    $new_file_pendukung->save();
+                }
+            }
+        }else{
+            $destinationPath = 'uploads';
+            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+            $url = "uploads/{$file->getClientOriginalName()}";
+
+            $forum = ForumComment::find($request->id_forum);
+            $forum->title = $request->title;
+            $forum->content = $request->content;
+            $forum->image = $url;
+            $forum->save();
+
+            $file_pendukung = $request->file('file_pendukung');
+            if (!empty($file_pendukung)) {
+
+                foreach ($file_pendukung as $key => $file) {
+                    $destinationPath = 'Uploads';
+                    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                    $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                    $new_file_pendukung = new ForumCommentAttachment();
+                    $new_file_pendukung->id_comment = $request->id_forum;
+                    $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                    $new_file_pendukung->attachment_url = $url_file;
+                    $new_file_pendukung->save();
+                }
+            }
+        }
+
+
+        Session::flash('success', 'Comment Anda berhasil di-UPDATE.');
+        return redirect(url(action('ForumController@get_forum',$forum->id_forum)));
+    }
+
+    public function deleteAttachmentCommentByUser($id) {
+        $file = ForumCommentAttachment::find($id);
+
+        if (empty($file)) {
+            return 'error: file not found';
+        }
+
+        DB::table('forum_comment_attachments')->where('id','=',$id)->delete();
+
+        Session::flash('success', 'Attachment Anda berhasil dihapus.');
+
+        return \Redirect::back();
     }
 
     // ----------------------------------------
@@ -697,6 +814,7 @@ class ForumController extends Controller
 
         return \Redirect::back();
     }
+
 
 
 }

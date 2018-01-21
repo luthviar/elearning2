@@ -22,6 +22,14 @@
 
                                         <a href="{{url()->previous()}}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
                                         Edit Your Thread</h4>
+                                    @if(empty(Session::get('success')) == false)
+                                        <div class="alert alert-success text-center" role="alert">
+                                            <h3>Success!</h3>
+                                            <p>
+                                                {{ Session::get('success') }}
+                                            </p>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="modal-body">
@@ -92,15 +100,69 @@
                                                 </div>
                                                 </p>
                                                 <hr>
-                                                @foreach($forum['file_pendukung'] as $file)
-                                                    <a href="{{URL::asset($file->url)}}"><i class="fa fa-paperclip" aria-hidden="true"></i>  {{$file->name}}</a>       <span><a href="/news_attachment_delete/{{$file->id}}" style="color: red;"><i class="fa fa-trash" aria-hidden="true"></i>delete</a></span><br>
+                                                @foreach($forum['file_pendukung'] as $key=>$file)
+                                                    <a href="{{URL::asset($file->attachment_url)}}">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                        {{$file->attachment_name}}
+                                                    </a>
+                                                    {{--<span>--}}
+                                                        {{--<a href="/news_attachment_delete/{{$file->id}}" style="color: red;">--}}
+                                                            {{--<i class="fa fa-trash" aria-hidden="true"></i>--}}
+                                                            {{--delete--}}
+                                                        {{--</a>--}}
+                                                    {{--</span>--}}
+
+
+                                                    <a
+                                                            data-toggle="modal" data-target="#myModal{{$key}}"
+                                                            style="cursor: pointer; color: red;"
+                                                    >
+                                                        <i style="" class="fa fa-trash" aria-hidden="true"></i>
+                                                        Delete
+                                                    </a>
+
+
+                                                    <script>
+                                                        function submit_modal{{$key}}(){
+                                                            window.open('{{url(action('ForumController@deleteAttachmentByUser',$file->id))}}','_self')
+                                                            //$('#form_delete').submit();
+                                                        }
+                                                    </script>
+
+                                                    <!-- Modal Delete Chapter -->
+                                                    <div class="modal fade" id="myModal{{$key}}"
+                                                         tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <h1 class="modal-title text-center" id="myModalLabel"><strong>
+                                                                            Are you serious to delete this ATTACHMENT?</strong></h1>
+                                                                </div>
+                                                                <div class="modal-body text-center">
+                                                                    <p>The deleted ATTACHMENT cannot be restored.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                                    <button type="button" id="submit_button" onclick="submit_modal{{$key}}()"
+                                                                            class="btn btn-danger">Yes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <br>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-4">
-                                            <input type="submit" class="btn btn-primary" style="background-color: #13B795 !important;" value="Update">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <input type="submit" class="btn btn-block btn-primary" style="background-color: #13B795 !important;" value="Update">
                                         </div>
                                     </div>
                                 </div>

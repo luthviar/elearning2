@@ -3,7 +3,30 @@
         <div class="page-content-wrapper" style="padding:30px">
             <div class ="col-md-8">
                 <div class="row">
-                    <h3><?php echo e($forum['title']); ?></h3>
+                    <?php if(empty(Session::get('success')) == false): ?>
+                        <div class="alert alert-success text-center" role="alert">
+                            <h3>Success!</h3>
+                            <p>
+                                <?php echo e(Session::get('success')); ?>
+
+                            </p>
+                        </div>
+                    <?php endif; ?>
+
+                    <h3>
+                        <?php echo e($forum['title']); ?>
+
+                        <?php if($forum->created_by == Auth::user()->id): ?>
+                            <a href="<?php echo e(url(action('ForumController@editByUser',$forum->id))); ?>">
+                                <i class="fa fa-pencil-square-o"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="Edit this Thread."
+                                   aria-hidden="true"></i>
+                            </a>
+                        <?php endif; ?>
+
+                    </h3>
                     <h6><?php echo e($forum['personnel']->name); ?>,
                         <?php echo e(\Carbon\Carbon::parse($forum->create_at)->format('l jS \\of F Y')); ?></h6>
                     <hr class="style14">
@@ -32,27 +55,94 @@
                     <div class="block-advice">
                         <h3>Comments(<?php echo e(count($forum['replie'])); ?>)</h3>
                         <br>
-                        <?php $__currentLoopData = $forum['replie']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $forum['replie']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$reply): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="panel panel-default">
-                                <div class="panel-heading"><strong><?php echo e($reply['title']); ?></strong><br>
+                                <div class="panel-heading">
+                                    <?php if($reply->created_by == Auth::user()->id): ?>
+                                        <div class="pull-right">
+                                            <a
+                                                    data-toggle="modal" data-target="#myModal<?php echo e($key); ?>"
+                                                    style="cursor: pointer; color: red;"
+                                            >
+                                                <i style="" class="fa fa-remove" aria-hidden="true"></i>
+
+                                            </a>
+
+
+                                            <script>
+                                                function submit_modal<?php echo e($key); ?>(){
+                                                    window.open('<?php echo e(url(action('ForumController@comment_delete',$reply->id))); ?>','_self')
+                                                    //$('#form_delete').submit();
+                                                }
+                                            </script>
+                                            <!-- Modal Delete Chapter -->
+                                            <div class="modal fade" id="myModal<?php echo e($key); ?>"
+                                                 tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <h1 class="modal-title text-center" id="myModalLabel"><strong>
+                                                                    Are you serious to delete this comment?</strong></h1>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <p>The deleted comment cannot be restored.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                            <button type="button" id="submit_button" onclick="submit_modal<?php echo e($key); ?>()"
+                                                                    class="btn btn-danger">Yes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    <?php endif; ?>
+
+                                    <strong>
+                                        <?php echo e($reply['title']); ?>
+
+                                        <?php if($reply->created_by == Auth::user()->id): ?>
+                                            <a href="<?php echo e(url(action('ForumController@editCommentByUser',$reply->id))); ?>">
+                                                <i class="fa fa-pencil-square-o"
+                                                   data-toggle="tooltip"
+                                                   data-placement="top"
+                                                   title="Edit this comment."
+                                                   aria-hidden="true"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                    </strong>
+                                    <br/>
                                     <?php echo e($reply['personnel']->name); ?> ,
-                                    <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')); ?></div>
+                                    <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('l jS \\of F Y')); ?>
+
+
+
+
+                                </div>
+
                                 <div class="panel-body">
                                     <?php echo html_entity_decode($reply['content']); ?>
 
-                                    <div class='pull-right'>
-                                        <?php if(!empty($reply['file_pendukung'][0])): ?>
-                                            Attachments : <br>
-                                            <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
-                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                    <?php echo e($file->attachment_name); ?>
 
-                                                </a><br>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        <?php endif; ?>
+                                    <?php if(!empty($reply['file_pendukung'][0])): ?>
+                                    <hr class="style14">
+                                    <div class=''>
+                                        Attachments : <br>
+                                        <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                                <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                <?php echo e($file->attachment_name); ?>
 
+                                            </a><br>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
+                                    <?php endif; ?>
+
                                 </div>
 
                             </div>

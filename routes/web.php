@@ -100,6 +100,15 @@ Route::get('/news/{id}','NewsController@get_news');
 
 Route::post('/news/comment','NewsController@storeCommentByUser');
 
+Route::get('/news/comment/delete/{id}','NewsController@comment_delete');
+
+Route::get('news/edit/comment/{id}','NewsController@editCommentByUser');
+
+Route::post('news/user/comment/update','NewsController@updateCommentByUser');
+
+Route::get('news/user/edit/comment/attachment/{id}','NewsController@deleteAttachmentCommentByUser');
+
+
 /*
 |--------------------------------------------------------------------------
 | Slider Routes
@@ -146,9 +155,19 @@ Route::post('forum/store','ForumController@storeByUser');
 
 Route::get('forum/user/edit/{id}','ForumController@editByUser');
 
+Route::get('forum/user/edit/attachment/{id}','ForumController@deleteAttachmentByUser');
+
+Route::get('forum/user/edit/comment/{id}','ForumController@editCommentByUser');
+
+Route::get('forum/user/edit/comment/attachment/{id}','ForumController@deleteAttachmentCommentByUser');
+
+Route::post('forum/user/comment/update','ForumController@updateCommentByUser');
+
 Route::post('forum/user/update','ForumController@updateByUser');
 
 Route::post('forum/comment','ForumController@storeCommentByUser');
+
+Route::get('forum/comment/delete/{id}','ForumController@comment_delete');
 
 Auth::routes();
 

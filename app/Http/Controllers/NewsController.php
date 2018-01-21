@@ -174,6 +174,109 @@ class NewsController extends Controller
     }
 
 
+    public function comment_delete($id_news_comment) {
+        $comment = NewsComment::find($id_news_comment);
+
+        if (empty($comment)) {
+            return 'error: comment not found';
+        }
+
+        DB::table('news_comments')->where('id','=',$id_news_comment)->delete();
+        DB::table('news_comment_attachments')->where('id_comment','=',$id_news_comment)->delete();
+
+        Session::flash('success', 'Comment Anda berhasil dihapus.');
+
+        return \Redirect::back();
+    }
+
+    public function editCommentByUser($id_comment) {
+        $comment = NewsComment::find($id_comment);
+        $comment['file_pendukung'] = NewsCommentAttachment::where('id_comment', $id_comment)->get();
+
+        return view('user.news.edit_comment')
+            ->with('forum',$comment);
+    }
+
+    public function updateCommentByuser(Request $request) {
+        $forum = NewsComment::find($request->id_forum);
+
+//        dd($forum);
+
+        $this -> validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $file = $request->file('image');
+        if (empty($file)) {
+            $forum = NewsComment::find($request->id_forum);
+            $forum->title = $request->title;
+            $forum->content = $request->content;
+            $forum->save();
+
+            $file_pendukung = $request->file('file_pendukung');
+            if (!empty($file_pendukung)) {
+
+                foreach ($file_pendukung as $key => $file) {
+                    $destinationPath = 'Uploads';
+                    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                    $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                    $new_file_pendukung = new NewsCommentAttachment();
+                    $new_file_pendukung->id_comment = $request->id_forum;
+                    $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                    $new_file_pendukung->attachment_url = $url_file;
+                    $new_file_pendukung->save();
+                }
+            }
+        }else{
+            $destinationPath = 'uploads';
+            $movea = $file->move($destinationPath,$file->getClientOriginalName());
+            $url = "uploads/{$file->getClientOriginalName()}";
+
+            $forum = NewsComment::find($request->id_forum);
+            $forum->title = $request->title;
+            $forum->content = $request->content;
+            $forum->image = $url;
+            $forum->save();
+
+            $file_pendukung = $request->file('file_pendukung');
+            if (!empty($file_pendukung)) {
+
+                foreach ($file_pendukung as $key => $file) {
+                    $destinationPath = 'Uploads';
+                    $movea = $file->move($destinationPath,$file->getClientOriginalName());
+                    $url_file = "Uploads/{$file->getClientOriginalName()}";
+
+                    $new_file_pendukung = new NewsCommentAttachment();
+                    $new_file_pendukung->id_comment = $request->id_forum;
+                    $new_file_pendukung->attachment_name = $file->getClientOriginalName();
+                    $new_file_pendukung->attachment_url = $url_file;
+                    $new_file_pendukung->save();
+                }
+            }
+        }
+
+        $forum = NewsComment::find($request->id_forum);
+        Session::flash('success', 'Comment Anda berhasil di-UPDATE.');
+        return redirect(url(action('NewsController@get_news',$forum->id_news)));
+    }
+
+    public function deleteAttachmentCommentByUser($id) {
+        $file = NewsCommentAttachment::find($id);
+
+        if (empty($file)) {
+            return 'error: file not found';
+        }
+
+        DB::table('news_comment_attachments')->where('id','=',$id)->delete();
+
+        Session::flash('success', 'Attachment Anda berhasil dihapus.');
+
+        return \Redirect::back();
+    }
+
+
 
     // -------------------------------------
     //          ADMIN PAGE

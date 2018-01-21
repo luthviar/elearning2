@@ -60,7 +60,7 @@
                                                     </a>
                                                     @if($forum->created_by == Auth::user()->id)
                                                         <a
-                                                        href="{{ url('forum/user/edit/'.$forum->id) }}"
+                                                        href="{{ url(action('ForumController@editByUser',$forum->id)) }}"
                                                         data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                         >
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
