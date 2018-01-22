@@ -30,24 +30,16 @@ class UserTrainingAccess extends Model
     	}
 
     	if ($module->id_parent == 3) {
-    		$department_training = OsDepartment::find($module->id_department);
-    		if ($department_training == null) {
-    			return "error : department not found";
-    		}
-    		$job_family_training = JobFamily::find($department_training->id_job_family);
+    		$job_family_training = JobFamily::find($module->id_job_family);
     		if ($job_family_training == null) {
     			return "error : job family not found";
     		}
 
-    		$org_structure_user = OrganizationalStructure::find($user->id_organizational_structure);
+    		$org_structure_user = OrganizationalStructure::where('id_user',$user->id)->first();
     		if ($org_structure_user == null) {
     			return "error : organizational structur user not found";
     		}
-    		$department_user = OsDepartment::find($org_structure_user->id_department);
-    		if ($department_user == null) {
-    			return "error : department user not found";
-    		}
-    		$job_family_user = JobFamily::find($department_user->id_job_family);
+    		$job_family_user = JobFamily::find($org_structure_user->id_job_family);
     		if ($job_family_user == null) {
     			return "error : job family user not found";
     		}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\ModulTraining;
+use App\JobFamily;
 use App\Auth;
 use App\UserChapterRecord;
 use App\User;
@@ -63,9 +64,10 @@ class TrainingController extends Controller
                 $user_access = new UserTrainingAccess();
                 $children['access'] = $user_access->check_access(\Auth::user()->id, $children->id);
             }
+            $job_family = JobFamily::all();
             
             return view('user.training.module_training')
-                ->with( 'trainings', $trainings)->with('module', $modul)->with('department',$department);
+                ->with( 'trainings', $trainings)->with('module', $modul)->with('department',$department)->with('job_family',$job_family);
         } 
 
         $user_chapter_record = new UserChapterRecord();
@@ -411,8 +413,9 @@ class TrainingController extends Controller
     public function add_training (){
         $parent = ModulTraining::where('is_child',0)->get();
         $department = OsDepartment::all();
+        $job_family = JobFamily::all();
         return view('admin.training.training_add')
-            ->with('parent',$parent)->with('department',$department);
+            ->with('parent',$parent)->with('department',$department)->with('job_family',$job_family);
     }
 
     public function add_training_submit (Request $request) {
@@ -432,7 +435,7 @@ class TrainingController extends Controller
                 'description'   => $request->description,
                 'date'          => $request->date,
                 'time'          => $time,
-                'id_department' => $request->id_department,
+                'id_job_family' => $request->id_job_family,
                 'is_active'     => 1,
                 'is_publish'    => 0,
                 'is_child'      => 1,
@@ -948,10 +951,11 @@ class TrainingController extends Controller
             return "error: module not found";
         }
         $department = OsDepartment::all();
+        $job_family = JobFamily::all();
 
         $trainer = Trainer::where('id_module', $id_training)->get();
 
-        return view('admin.training.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department)->with('trainer', $trainer);
+        return view('admin.training.training_edit')->with('module', $module)->with('parent',$parent)->with('department',$department)->with('trainer', $trainer)->with('job_family',$job_family);
     }
 
     public function edit_training_submit(Request $request){
@@ -963,7 +967,7 @@ class TrainingController extends Controller
         $module->id_parent     = $request->id_parent;
         $module->description  = $request->description;
         if ($request->id_parent == 3) {
-            $module->id_department = $request->id_department;
+            $module->id_job_family = $request->id_job_family;
         }
         $module->date          = $request->date;
         $module->time          = $request->time;

@@ -40,23 +40,23 @@
 
       <?php elseif($trainings->id == 3): ?>
 
-        <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jobs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
           <div class='col-md-11 col-md-offset-1'>
             <div class='panel panel-warning'>
               <div class='panel-body' style='background-color: lightgreen !important; color: white;'>
 					<span class='pull-left'>
-						<a id="a-<?php echo e($deps->id); ?>" onclick="show_training(<?php echo e($deps->id); ?>)">
-							<strong>Department <?php echo e($deps->department_name); ?></strong>
+						<a id="a-<?php echo e($jobs->id); ?>" onclick="show_training(<?php echo e($jobs->id); ?>)">
+							<strong>Job Family <?php echo e($jobs->job_family_name); ?></strong>
 						</a>
 					</span>
               </div>
             </div>
           </div>
           <?php $__currentLoopData = $trainings['children']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $children): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($children->id_department == $deps->id): ?>
+            <?php if($children->id_job_family == $jobs->id): ?>
 
-              <div class='col-md-10 col-md-offset-2 hidden <?php echo e($deps->id); ?>'>
+              <div class='col-md-10 col-md-offset-2 hidden <?php echo e($jobs->id); ?>'>
                 <div class='panel panel-default'>
                   <div class='panel-body'>
 					<span class='pull-left'>

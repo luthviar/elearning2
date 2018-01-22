@@ -1,10 +1,11 @@
-@extends('admin.layouts.app')
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('TrainingController@manage_training',$module->id))); ?>">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    Edit Training
+<?php $__env->stopSection(); ?>
 
-@section('page-name')
-  Add Training
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
@@ -13,28 +14,35 @@
       <div class="box box-primary">
             <div class="box-header">
               <h3 class="box-title">
-                {{-- fill here --}}
+                
               </h3>
             </div>
             <div class="box-body">
 
-            <form action="{{url(action('TrainingController@add_training_submit'))}}" method="post">
-              {{ csrf_field() }}
+            <form action="<?php echo e(url(action('TrainingController@edit_training_submit'))); ?>" method="post">
+              <?php echo e(csrf_field()); ?>
+
+
+              <input type="hidden" name="id_module" value="<?php echo e($module->id); ?>">
             
               <!-- Title -->
               <div class="form-group">
                 <label for="title">Title*</label>
-                <input type="text" class="form-control" id="title" name="modul_name" id="title" placeholder="Training title" required>
+                <input type="text" class="form-control" id="title" name="modul_name" value="<?php echo e($module->modul_name); ?>" placeholder="Training title">
               </div>
 
 
               <!-- select -->
                 <div class="form-group col-md-4">
                   <label>Training Parent*</label>
-                  <select class="form-control" name="id_parent" id="parent" required>
-                    @foreach($parent as $par)
-                    <option value="{{$par->id}}">{{ $par->modul_name}}</option>
-                    @endforeach
+                  <select class="form-control" name="id_parent" id="parent">
+                    <?php $__currentLoopData = $parent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $par): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($par->id == $module->id_parent): ?>
+                    <option value="<?php echo e($par->id); ?>" selected="true"><?php echo e($par->modul_name); ?></option>
+                    <?php else: ?>
+                    <option value="<?php echo e($par->id); ?>"><?php echo e($par->modul_name); ?></option>
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </select>
                 </div>
 
@@ -46,7 +54,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd" required/>
+                  <input type="text" name="date" value="<?php echo e($module->date); ?>" class="form-control pull-right" id="datepicker" dateFormat="yy-mm-dd">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -58,7 +66,7 @@
                   <label>Training Time Start*</label>
 
                   <div class="input-group">
-                    <input type="text" name="time" class="form-control timepicker" required/>
+                    <input type="text" name="time" value="<?php echo e($module->time); ?>" class="form-control" placeholder="00:00:00 -- 24 hours format">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -71,12 +79,20 @@
 
               <!-- select -->
               <div class="col-md-12">
+              <?php if($module->id_parent == 3): ?>
+                <div class="form-group col-md-4" id="job_family">
+              <?php else: ?>
                 <div class="form-group col-md-4 hidden" id="job_family">
+              <?php endif; ?>
                   <label>Job Family</label>
                   <select class="form-control" name="id_job_family" >
-                    @foreach($job_family as $jobs)
-                    <option value="{{$jobs->id}}">{{ $jobs->job_family_name}}</option>
-                    @endforeach
+                    <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jobs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($jobs->id == $module->id_job_family): ?>
+                    <option value="<?php echo e($jobs->id); ?>" selected="true"><?php echo e($jobs->job_family_name); ?></option>
+                    <?php else: ?>
+                    <option value="<?php echo e($jobs->id); ?>"><?php echo e($jobs->job_family_name); ?></option>
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </select>
                 </div>
                 </div>
@@ -85,16 +101,23 @@
               <div class="form-group">
                   <label>Training Overview*</label>
                   <textarea class="textarea" id="summernote"
-                            name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
+                            name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>
+                      <?php echo e($module->description); ?>
+
+                  </textarea>
               </div>
 
-              <h5><strong>Trainer</strong>
+              <h5>
+                  <strong>Trainer</strong>
                   <span><button class="add_field_button btn btn-success">+ Add More Trainer</button></span>
               </h5>
+
               <div class="input_fields_wrap col-md-12" style="padding-top: 10px;">
-                <div class="col-md-12" style="padding-bottom: 5px;">
+              <?php $__currentLoopData = $trainer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $trains): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <?php if($key == 0): ?>
+              <div class="col-md-12" style="padding-bottom: 5px;">
                 <h6>Trainer Name*</h6>
-                <input type="text" class="form-control" style="width: 50%;" placeholder="name.." name="trainer_name[]" required>
+                <input type="text" class="form-control" style="width: 50%;" value="<?php echo e($trains->trainer_name); ?>" name="trainer_name[]">
                 <h6>Trainer Info*
                     <i class="fa fa-question-circle"
                        style="color: darkseagreen"
@@ -103,18 +126,26 @@
                        title="Info mengenai trainer tersebut, seperti: berasal dari mana atau apapun."
                        aria-hidden="true"></i>
                 </h6>
-                <input type="text" class="form-control" style="width: 50%;" placeholder="info.." name="trainer_info[]" required>
-                </div>
+                <input type="text" class="form-control" style="width: 50%;" value="<?php echo e($trains->trainer_info); ?>" name="trainer_info[]">
+                
               </div>
-
+              <?php else: ?>
+              <div class="col-md-12" style="padding-bottom: 5px;">
+                <h6>Trainer Name</h6>
+                <input type="text" class="form-control" style="width: 50%;" value="<?php echo e($trains->trainer_name); ?>" name="trainer_name[]">
+                <h6>Trainer Info</h6>
+                <input type="text" class="form-control" style="width: 50%;" value="<?php echo e($trains->trainer_info); ?>" name="trainer_info[]"><a href="#" class="remove_field">Remove</a>
+                
+              </div>
+              <?php endif; ?>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </div>
 
               <div class="row text-center">
                   <div class="col-lg-12">
-                      <button class="btn btn-block btn-info">
-                          Next Step
-                          <i class="fa fa-angle-right"></i>
-                      </button>
+                      <button class="btn btn-block btn-success">Update This Training</button>
                   </div>
+              </div>
               </div>
 
               </form>
@@ -133,9 +164,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   //Date picker
     $('#datepicker').datepicker({
@@ -151,7 +182,7 @@
 
 </script>
 
-<<!-- script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<<!-- script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   $(function () {
@@ -227,7 +258,8 @@ $(document).ready(function(){
     })
 });
 </script>
+    <?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-    @include('admin.layouts.summernote')
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

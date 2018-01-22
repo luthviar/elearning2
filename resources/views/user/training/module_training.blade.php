@@ -42,23 +42,23 @@
 
       @elseif($trainings->id == 3)
 
-        @foreach($department as $deps)
+        @foreach($job_family as $jobs)
 
           <div class='col-md-11 col-md-offset-1'>
             <div class='panel panel-warning'>
               <div class='panel-body' style='background-color: lightgreen !important; color: white;'>
 					<span class='pull-left'>
-						<a id="a-{{$deps->id}}" onclick="show_training({{$deps->id}})">
-							<strong>Department {{$deps->department_name}}</strong>
+						<a id="a-{{$jobs->id}}" onclick="show_training({{$jobs->id}})">
+							<strong>Job Family {{$jobs->job_family_name}}</strong>
 						</a>
 					</span>
               </div>
             </div>
           </div>
           @foreach($trainings['children'] as $children)
-            @if($children->id_department == $deps->id)
+            @if($children->id_job_family == $jobs->id)
 
-              <div class='col-md-10 col-md-offset-2 hidden {{$deps->id}}'>
+              <div class='col-md-10 col-md-offset-2 hidden {{$jobs->id}}'>
                 <div class='panel panel-default'>
                   <div class='panel-body'>
 					<span class='pull-left'>

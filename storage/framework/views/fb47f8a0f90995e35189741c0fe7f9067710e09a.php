@@ -1,15 +1,14 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
+<?php $__env->startSection('page-name'); ?>
     Add Personnel
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
-<form action="{{url(action('UserController@user_add_submit'))}}" method="post">
+<form action="<?php echo e(url(action('UserController@user_add_submit'))); ?>" method="post">
 
-{{csrf_field()}}
+<?php echo e(csrf_field()); ?>
+
 
 
 
@@ -144,10 +143,10 @@
                             <label>Employee Status*:</label>
                             <div class="input-group col-lg-12">
                                 <select class="form-control select3" name="id_employee_status" style="width: 100%;" required>
-                                    @foreach($status as $emp_stat)
+                                    <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $emp_stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$emp_stat->id}}">{{$emp_stat->name}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($emp_stat->id); ?>"><?php echo e($emp_stat->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -157,10 +156,10 @@
                             <div class="form-group col-md-6 col-xs-6">
                                 <label>Level of Position*:</label>
                                 <select class="form-control select3" name="level_position" style="width: 100%;" required>
-                                    @foreach($level_position as $level)
+                                    <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$level->id}}">{{$level->nama_level}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($level->id); ?>"><?php echo e($level->nama_level); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -187,10 +186,10 @@
                                 <label>Division : </label>
                                 <select class="form-control select3" name="division" id="division" style="width: 100%;">
                                     <option value="0" >-- Choose The Division --</option>
-                                    @foreach($division as $div)
+                                    <?php $__currentLoopData = $division; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $div): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$div->id}}" >{{$div->division_name}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($div->id); ?>" ><?php echo e($div->division_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -208,10 +207,10 @@
                                 <label>Unit : </label>
                                 <select class="form-control select3" name="unit" id="unit" style="width: 100%;">
                                     <option value="0" >-- Choose The Unit --</option>
-                                    @foreach($unit as $unt)
+                                    <?php $__currentLoopData = $unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$unt->id}}" >{{$unt->unit_name}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($unt->id); ?>" ><?php echo e($unt->unit_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -229,10 +228,10 @@
                                 <label>Department : </label>
                                 <select class="form-control select3" name="department" id="department" style="width: 100%;">
                                     <option value="0" >-- Choose The Department --</option>
-                                    @foreach($department as $dept)
+                                    <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$dept->id}}" >{{$dept->department_name}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($dept->id); ?>" ><?php echo e($dept->department_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -250,10 +249,10 @@
                                 <label>Section : </label>
                                 <select class="form-control select3" name="section" id="section" style="width: 100%;">
                                     <option value="0" >-- Choose The Section --</option>
-                                    @foreach($section as $sect)
+                                    <?php $__currentLoopData = $section; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sect): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$sect->id}}" >{{$sect->section_name}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($sect->id); ?>" ><?php echo e($sect->section_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -272,10 +271,10 @@
                                 <label>Job Family</label>
                                 <select class="form-control select3" name="job_family" id="job_family" style="width: 100%;">
                                     <option value="0" >-- Choose The Job Family --</option>
-                                    @foreach($job_family as $family)
+                                    <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $family): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        <option value="{{$family->id}}" >{{$family->job_family_name}}</option>
-                                    @endforeach
+                                        <option value="<?php echo e($family->id); ?>" ><?php echo e($family->job_family_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -307,9 +306,9 @@
 </form>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 
 
@@ -363,4 +362,5 @@
     </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

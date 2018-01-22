@@ -81,17 +81,17 @@
               <!-- select -->
               <div class="col-md-12">
               @if($module->id_parent == 3)
-                <div class="form-group col-md-4" id="department">
+                <div class="form-group col-md-4" id="job_family">
               @else
-                <div class="form-group col-md-4 hidden" id="department">
+                <div class="form-group col-md-4 hidden" id="job_family">
               @endif
-                  <label>Department</label>
-                  <select class="form-control" name="id_department" >
-                    @foreach($department as $dept)
-                    @if($dept->id == $module->id_department)
-                    <option value="{{$dept->id}}" selected="true">{{ $dept->department_name}}</option>
+                  <label>Job Family</label>
+                  <select class="form-control" name="id_job_family" >
+                    @foreach($job_family as $jobs)
+                    @if($jobs->id == $module->id_job_family)
+                    <option value="{{$jobs->id}}" selected="true">{{ $jobs->job_family_name}}</option>
                     @else
-                    <option value="{{$dept->id}}">{{ $dept->department_name}}</option>
+                    <option value="{{$jobs->id}}">{{ $jobs->job_family_name}}</option>
                     @endif
                     @endforeach
                   </select>
@@ -232,9 +232,9 @@ $(document).ready(function(){
   $('#parent').on('input',function(){
     var $input = $('#parent').val();
     if ($input == 3) {
-      $('#department').removeClass('hidden');
+      $('#job_family').removeClass('hidden');
     }else{
-      $('#department').addClass('hidden');
+      $('#job_family').addClass('hidden');
     }
   });
 </script>

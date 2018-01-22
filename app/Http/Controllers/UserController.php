@@ -365,7 +365,6 @@ class UserController extends Controller
             $id = DB::table('os_departments')->insertGetId(
                 [
                 'department_name'    => $request->department_input, 
-                'id_job_family'    => $request->job_family,
                 ]
             );
             $id_department = $id;
@@ -383,6 +382,18 @@ class UserController extends Controller
             $id_section = $id;
         } else {
             $id_section = $section->id;
+        }
+        $job_family = OsSection::find($request->job_family);
+        $id_job_family = null;
+        if ($job_family == null) {
+            $id = DB::table('job_families')->insertGetId(
+                [
+                'job_family_name'    => $request->job_family_input, 
+                ]
+            );
+            $id_job_family = $id;
+        } else {
+            $id_job_family = $job_family->id;
         }
 
        
@@ -410,6 +421,7 @@ class UserController extends Controller
         $structure->id_unit = $id_unit;
         $structure->id_section = $id_section;
         $structure->id_department = $id_department;
+        $structure->id_job_family = $id_job_family;
         $structure->save();
 
         $user_name = User::find($id_user);
@@ -438,11 +450,11 @@ class UserController extends Controller
         $level = LevelPosition::all();
         $status = EmployeeStatus::all();
         $job_family = JobFamily::all();
-        $job_family_user = null;
-        if ($user['org_structure'] != null) {
-            $user_deps = OsDepartment::find($user['org_structure']->id_department);
-            $job_family_user = JobFamily::find($user_deps->id_job_family);
-        }
+        $job_family_user = JobFamily::find($user['org_structure']->id_job_family);
+        // if ($user['org_structure'] != null) {
+        //     $user_deps = OsDepartment::find($user['org_structure']->id_department);
+        //     $job_family_user = JobFamily::find($user_deps->id_job_family);
+        // }
         
 
         return view('admin.personnel.personnel_edit')->with('user',$user)
@@ -484,7 +496,6 @@ class UserController extends Controller
             $id = DB::table('os_departments')->insertGetId(
                 [
                 'department_name'    => $request->department_input, 
-                'id_job_family'    => $request->job_family,
                 ]
             );
             $id_department = $id;
@@ -503,6 +514,19 @@ class UserController extends Controller
         } else {
             $id_section = $section->id;
         }
+        $job_family = OsSection::find($request->job_family);
+        $id_job_family = null;
+        if ($job_family == null) {
+            $id = DB::table('job_families')->insertGetId(
+                [
+                'job_family_name'    => $request->job_family_input, 
+                ]
+            );
+            $id_job_family = $id;
+        } else {
+            $id_job_family = $job_family->id;
+        }
+
         $user = User::find($request->id_user);
         if ($user == null) {
             return 'error: user not found';
@@ -534,6 +558,7 @@ class UserController extends Controller
         $structure->id_unit = $id_unit;
         $structure->id_section = $id_section;
         $structure->id_department = $id_department;
+        $structure->id_job_family = $id_job_family;
         $structure->save();
 
         Session::flash('success', 'Personnel berhasil di UPDATE');
