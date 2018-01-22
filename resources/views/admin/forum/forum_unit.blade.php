@@ -21,7 +21,6 @@
                   <th>Snippet</th>
                   <th>Unit Name</th>
                   <th>Created At</th>
-                  <th>Delete</th>
                 </tr>
                 </thead>
                 
@@ -53,8 +52,7 @@
                 { "data": "created_by" },
                 { "data": "snippet" },
                 { "data": "unit" },
-                { "data": "created_at" },
-                { "data": "delete" }
+                { "data": "created_at" }
             ]  
 
         });

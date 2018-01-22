@@ -303,19 +303,19 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('forum')->group(function () {
 
-        Route::get('umum-all','ForumController@forum_public_list');
+        Route::get('/{id}/umum-all','ForumController@forum_public_list');
 
         Route::post('admin_forum_public','ForumController@forum_public_list_serverside');
 
-        Route::get('unit-all','ForumController@forum_unit_list');
+        Route::get('/{id}/unit-all','ForumController@forum_unit_list');
 
         Route::post('admin_forum_unit','ForumController@forum_unit_list_serverside');
 
-        Route::get('job-family-all','ForumController@forum_job_family_list');
+        Route::get('/{id}/job-family-all','ForumController@forum_job_family_list');
 
         Route::post('admin_forum_job_family','ForumController@forum_job_family_list_serverside');
 
-        Route::get('view-{id_forum}','ForumController@forum_admin_view');
+        Route::get('/{id}/view-{id_forum}','ForumController@forum_admin_view');
 
         Route::get('delete/{id_forum}','ForumController@forum_remove');
 

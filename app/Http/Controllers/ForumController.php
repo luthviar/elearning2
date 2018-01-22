@@ -581,7 +581,7 @@ class ForumController extends Controller
             foreach ($forums as $forum)
             {
                 $nestedData['title'] =
-                    "<a href='".url(action('ForumController@forum_admin_view',$forum->id))."'>"
+                    "<a href='".url(action('ForumController@forum_admin_view',[0,$forum->id]))."'>"
                     .$forum->title."</a>";
 
                 $user = new User();
@@ -592,7 +592,7 @@ class ForumController extends Controller
                 $nestedData['created_by'] = $user->name;
                 $nestedData['snippet'] = substr(strip_tags($forum->content),0,50)."...";
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
-                $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
+//                $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-danger'>Delete</a>";
 
 
 
@@ -673,7 +673,7 @@ class ForumController extends Controller
             {
 
                 $nestedData['title'] =
-                    "<a href='".url(action('ForumController@forum_admin_view',$forum->id))."'>"
+                    "<a href='".url(action('ForumController@forum_admin_view',[1,$forum->id]))."'>"
                     .$forum->title."</a>";
 
                 $user = new User();
@@ -686,7 +686,7 @@ class ForumController extends Controller
                 $job_family = JobFamily::find($forum->id_job_family);
                 $nestedData['job_family'] = $job_family->job_family_name;
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
-                $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
+//                $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
 
                 $data[] = $nestedData;
 
@@ -765,7 +765,7 @@ class ForumController extends Controller
             {
 
                 $nestedData['title'] =
-                    "<a href='".url(action('ForumController@forum_admin_view',$forum->id))."'>"
+                    "<a href='".url(action('ForumController@forum_admin_view',[2,$forum->id]))."'>"
                     .$forum->title."</a>";
 
                 $user = new User();
@@ -779,7 +779,7 @@ class ForumController extends Controller
                 $unit = OsUnit::find($forum->id_unit);
                 $nestedData['unit'] = $unit->unit_name;
                 $nestedData['created_at'] = date('j M Y',strtotime($forum->created_at));
-                $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
+//                $nestedData['delete'] = "<a href='".url('admin/forum/delete',$forum->id)."' class='btn btn-warning'>Delete</a>";
 
                 $data[] = $nestedData;
 
@@ -796,12 +796,13 @@ class ForumController extends Controller
         echo json_encode($json_data);
     }
 
-    public function forum_admin_view ( $id_forum ) {
+    public function forum_admin_view ($id, $id_forum ) {
         $forum = new Forum();
         $forum = $forum->get_forum($id_forum);
         if ($forum['status'] == 'error') {
-            echo $forum['message'];
+            return $forum['message'];
         }
+
         return view('admin.forum.forum_view')->with('forum', $forum);
     }
 
@@ -810,9 +811,13 @@ class ForumController extends Controller
         if ($forum == null) {
             return 'error: forum not found';
         }
+
         DB::table('forums')->where('id','=',$id_forum)->delete();
 
-        return \Redirect::back();
+        Session::flash('success', 'Forum berhasil dihapus! yaitu forum yang berjudul: '.$forum->title);
+
+        return redirect(url(action('ForumController@forum_public_list',$forum->category)));
+//        return \Redirect::back();
     }
 
 
