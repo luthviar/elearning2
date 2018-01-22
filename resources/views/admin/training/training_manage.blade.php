@@ -83,8 +83,49 @@
                    <a href="{{url(action('TrainingController@add_participant',$training->id))}}"
                       class="btn btn-success">SEE PARTICIPANT</a>
                     
-                      <a href="{{url(action('TrainingController@delete_training',$training->id))}}"
-                      class="btn btn-danger">DELETE TRAINING</a>
+                      {{--<a href="{{url(action('TrainingController@delete_training',$training->id))}}"--}}
+                      {{--class="btn btn-danger">DELETE TRAINING</a>--}}
+
+                <a
+                        {{--href="{{url(action('NewsController@news_remove',$news->id))}}"--}}
+                        data-toggle="modal" data-target="#myModalDeleteTraining"
+                        class="btn btn-danger" style="word-spacing: normal;"
+                >
+
+                        <i style="" class="fa fa-remove" aria-hidden="true"></i>
+
+                        DELETE THIS TRAINING
+                    </a>
+
+
+                    <script>
+                        function submit_modal_delete_training(){
+                            window.open('{{url(action('TrainingController@delete_training',$training->id))}}','_self')
+                            //$('#form_delete').submit();
+                        }
+                    </script>
+                  <!-- Modal Delete Chapter -->
+                      <div class="modal fade" id="myModalDeleteTraining" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to DELETE this training?</strong></h1>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>The deleted training cannot be restored.</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                              <button type="button" id="submit_button" onclick="submit_modal_delete_training()" class="btn btn-danger">Yes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
 
               </span>
             </div>

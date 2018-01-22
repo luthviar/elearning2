@@ -181,25 +181,25 @@
 
                 <ul class="treeview-menu">
                     <li class="{{
-                     Request::is('admin/forum/umum*')
+                     Request::is('admin/forum/0/*')
                      ? 'active' : '' }}">
-                        <a href="{{url(action('ForumController@forum_public_list'))}}">
+                        <a href="{{url(action('ForumController@forum_public_list',0))}}">
                             <i class="fa fa-circle-o"></i>
                             Public Forum
                         </a>
                     </li>
                     <li class="{{
-                     Request::is('admin/forum/job-family*')
+                     Request::is('admin/forum/1/*')
                      ? 'active' : '' }}">
-                        <a href="{{url(action('ForumController@forum_job_family_list'))}}">
+                        <a href="{{url(action('ForumController@forum_job_family_list',1))}}">
                             <i class="fa fa-circle-o"></i>
                             Job Family Forum
                         </a>
                     </li>
                     <li class="{{
-                     Request::is('admin/forum/unit*')
+                     Request::is('admin/forum/2/*')
                      ? 'active' : '' }}">
-                        <a href="{{url(action('ForumController@forum_unit_list'))}}">
+                        <a href="{{url(action('ForumController@forum_unit_list',2))}}">
                             <i class="fa fa-circle-o"></i>
                             Unit Forum
                         </a>

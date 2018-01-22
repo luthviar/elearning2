@@ -8,7 +8,16 @@ Forum Public
     <section class="content">
       <div class="box">
             <div class="box-header">
+                <?php if(Session::get('success') != null): ?>
+                    <hr/>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
 
+                        <?php echo e(Session::get('success')); ?>
+
+                    </div>
+                <?php endif; ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -19,7 +28,6 @@ Forum Public
                   <th>Created By</th>
                   <th>Snippet</th>
                   <th>Created At</th>
-                  <th>Delete</th>
                 </tr>
                 </thead>
                 
@@ -62,6 +70,7 @@ Forum Public
         $('#example2').DataTable({
             "processing": true,
             "serverSide": true,
+            "order": [3,'desc'],
             "ajax":{
                      "url": "<?php echo e(url(action('ForumController@forum_public_list_serverside'))); ?>",
                      "dataType": "json",
@@ -72,8 +81,7 @@ Forum Public
                 { "data": "title" },
                 { "data": "created_by" },
                 { "data": "snippet" },
-                { "data": "created_at" },
-                { "data": "delete" }
+                { "data": "created_at" }
             ]  
 
         });
