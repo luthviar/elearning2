@@ -56,7 +56,7 @@
                                class="btn btn-lg btn-success"
                                data-toggle="tooltip"
                                data-placement="top"
-                               title="Tampilkan slide ini ke home page"
+                               title="Tidak bisa ditampilkan karena slider aktif sudah lima, silahkan disable slider yang ada."
                             >
                                 <i style="" class="fa fa-bullhorn" aria-hidden="true"></i>
                                 ACTIVATE
@@ -99,6 +99,7 @@
                             //$('#form_delete').submit();
                         }
                     </script>
+
                       <!-- Modal Delete Chapter -->
                       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
@@ -107,7 +108,9 @@
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
-                              <h1 class="modal-title text-center" id="myModalLabel"><strong>Are you serious to delete this slider?</strong></h1>
+                              <h1 class="modal-title text-center" id="myModalLabel">
+                                  <strong>Are you serious to delete this slider?</strong>
+                              </h1>
                             </div>
                             <div class="modal-body text-center">
                                 <p>The deleted slider cannot be restored.</p>
@@ -129,7 +132,12 @@
 
                 <div id="news_content">
                   <div class="col-xs-12 col-sm-12 col-md-12">
-                    <img src="<?php echo e(URL::asset($slider->url_image)); ?>" style="width: 100%; height: 250px;border: 1px solid green;">
+                      <?php if(empty($slider->url_image)): ?>
+                          No Image
+                      <?php else: ?>
+                          <img src="<?php echo e(URL::asset($slider->url_image)); ?>" style="width: 100%; height: 250px;border: 1px solid green;">
+                      <?php endif; ?>
+
                     <h3><strong><?php echo e($slider->title); ?></strong></h3>
                     <p><?php echo e($slider->second_title); ?></p>
                   </div>

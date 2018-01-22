@@ -733,6 +733,9 @@ class UserController extends Controller
         if ($score == null) {
             return "error: score not found";
         }
+        $filename = substr($score->attachment_url,14);
+        $path = public_path() . "\storage\\" . $filename.".txt";
+        unlink($path);
         DB::table('employee_scores')->where('id','=',$id_score)->delete();
 
         Session::flash('success', 'Score bernama: '.$score->attachment_name. ' berhasil dihapus.');

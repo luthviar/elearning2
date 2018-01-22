@@ -260,6 +260,9 @@ class SliderController extends Controller
         if ($slider == null) {
             return "error: slider not found";
         }
+        $url = $slider->url_image;
+        $path = public_path() ."\\". $url;
+        unlink($path);
         DB::table('sliders')->where('id','=',$id_slider)->delete();
 
         return redirect(action('SliderController@slider_list'));

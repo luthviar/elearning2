@@ -455,6 +455,9 @@ class NewsController extends Controller
         if (!empty($files)) {
             $attachment = NewsAttachment::where('id_news', $request->id_news)->get();
             foreach ($attachment as $key => $value) {
+                $url = $value->attachment_url;
+                $path = public_path() ."\\". $url;
+                unlink($path);
                 DB::table('news_attachments')->where('id','=',$value->id)->delete();
             }
             foreach ($files as $key => $file) {
@@ -482,6 +485,15 @@ class NewsController extends Controller
 
         if ($news == null) {
             return 'error: news not found';
+        }
+        $news_attachment = NewsAttachment::where('id_news',$id_news)->get();
+        if(count($news_attachment) > 0 ){
+            foreach($news_attachment as $attachment){
+                $url = $attachment->attachment_url;
+                $path = public_path() ."\\". $url;
+                unlink($path);
+            }
+            DB::table('news_attachments')->where('id_news','=',$id_news)->delete();
         }
         DB::table('newses')->where('id','=',$id_news)->delete();
 

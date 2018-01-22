@@ -475,7 +475,7 @@ class TrainingController extends Controller
         if ($training == null) {
             return "error";
         }
-        $chapter = Chapter::where('id_module',$training->id)->get();
+        $chapter = Chapter::where('id_module',$training->id)->orderBy('sequence')->get();
         if (count($chapter) != 0) {
             foreach ($chapter as  $chaps) {
                 if ($chaps->category == 0) {
@@ -1362,6 +1362,57 @@ class TrainingController extends Controller
             DB::table('modul_trainings')->where('id','=',$id_training)->delete();
             return redirect('admin/training/all');
         }
+    }
+
+    function change_order ($id_training){
+        $training = ModulTraining::find($id_training);
+        if($training == null ){
+            return "error: training not found";
+        }
+        if ($training->is_child == 0){
+            return "error: training is parent modul";
+        }
+        $chapters = Chapter::where('id_module', $id_training)->get();
+        if(count($chapters) == 0){
+            // no chapter found
+            return redirect()->back();
+        }
+        $training['chapters'] = $chapters;
+        return view('admin.training.reorder_chapter')->with('training',$training);
+    }
+
+    function change_order_submit (Request $request){
+        $training = ModulTraining::find($request->id_training);
+        if($training == null ){
+            return "error: training not found";
+        }
+        if ($training->is_child == 0){
+            return "error: training is parent modul";
+        }
+        $chapters = Chapter::where('id_module', $request->id_training)->get();
+        if(count($chapters) == 0){
+            // no chapter found
+            return redirect()->back();
+        }
+        $order_change = array();
+        foreach($chapters as $key => $chapter){
+            $chapter_id = $request->$key;
+            if(count($order_change) > 0){
+                foreach($order_change as $change){
+                    if($change == $chapter_id){
+                        // ada chapter yang dipilih pada 2 urutan yang berbeda
+                        return redirect()->back();
+                    } 
+                }
+            }
+            array_push($order_change, $chapter_id);
+        }
+        foreach($chapters as $key => $chapter){
+            $chapter = Chapter::find($request->$key);
+            $chapter->sequence = $key;
+            $chapter->save();
+        }
+        return redirect('admin/training/manage-'.$request->id_training);
     }
 
 }

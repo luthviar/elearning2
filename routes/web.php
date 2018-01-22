@@ -395,6 +395,10 @@ Route::prefix('admin')->group(function () {
 
         Route::get('see-participants-{id}', 'TrainingController@see_participant');
 
+        Route::get('reorder_chapter-{id}','TrainingController@change_order');
+
+        Route::post('reorder_chapter_submit', 'TrainingController@change_order_submit');
+
     });
 
 

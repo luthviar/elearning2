@@ -161,9 +161,10 @@
           <div class="nav-tabs-custom">
 
             <div class="container">
-            <h4>Chapter Training</h4>  
+            <h4>Chapter Training</h4> 
           </div>
-
+          
+          <a class="btn btn-info pull-right" href="<?php echo e(url('admin/training/reorder_chapter-'.$training->id)); ?>">reorder_chapter </a>
             <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#chapter_list" data-toggle="tab">
