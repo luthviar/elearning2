@@ -97,11 +97,10 @@
                                                 @else
                                                     <td>
                                                         {{$forum['last_reply_personnel']['name']}},
-                                                        {{ \Carbon\Carbon::parse($forum['last_reply'][0]
-                                                        ->created_at)->format('l jS \\of F Y')}}
+                                                        {{ \Carbon\Carbon::parse($forum['last_reply']->created_at)->format('l jS \\of F Y')}}
                                                     </td>
                                                 @endif
-                                                <td>{{ $forum->created_at }}</td>
+                                                <td>{{ $forum->created_at->diffForHumans() }}</td>
                                             </tr>
                                         @endforeach
 
@@ -171,15 +170,15 @@
                                                     </td>
                                                     <td>{{$forum['personnel']->name}}</td>
                                                     <td>{{count($forum['replie'])}}</td>
-                                                    @if(count($forum['replie']) == 0)
-                                                        <td>-</td>
-                                                    @else
-                                                        <td>
-                                                            {{$forum['last_reply_personnel']['name']}} ,
-                                                            {{ \Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')}}
-                                                        </td>
-                                                    @endif
-                                                    <td>{{ $forum->created_at }}</td>
+                                                @if(count($forum['replie']) == 0)
+                                                    <td>-</td>
+                                                @else
+                                                    <td>
+                                                        {{$forum['last_reply_personnel']['name']}} ,
+                                                        {{ \Carbon\Carbon::parse($forum['last_reply']->created_at)->format('l jS \\of F Y')}}
+                                                    </td>
+                                                @endif
+                                                    <td>{{ $forum->created_at->diffForHumans() }}</td>
                                                 </tr>
                                             @endforeach
 
@@ -257,12 +256,15 @@
                                                     </td>
                                                     <td>{{$forum['personnel']->name}}</td>
                                                     <td>{{count($forum['replie'])}}</td>
-                                                    @if($forum['replie'] == null)
+                                                    @if(count($forum['replie']) == 0)
                                                         <td>-</td>
                                                     @else
-                                                        <td></td>
+                                                        <td>
+                                                            {{$forum['last_reply_personnel']['name']}},
+                                                            {{ \Carbon\Carbon::parse($forum['last_reply']->created_at)->format('l jS \\of F Y')}}
+                                                        </td>
                                                     @endif
-                                                    <td>{{ $forum->created_at }}</td>
+                                                    <td>{{ $forum->created_at->diffForHumans() }}</td>
                                                 </tr>
                                             @endforeach
 

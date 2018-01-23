@@ -46,16 +46,16 @@ class ForumController extends Controller
             $department = OsDepartment::where('id', $struktur->id_department)->first();
             $job_family = JobFamily::find($struktur->id_job_family);
         }
-        $forum_umum = Forum::where('category', 0)->where('id_department', null)
-            ->where('id_unit', null)->where('id_job_family', null)->get();
+        $forum_umum = Forum::where('category', 0)->get();
         foreach ($forum_umum as $key => $value) {
             $value['personnel'] = User::where('id',$value->created_by)->first();
             $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
             if(empty($value['replie'][0])){
                 $value['last_reply'] = null;
             }else{
-                $value['last_reply'] = DB::table('forum_comments')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
-                $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
+                $value['last_reply'] = ForumComment::where('id_forum',$value->id)
+                    ->orderBy('created_at', 'desc')->first();
+                $value['last_reply_personnel'] = User::where('id', $value['last_reply']->created_by)->first();
             }
         }
 
@@ -68,8 +68,9 @@ class ForumController extends Controller
                 if(empty($value['replie'][0])){
                     $value['last_reply'] = null;
                 }else{
-                    $value['last_reply'] = DB::table('forum_comments')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
-                    $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
+                    $value['last_reply'] = ForumComment::where('id_forum',$value->id)
+                        ->orderBy('created_at', 'desc')->first();
+                    $value['last_reply_personnel'] = User::where('id', $value['last_reply']->created_by)->first();
                 }
             }
         }
@@ -83,10 +84,9 @@ class ForumController extends Controller
                 if(empty($value['replie'][0])){
                     $value['last_reply'] = null;
                 }else{
-                    $value['last_reply'] = DB::table('forum_comments')->where('id_forum',$value->id)->orderBy('id', 'desc')->take(1)->get();
-
-                    $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
-
+                    $value['last_reply'] = ForumComment::where('id_forum',$value->id)
+                        ->orderBy('created_at', 'desc')->first();
+                    $value['last_reply_personnel'] = User::where('id', $value['last_reply']->created_by)->first();
                 }
             }
         }
