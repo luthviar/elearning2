@@ -101,7 +101,10 @@ class UserChapterRecord extends Model
     	$tot_finish = 0;
     	if (count($records) != null) {
     		foreach ($records as $key => $record) {
-    			$rec = UserChapterRecord::where('id_user', $id_user)->where('id_module_training', $record->id_module_training)->where('is_finish', 0)->get();
+    			$rec = UserChapterRecord::where('id_user', $id_user)
+                    ->where('id_module_training', $record->id_module_training)
+                    ->where('is_finish', 0)->get();
+
     			if (count($rec) == 0) {
     				$record['status'] = 'Finished';
     				$tot_finish +=1;
@@ -110,6 +113,9 @@ class UserChapterRecord extends Model
     			}
     			$module_training = ModulTraining::find($record->id_module_training);
     			$record['module'] = $module_training;
+    			$record['module_parent'] = ModulTraining::where('id',$module_training->id_parent)->first();
+    			$test_record = new UserTestRecord();
+    			$record['post_test'] = $test_record->get_post_test_by_module($module_training->id,$id_user);
     		}
     	}
     	$output['records'] = $records;

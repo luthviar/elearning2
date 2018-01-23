@@ -286,6 +286,12 @@
                                 <dd>
                                     <a ><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></a>
                                 </dd>
+                                <dt>
+                                    <b>Job Family</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e(isset($profile['employee_data']['job_family']->job_family_name) ? $profile['employee_data']['job_family']->job_family_name : null); ?></a>
+                                </dd>
 
                                 <?php if($profile['personal_data']->flag_active == 1): ?>
                                     <dt>

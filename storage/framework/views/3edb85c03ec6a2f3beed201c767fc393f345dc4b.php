@@ -80,7 +80,11 @@
               </tr>
               <tr>
                 <td>Section</td>
-                <td><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></td>
+                <td><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : 'No Section'); ?></td>
+              </tr>
+              <tr>
+                <td>Job Family</td>
+                <td><?php echo e(isset($profile['employee_data']['job_family']->job_family_name) ? $profile['employee_data']['job_family']->job_family_name : 'No Job Family'); ?></td>
               </tr>
               </tbody>
             </table>
@@ -116,7 +120,7 @@
             </div>
           </form>
         </div>
-        <div role="tabpanel" class="tab-pane" id="messages">
+        <div role="tabpanel" class="tab-pane" id="messages" style="text-transform: none !important;">
           <div class="col-xs-12 col-md-12 text-center">
             <div class="col-xs-12 col-md-6">
               <h4>Training Included</h4>
@@ -127,13 +131,17 @@
               <h1 style="font-size: 40px"><?php echo e($training_record['total_finish']); ?></h1>
             </div>
 
-            <div class="col-xs-6 col-md-6 col-lg-offset-3 text-center">
-
-              <table class="table table-hover">
+            <div class="col-xs-10 col-md-10 col-lg-offset-1 text-center"  style="text-transform: none !important;">
+              <br/>
+            <hr/>
+              <table class="table table-hover" id="example2" style="text-transform: none !important;">
                 <thead>
                 <tr class="text-center">
-                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">No</th>
+                  <th scope="col" class="text-center">Start At</th>
+                  <th scope="col" class="text-center">Module</th>
                   <th scope="col" class="text-center">Training Title</th>
+                  <th scope="col" class="text-center">Post Test Score</th>
                   <th scope="col" class="text-center">Status</th>
 
                 </tr>
@@ -146,8 +154,27 @@
                 <?php else: ?> <?php $__currentLoopData = $training_record['records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
                     <th scope="row"><?php echo e(++$key); ?></th>
-                    <td><a href="<?php echo e(url('/get_training',  $record['module']->id)); ?>"><?php echo e($record['module']->modul_name); ?></a></td>
+                    <th scope="row"><?php echo e($record['module']->date); ?></th>
+                    <td>
+                      <a href="<?php echo e(url('/get_training',  $record['module_parent']->id)); ?>">
+                        <?php echo e($record['module_parent']->modul_name); ?>
+
+                      </a>
+                    </td>
+                    <td>
+                      <a href="<?php echo e(url('/get_training',  $record['module']->id)); ?>">
+                        <?php echo e($record['module']->modul_name); ?>
+
+                      </a>
+                    </td>
+                    <td>
+                      <?php echo e($record['post_test']); ?>
+
+
+                    </td>
                     <td><?php echo e($record['status']); ?></td>
+
+
                   </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?>
 
@@ -161,7 +188,7 @@
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="row text-center">
             <div class="col-lg-8 col-lg-offset-2">
-              <?php if(empty($scores) == false): ?>
+              <?php if($scores->count() > 0): ?>
                 <?php $__currentLoopData = $scores; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $score): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 
                 
@@ -176,7 +203,7 @@
                   <small><b>published: <?php echo e($score->created_at->diffForHumans()); ?></b></small>
                 </a>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-              <?php elseif(empty($scores)): ?>
+              <?php else: ?>
                 <a
                     class="btn btn-block btn-default btn-lg"
                     style="cursor:pointer; text-decoration: none;"
@@ -265,5 +292,20 @@ $("#img").change(function() {
   readURL(this);
 });
 </script>
+
+
+  <script type="text/javascript">
+      $('#example2').DataTable({
+          autoWidth: true,
+          "processing": true,
+          "serverSide": false,
+          "deferRender": true,
+          order: [[ 0, "asc" ]]
+      });
+      $(".select2").select2();
+
+  </script>
+
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

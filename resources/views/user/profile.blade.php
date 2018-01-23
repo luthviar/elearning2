@@ -81,7 +81,11 @@
               </tr>
               <tr>
                 <td>Section</td>
-                <td>{{$profile['employee_data']['section']->section_name or null}}</td>
+                <td>{{$profile['employee_data']['section']->section_name or 'No Section'}}</td>
+              </tr>
+              <tr>
+                <td>Job Family</td>
+                <td>{{$profile['employee_data']['job_family']->job_family_name or 'No Job Family'}}</td>
               </tr>
               </tbody>
             </table>
@@ -116,7 +120,7 @@
             </div>
           </form>
         </div>
-        <div role="tabpanel" class="tab-pane" id="messages">
+        <div role="tabpanel" class="tab-pane" id="messages" style="text-transform: none !important;">
           <div class="col-xs-12 col-md-12 text-center">
             <div class="col-xs-12 col-md-6">
               <h4>Training Included</h4>
@@ -127,13 +131,17 @@
               <h1 style="font-size: 40px">{{ $training_record['total_finish'] }}</h1>
             </div>
 
-            <div class="col-xs-6 col-md-6 col-lg-offset-3 text-center">
-
-              <table class="table table-hover">
+            <div class="col-xs-10 col-md-10 col-lg-offset-1 text-center"  style="text-transform: none !important;">
+              <br/>
+            <hr/>
+              <table class="table table-hover" id="example2" style="text-transform: none !important;">
                 <thead>
                 <tr class="text-center">
-                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">No</th>
+                  <th scope="col" class="text-center">Start At</th>
+                  <th scope="col" class="text-center">Module</th>
                   <th scope="col" class="text-center">Training Title</th>
+                  <th scope="col" class="text-center">Post Test Score</th>
                   <th scope="col" class="text-center">Status</th>
 
                 </tr>
@@ -146,8 +154,24 @@
                 @else @foreach ( $training_record['records'] as $key=>$record)
                   <tr>
                     <th scope="row">{{ ++$key }}</th>
-                    <td><a href="{{ url('/get_training',  $record['module']->id)}}">{{ $record['module']->modul_name}}</a></td>
+                    <th scope="row">{{ $record['module']->date }}</th>
+                    <td>
+                      <a href="{{ url('/get_training',  $record['module_parent']->id)}}">
+                        {{ $record['module_parent']->modul_name}}
+                      </a>
+                    </td>
+                    <td>
+                      <a href="{{ url('/get_training',  $record['module']->id)}}">
+                        {{ $record['module']->modul_name}}
+                      </a>
+                    </td>
+                    <td>
+                      {{ $record['post_test']}}
+
+                    </td>
                     <td>{{ $record['status']}}</td>
+
+
                   </tr>
                 @endforeach @endif
 
@@ -161,7 +185,7 @@
         <div role="tabpanel" class="tab-pane" id="settings">
           <div class="row text-center">
             <div class="col-lg-8 col-lg-offset-2">
-              @if(empty($scores) == false)
+              @if($scores->count() > 0)
                 @foreach ( $scores as $score)
                 {{--<iframe id="iframe" src="{{URL::to($score->attachment_url)}}"--}}
                 {{--width='100%' height='600' allowfullscreen webkitallowfullscreen>--}}
@@ -176,7 +200,7 @@
                   <small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>
                 </a>
                 @endforeach
-              @elseif(empty($scores))
+              @else
                 <a
                     class="btn btn-block btn-default btn-lg"
                     style="cursor:pointer; text-decoration: none;"
@@ -264,4 +288,19 @@ $("#img").change(function() {
   readURL(this);
 });
 </script>
+
+
+  <script type="text/javascript">
+      $('#example2').DataTable({
+          autoWidth: true,
+          "processing": true,
+          "serverSide": false,
+          "deferRender": true,
+          order: [[ 0, "asc" ]]
+      });
+      $(".select2").select2();
+
+  </script>
+
+
 @endsection

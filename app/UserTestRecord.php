@@ -77,4 +77,24 @@ class UserTestRecord extends Model
 
     	return $record;
     }
+
+    public function get_post_test_by_module($id_module, $id_user) {
+
+        $the_chapter = Chapter::where('id_module',$id_module)->where('category',1)->where('sequence','<>',0)->first();
+        $the_test = Test::where('id_chapter',$the_chapter['id'])->first();
+        $user_test_record = UserTestRecord::where('id_user',$id_user)->where('id_test',$the_test['id'])->get();
+
+        //count post test score
+        $true_answer = UserTestRecord::where('id_user', $id_user)->where('id_test', $the_test['id'])->where('is_true', 1)->get();
+        $count_true = count($true_answer);
+        $count_record_test = count($user_test_record);
+
+        if ($count_record_test >0) {
+            $skor = round((($count_true/$count_record_test)*100),2);
+        } else {
+            $skor = 'not yet';
+        }
+
+        return $skor;
+    }
 }

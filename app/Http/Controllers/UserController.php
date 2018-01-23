@@ -92,9 +92,11 @@ class UserController extends Controller
 
         $scores = EmployeeScore::where('id_user',\Auth::user()->id)->orderBy('id','desc')->limit(10)->get();
 
-        if ($scores == null){
-            $scores;
-        }
+//        if ($scores == null){
+//            $scores;
+//        }
+
+//        dd($training_record);
 
     	return view('user.profile')->with('profile', $profile)
             ->with('training_record', $training_record)->with('module', $modul)->with('scores',$scores);

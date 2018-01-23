@@ -135,11 +135,17 @@ class User extends Authenticatable
                 } else {
                     $data['division'] = null;
                 }
+                if ($org_structure->id_job_family != 0) {
+                    $data['job_family'] = JobFamily::find($org_structure->id_job_family);
+                } else {
+                    $data['job_family'] = null;
+                }
             } else {
                 $data['department'] = null;
                 $data['unit'] = null;
                 $data['section'] = null;
                 $data['division'] = null;
+                $data['job_family'] = null;
             }
         $user['employee_data'] = $data;
 

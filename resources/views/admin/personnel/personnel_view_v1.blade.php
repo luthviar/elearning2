@@ -286,6 +286,12 @@
                                 <dd>
                                     <a >{{$profile['employee_data']['section']->section_name or null}}</a>
                                 </dd>
+                                <dt>
+                                    <b>Job Family</b>
+                                </dt>
+                                <dd>
+                                    <a >{{$profile['employee_data']['job_family']->job_family_name or null}}</a>
+                                </dd>
 
                                 @if ($profile['personal_data']->flag_active == 1)
                                     <dt>
