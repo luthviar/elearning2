@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom" style="background:url({{ url('/Elegantic/images/side-motif.png') }});">
+    <div class="footer-bottom" style="background:url(<?php echo e(url('/Elegantic/images/side-motif.png')); ?>);">
         <div class="holder" style="webkit-box-shadow: 0px -6px 31px 0px rgba(0, 0, 0, 0.2);-moz-box-shadow: 0px -6px 31px 0px rgba(0, 0, 0, 0.2);box-shadow: 0px -6px 31px 0px rgba(0, 0, 0, 0.2);">
             <div style="color:#666;">Copyright 2018 Aerofood. All rights reserved.</div>
         </div>

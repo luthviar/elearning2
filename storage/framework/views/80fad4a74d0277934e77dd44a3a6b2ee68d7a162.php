@@ -1,6 +1,4 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <style>
     .required {
         color: #f00 !important;
@@ -13,57 +11,60 @@
         <div class="page-content-wrapper" style="padding: 50px 0px 30px 0px">
             <div class="row">
             <div class ="col-md-8" style="background:#fff;">
-                @if(empty(Session::get('success')) == false)
+                <?php if(empty(Session::get('success')) == false): ?>
                     <div class="alert alert-success text-center" role="alert">
                         <h3>Success!</h3>
                         <p>
-                            {{ Session::get('success') }}
+                            <?php echo e(Session::get('success')); ?>
+
                         </p>
                     </div>
-                @endif
+                <?php endif; ?>
                     
                 <div class ="col-md-12">
-                    <h3 style="color:#23527c;"><b>{{ $news['title'] }}</b></h3>
-                    <h6 class="text-muted">{{ \Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')}}</h6>
+                    <h3 style="color:#23527c;"><b><?php echo e($news['title']); ?></b></h3>
+                    <h6 class="text-muted"><?php echo e(\Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')); ?></h6>
                 </div>
                 <div class ="col-md-12">
                     <hr class="style14">
                     <p align="justify" class="big">
-                       @if(empty($news->url_image))
-                            <img src="{{URL::asset('Elegantic/images/ALS.jpg')}}" alt="Card image cap" style="width:300px; margin-right:1em; margin-bottom:1em;" align="left">
-                        @else
-                            <img src="{{URL::asset($news['url_image'])}}" alt="Card image cap" style="width:300px; margin-right:1em; margin-bottom:1em;" align="left">
-                        @endif
-                        {!! html_entity_decode($news['content']) !!}
+                       <?php if(empty($news->url_image)): ?>
+                            <img src="<?php echo e(URL::asset('Elegantic/images/ALS.jpg')); ?>" alt="Card image cap" style="width:300px; margin-right:1em; margin-bottom:1em;" align="left">
+                        <?php else: ?>
+                            <img src="<?php echo e(URL::asset($news['url_image'])); ?>" alt="Card image cap" style="width:300px; margin-right:1em; margin-bottom:1em;" align="left">
+                        <?php endif; ?>
+                        <?php echo html_entity_decode($news['content']); ?>
+
 
                     </p>
                     <hr class="style14">
                     <div class=''>
-                        @if(!empty($news['file_pendukung'][0]))
+                        <?php if(!empty($news['file_pendukung'][0])): ?>
                             Attachments : <br>
-                            @foreach($news['file_pendukung'] as $file)
-                                <a href="{{URL::asset($file->attachment_url)}}">
-                                    <i class="fa fa-paperclip" aria-hidden="true"></i>{{$file->attachment_name}}
+                            <?php $__currentLoopData = $news['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i><?php echo e($file->attachment_name); ?>
+
                                 </a><br>
-                            @endforeach
-                        @endif
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </div>
                     <hr class="style14">
                     <br>
 
                    
-                    @if($news->is_reply == 1)
+                    <?php if($news->is_reply == 1): ?>
                         <div class="block-advice" style="padding:0em;">
                             <div style="width:100%; background-color:#ccc;">
-                                <h4 style="margin-top:0px; padding:10px 15px; text-align:center;">COMMENTS&nbsp;({{count($replies)}})</h4>
+                                <h4 style="margin-top:0px; padding:10px 15px; text-align:center;">COMMENTS&nbsp;(<?php echo e(count($replies)); ?>)</h4>
                             </div>
-                            @foreach($replies as $key=>$reply)
+                            <?php $__currentLoopData = $replies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$reply): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    @if($reply->created_by == Auth::user()->id)
+                                    <?php if($reply->created_by == Auth::user()->id): ?>
                                         <div class="pull-right">
                                             <a
-                                                    data-toggle="modal" data-target="#myModal{{$key}}"
+                                                    data-toggle="modal" data-target="#myModal<?php echo e($key); ?>"
                                                     style="cursor: pointer; color: red;"
                                             >
                                                 <i style="" class="fa fa-remove" aria-hidden="true"></i>
@@ -72,13 +73,13 @@
 
 
                                             <script>
-                                                function submit_modal{{$key}}(){
-                                                    window.open('{{url(action('NewsController@comment_delete',$reply->id))}}','_self')
+                                                function submit_modal<?php echo e($key); ?>(){
+                                                    window.open('<?php echo e(url(action('NewsController@comment_delete',$reply->id))); ?>','_self')
                                                     //$('#form_delete').submit();
                                                 }
                                             </script>
                                             <!-- Modal Delete Chapter -->
-                                            <div class="modal fade" id="myModal{{$key}}"
+                                            <div class="modal fade" id="myModal<?php echo e($key); ?>"
                                                  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -94,7 +95,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                            <button type="button" id="submit_button" onclick="submit_modal{{$key}}()"
+                                                            <button type="button" id="submit_button" onclick="submit_modal<?php echo e($key); ?>()"
                                                                     class="btn btn-danger">Yes</button>
                                                         </div>
                                                     </div>
@@ -102,68 +103,73 @@
                                             </div>
 
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
 
-                                    <strong>{{ $reply['title'] }}
-                                        @if($reply->created_by == Auth::user()->id)
-                                            <a href="{{ url(action('NewsController@editCommentByUser',$reply->id)) }}">
+                                    <strong><?php echo e($reply['title']); ?>
+
+                                        <?php if($reply->created_by == Auth::user()->id): ?>
+                                            <a href="<?php echo e(url(action('NewsController@editCommentByUser',$reply->id))); ?>">
                                                 <i class="fa fa-pencil-square-o"
                                                    data-toggle="tooltip"
                                                    data-placement="top"
                                                    title="Edit this comment."
                                                    aria-hidden="true"></i>
                                             </a>
-                                        @endif
+                                        <?php endif; ?>
                                     </strong><br>
-                                    {{$reply['user']->name}} ,
-                                    {{ \Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')}}
+                                    <?php echo e($reply['user']->name); ?> ,
+                                    <?php echo e(\Carbon\Carbon::parse($reply->create_at)->format('d - m - Y , H:i:s')); ?>
+
 
                                 </div>
                                 <div class="panel-body">
 
-                                    {!! html_entity_decode($reply['content']) !!}
+                                    <?php echo html_entity_decode($reply['content']); ?>
+
                                     <br>
-                                        @if(!empty($reply['file_pendukung'][0]))
+                                        <?php if(!empty($reply['file_pendukung'][0])): ?>
                                         <div class ="">
                                             <hr class="style14">
                                             Attachments : <br>
-                                            @foreach($reply['file_pendukung'] as $file)
-                                                <a href="{{URL::asset($file->attachment_url)}}">
+                                            <?php $__currentLoopData = $reply['file_pendukung']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <a href="<?php echo e(URL::asset($file->attachment_url)); ?>">
                                                     <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                                    {{$file->attachment_name}}
+                                                    <?php echo e($file->attachment_name); ?>
+
                                                 </a><br>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
-                                        @endif
+                                        <?php endif; ?>
 
 
 
                                 </div>
                             </div>
 
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                            @if(Auth::user() == null)
+                            <?php if(Auth::user() == null): ?>
 
-                            @else
+                            <?php else: ?>
                                 <form id="myform" class="form-horizontal" role="form" method="POST"
-                                      action="{{ URL::action('NewsController@storeCommentByUser') }}"
+                                      action="<?php echo e(URL::action('NewsController@storeCommentByUser')); ?>"
                                       enctype="multipart/form-data" style="padding:0 2em;">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
-                                    <input type="hidden" name="id_news" value="{{$news->id}}">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="id_user" value="<?php echo e(Auth::user()->id); ?>">
+                                    <input type="hidden" name="id_news" value="<?php echo e($news->id); ?>">
                                     <div class="form-group">
                                         <label for="title" class="col-md-12 text-muted" style="text-align:left">Title <span class="required">*</span></label>
 
                                         <div class="col-md-12">
                                             <input id="title" type="text" class="form-control"
-                                                   name="title" required  value="[RE:] {{$news['title']}}">
+                                                   name="title" required  value="[RE:] <?php echo e($news['title']); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="content" class="col-md-12 text-muted" style="text-align:left">Content*</label>
                                         <div class="col-md-12">
-                                            {{--<textarea title="content" id="content" id="summernote" name="content" required></textarea>--}}
+                                            
                                             <textarea class="form-control" rows="5" id="comment" name="content" required style="width:100%;"></textarea>
                                         </div>
                                     </div>
@@ -202,9 +208,9 @@
                                         </div>
                                     </div>
                                 </form>
-                            @endif
+                            <?php endif; ?>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -217,24 +223,24 @@
                         <div>
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action active">Recent News</a>
-                                @foreach($beritas as $brt)
-                                <a href="{{ url(action('NewsController@get_news',$brt->id)) }}" class="list-group-item list-group-item-action"><span class="text-muted" style="font-size:11px;">{{ \Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')}}</span><br>{{$brt->title}}</a>
-                                @endforeach
+                                <?php $__currentLoopData = $beritas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="<?php echo e(url(action('NewsController@get_news',$brt->id))); ?>" class="list-group-item list-group-item-action"><span class="text-muted" style="font-size:11px;"><?php echo e(\Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')); ?></span><br><?php echo e($brt->title); ?></a>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <!--<div class="well">
                                 <h4>Recent News</h4>
                                 <hr class="style14">
-                                @foreach($beritas as $brt)
-                                    <a href="{{ url(action('NewsController@get_news',$brt->id)) }}">
-                                        <p>{{$brt->title}}</p>
+                                <?php $__currentLoopData = $beritas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <a href="<?php echo e(url(action('NewsController@get_news',$brt->id))); ?>">
+                                        <p><?php echo e($brt->title); ?></p>
                                     </a>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <br>
                             </div>-->
                             <!--Recent Schedule -->
-                            @include('user.layouts.schedule')
+                            <?php echo $__env->make('user.layouts.schedule', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                             <!--Links -->
-                            @include('user.layouts.aerofood_links')
+                            <?php echo $__env->make('user.layouts.aerofood_links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         </div>
                     </nav>
                 </div>
@@ -245,9 +251,9 @@
     </div>
 </div>    
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         updateList = function() {
             var input = document.getElementById('file');
@@ -291,4 +297,5 @@
             font-size : 15px;
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,10 +1,10 @@
 
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.bxslider.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.placeholder.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/jquery.uniform.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/fancySelect.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/main.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('Elegantic/js/app.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.bxslider.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.placeholder.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/jquery.uniform.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/fancySelect.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/main.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('Elegantic/js/app.js')); ?>"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -79,8 +79,8 @@
     }
 </script>
 
-<link rel="stylesheet" href="{{ url('css/jquery.dataTables.min.css') }}">
-<script src="{{ url('js/jquery.dataTables.min.js') }}"></script>
+<link rel="stylesheet" href="<?php echo e(url('css/jquery.dataTables.min.css')); ?>">
+<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table_training').DataTable({
@@ -99,7 +99,7 @@
 </script>
 
 
-{{--view-forum.blade script--}}
+
 <script>
     $(document).ready(function() {
         $('.summernote').summernote({
@@ -112,7 +112,7 @@
     });
 </script>
 
-{{--modal edit forum--}}
+
 
 
 <script>
@@ -165,7 +165,7 @@
     }
 </script>
 
-{{--Reset password confirm--}}
+
 <script>
 var password = document.getElementById("change_password")
   , confirm_password = document.getElementById("confirm_password");
@@ -182,7 +182,7 @@ password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 </script>
 
-{{--edit forum script--}}
+
 <script>
     function editForum($id_edit,$title,$can_reply,$content,$attachments) {
         window.location.href = '...';
@@ -199,11 +199,11 @@ confirm_password.onkeyup = validatePassword;
     }
 </script>
 
-{{--end of view-forum.blade script--}}
 
 
-<link rel="stylesheet" href="{{ url('css/jquery.dataTables.min.css') }}">
-<script src="{{ url('js/jquery.dataTables.min.js') }}"></script>
+
+<link rel="stylesheet" href="<?php echo e(url('css/jquery.dataTables.min.css')); ?>">
+<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.detailTable').DataTable({
@@ -211,6 +211,6 @@ confirm_password.onkeyup = validatePassword;
         });
     });
 </script>
-<script src="{{ url('js/jquery.dataTables.min.js') }}"></script>
+<script src="<?php echo e(url('js/jquery.dataTables.min.js')); ?>"></script>
 
-<script src="{{ url('js/tabs/cbpFWTabs.js') }}"></script>
+<script src="<?php echo e(url('js/tabs/cbpFWTabs.js')); ?>"></script>

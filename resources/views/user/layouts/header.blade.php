@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>{{ config('app.name', 'E-Learning Aerofood') }} - @yield('title')</title>
-<link rel="icon" href="{{URL::asset('Elegantic/images/ALS.png')}}" type="image/jpg" sizes="16x16">
+<link rel="icon" href="{{URL::asset('Elegantic/images/favicon.png')}}" type="image/png" sizes="16x16">
 <link rel="stylesheet" href="{{ URL::asset('Elegantic/css/fancySelect.css')}}" />
 <link rel="stylesheet" href="{{ URL::asset('Elegantic/css/uniform.css')}}" />
 <link rel="stylesheet" href="{{ URL::asset('Elegantic/css/all.css')}}" />
@@ -22,7 +22,7 @@
 
 <link rel="stylesheet" href="{{ URL::asset('css/Upload.css')}}" />
 <script type="text/javascript" src="{{ URL::asset('js/UpoladImg.js')}}"></script>
-
+<script type="text/javascript" src="{{ URL::asset('js/js-override.js')}}"></script>
 
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 {{--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css"/>--}}
@@ -30,6 +30,7 @@
 {{--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"/>--}}
 {{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
 <link href="{{ URL::asset('Elegantic/css/uniform.css')}}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="{{ URL::asset('Elegantic/css/style-override.css')}}" />
 <!-- END GLOBAL MANDATORY STYLES -->
 
 <!-- BEGIN THEME STYLES -->

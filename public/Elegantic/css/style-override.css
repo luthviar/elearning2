@@ -1,0 +1,458 @@
+.carousel-control {
+    opacity: 0.8;
+    color: #999;
+    transition: all 0.5s;
+}
+
+.carousel-control:hover {
+    opacity: 0.9;
+    color: #666;
+}
+
+.carousel-showsixmoveone .carousel-control,
+.carousel-showfourmoveone .carousel-control,
+.carousel-showtwomoveone .carousel-control,
+.carousel-showtrimoveone .carousel-control {
+    width: 4%;
+}
+
+.carousel-showsixmoveone .carousel-control.left,
+.carousel-showtrimoveone .carousel-control.left {
+    margin-left: -35px;
+    background-image: none !important;
+}
+
+.carousel-showsixmoveone .carousel-control.right,
+.carousel-showtrimoveone .carousel-control.right {
+    margin-right: -35px;
+    background-image: none !important;
+}
+
+.carousel-showtwomoveone .carousel-control.right {
+    margin-right: -15px;
+    height: 140px;
+    background-image: none !important;
+}
+
+.carousel-showtwomoveone .carousel-control.left {
+    margin-left: -15px;
+    height: 140px;
+    background-image: none !important;
+}
+
+.carousel-showfourmoveone .carousel-control.right {
+    margin-right: -35px;
+    height: 290px;
+    background-image: none !important;
+}
+
+.carousel-showfourmoveone .carousel-control.left {
+    margin-left: -35px;
+    height: 290px;
+    background-image: none !important;
+}
+
+.carousel-showsixmoveone .cloneditem-1,
+.carousel-showsixmoveone .cloneditem-2,
+.carousel-showsixmoveone .cloneditem-3,
+.carousel-showsixmoveone .cloneditem-4,
+.carousel-showsixmoveone .cloneditem-5,
+.carousel-showfourmoveone .cloneditem-1,
+.carousel-showfourmoveone .cloneditem-2,
+.carousel-showfourmoveone .cloneditem-3,
+.carousel-showfourmoveone .cloneditem-4,
+.carousel-showfourmoveone .cloneditem-5,
+.carousel-showtwomoveone .cloneditem-1,
+.carousel-showtwomoveone .cloneditem-2,
+.carousel-showtwomoveone .cloneditem-3,
+.carousel-showtwomoveone .cloneditem-4,
+.carousel-showtwomoveone .cloneditem-5,
+.carousel-showtrimoveone .cloneditem-1,
+.carousel-showtrimoveone .cloneditem-2,
+.carousel-showtrimoveone .cloneditem-3,
+.carousel-showtrimoveone .cloneditem-4,
+.carousel-showtrimoveone .cloneditem-5 {
+    display: none;
+}
+
+@media all and (min-width: 768px) {
+    .carousel-showsixmoveone .carousel-inner > .active.left,
+    .carousel-showsixmoveone .carousel-inner > .prev {
+        left: -33.333%;
+    }
+    .carousel-showsixmoveone .carousel-inner > .active.right,
+    .carousel-showsixmoveone .carousel-inner > .next {
+        left: 33.333%;
+    }
+    .carousel-showfourmoveone .carousel-inner > .active.left,
+    .carousel-showfourmoveone .carousel-inner > .prev {
+        left: -25%;
+    }
+    .carousel-showfourmoveone .carousel-inner > .active.right,
+    .carousel-showfourmoveone .carousel-inner > .next {
+        left: 25%;
+    }
+    .carousel-showtwomoveone .carousel-inner > .active.left,
+    .carousel-showtwomoveone .carousel-inner > .prev {
+        left: -50%;
+    }
+    .carousel-showtwomoveone .carousel-inner > .active.right,
+    .carousel-showtwomoveone .carousel-inner > .next {
+        left: 50%;
+    }
+    .carousel-showtrimoveone .carousel-inner > .active.left,
+    .carousel-showtrimoveone .carousel-inner > .prev {
+        left: -33.333%;
+    }
+    .carousel-showtrimoveone .carousel-inner > .active.right,
+    .carousel-showtrimoveone .carousel-inner > .next {
+        left: 33.333%;
+    }
+    .carousel-showsixmoveone .carousel-inner > .left,
+    .carousel-showsixmoveone .carousel-inner > .prev.right,
+    .carousel-showsixmoveone .carousel-inner > .active,
+    .carousel-showfourmoveone .carousel-inner > .left,
+    .carousel-showfourmoveone .carousel-inner > .prev.right,
+    .carousel-showfourmoveone .carousel-inner > .active,
+    .carousel-showtwomoveone .carousel-inner > .left,
+    .carousel-showtwomoveone .carousel-inner > .prev.right,
+    .carousel-showtwomoveone .carousel-inner > .active,
+    .carousel-showtrimoveone .carousel-inner > .left,
+    .carousel-showtrimoveone .carousel-inner > .prev.right,
+    .carousel-showtrimoveone .carousel-inner > .active {
+        left: 0;
+    }
+    .carousel-showsixmoveone .carousel-inner .cloneditem-1,
+    .carousel-showsixmoveone .carousel-inner .cloneditem-2,
+    .carousel-showfourmoveone .carousel-inner .cloneditem-1,
+    .carousel-showfourmoveone .carousel-inner .cloneditem-2,
+    .carousel-showtwomoveone .carousel-inner .cloneditem-1,
+    .carousel-showtwomoveone .carousel-inner .cloneditem-2,
+    .carousel-showtrimoveone .carousel-inner .cloneditem-1,
+    .carousel-showtrimoveone .carousel-inner .cloneditem-2 {
+        display: block;
+    }
+}
+
+@media all and (min-width: 768px) and (transform-3d),
+all and (min-width: 768px) and (-webkit-transform-3d) {
+    .carousel-showsixmoveone .carousel-inner > .item.active.right,
+    .carousel-showsixmoveone .carousel-inner > .item.next {
+        -webkit-transform: translate3d(33.333%, 0, 0);
+        transform: translate3d(33.333%, 0, 0);
+        left: 0;
+    }
+    .carousel-showsixmoveone .carousel-inner > .item.active.left,
+    .carousel-showsixmoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-33.333%, 0, 0);
+        transform: translate3d(-33.333%, 0, 0);
+        left: 0;
+    }
+    .carousel-showfourmoveone .carousel-inner > .item.active.right,
+    .carousel-showfourmoveone .carousel-inner > .item.next {
+        -webkit-transform: translate3d(25%, 0, 0);
+        transform: translate3d(25%, 0, 0);
+        left: 0;
+    }
+    .carousel-showfourmoveone .carousel-inner > .item.active.left,
+    .carousel-showfourmoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-25%, 0, 0);
+        transform: translate3d(-25%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtwomoveone .carousel-inner > .item.active.right,
+    .carousel-showtwomoveone .carousel-inner > .item.next {
+        -webkit-transform: translate3d(50%, 0, 0);
+        transform: translate3d(50%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtwomoveone .carousel-inner > .item.active.left,
+    .carousel-showtwomoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-50%, 0, 0);
+        transform: translate3d(-50%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtrimoveone .carousel-inner > .item.active.right,
+    .carousel-showtrimoveone .carousel-inner > .item.next {
+        -webkit-transform: translate3d(33.333%, 0, 0);
+        transform: translate3d(33.333%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtrimoveone .carousel-inner > .item.active.left,
+    .carousel-showtrimoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-33.333%, 0, 0);
+        transform: translate3d(-33.333%, 0, 0);
+        left: 0;
+    }
+    .carousel-showsixmoveone .carousel-inner > .item.left,
+    .carousel-showsixmoveone .carousel-inner > .item.prev.right,
+    .carousel-showsixmoveone .carousel-inner > .item.active,
+    .carousel-showfourmoveone .carousel-inner > .item.left,
+    .carousel-showfourmoveone .carousel-inner > .item.prev.right,
+    .carousel-showfourmoveone .carousel-inner > .item.active,
+    .carousel-showtwomoveone .carousel-inner > .item.left,
+    .carousel-showtwomoveone .carousel-inner > .item.prev.right,
+    .carousel-showtwomoveone .carousel-inner > .item.active,
+    .carousel-showtrimoveone .carousel-inner > .item.left,
+    .carousel-showtrimoveone .carousel-inner > .item.prev.right,
+    .carousel-showtrimoveone .carousel-inner > .item.active {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        left: 0;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .carousel-showsixmoveone .carousel-inner > .active.left,
+    .carousel-showsixmoveone .carousel-inner > .prev {
+        left: -16.666%;
+    }
+    .carousel-showsixmoveone .carousel-inner > .active.right,
+    .carousel-showsixmoveone .carousel-inner > .next {
+        left: 16.666%;
+    }
+    .carousel-showfourmoveone .carousel-inner > .active.left,
+    .carousel-showfourmoveone .carousel-inner > .prev {
+        left: -25%;
+    }
+    .carousel-showfourmoveone .carousel-inner > .active.right,
+    .carousel-showfourmoveone .carousel-inner > .next {
+        left: 25%;
+    }
+    .carousel-showtwomoveone .carousel-inner > .active.left,
+    .carousel-showtwomoveone .carousel-inner > .prev {
+        left: -50%;
+    }
+    .carousel-showtwomoveone .carousel-inner > .active.right,
+    .carousel-showtwomoveone .carousel-inner > .next {
+        left: 50%;
+    }
+    .carousel-showtrimoveone .carousel-inner > .active.left,
+    .carousel-showtrimoveone .carousel-inner > .prev {
+        left: -33.333%;
+    }
+    .carousel-showtrimoveone .carousel-inner > .active.right,
+    .carousel-showtrimoveone .carousel-inner > .next {
+        left: 33.333%;
+    }
+    .carousel-showsixmoveone .carousel-inner > .left,
+    .carousel-showsixmoveone .carousel-inner > .prev.right,
+    .carousel-showsixmoveone .carousel-inner > .active,
+    .carousel-showfourmoveone .carousel-inner > .left,
+    .carousel-showfourmoveone .carousel-inner > .prev.right,
+    .carousel-showfourmoveone .carousel-inner > .active,
+    .carousel-showtwomoveone .carousel-inner > .left,
+    .carousel-showtwomoveone .carousel-inner > .prev.right,
+    .carousel-showtwomoveone .carousel-inner > .active,
+    .carousel-showtrimoveone .carousel-inner > .left,
+    .carousel-showtrimoveone .carousel-inner > .prev.right,
+    .carousel-showtrimoveone .carousel-inner > .active {
+        left: 0;
+    }
+    .carousel-showsixmoveone .carousel-inner .cloneditem-3,
+    .carousel-showsixmoveone .carousel-inner .cloneditem-4,
+    .carousel-showsixmoveone .carousel-inner .cloneditem-5,
+    .carousel-showfourmoveone .carousel-inner .cloneditem-3,
+    .carousel-showfourmoveone .carousel-inner .cloneditem-4,
+    .carousel-showfourmoveone .carousel-inner .cloneditem-5,
+    .carousel-showtwomoveone .carousel-inner .cloneditem-3,
+    .carousel-showtwomoveone .carousel-inner .cloneditem-4,
+    .carousel-showtwomoveone .carousel-inner .cloneditem-5,
+    .carousel-showtrimoveone .carousel-inner .cloneditem-3,
+    .carousel-showtrimoveone .carousel-inner .cloneditem-4,
+    .carousel-showtrimoveone .carousel-inner .cloneditem-5 {
+        display: block;
+    }
+}
+
+@media all and (min-width: 992px) and (transform-3d),
+all and (min-width: 992px) and (-webkit-transform-3d) {
+    .carousel-showsixmoveone .carousel-inner > .item.active.right,
+    .carousel-showsixmoveone .carousel-inner > .item.next,
+        {
+        -webkit-transform: translate3d(16.666%, 0, 0);
+        transform: translate3d(16.666%, 0, 0);
+        left: 0;
+    }
+    .carousel-showsixmoveone .carousel-inner > .item.active.left,
+    .carousel-showsixmoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-16.666%, 0, 0);
+        transform: translate3d(-16.666%, 0, 0);
+        left: 0;
+    }
+    .carousel-showfourmoveone .carousel-inner > .item.active.right,
+    .carousel-showfourmoveone .carousel-inner > .item.next,
+        {
+        -webkit-transform: translate3d(25%, 0, 0);
+        transform: translate3d(25%, 0, 0);
+        left: 0;
+    }
+    .carousel-showfourmoveone .carousel-inner > .item.active.left,
+    .carousel-showfourmoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-25%, 0, 0);
+        transform: translate3d(-25%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtwomoveone .carousel-inner > .item.active.right,
+    .carousel-showtwomoveone .carousel-inner > .item.next,
+        {
+        -webkit-transform: translate3d(50%, 0, 0);
+        transform: translate3d(50%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtwomoveone .carousel-inner > .item.active.left,
+    .carousel-showtwomoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-50%, 0, 0);
+        transform: translate3d(-50%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtrimoveone .carousel-inner > .item.active.right,
+    .carousel-showtrimoveone .carousel-inner > .item.next,
+        {
+        -webkit-transform: translate3d(33.333%, 0, 0);
+        transform: translate3d(33.333%, 0, 0);
+        left: 0;
+    }
+    .carousel-showtrimoveone .carousel-inner > .item.active.left,
+    .carousel-showtrimoveone .carousel-inner > .item.prev {
+        -webkit-transform: translate3d(-33.333%, 0, 0);
+        transform: translate3d(-33.333%, 0, 0);
+        left: 0;
+    }
+    .carousel-showsixmoveone .carousel-inner > .item.left,
+    .carousel-showsixmoveone .carousel-inner > .item.prev.right,
+    .carousel-showsixmoveone .carousel-inner > .item.active,
+    .carousel-showfourmoveone .carousel-inner > .item.left,
+    .carousel-showfourmoveone .carousel-inner > .item.prev.right,
+    .carousel-showfourmoveone .carousel-inner > .item.active,
+    .carousel-showtwomoveone .carousel-inner > .item.left,
+    .carousel-showtwomoveone .carousel-inner > .item.prev.right,
+    .carousel-showtwomoveone .carousel-inner > .item.active,
+    .carousel-showtrimoveone .carousel-inner > .item.left,
+    .carousel-showtrimoveone .carousel-inner > .item.prev.right,
+    .carousel-showtrimoveone .carousel-inner > .item.active {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        left: 0;
+    }
+}
+
+/*ICON TITLE*/
+
+/* --- STYLE 2 --- */
+
+.block-section2 {
+    background: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.block-title2 {
+    padding: 40px 0;
+    z-index: 3;
+    position: relative;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    text-align: center;
+    background: #efefef;
+}
+
+.block-title2 .title-icon2 {
+    display: inline-block;
+    position: relative;
+}
+
+.block-title2 .title-icon2:before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: #cccccc;
+    width: 50px;
+    left: -60px;
+    top: 50%;
+}
+
+.block-title2 .title-icon2:after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: #cccccc;
+    width: 50px;
+    right: -60px;
+    top: 50%;
+}
+
+.block-title2:before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    /*background: #f5f5f5;*/
+    bottom: -1px;
+    left: 50%;
+    margin-left: -12px;
+}
+
+/* VERTICAL ALIGN */
+
+.va-table {
+    display: table;
+}
+
+.va-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.page-full-width .page-content {
+    background-color: #f1f1f1 !important;
+    padding:1em 2em 4em 2em;
+    min-height: 100px !important;
+}
+
+.nav-tabs.nav-justified > li > a {
+    -webkit-box-shadow: inset 0px -79px 34px -71px rgba(0,0,0,0.3);-moz-box-shadow: inset 0px -79px 34px -71px rgba(0,0,0,0.3);box-shadow: inset 0px -79px 34px -71px rgba(0,0,0,0.3);
+    border: 1px solid #ddd;
+    padding: 1em 0;
+    font-size: 16px;
+    color: #999 !important;
+}
+
+.nav-tabs.nav-justified > .active > a {
+    -webkit-box-shadow: inset 0px -79px 34px -71px rgba(0,0,0,0);-moz-box-shadow: inset 0px -79px 34px -71px rgba(0,0,0,0);box-shadow: inset 0px -79px 34px -71px rgba(0,0,0,0);
+    font-size: 16px;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 1em 0;    
+    color: #666 !important;
+}
+
+#exTab1 .tab-content > .active {
+    background-color:#fff; border-color:#ddd; border-style:solid; border-left-width:1px; border-right-width:1px; border-bottom-width:1px; padding:0 2em 2em 2em;
+}
+
+#profil-content .nav-tabs {
+    border-bottom: none;
+}
+
+#profil-content .nav-tabs > li.active > a {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: none;
+}
+
+#profil-content .nav-tabs > li > a {
+    color: #555;
+    cursor: default;
+    background-color: #ddd;
+    text-transform: uppercase;
+    /*border-top: none;
+    border-left: none;*/
+
+    margin: 0px !important;
+    
+}
+
+.tab-content > .active {
+    padding: 1em 2em;
+}

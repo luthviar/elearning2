@@ -784,7 +784,7 @@ hr.style2 {
 	margin: 0 -2px;
 	padding: 40px 0 35px 30px;
 }
-.item {
+/*.item {
 	text-align: center;
 	width: 270px;
 }
@@ -821,7 +821,7 @@ hr.style2 {
 .item .item-content .btn {
 	margin: 0 0 10px;
 	display: inline-block;
-}
+}*/
 .details-info  {
 	width: 100%;
 	overflow: hidden;

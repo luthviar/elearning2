@@ -22,7 +22,11 @@
                 <li class="dropdown user">
 
                     <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" src="{{ url('assets/img/avatar1_small.jpg') }}"/>
+                         @if(Auth::user()->photo == null)
+                        <img src="{{URL::asset('photo/user-default.png')}}" class="user-image" alt="User Image" width="20">
+                        @else
+                        <img src="{{URL::asset(Auth::user()->photo)}}" class="user-image" alt="User Image" width="20">
+                        @endif
                         <span class="username hidden-1024">{{Auth::user()->name}}</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
