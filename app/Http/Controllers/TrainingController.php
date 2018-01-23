@@ -303,7 +303,7 @@ class TrainingController extends Controller
                         );
   
         $totalData = ModulTraining::where('is_child', 1)->count();
-            
+//            $totalData = 2;
         $totalFiltered = $totalData; 
 
         $limit = $request->input('length');
@@ -317,7 +317,7 @@ class TrainingController extends Controller
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('is_child',1)
-                         ->whereDate('date','>=', DB::raw('CURDATE()'))
+//                         ->whereDate('date','>=', DB::raw('CURDATE()'))
                          ->get();
         } else {
             $search = $request->input('search.value'); 
@@ -328,7 +328,7 @@ class TrainingController extends Controller
                                 $query->where('modul_trainings.modul_name', 'LIKE',"%{$search}%");
                                 $query->orWhere('modul_trainings.description','LIKE',"%{$search}%");
                             })
-                            ->whereDate('date','>=', DB::raw('CURDATE()'))
+//                            ->whereDate('date','>=', DB::raw('CURDATE()'))
                             ->orderBy($order,$dir)
                             ->limit($limit)
                             ->offset($start)

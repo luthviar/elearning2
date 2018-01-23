@@ -24,9 +24,9 @@
                   <th>Training</th>
                   <th>Date</th>
                   <th>Time</th>
-                  <th>Partisipant</th>
+                  <th>Participant</th>
                   <th>Trainer</th>
-                  <th>Created_by</th>
+                  <th>Created by</th>
                 </tr>
                 </thead>
                 
