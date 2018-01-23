@@ -60,6 +60,7 @@
                             @foreach($replies as $key=>$reply)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
+                                    @if(empty(Auth::user()) == false)
                                     @if($reply->created_by == Auth::user()->id)
                                         <div class="pull-right">
                                             <a
@@ -103,8 +104,10 @@
 
                                         </div>
                                     @endif
+                                    @endif
 
                                     <strong>{{ $reply['title'] }}
+                                        @if(empty(Auth::user()) == false)
                                         @if($reply->created_by == Auth::user()->id)
                                             <a href="{{ url(action('NewsController@editCommentByUser',$reply->id)) }}">
                                                 <i class="fa fa-pencil-square-o"
@@ -113,6 +116,7 @@
                                                    title="Edit this comment."
                                                    aria-hidden="true"></i>
                                             </a>
+                                        @endif
                                         @endif
                                     </strong><br>
                                     {{$reply['user']->name}} ,
