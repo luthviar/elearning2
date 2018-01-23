@@ -113,22 +113,22 @@ class ForumController extends Controller
 //        dd($request->id_unit);
         if ($request->id_unit != null) {
             if(empty($request->content3)) {
-                Session::flash('failed', 'Field content thread FORUM UNIT wajib diisi.');
-                return redirect()->back();
+                Session::flash('failed_unit', 'Field content thread FORUM UNIT wajib diisi.');
+                return redirect(url('/forum#unit'));
             }
             $content = $request->content3;
             $category = 2;
         }elseif($request->id_job_family != null){
             if(empty($request->content2)) {
-                Session::flash('failed', 'Field content thread FORUM JOB FAMILY wajib diisi.');
-                return redirect()->back();
+                Session::flash('failed_jobfamily', 'Field content thread FORUM JOB FAMILY wajib diisi.');
+                return redirect(url('/forum#jobfamily'));
             }
             $content = $request->content2;
             $category = 1;
         }else{
             if(empty($request->content)) {
-                Session::flash('failed', 'Field content thread FORUM UMUM wajib diisi.');
-                return redirect()->back();
+                Session::flash('failed_umum', 'Field content thread FORUM UMUM wajib diisi.');
+                return redirect(url('/forum#umum'));
             }
             $content = $request->content;
             $category = 0;
@@ -160,6 +160,19 @@ class ForumController extends Controller
                 $new_file_pendukung->attachment_url = $url_file;
                 $new_file_pendukung->save();
             }
+        }
+
+        $success_forum = Forum::find($id_forum);
+
+        if($success_forum->category == 0) {
+            Session::flash('success_umum', 'Thread Anda di FORUM UMUM berhasil ditambahkan : '.$success_forum->title);
+            return redirect(url('/forum#umum'));
+        } elseif ($success_forum->category == 1) {
+            Session::flash('success_jobfamily', 'Thread Anda di FORUM JOB FAMILY berhasil ditambahkan : '.$success_forum->title);
+            return redirect(url('/forum#jobfamily'));
+        } elseif ($success_forum->category == 2) {
+            Session::flash('success_unit', 'Thread Anda di FORUM JOB UNIT berhasil ditambahkan : '.$success_forum->title);
+            return redirect(url('/forum#unit'));
         }
 
         return redirect('forum');
