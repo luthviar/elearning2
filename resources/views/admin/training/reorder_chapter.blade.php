@@ -1,6 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('page-name')
+    <a href="{{ url(action('TrainingController@manage_training',$training->id)) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
   Reorder Chapter
 @endsection
 
@@ -9,11 +12,23 @@
     <!-- Main content -->
     <section class="content">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8 col-md-offset-2">
       <div class="box box-primary">
             <div class="box-header">
+                @if(Session::get('failed') != null)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <hr/>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="icon fa fa-check"></i> Gagal!</h4>
+                                {{ Session::get('failed') }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
               <h3 class="box-title">
-                {{$training->modul_name}} -- Reorder Chapter
+                  Training name:<br/> <b>{{$training->modul_name}}</b><br/> Reorder Chapter
               </h3>
             </div>
             <div class="box-body">
@@ -25,14 +40,14 @@
               <table class="table">
               <thead>
                 <tr>
-                  <td width="20%">Chapter Sequence</td>
+                  <td width="20%" class="text-right">Chapter <br/> Sequence</td>
                   <td>Chapter Name</td>
                 </tr>
               </thead>
               <tbody>
                 @foreach($training['chapters'] as $key => $chapter)
                 <tr>
-                  <td>{{$key + 1}}</td>
+                  <td width="20%" class="text-right">{{$key + 1}}</td>
                   <td>  
                     <select class="form-control" name="{{$key}}" style="width: 100%;" required>
                     @foreach($training['chapters'] as $value)
@@ -53,8 +68,8 @@
               <div class="row text-center">
                   <div class="col-lg-12">
                       <button class="btn btn-block btn-info">
-                          Next Step
-                          <i class="fa fa-angle-right"></i>
+                          Update Chapter Order
+                          <i class="fa fa-save"></i>
                       </button>
                   </div>
               </div>

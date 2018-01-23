@@ -1398,7 +1398,7 @@ class TrainingController extends Controller
         }
         $chapters = Chapter::where('id_module', $request->id_training)->get();
         if(count($chapters) == 0){
-            // no chapter found
+            Session::flash('failed', 'Mohon urutkan dengan baik dan sesuai.');
             return redirect()->back();
         }
         $order_change = array();
@@ -1408,6 +1408,7 @@ class TrainingController extends Controller
                 foreach($order_change as $change){
                     if($change == $chapter_id){
                         // ada chapter yang dipilih pada 2 urutan yang berbeda
+                        Session::flash('failed', 'Mohon urutkan dengan baik dan sesuai.');
                         return redirect()->back();
                     } 
                 }
@@ -1419,7 +1420,9 @@ class TrainingController extends Controller
             $chapter->sequence = $key;
             $chapter->save();
         }
-        return redirect('admin/training/manage-'.$request->id_training);
+        Session::flash('success', 'Re-Order Chapter berhasil dilakukan.');
+
+        return redirect(action('TrainingController@manage_training',$request->id_training));
     }
 
 }
