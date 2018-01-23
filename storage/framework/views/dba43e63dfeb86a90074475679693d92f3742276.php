@@ -1,6 +1,4 @@
-@extends('user.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
         <div style="margin-top:60px; border:none;">
             <img src="http://localhost/svn_commit/public/Elegantic/images/head_banner_forum.jpg" width="100%" style="border:none; margin:0; padding:0;">
@@ -16,16 +14,16 @@
                                 <li class="active">
                                     <a  href="#umum" data-toggle="tab">Forum Umum</a>
                                 </li>
-                                @if(!empty($job_family))
+                                <?php if(!empty($job_family)): ?>
                                     <li>
                                         <a href="#jobfamily" data-toggle="tab">Forum Job Family</a>
                                     </li>
-                                @endif
-                                @if(!empty($unit))
+                                <?php endif; ?>
+                                <?php if(!empty($unit)): ?>
                                     <li>
                                         <a href="#unit" data-toggle="tab">Forum Unit</a>
                                     </li>
-                                @endif
+                                <?php endif; ?>
                             </ul>
 
                             <div class="tab-content">
@@ -40,28 +38,30 @@
                                         </div>
                                     </div>
                                     <hr/>
-                                    {{--<h1>Forum Umum</h1>--}}
-                                    {{--<p>Forum ini ditujukan untuk seluruh karyawan PT Aerofood Indonesia</p>--}}
-                                    {{--<button  class="btn btn-info" data-toggle="modal" data-target="#modal_umum">--}}
-                                        {{--New Thread--}}
-                                    {{--</button><br><br>--}}
+                                    
+                                    
+                                    
+                                        
+                                    
 
-                                    @if(empty(Session::get('failed_umum')) == false)
+                                    <?php if(empty(Session::get('failed_umum')) == false): ?>
                                         <div class="alert alert-danger text-center" role="alert">
                                             <h3>Failed!</h3>
                                             <p>
-                                                {{ Session::get('failed_umum') }}
+                                                <?php echo e(Session::get('failed_umum')); ?>
+
                                             </p>
                                         </div>
-                                    @endif
-                                    @if(empty(Session::get('success_umum')) == false)
+                                    <?php endif; ?>
+                                    <?php if(empty(Session::get('success_umum')) == false): ?>
                                         <div class="alert alert-success text-center" role="alert">
                                             <h3>Berhasil!</h3>
                                             <p>
-                                                {{ Session::get('success_umum') }}
+                                                <?php echo e(Session::get('success_umum')); ?>
+
                                             </p>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
 
                                     <table  class="table table-striped detailTable text-left">
                                         <thead>
@@ -74,36 +74,38 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($forum_umum as $forum)
+                                        <?php $__currentLoopData = $forum_umum; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                             <tr>
                                                 <td>
-                                                    <a href="{{ url('forum/'.$forum->id) }}">
-                                                        {{$forum->title}}
+                                                    <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
+                                                        <?php echo e($forum->title); ?>
+
                                                     </a>
-                                                    @if($forum->created_by == Auth::user()->id)
+                                                    <?php if($forum->created_by == Auth::user()->id): ?>
                                                         <a
-                                                                href="{{ url(action('ForumController@editByUser',$forum->id)) }}"
+                                                                href="<?php echo e(url(action('ForumController@editByUser',$forum->id))); ?>"
                                                                 data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                         >
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </a>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </td>
-                                                <td>{{$forum['personnel']['name']}} </td>
-                                                <td>{{count($forum['replie'])}}</td>
-                                                @if(count($forum['replie']) == 0)
+                                                <td><?php echo e($forum['personnel']['name']); ?> </td>
+                                                <td><?php echo e(count($forum['replie'])); ?></td>
+                                                <?php if(count($forum['replie']) == 0): ?>
                                                     <td>-</td>
-                                                @else
+                                                <?php else: ?>
                                                     <td>
-                                                        {{$forum['last_reply_personnel']['name']}},
-                                                        {{ \Carbon\Carbon::parse($forum['last_reply'][0]
-                                                        ->created_at)->format('l jS \\of F Y')}}
+                                                        <?php echo e($forum['last_reply_personnel']['name']); ?>,
+                                                        <?php echo e(\Carbon\Carbon::parse($forum['last_reply'][0]
+                                                        ->created_at)->format('l jS \\of F Y')); ?>
+
                                                     </td>
-                                                @endif
-                                                <td>{{ $forum->created_at }}</td>
+                                                <?php endif; ?>
+                                                <td><?php echo e($forum->created_at); ?></td>
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                         </tbody>
                                     </table>
@@ -111,35 +113,37 @@
 
                                 </div>
 
-                                @if($job_family->job_family_name != null)
+                                <?php if($job_family->job_family_name != null): ?>
                                     <div class="tab-pane" id="jobfamily">
 
                                         <div class="va-table" style="width:100%;">
                                             <div class="va-middle">
-                                                <h1 style="margin:0px; padding:20px 0 0 0;">FORUM {{$job_family->job_family_name}}</h1>
-                                                <p>Forum ini ditujukan untuk karyawan {{$job_family->name}} PT Aerofood Indonesia.</p>
+                                                <h1 style="margin:0px; padding:20px 0 0 0;">FORUM <?php echo e($job_family->job_family_name); ?></h1>
+                                                <p>Forum ini ditujukan untuk karyawan <?php echo e($job_family->name); ?> PT Aerofood Indonesia.</p>
                                             </div>
                                             <div class="va-middle" style="text-align:right;">
                                                 <button  class="btn btn-info" data-toggle="modal" data-target="#modal_job_family">New Thread</button>
                                             </div>
                                         </div>
                                         <hr/>
-                                        @if(empty(Session::get('failed_jobfamily')) == false)
+                                        <?php if(empty(Session::get('failed_jobfamily')) == false): ?>
                                             <div class="alert alert-danger text-center" role="alert">
                                                 <h3>Failed!</h3>
                                                 <p>
-                                                    {{ Session::get('failed_jobfamily') }}
+                                                    <?php echo e(Session::get('failed_jobfamily')); ?>
+
                                                 </p>
                                             </div>
-                                        @endif
-                                        @if(empty(Session::get('success_jobfamily')) == false)
+                                        <?php endif; ?>
+                                        <?php if(empty(Session::get('success_jobfamily')) == false): ?>
                                             <div class="alert alert-success text-center" role="alert">
                                                 <h3>Berhasil!</h3>
                                                 <p>
-                                                    {{ Session::get('success_jobfamily') }}
+                                                    <?php echo e(Session::get('success_jobfamily')); ?>
+
                                                 </p>
                                             </div>
-                                        @endif
+                                        <?php endif; ?>
                                         <table  class="table table-striped detailTable text-left">
                                             <thead>
                                             <tr>
@@ -152,54 +156,57 @@
                                             </thead>
                                             <tbody>
 
-                                            @foreach($forum_job_family as $forum)
+                                            <?php $__currentLoopData = $forum_job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ url('forum/'.$forum->id) }}">
-                                                            {{$forum->title}}
+                                                        <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
+                                                            <?php echo e($forum->title); ?>
+
                                                         </a>
-                                                        @if($forum->created_by === Auth::user()->id)
+                                                        <?php if($forum->created_by === Auth::user()->id): ?>
                                                             <a
-                                                                    href="{{ url('forum/user/edit/'.$forum->id) }}"
+                                                                    href="<?php echo e(url('forum/user/edit/'.$forum->id)); ?>"
                                                                     data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
                                                             >
 
                                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
                                                             </a>
-                                                        @endif
+                                                        <?php endif; ?>
                                                     </td>
-                                                    <td>{{$forum['personnel']->name}}</td>
-                                                    <td>{{count($forum['replie'])}}</td>
-                                                    @if(count($forum['replie']) == 0)
+                                                    <td><?php echo e($forum['personnel']->name); ?></td>
+                                                    <td><?php echo e(count($forum['replie'])); ?></td>
+                                                    <?php if(count($forum['replie']) == 0): ?>
                                                         <td>-</td>
-                                                    @else
+                                                    <?php else: ?>
                                                         <td>
-                                                            {{$forum['last_reply_personnel']['name']}} ,
-                                                            {{ \Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')}}
+                                                            <?php echo e($forum['last_reply_personnel']['name']); ?> ,
+                                                            <?php echo e(\Carbon\Carbon::parse($forum['last_reply'][0]->created_at)->format('l jS \\of F Y')); ?>
+
                                                         </td>
-                                                    @endif
-                                                    <td>{{ $forum->created_at }}</td>
+                                                    <?php endif; ?>
+                                                    <td><?php echo e($forum->created_at); ?></td>
                                                 </tr>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                             </tbody>
                                         </table>
 
                                     </div>
-                                @else
+                                <?php else: ?>
                                     <div class="tab-pane text-center" id="jobfamily">
                                         <h1>You don't have Job Family</h1>
                                     </div>
-                                @endif
+                                <?php endif; ?>
 
 
-                                @if($unit->unit_name != null)
+                                <?php if($unit->unit_name != null): ?>
                                     <div class="tab-pane" id="unit">
                                         <div class="va-table" style="width:100%;">
                                             <div class="va-middle">
-                                                <h1 style="margin:0px; padding:20px 0 0 0;">Forum Unit {{$unit->unit_name}}</h1>
-                                                <p>Forum ini ditujukan untuk karyawan Unit {{$unit->unit_name}}
+                                                <h1 style="margin:0px; padding:20px 0 0 0;">Forum Unit <?php echo e($unit->unit_name); ?></h1>
+                                                <p>Forum ini ditujukan untuk karyawan Unit <?php echo e($unit->unit_name); ?>
+
                                                     PT Aerofood Indonesia</p>
                                             </div>
                                             <div class="va-middle" style="text-align:right;">
@@ -209,22 +216,24 @@
                                         <hr/>
 
 
-                                        @if(empty(Session::get('failed_unit')) == false)
+                                        <?php if(empty(Session::get('failed_unit')) == false): ?>
                                             <div class="alert alert-danger text-center" role="alert">
                                                 <h3>Failed!</h3>
                                                 <p>
-                                                    {{ Session::get('failed_unit') }}
+                                                    <?php echo e(Session::get('failed_unit')); ?>
+
                                                 </p>
                                             </div>
-                                        @endif
-                                        @if(empty(Session::get('success_unit')) == false)
+                                        <?php endif; ?>
+                                        <?php if(empty(Session::get('success_unit')) == false): ?>
                                             <div class="alert alert-success text-center" role="alert">
                                                 <h3>Berhasil!</h3>
                                                 <p>
-                                                    {{ Session::get('success_unit') }}
+                                                    <?php echo e(Session::get('success_unit')); ?>
+
                                                 </p>
                                             </div>
-                                        @endif
+                                        <?php endif; ?>
 
                                         <table  class="table table-striped detailTable text-left">
                                             <thead>
@@ -238,42 +247,43 @@
                                             </thead>
                                             <tbody>
 
-                                            @foreach($forum_unit as $forum)
+                                            <?php $__currentLoopData = $forum_unit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $forum): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ url('forum/'.$forum->id) }}">
-                                                            {{$forum->title}}
+                                                        <a href="<?php echo e(url('forum/'.$forum->id)); ?>">
+                                                            <?php echo e($forum->title); ?>
+
                                                         </a>
-                                                        @if($forum->created_by === Auth::user()->id)
+                                                        <?php if($forum->created_by === Auth::user()->id): ?>
                                                             <a
-                                                                    href="{{ url('forum/user/edit/'.$forum->id) }}"
+                                                                    href="<?php echo e(url('forum/user/edit/'.$forum->id)); ?>"
                                                                     data-toggle="tooltip" data-placement="top"
                                                                     title="Edit Your Thread">
                                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
                                                             </a>
-                                                        @endif
+                                                        <?php endif; ?>
 
                                                     </td>
-                                                    <td>{{$forum['personnel']->name}}</td>
-                                                    <td>{{count($forum['replie'])}}</td>
-                                                    @if($forum['replie'] == null)
+                                                    <td><?php echo e($forum['personnel']->name); ?></td>
+                                                    <td><?php echo e(count($forum['replie'])); ?></td>
+                                                    <?php if($forum['replie'] == null): ?>
                                                         <td>-</td>
-                                                    @else
+                                                    <?php else: ?>
                                                         <td></td>
-                                                    @endif
-                                                    <td>{{ $forum->created_at }}</td>
+                                                    <?php endif; ?>
+                                                    <td><?php echo e($forum->created_at); ?></td>
                                                 </tr>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                             </tbody>
                                         </table>
                                     </div>
-                                @else
+                                <?php else: ?>
                                     <div class="tab-pane text-center" id="unit">
                                         <h1>You don't have Unit</h1>
                                     </div>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -303,7 +313,7 @@
             <!-- Modal content-->
             <div class="modal-content" >
                 <form id="summernote_form"class="form-horizontal" role="form" method="POST"
-                      action="{{ URL::action('ForumController@storeByUser') }}"
+                      action="<?php echo e(URL::action('ForumController@storeByUser')); ?>"
                       enctype="multipart/form-data">
                     <div class="modal-header">
                         <button type="button" class="btn btn-danger btn-lg pull-right"
@@ -312,7 +322,8 @@
                     </div>
 
                     <div class="modal-body">
-                        {{ csrf_field() }}
+                        <?php echo e(csrf_field()); ?>
+
 
                         <input type="hidden" name="id_department" value="">
                         <input type="hidden" name="id_unit" value="">
@@ -403,14 +414,14 @@
         </div>
     </div>
 
-    @if($department != null)
+    <?php if($department != null): ?>
         <!-- New Thread Department -->
         <div class="modal fade" id="modal_department" role="dialog">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
                     <form id="summernote_form"class="form-horizontal" role="form" method="POST"
-                          action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
+                          action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                         <div class="modal-header">
 
                             <button type="button" class="btn btn-danger btn-lg pull-right"
@@ -419,9 +430,10 @@
                         </div>
 
                         <div class="modal-body">
-                            {{ csrf_field() }}
+                            <?php echo e(csrf_field()); ?>
 
-                            <input type="hidden" name="id_unit" value="{{$unit->id}}">
+
+                            <input type="hidden" name="id_unit" value="<?php echo e($unit->id); ?>">
                             <input type="hidden" name="id_job_family" value="">
                             <input type="hidden" name="id_department" value="">
 
@@ -509,15 +521,15 @@
                 </div>
             </div>
         </div>
-    @endif
+    <?php endif; ?>
 
-    @if($job_family != null)
+    <?php if($job_family != null): ?>
         <!-- New Thread Job Family -->
         <div class="modal fade" id="modal_job_family" role="dialog">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content" >
-                    <form id="summernote_form"class="form-horizontal" role="form" method="POST" action="{{ URL::action('ForumController@storeByUser') }}" enctype="multipart/form-data">
+                    <form id="summernote_form"class="form-horizontal" role="form" method="POST" action="<?php echo e(URL::action('ForumController@storeByUser')); ?>" enctype="multipart/form-data">
                         <div class="modal-header">
 
                             <button type="button" class="btn btn-danger btn-lg pull-right"
@@ -528,11 +540,12 @@
                         </div>
 
                         <div class="modal-body">
-                            {{ csrf_field() }}
+                            <?php echo e(csrf_field()); ?>
+
 
                             <input type="hidden" name="id_department" value="">
                             <input type="hidden" name="id_unit" value="">
-                            <input type="hidden" name="id_job_family" value="{{$job_family->id}}">
+                            <input type="hidden" name="id_job_family" value="<?php echo e($job_family->id); ?>">
 
 
                             <div class="form-group">
@@ -617,9 +630,9 @@
                 </div>
             </div>
         </div>
-    @else
+    <?php else: ?>
 
-    @endif
+    <?php endif; ?>
 
 
 
@@ -637,4 +650,5 @@
         }
     </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

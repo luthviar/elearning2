@@ -41,7 +41,7 @@ class ForumController extends Controller
         $unit = null;
         $department = null;
         $job_family = null;
-        if (!empty($struktur)) {
+        if (empty($struktur) == false) {
             $unit = OsUnit::where('id', $struktur->id_unit)->first();
             $department = OsDepartment::where('id', $struktur->id_department)->first();
             $job_family = JobFamily::find($struktur->id_job_family);
@@ -58,9 +58,9 @@ class ForumController extends Controller
                 $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
             }
         }
+
         $forum_unit = null;
-        $forum_job_family = null;
-        if ($unit != null) {
+        if ($unit->unit_name != null) {
             $forum_unit = Forum::where('id_unit',$unit->id)->where('category',2)->get();
             foreach ($forum_unit as $key => $value) {
                 $value['personnel'] = User::where('id',$value->created_by)->first();
@@ -72,8 +72,11 @@ class ForumController extends Controller
                     $value['last_reply_personnel'] = User::where('id', $value['last_reply'][0]->id)->first();
                 }
             }
+        }
 
-            $forum_job_family = Forum::where('id_job_family',$job_family->id)->where('category',1)->get();
+        $forum_job_family = null;
+        if($job_family->job_family_name != null) {
+            $forum_job_family = Forum::where('category',1)->get();
             foreach ($forum_job_family as $key => $value) {
                 $value['personnel'] = User::where('id',$value->created_by)->first();
                 $value['replie'] = ForumComment::where('id_forum',$value->id)->get();
