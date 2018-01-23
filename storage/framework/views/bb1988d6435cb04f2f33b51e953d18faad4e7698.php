@@ -186,7 +186,7 @@
                 <div class="row">
               <div class="form-group col-md-6 col-xs-6">
                 <label>Level of Position*:</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;"  required>
+                <select class="form-control select3" name="level_position" style="width: 100%;"  required>
                   <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($level->id == $user->position): ?>
                   <option value="<?php echo e($level->id); ?>" selected="true"><?php echo e($level->nama_level); ?></option>
@@ -200,7 +200,7 @@
                <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Role*:</label>
-                <select class="form-control select2" name="role" style="width: 100%;">
+                <select class="form-control select3" name="role" style="width: 100%;">
                   <?php if($user->role == 1): ?>
                   <option value="0">User</option>
                   <option value="1" selected="true">Administrator</option>
@@ -344,9 +344,10 @@
 
 
               <!-- /.form-group -->
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-6">
                 <label>Job Family</label>
                 <select class="form-control select3" name="job_family" id="division" style="width: 100%;">
+                <option value="0" >-- Choose --</option>
                   <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $family): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if(!empty($job_family_user) and $family->id == $job_family_user->id): ?>
                   <option value="<?php echo e($family->id); ?>" selected="true" ><?php echo e($family->job_family_name); ?></option>
@@ -356,6 +357,17 @@
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
               </div>
+
+              <!-- job family name -->
+              <div class="form-group col-md-6">
+                <label>Job Family Input:</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-address-card"></i>
+                    </span>
+                    <input type="text" name="job_family_input" class="form-control" placeholder="job family">
+                </div>
+            </div>
              
 
             </div>

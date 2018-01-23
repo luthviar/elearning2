@@ -36,7 +36,7 @@
 
               <!-- Textarea -->
               <div class="form-group">
-                  <label>Textarea*
+                  <label>Text Area*
                       <i class="fa fa-question-circle"
                          style="color: red;"
                          data-toggle="tooltip"

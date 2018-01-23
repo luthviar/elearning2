@@ -186,7 +186,7 @@
                 <div class="row">
               <div class="form-group col-md-6 col-xs-6">
                 <label>Level of Position*:</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;"  required>
+                <select class="form-control select3" name="level_position" style="width: 100%;"  required>
                   @foreach($level_position as $level)
                   @if($level->id == $user->position)
                   <option value="{{$level->id}}" selected="true">{{$level->nama_level}}</option>
@@ -200,7 +200,7 @@
                <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Role*:</label>
-                <select class="form-control select2" name="role" style="width: 100%;">
+                <select class="form-control select3" name="role" style="width: 100%;">
                   @if($user->role == 1)
                   <option value="0">User</option>
                   <option value="1" selected="true">Administrator</option>
