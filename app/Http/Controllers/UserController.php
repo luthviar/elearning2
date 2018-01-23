@@ -383,7 +383,7 @@ class UserController extends Controller
         } else {
             $id_section = $section->id;
         }
-        $job_family = OsSection::find($request->job_family);
+        $job_family = JobFamily::find($request->job_family);
         $id_job_family = null;
         if ($job_family == null) {
             $id = DB::table('job_families')->insertGetId(

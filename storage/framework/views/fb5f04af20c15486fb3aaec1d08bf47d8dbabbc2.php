@@ -186,7 +186,7 @@
                 <div class="row">
               <div class="form-group col-md-6 col-xs-6">
                 <label>Level of Position*:</label>
-                <select class="form-control select2" name="level_position" style="width: 100%;"  required>
+                <select class="form-control select3" name="level_position" style="width: 100%;"  required>
                   <?php $__currentLoopData = $level_position; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($level->id == $user->position): ?>
                   <option value="<?php echo e($level->id); ?>" selected="true"><?php echo e($level->nama_level); ?></option>
@@ -200,7 +200,7 @@
                <!-- /.form-group -->
               <div class="form-group col-md-6 col-xs-6">
                 <label>Role*:</label>
-                <select class="form-control select2" name="role" style="width: 100%;">
+                <select class="form-control select3" name="role" style="width: 100%;">
                   <?php if($user->role == 1): ?>
                   <option value="0">User</option>
                   <option value="1" selected="true">Administrator</option>
