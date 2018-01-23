@@ -46,8 +46,22 @@
 
               <!-- Textarea -->
               <div class="form-group">
-                  <label>Textarea</label>
-                  <textarea class="textarea" id="second_title" name="second_title" value ="<?php echo e($slider->second_title); ?>" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required><?php echo e($slider->second_title); ?></textarea>
+                  <label>Text Area*
+                      <i class="fa fa-question-circle"
+                         style="color: red;"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="hanya 360 karakter yang
+                          ditampilkan di halaman utama, namun saat 'read more' akan tampil semuanya."
+                         aria-hidden="true"></i>
+                  </label>
+
+                  <textarea class="textarea" id="second_title"
+                            name="second_title" value ="<?php echo e($slider->second_title); ?>"
+                            placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>
+                      <?php echo e($slider->second_title); ?>
+
+                  </textarea>
               </div>
 
 

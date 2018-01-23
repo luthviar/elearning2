@@ -31,12 +31,23 @@
           </div>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-              <a
-                      
-                      onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
-                      class="btn color-std">
-                Finish this chapter
-              </a>
+            <?php if($is_finish->is_finish == 1): ?>
+                <a
+                        
+                        onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
+                        class="btn color-std">
+                    Next Chapter
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+              <?php else: ?>
+                <a
+                        
+                        onclick="window.open('<?php echo e(url('/finish_chapter',$chapter->id)); ?>','_self')"
+                        class="btn color-std">
+                    Finish this chapter
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            <?php endif; ?>
 
 
         </div>

@@ -33,12 +33,23 @@
           </div>
           @endforeach
 
-              <a
-                      {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
-                      onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
-                      class="btn color-std">
-                Finish this chapter
-              </a>
+            @if($is_finish->is_finish == 1)
+                <a
+                        {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
+                        onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
+                        class="btn color-std">
+                    Next Chapter
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+              @else
+                <a
+                        {{--href="{{ url('/finish_chapter', $chapter->id) }}" --}}
+                        onclick="window.open('{{ url('/finish_chapter',$chapter->id) }}','_self')"
+                        class="btn color-std">
+                    Finish this chapter
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            @endif
 
 
         </div>

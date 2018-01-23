@@ -114,7 +114,10 @@ class TrainingController extends Controller
             return view('user.error')->with('error', $chapter)->with('module', $modul);
         }
         $chapter['material'] = $material_training;
-        return view('user.training.material')->with('chapter', $chapter)->with('module', $modul);
+
+        $is_finish = UserChapterRecord::where('id_user',\Auth::user()->id)->where('id_chapter_training',$id_chapter)->first();
+
+        return view('user.training.material')->with('chapter', $chapter)->with('module', $modul)->with('is_finish',$is_finish);
     }
 
     public function finish_chapter( $id_chapter ) {
