@@ -44,7 +44,7 @@ class ForumController extends Controller
         if (!empty($struktur)) {
             $unit = OsUnit::where('id', $struktur->id_unit)->first();
             $department = OsDepartment::where('id', $struktur->id_department)->first();
-            $job_family = JobFamily::find($department->id_job_family);
+            $job_family = JobFamily::find($struktur->id_job_family);
         }
         $forum_umum = Forum::where('category', 0)->where('id_department', null)
             ->where('id_unit', null)->where('id_job_family', null)->get();
