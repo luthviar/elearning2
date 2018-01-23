@@ -5,15 +5,7 @@
 
             <div class="page-content" style="background-color: rgb(243, 247, 248);opacity: 1;">
                 <div class="block-advice">
-                    <?php if(empty(Session::get('failed')) == false): ?>
-                        <div class="alert alert-danger text-center" role="alert">
-                            <h3>Failed!</h3>
-                            <p>
-                                <?php echo e(Session::get('failed')); ?>
 
-                            </p>
-                        </div>
-                    <?php endif; ?>
                     <div class = "text-center">
                         <div id="exTab1">
                             <ul  class="nav nav-tabs nav-justified">
@@ -27,7 +19,7 @@
                                 <?php endif; ?>
                                 <?php if(!empty($unit)): ?>
                                     <li>
-                                        <a href="#dept" data-toggle="tab">Forum Unit</a>
+                                        <a href="#unit" data-toggle="tab">Forum Unit</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -37,7 +29,29 @@
 
                                     <h1>Forum Umum</h1>
                                     <p>Forum ini ditujukan untuk seluruh karyawan PT Aerofood Indonesia</p>
-                                    <button  class="btn btn-info" data-toggle="modal" data-target="#modal_umum">New Thread</button><br><br>
+                                    <button  class="btn btn-info" data-toggle="modal" data-target="#modal_umum">
+                                        New Thread
+                                    </button><br><br>
+
+                                    <?php if(empty(Session::get('failed_umum')) == false): ?>
+                                        <div class="alert alert-danger text-center" role="alert">
+                                            <h3>Failed!</h3>
+                                            <p>
+                                                <?php echo e(Session::get('failed_umum')); ?>
+
+                                            </p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if(empty(Session::get('success_umum')) == false): ?>
+                                        <div class="alert alert-success text-center" role="alert">
+                                            <h3>Berhasil!</h3>
+                                            <p>
+                                                <?php echo e(Session::get('success_umum')); ?>
+
+                                            </p>
+                                        </div>
+                                    <?php endif; ?>
+
 
                                     <table  class="table table-striped detailTable text-left">
                                         <thead>
@@ -95,7 +109,24 @@
                                         <p>Forum ini ditujukan untuk karyawan <?php echo e($job_family->name); ?> PT Aerofood Indonesia.</p>
                                         <button  class="btn btn-info" data-toggle="modal"
                                                  data-target="#modal_job_family">New Thread</button><br><br>
+                                        <?php if(empty(Session::get('failed_jobfamily')) == false): ?>
+                                            <div class="alert alert-danger text-center" role="alert">
+                                                <h3>Failed!</h3>
+                                                <p>
+                                                    <?php echo e(Session::get('failed_jobfamily')); ?>
 
+                                                </p>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if(empty(Session::get('success_jobfamily')) == false): ?>
+                                            <div class="alert alert-success text-center" role="alert">
+                                                <h3>Berhasil!</h3>
+                                                <p>
+                                                    <?php echo e(Session::get('success_jobfamily')); ?>
+
+                                                </p>
+                                            </div>
+                                        <?php endif; ?>
                                         <table  class="table table-striped detailTable text-left">
                                             <thead>
                                             <tr>
@@ -149,7 +180,7 @@
 
 
                                 <?php if($unit != null): ?>
-                                    <div class="tab-pane" id="dept">
+                                    <div class="tab-pane" id="unit">
                                         <h1>Forum Unit <?php echo e($unit->unit_name); ?></h1>
                                         <p>
                                             Forum ini ditujukan untuk karyawan Unit <?php echo e($unit->unit_name); ?>
@@ -158,6 +189,24 @@
                                         </p>
                                         <button  class="btn btn-info" data-toggle="modal"
                                                  data-target="#modal_department">New Thread</button><br><br>
+                                        <?php if(empty(Session::get('failed_unit')) == false): ?>
+                                            <div class="alert alert-danger text-center" role="alert">
+                                                <h3>Failed!</h3>
+                                                <p>
+                                                    <?php echo e(Session::get('failed_unit')); ?>
+
+                                                </p>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if(empty(Session::get('success_unit')) == false): ?>
+                                            <div class="alert alert-success text-center" role="alert">
+                                                <h3>Berhasil!</h3>
+                                                <p>
+                                                    <?php echo e(Session::get('success_unit')); ?>
+
+                                                </p>
+                                            </div>
+                                        <?php endif; ?>
 
                                         <table  class="table table-striped detailTable text-left">
                                             <thead>

@@ -1,13 +1,11 @@
-@extends('admin.layouts.app')
-
-@section('page-name')
-    <a href="{{ url(action('TrainingController@manage_training',$training->id)) }}">
+<?php $__env->startSection('page-name'); ?>
+    <a href="<?php echo e(url(action('TrainingController@manage_training',$training->id))); ?>">
         <i class="fa fa-arrow-left"></i>
     </a>
   Reorder Chapter
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Main content -->
     <section class="content">
@@ -15,28 +13,30 @@
       <div class="col-md-8 col-md-offset-2">
       <div class="box box-primary">
             <div class="box-header">
-                @if(Session::get('failed') != null)
+                <?php if(Session::get('failed') != null): ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <hr/>
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <h4><i class="icon fa fa-check"></i> Gagal!</h4>
-                                {{ Session::get('failed') }}
+                                <?php echo e(Session::get('failed')); ?>
+
                             </div>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
               <h3 class="box-title">
-                  Training name:<br/> <b>{{$training->modul_name}}</b><br/> Reorder Chapter
+                  Training name:<br/> <b><?php echo e($training->modul_name); ?></b><br/> Reorder Chapter
               </h3>
             </div>
             <div class="box-body">
 
-            <form action="{{url(action('TrainingController@change_order_submit'))}}" method="post">
-              {{ csrf_field() }}
+            <form action="<?php echo e(url(action('TrainingController@change_order_submit'))); ?>" method="post">
+              <?php echo e(csrf_field()); ?>
 
-              <input type="hidden" name="id_training" value="{{$training->id}}">
+
+              <input type="hidden" name="id_training" value="<?php echo e($training->id); ?>">
               <table class="table">
               <thead>
                 <tr>
@@ -45,22 +45,22 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($training['chapters'] as $key => $chapter)
+                <?php $__currentLoopData = $training['chapters']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                  <td width="20%" class="text-right">{{$key + 1}}</td>
+                  <td width="20%" class="text-right"><?php echo e($key + 1); ?></td>
                   <td>  
-                    <select class="form-control" name="{{$key}}" style="width: 100%;" required>
-                    @foreach($training['chapters'] as $value)
-                        @if($key == $value->sequence)
-                        <option value="{{$value->id}}" selected="true">{{$value->chapter_name}}</option>
-                        @else
-                        <option value="{{$value->id}}">{{$value->chapter_name}}</option>
-                        @endif
-                    @endforeach
+                    <select class="form-control" name="<?php echo e($key); ?>" style="width: 100%;" required>
+                    <?php $__currentLoopData = $training['chapters']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($key == $value->sequence): ?>
+                        <option value="<?php echo e($value->id); ?>" selected="true"><?php echo e($value->chapter_name); ?></option>
+                        <?php else: ?>
+                        <option value="<?php echo e($value->id); ?>"><?php echo e($value->chapter_name); ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                   </td>
                 </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>
               </table>
 
@@ -90,9 +90,9 @@
     <!-- /.content -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   //Date picker
     $('#datepicker').datepicker({
@@ -108,7 +108,7 @@
 
 </script>
 
-<<!-- script src="{{URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<<!-- script src="<?php echo e(URL::asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 <script>
 
   $(function () {
@@ -185,6 +185,7 @@ $(document).ready(function(){
 });
 </script>
 
-    @include('admin.layouts.summernote')
+    <?php echo $__env->make('admin.layouts.summernote', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

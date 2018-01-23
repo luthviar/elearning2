@@ -8,7 +8,7 @@
 <?php $__env->startSection('header'); ?>
     <style>
         dt{
-            width: 40% !important;
+            width: 48% !important;
         }
         dd{
             margin-left: 50% !important;
@@ -49,150 +49,284 @@
             </div>
         <?php endif; ?>
       <div class="row">
-        <div class="col-md-4">
+        
 
-          <!-- Profile Image -->
-          <div class="box box-solid">
-              <div class="box-header with-border">
-                  <?php if($profile['personal_data']->photo == null): ?>
-                      <img class="profile-user-img img-responsive img-circle"
-                           src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="User profile picture">
-                  <?php else: ?>
-                      <img class="profile-user-img img-responsive img-circle"
-                           src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="User profile picture">
-                  <?php endif; ?>
+          
+          
+              
+                  
+                      
+                           
+                  
+                      
+                           
+                  
 
-                  <h3 class="profile-username text-center"><?php echo e($profile['personal_data']->name); ?></h3>
+                  
 
-                  <p class="text-muted text-center"><?php echo e($profile['personal_data']->position_name); ?></p>
-              </div>
+                  
+              
 
-              <div class="box-body">
-                  <dl class="dl-horizontal">
-                  <?php if($profile['personal_data']->role == 1): ?>
-                      <dt>
-                          <b>Role</b>
-                      <dd>
-                          <a>Administrator</a>
-                      </dd>
-                  <?php else: ?>
-                      <dt>
-                          <b>Role</b>
-                      <dd>
-                          <a>User</a>
-                      </dd>
-                  <?php endif; ?>
-                      <dt>
-                          <b>Email</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e($profile['personal_data']->email); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Level</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e($profile['level']->nama_level); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Employee Status</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e($profile['employee_data']['employee_status']->name); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Birtdate</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e($profile['personal_data']->birtdate); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Education</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e($profile['personal_data']->education); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Date Join</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e($profile['personal_data']->date_join_acs); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Division</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e(isset($profile['employee_data']['division']->division_name) ? $profile['employee_data']['division']->division_name : null); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Unit</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e(isset($profile['employee_data']['unit']->unit_name) ? $profile['employee_data']['unit']->unit_name : null); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Department</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e(isset($profile['employee_data']['department']->department_name) ? $profile['employee_data']['department']->department_name : null); ?></a>
-                      </dd>
-                      <dt>
-                          <b>Section</b>
-                      </dt>
-                      <dd>
-                          <a ><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></a>
-                      </dd>
+              
+                  
+                  
+                      
+                          
+                      
+                          
+                      
+                  
+                      
+                          
+                      
+                          
+                      
+                  
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
+                      
+                          
+                      
 
-                  <?php if($profile['personal_data']->flag_active == 1): ?>
-                      <dt>
-                          <b>Status</b>
-                      </dt>
-                      <dd>
-                          <a >Active</a>
-                      </dd>
-                  <?php else: ?>
-                      <dt>
-                          <b>Status</b>
-                      </dt>
-                      <dd>
-                          <a >Non-Active</a>
-                      </dd>
-                  <?php endif; ?>
+                  
+                      
+                          
+                      
+                      
+                          
+                      
+                  
+                      
+                          
+                      
+                      
+                          
+                      
+                  
 
-                  </dl>
-                  <a href="<?php echo e(url(action('UserController@edit_personnel',$profile['personal_data']->id))); ?>"
-                     class="btn btn-info btn-block">
-                      <b>Edit Personnel</b>
-                  </a>
-                  <?php if($profile['personal_data']->flag_active == 1): ?>
+                  
+                  
+                     
+                      
+                  
+                  
 
-                      <a href="<?php echo e(url(action('UserController@nonactivate',$profile['personal_data']->id))); ?>"
-                         class="btn btn-danger btn-block">
-                          <b>Non-Activate</b>
-                      </a>
-                  <?php else: ?>
+                      
+                         
+                          
+                      
+                  
 
-                      <a href="<?php echo e(url(action('UserController@activate',$profile['personal_data']->id))); ?>"
-                         class="btn btn-success btn-block">
-                          <b>Activate</b>
-                      </a>
-                  <?php endif; ?>
+                      
+                         
+                          
+                      
+                  
 
-              </div>
-            <!-- /.box-body -->
-          <!-- /.box -->
+              
+            
+          
 
-          </div>
-        </div>
+          
+        
+
+
         <!-- /.col -->
-        <div class="col-md-8">
+        <div class="col-md-10 col-md-offset-1">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Training Record</a></li>
+                <li class="active"><a href="#employee" data-toggle="tab">Employee Data</a></li>
+              <li><a href="#activity" data-toggle="tab">Training Record</a></li>
               <li><a href="#timeline" data-toggle="tab">Employee Score</a></li>
             </ul>
             <div class="tab-content">
-              <div class="active tab-pane" id="activity">
+                <div class="active tab-pane" id="employee">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <?php if($profile['personal_data']->photo == null): ?>
+                                <img class="profile-user-img img-responsive img-circle"
+                                     src="<?php echo e(URL::asset('photo/user-default.png')); ?>" alt="User profile picture">
+                            <?php else: ?>
+                                <img class="profile-user-img img-responsive img-circle"
+                                     src="<?php echo e(URL::asset($profile['personal_data']->photo)); ?>" alt="User profile picture">
+                            <?php endif; ?>
+
+                            <h3 class="profile-username text-center"><?php echo e($profile['personal_data']->name); ?></h3>
+
+                            <p class="text-muted text-center"><?php echo e($profile['personal_data']->position_name); ?></p>
+                        </div>
+
+                        <div class="box-body">
+                            <dl class="dl-horizontal">
+                                <?php if($profile['personal_data']->role == 1): ?>
+                                    <dt>
+                                        <b>Role</b>
+                                    <dd>
+                                        <a>Administrator</a>
+                                    </dd>
+                                <?php else: ?>
+                                    <dt>
+                                        <b>Role</b>
+                                    <dd>
+                                        <a>User</a>
+                                    </dd>
+                                <?php endif; ?>
+                                <dt>
+                                    <b>Email</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e($profile['personal_data']->email); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Level</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e($profile['level']->nama_level); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Employee Status</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e($profile['employee_data']['employee_status']->name); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Birtdate</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e($profile['personal_data']->birtdate); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Education</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e($profile['personal_data']->education); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Date Join</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e($profile['personal_data']->date_join_acs); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Division</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e(isset($profile['employee_data']['division']->division_name) ? $profile['employee_data']['division']->division_name : null); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Unit</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e(isset($profile['employee_data']['unit']->unit_name) ? $profile['employee_data']['unit']->unit_name : null); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Department</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e(isset($profile['employee_data']['department']->department_name) ? $profile['employee_data']['department']->department_name : null); ?></a>
+                                </dd>
+                                <dt>
+                                    <b>Section</b>
+                                </dt>
+                                <dd>
+                                    <a ><?php echo e(isset($profile['employee_data']['section']->section_name) ? $profile['employee_data']['section']->section_name : null); ?></a>
+                                </dd>
+
+                                <?php if($profile['personal_data']->flag_active == 1): ?>
+                                    <dt>
+                                        <b>Status</b>
+                                    </dt>
+                                    <dd>
+                                        <a >Active</a>
+                                    </dd>
+                                <?php else: ?>
+                                    <dt>
+                                        <b>Status</b>
+                                    </dt>
+                                    <dd>
+                                        <a >Non-Active</a>
+                                    </dd>
+                                <?php endif; ?>
+
+                            </dl>
+                            <a href="<?php echo e(url(action('UserController@edit_personnel',$profile['personal_data']->id))); ?>"
+                               class="btn btn-info btn-block">
+                                <b>Edit Personnel</b>
+                            </a>
+                            <?php if($profile['personal_data']->flag_active == 1): ?>
+
+                                <a href="<?php echo e(url(action('UserController@nonactivate',$profile['personal_data']->id))); ?>"
+                                   class="btn btn-danger btn-block">
+                                    <b>Non-Activate</b>
+                                </a>
+                            <?php else: ?>
+
+                                <a href="<?php echo e(url(action('UserController@activate',$profile['personal_data']->id))); ?>"
+                                   class="btn btn-success btn-block">
+                                    <b>Activate</b>
+                                </a>
+                            <?php endif; ?>
+
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+              <div class="tab-pane" id="activity">
 		          <div class="box">
 		            <div class="box-header">
 		              <h3 class="box-title">Training Record Data</h3>

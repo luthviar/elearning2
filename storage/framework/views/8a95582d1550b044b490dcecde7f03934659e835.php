@@ -1,6 +1,4 @@
-@extends('admin.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -38,9 +36,9 @@
     </section>
     <!-- /.content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -49,10 +47,10 @@
             "serverSide": true,
             "order": [[1, 'asc']],
             "ajax":{
-                     "url": "{{ url('admin/training/schedule') }}",
+                     "url": "<?php echo e(url('admin/training/schedule')); ?>",
                      "dataType": "json",
                      "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
+                     "data":{ _token: "<?php echo e(csrf_token()); ?>"}
                    },
             "columns": [
                 { "data": "modul_name" },
@@ -68,4 +66,5 @@
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

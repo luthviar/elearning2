@@ -70,11 +70,11 @@
 
               <!-- select -->
               <div class="col-md-12">
-                <div class="form-group col-md-4 hidden" id="department">
-                  <label>Department</label>
-                  <select class="form-control" name="id_department" >
-                    <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <option value="<?php echo e($dept->id); ?>"><?php echo e($dept->department_name); ?></option>
+                <div class="form-group col-md-4 hidden" id="job_family">
+                  <label>Job Family</label>
+                  <select class="form-control" name="id_job_family" >
+                    <?php $__currentLoopData = $job_family; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jobs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($jobs->id); ?>"><?php echo e($jobs->job_family_name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </select>
                 </div>
@@ -200,9 +200,9 @@ $(document).ready(function(){
   $('#parent').on('input',function(){
     var $input = $('#parent').val();
     if ($input == 3) {
-      $('#department').removeClass('hidden');
+      $('#job_family').removeClass('hidden');
     }else{
-      $('#department').addClass('hidden');
+      $('#job_family').addClass('hidden');
     }
   });
 </script>

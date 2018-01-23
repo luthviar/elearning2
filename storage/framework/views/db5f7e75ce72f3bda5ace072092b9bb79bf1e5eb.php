@@ -202,8 +202,13 @@
           <div class="nav-tabs-custom">
 
             <div class="container">
-            <h4>Chapter Training</h4>  
-          </div>
+
+              <h4>
+                Chapter Training
+              </h4>
+
+            </div>
+          
 
             <ul class="nav nav-tabs">
               <li class="active">
@@ -233,6 +238,14 @@
               <li>
                 <a href="<?php echo e(url(action('TrainingController@add_chapter',$training->id))); ?>">
                   <i class="fa fa-plus" aria-hidden="true"></i>
+                  New Chapter
+                </a>
+              </li>
+              <li>
+                <a class="btn btn-info"
+                   href="<?php echo e(url(action('TrainingController@change_order',$training->id))); ?>">
+                  <i class="fa fa-random" aria-hidden="true"></i>
+                  Re-Order Chapter
                 </a>
               </li>
             </ul>

@@ -114,7 +114,10 @@ class TrainingController extends Controller
             return view('user.error')->with('error', $chapter)->with('module', $modul);
         }
         $chapter['material'] = $material_training;
-        return view('user.training.material')->with('chapter', $chapter)->with('module', $modul);
+
+        $is_finish = UserChapterRecord::where('id_user',\Auth::user()->id)->where('id_chapter_training',$id_chapter)->first();
+
+        return view('user.training.material')->with('chapter', $chapter)->with('module', $modul)->with('is_finish',$is_finish);
     }
 
     public function finish_chapter( $id_chapter ) {
@@ -300,7 +303,7 @@ class TrainingController extends Controller
                         );
   
         $totalData = ModulTraining::where('is_child', 1)->count();
-            
+//            $totalData = 2;
         $totalFiltered = $totalData; 
 
         $limit = $request->input('length');
@@ -314,7 +317,7 @@ class TrainingController extends Controller
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('is_child',1)
-                         ->whereDate('date','>=', DB::raw('CURDATE()'))
+//                         ->whereDate('date','>=', DB::raw('CURDATE()'))
                          ->get();
         } else {
             $search = $request->input('search.value'); 
@@ -325,7 +328,7 @@ class TrainingController extends Controller
                                 $query->where('modul_trainings.modul_name', 'LIKE',"%{$search}%");
                                 $query->orWhere('modul_trainings.description','LIKE',"%{$search}%");
                             })
-                            ->whereDate('date','>=', DB::raw('CURDATE()'))
+//                            ->whereDate('date','>=', DB::raw('CURDATE()'))
                             ->orderBy($order,$dir)
                             ->limit($limit)
                             ->offset($start)
@@ -1395,7 +1398,7 @@ class TrainingController extends Controller
         }
         $chapters = Chapter::where('id_module', $request->id_training)->get();
         if(count($chapters) == 0){
-            // no chapter found
+            Session::flash('failed', 'Mohon urutkan dengan baik dan sesuai.');
             return redirect()->back();
         }
         $order_change = array();
@@ -1405,6 +1408,7 @@ class TrainingController extends Controller
                 foreach($order_change as $change){
                     if($change == $chapter_id){
                         // ada chapter yang dipilih pada 2 urutan yang berbeda
+                        Session::flash('failed', 'Mohon urutkan dengan baik dan sesuai.');
                         return redirect()->back();
                     } 
                 }
@@ -1416,7 +1420,9 @@ class TrainingController extends Controller
             $chapter->sequence = $key;
             $chapter->save();
         }
-        return redirect('admin/training/manage-'.$request->id_training);
+        Session::flash('success', 'Re-Order Chapter berhasil dilakukan.');
+
+        return redirect(action('TrainingController@manage_training',$request->id_training));
     }
 
 }
