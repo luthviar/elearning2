@@ -293,12 +293,12 @@
                       @if($user['org_structure']->id_department == $deps->id)
                       <option value="{{$deps->id}}" selected="true">{{$deps->department_name}}</option>
                       @else
-                        <option value="{{$deps->id}}" selected="true">{{$deps->department_name}}</option>
+                        <option value="{{$deps->id}}" >{{$deps->department_name}}</option>
                       @endif  
                     @endforeach
                   @else
                     @foreach($department as $deps)
-                        <option value="{{$deps->id}}" selected="true">{{$deps->department_name}}</option>
+                        <option value="{{$deps->id}}">{{$deps->department_name}}</option>
                     @endforeach
                   @endif
                   

@@ -337,67 +337,90 @@ class UserController extends Controller
     public function user_add_submit (Request $request){
         $division = OsDivision::find($request->division);
         $id_division = null;
-        if ($division == null) {
-            $id = DB::table('os_divisions')->insertGetId(
-                [
-                'division_name'    => $request->division_input,
+        // if ($division == null ) {
+        //     $id = DB::table('os_divisions')->insertGetId(
+        //         [
+        //         'division_name'    => $request->division_input,
 
-                ]
-            );
-            $id_division = $id;
-        } else {
+        //         ]
+        //     );
+        //     $id_division = $id;
+        // } else {
+        //     $id_division = $division->id;
+        // }
+        if($division != null){
             $id_division = $division->id;
         }
+        
 
         $unit = OsUnit::find($request->unit);
         $id_unit = null;
-        if ($unit == null) {
-            $id = DB::table('os_units')->insertGetId(
-                [
-                'unit_name'    => $request->unit_input, 
-                ]
-            );
-            $id_unit = $id;
-        } else {
+        // if ($unit == null ) {
+        //     $id = DB::table('os_units')->insertGetId(
+        //         [
+        //         'unit_name'    => $request->unit_input, 
+        //         ]
+        //     );
+        //     $id_unit = $id;
+        // } else {
+        //     $id_unit = $unit->id;
+        // }
+        if($unit != null){
             $id_unit = $unit->id;
         }
+        
+
         $department = OsDepartment::find($request->department);
         $id_department = null;
-        if ($department == null) {
-            $id = DB::table('os_departments')->insertGetId(
-                [
-                'department_name'    => $request->department_input, 
-                ]
-            );
-            $id_department = $id;
-        } else {
+        // if ($department == null ) {
+        //     $id = DB::table('os_departments')->insertGetId(
+        //         [
+        //         'department_name'    => $request->department_input, 
+        //         ]
+        //     );
+        //     $id_department = $id;
+        // } else {
+        //     $id_department = $department->id;
+        // }
+        if($department != null){
             $id_department = $department->id;
         }
+        
+
         $section = OsSection::find($request->section);
         $id_section = null;
-        if ($section == null) {
-            $id = DB::table('os_sections')->insertGetId(
-                [
-                'section_name'    => $request->section_input, 
-                ]
-            );
-            $id_section = $id;
-        } else {
+        // if ($section == null) {
+        //     $id = DB::table('os_sections')->insertGetId(
+        //         [
+        //         'section_name'    => $request->section_input, 
+        //         ]
+        //     );
+        //     $id_section = $id;
+        // } else {
+        //     $id_section = $section->id;
+        // }
+
+        if($section != null){
             $id_section = $section->id;
         }
+        
+
         $job_family = JobFamily::find($request->job_family);
         $id_job_family = null;
-        if ($job_family == null) {
-            $id = DB::table('job_families')->insertGetId(
-                [
-                'job_family_name'    => $request->job_family_input, 
-                ]
-            );
-            $id_job_family = $id;
-        } else {
+        // if ($job_family == null) {
+        //     $id = DB::table('job_families')->insertGetId(
+        //         [
+        //         'job_family_name'    => $request->job_family_input, 
+        //         ]
+        //     );
+        //     $id_job_family = $id;
+        // } else {
+        //     $id_job_family = $job_family->id;
+        // }
+        if($job_family != null){
             $id_job_family = $job_family->id;
         }
-
+        
        
 
         $id_user = DB::table('users')->insertGetId(
@@ -468,66 +491,90 @@ class UserController extends Controller
     public function edit_personnel_submit (Request $request){
         $division = OsDivision::find($request->division);
         $id_division = null;
-        if ($division == null) {
-            $id = DB::table('os_divisions')->insertGetId(
-                [
-                'division_name'    => $request->division_input,
+        // if ($division == null ) {
+        //     $id = DB::table('os_divisions')->insertGetId(
+        //         [
+        //         'division_name'    => $request->division_input,
 
-                ]
-            );
-            $id_division = $id;
-        } else {
+        //         ]
+        //     );
+        //     $id_division = $id;
+        // } else {
+        //     $id_division = $division->id;
+        // }
+        if($division != null){
             $id_division = $division->id;
         }
+        
 
         $unit = OsUnit::find($request->unit);
         $id_unit = null;
-        if ($unit == null) {
-            $id = DB::table('os_units')->insertGetId(
-                [
-                'unit_name'    => $request->unit_input, 
-                ]
-            );
-            $id_unit = $id;
-        } else {
+        // if ($unit == null ) {
+        //     $id = DB::table('os_units')->insertGetId(
+        //         [
+        //         'unit_name'    => $request->unit_input, 
+        //         ]
+        //     );
+        //     $id_unit = $id;
+        // } else {
+        //     $id_unit = $unit->id;
+        // }
+        if($unit != null){
             $id_unit = $unit->id;
         }
+        
+
         $department = OsDepartment::find($request->department);
         $id_department = null;
-        if ($department == null) {
-            $id = DB::table('os_departments')->insertGetId(
-                [
-                'department_name'    => $request->department_input, 
-                ]
-            );
-            $id_department = $id;
-        } else {
+        // if ($department == null ) {
+        //     $id = DB::table('os_departments')->insertGetId(
+        //         [
+        //         'department_name'    => $request->department_input, 
+        //         ]
+        //     );
+        //     $id_department = $id;
+        // } else {
+        //     $id_department = $department->id;
+        // }
+        if($department != null){
             $id_department = $department->id;
         }
+        
+
         $section = OsSection::find($request->section);
         $id_section = null;
-        if ($section == null) {
-            $id = DB::table('os_sections')->insertGetId(
-                [
-                'section_name'    => $request->section_input, 
-                ]
-            );
-            $id_section = $id;
-        } else {
+        // if ($section == null) {
+        //     $id = DB::table('os_sections')->insertGetId(
+        //         [
+        //         'section_name'    => $request->section_input, 
+        //         ]
+        //     );
+        //     $id_section = $id;
+        // } else {
+        //     $id_section = $section->id;
+        // }
+
+        if($section != null){
             $id_section = $section->id;
         }
+        
+
         $job_family = JobFamily::find($request->job_family);
         $id_job_family = null;
-        if ($job_family == null) {
-            $id = DB::table('job_families')->insertGetId(
-                [
-                'job_family_name'    => $request->job_family_input, 
-                ]
-            );
-            $id_job_family = $id;
-        } else {
+        // if ($job_family == null) {
+        //     $id = DB::table('job_families')->insertGetId(
+        //         [
+        //         'job_family_name'    => $request->job_family_input, 
+        //         ]
+        //     );
+        //     $id_job_family = $id;
+        // } else {
+        //     $id_job_family = $job_family->id;
+        // }
+        if($job_family != null){
             $id_job_family = $job_family->id;
         }
+        
 
         $user = User::find($request->id_user);
         if ($user == null) {
