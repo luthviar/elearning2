@@ -6,6 +6,7 @@
     <div class="carousel carousel-showtwomoveone slide" id="carou-link">
         <div class="carousel-inner">
             <?php $n = 0?>
+                <?php if(empty(Session::get('link')) == false): ?>
             <?php $__currentLoopData = Session::get('link'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $aero_link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($n == 0): ?>
                 <?php $n = 1 ?>
@@ -42,6 +43,9 @@
                     </div>
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                      <h4 class="text-center">You Should Login First</h4>
+                    <?php endif; ?>
             </div>
 
             <a class="left carousel-control" href="#carou-link" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
@@ -57,6 +61,7 @@
 </p>
 <div class="row">
     <div class="col-md-12 clearfix">
+    <?php if(empty(Session::get('schedule')) == false): ?>
         <?php $__currentLoopData = Session::get('link'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $aero_link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <a href="http://<?php echo e($aero_link->url); ?>" class="btn btn-lg <?php echo e($aero_link->color); ?>" style="margin:5px 1px" data-toggle="tooltip" data-placement="top" title="<?php echo e($aero_link->detail_url); ?>
 
@@ -66,6 +71,7 @@
             <?php echo e($aero_link->name); ?>
 
         </a> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endif; ?>
 
     </div>
 </div>-->

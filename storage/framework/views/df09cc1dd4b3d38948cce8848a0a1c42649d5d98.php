@@ -6,6 +6,7 @@
     <div style="width:80%; margin:0 auto;">
         <div class="list-group" style="position:relative;">
          <?php $n = 0?>
+             <?php if(empty(Session::get('schedule')) == false): ?>
           <?php $__currentLoopData = Session::get('schedule'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sched): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
            <?php $n++; ?>
             <a href="<?php echo e(url(action('TrainingController@get_trainings',$sched->id))); ?>" target="_blank" class="list-group-item">
@@ -26,6 +27,9 @@
             </a>
             
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php else: ?>
+                 <h4 class="text-center">You Should Login First</h4>
+                 <?php endif; ?>
         </div>
     </div>
 </div>
@@ -37,6 +41,7 @@
 <div class="row">
     <div class="col-md-12 clearfix">
         <div class="list-group">
+        <?php if(empty(Session::get('schedule')) == false): ?>
           <?php $__currentLoopData = Session::get('schedule'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sched): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <a href="<?php echo e(url(action('TrainingController@get_trainings',$sched->id))); ?>" target="_blank" class="list-group-item">
                 <h4 class="list-group-item-heading">
@@ -52,6 +57,7 @@
                 </p>
             </a>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
         </div>
 
     </div>
