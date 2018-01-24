@@ -177,10 +177,10 @@
 
                             <div class="form-group col-md-12">
                                 <hr/>
-                                <h5 style="color: orangered;" class="text-center">
-                                    Pilih Divisi, Unit dan Department dari Database.
-                                    Jika tidak ada, maka Anda dapat menginput sendiri pada input text.
-                                </h5>
+                                {{--<h5 style="color: orangered;" class="text-center">--}}
+                                    {{--Pilih Divisi, Unit dan Department dari Database.--}}
+                                    {{--Jika tidak ada, maka Anda dapat menginput sendiri pada input text.--}}
+                                {{--</h5>--}}
                             </div>
 
                             <div class="form-group col-md-6">
@@ -194,16 +194,16 @@
 
                                 </select>
                             </div>
-                            <!-- Position name -->
-                            <div class="form-group col-md-6">
-                                <label>Division Input:</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-address-card"></i>
-                                    </span>
-                                    <input type="text" name="division_input" class="form-control" placeholder="division">
-                                </div>
-                            </div>
+                            <!-- Division input-->
+                            {{--<div class="form-group col-md-6">--}}
+                                {{--<label>Division Input:</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<i class="fa fa-address-card"></i>--}}
+                                    {{--</span>--}}
+                                    {{--<input type="text" name="division_input" class="form-control" placeholder="division">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group col-md-6">
                                 <label>Unit : </label>
                                 <select class="form-control select3" name="unit" id="unit" style="width: 100%;">
@@ -215,16 +215,16 @@
 
                                 </select>
                             </div>
-                            <!-- Position name -->
-                            <div class="form-group col-md-6">
-                                <label>Unit Input:</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-address-card"></i>
-                                    </span>
-                                    <input type="text" name="unit_input" class="form-control" placeholder="unit">
-                                </div>
-                            </div>
+                            <!-- Unit input name -->
+                            {{--<div class="form-group col-md-6">--}}
+                                {{--<label>Unit Input:</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<i class="fa fa-address-card"></i>--}}
+                                    {{--</span>--}}
+                                    {{--<input type="text" name="unit_input" class="form-control" placeholder="unit">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group col-md-6">
                                 <label>Department : </label>
                                 <select class="form-control select3" name="department" id="department" style="width: 100%;">
@@ -236,16 +236,16 @@
 
                                 </select>
                             </div>
-                            <!-- Position name -->
-                            <div class="form-group col-md-6">
-                                <label>Department Input:</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-address-card"></i>
-                                    </span>
-                                    <input type="text" name="department_input" class="form-control" placeholder="department">
-                                </div>
-                            </div>
+                            <!-- department input name -->
+                            {{--<div class="form-group col-md-6">--}}
+                                {{--<label>Department Input:</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<i class="fa fa-address-card"></i>--}}
+                                    {{--</span>--}}
+                                    {{--<input type="text" name="department_input" class="form-control" placeholder="department">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group col-md-6">
                                 <label>Section : </label>
                                 <select class="form-control select3" name="section" id="section" style="width: 100%;">
@@ -257,18 +257,18 @@
 
                                 </select>
                             </div>
-                            <!-- Position name -->
-                            <div class="form-group col-md-6">
-                                <label>Section Input:</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-address-card"></i>
-                                    </span>
-                                    <input type="text" name="section_input" class="form-control" placeholder="section">
-                                </div>
-                            </div>
+                            <!-- section input name -->
+                            {{--<div class="form-group col-md-6">--}}
+                                {{--<label>Section Input:</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<i class="fa fa-address-card"></i>--}}
+                                    {{--</span>--}}
+                                    {{--<input type="text" name="section_input" class="form-control" placeholder="section">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <!-- /.form-group -->
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12 text-center">
                                 <label>Job Family</label>
                                 <select class="form-control select3" name="job_family" id="job_family" style="width: 100%;">
                                     <option value="0" >-- Choose The Job Family --</option>
@@ -279,16 +279,16 @@
 
                                 </select>
                             </div>
-                            <!-- job family name -->
-                            <div class="form-group col-md-6">
-                                <label>Job Family Input:</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-address-card"></i>
-                                    </span>
-                                    <input type="text" name="job_family_input" class="form-control" placeholder="job family">
-                                </div>
-                            </div>
+                            <!-- job family input name -->
+                            {{--<div class="form-group col-md-6">--}}
+                                {{--<label>Job Family Input:</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<i class="fa fa-address-card"></i>--}}
+                                    {{--</span>--}}
+                                    {{--<input type="text" name="job_family_input" class="form-control" placeholder="job family">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                         <!-- /.box-body -->
                     </div>
