@@ -4,17 +4,17 @@ $(document).ready(function() {
     document.addEventListener('contextmenu', event => event.preventDefault());   
 
     // prompt when leave site
-    window.addEventListener('beforeunload', function (e) {
-        (e || window.event).returnValue = 'Are you sure?';
-        return null;
-    });
-    window.addEventListener('onbeforeunload ', function (e) {
-        (e || window.event).returnValue = 'Are you sure?';
-        return null;
-    });
-    window.onbeforeunload = function () {
-        return "Do you really want to close?";
-    };
+    // window.addEventListener('beforeunload', function (e) {
+    //     (e || window.event).returnValue = 'Are you sure?';
+    //     return null;
+    // });
+    // window.addEventListener('onbeforeunload ', function (e) {
+    //     (e || window.event).returnValue = 'Are you sure?';
+    //     return null;
+    // });
+    // window.onbeforeunload = function () {
+    //     return "Do you really want to close?";
+    // };
     
     var ctrlKeyDown = false;
     var shiftKeyDown = false;

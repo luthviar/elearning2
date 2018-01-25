@@ -11,15 +11,15 @@ class Material extends Model
     public function get_material ( $id_chapter ) {
 		$material = Material::where('id_chapter', $id_chapter)->first();;
 		if ( $material == null) {
-			$material['status'] = 'error';
-			$material['message'] = 'error: no material found';
+			$material['status'] = 'error_material';
+			$material['message'] = 'error: No Material Found';
 			return $material;
 		}
 		$file_materials = FilesMaterial::where( "id_material" , $material->id )->get();
 
 		if ( count($file_materials) == 0 ) {
-			$material['status'] = 'error';
-			$material['message'] = 'error: no file material found';
+			$material['status'] = 'error-file';
+			$material['message'] = 'File Material Not Found, Please Upload The File Again.';
 			return $material;
 		}
 

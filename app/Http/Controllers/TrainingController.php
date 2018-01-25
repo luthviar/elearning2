@@ -103,14 +103,11 @@ class TrainingController extends Controller
 
         $material = new Material();
         $material_training = $material->get_material ( $id_chapter);
-//        dd($material_training->url );
-        if(	$material['status'] = 'error') {
-            return view('user.error')->with('error', 'File Material Not Found, Please Upload The File Again.');
+
+        if(	$material_training['status'] == 'error_material') {
+            return view('user.error')->with('error', $material_training['message']);
         }
 
-        if ( $material_training['status'] == 'error') {
-            return view('user.error')->with('error', $material_training)->with('module', $modul);
-        }
         $chapter = new Chapter();
         $chapter = $chapter->get_chapter($material_training->id_chapter);
         if ($chapter['status'] == 'error') {
@@ -158,6 +155,8 @@ class TrainingController extends Controller
         $test = new Test();
         $test = $test->get_test($id_chapter);
 
+//        dd($test);
+
         if ($test['status'] == 'error') {
             return view('user.error')->with('error', $test)->with('module', $modul);
         }
@@ -193,7 +192,7 @@ class TrainingController extends Controller
 
 
 
-//        dd(Session::get('record'));
+
         // start test of training
         return view('user.training.online_test')
             ->with('chapter', $chapter)->with('test',$test)

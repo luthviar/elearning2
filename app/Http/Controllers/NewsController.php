@@ -35,6 +35,9 @@ class NewsController extends Controller
         $news = new News();
         $news = $news->get_all_active_news();
 
+//        dd(strip_tags(str_limit($news, $limit = 300, $end = '...')));
+//        dd($news);
+
         //get modul training
         $modul = new ModulTraining();
         $modul = $modul->get_module_training();
@@ -67,19 +70,6 @@ class NewsController extends Controller
     }
 
     public function get_news( $news_id ) {
-//    	$news = new News();
-//    	$newses = $news->get_news( $news_id );
-//
-//        $last_six_news = $news->get_active_news();
-//
-//        //get modul training
-//        $modul = new ModulTraining();
-//        $modul = $modul->get_module_training();
-//
-//    	return view('user.news.view')
-//                    ->with( 'news' , $newses )
-//                    ->with( 'last_news' , $last_six_news)
-//                    ->with( 'module', $modul);
 
         $berita = News::find($news_id);
         if (empty($berita)) {
@@ -390,12 +380,15 @@ class NewsController extends Controller
             $movea = $image->move($destinationPath,$image->getClientOriginalName());
             $url = "file_img/{$image->getClientOriginalName()}";
         }
+
+        $content_clean = strip_tags($request->content);
         
         $id = DB::table('newses')->insertGetId(
             [
             'title'         => $request->title, 
             'created_by'    => \Auth::user()->id,
             'content'       => $request->content,
+            'content_clean' => $content_clean,
             'is_publish'    => 0,
             'flag_active'   => 1,
             'url_image'     => $url,
@@ -445,6 +438,10 @@ class NewsController extends Controller
         $news = News::find($request->id_news);
         $news->title = $request->title;
         $news->content = $request->content;
+
+        $content_clean = strip_tags($request->content);
+        $news->content_clean = $content_clean ;
+
         if ($url != null) {
             $news->url_image = $url;
         }

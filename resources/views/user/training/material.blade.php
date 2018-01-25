@@ -10,26 +10,25 @@
           <h1>{{ $chapter->chapter_name }}</h1>
           <p>{!! html_entity_decode($chapter['material']->description)     !!}</p>
           <h4>Attachments :</h4>
+            @if($chapter['material']['status'] == 'error-file')
+                <a
+                        class="btn btn-default btn-block btn-lg"
+                        style="cursor:pointer; text-decoration: none; color:red;"
+
+                >
+                    File Not Found, Please Upload The File.<br/>
+                </a>
+            @else
           @foreach ($chapter['material']['files_material'] as $file)
           <div style="padding-bottom: 10px;">
-            {{--<a--}}
-                {{--href="{{URL::asset($file->url)}}"--}}
-               {{--onclick="window.open('{{URL::asset($file->url)}}',--}}
-                       {{--'newWin', 'width='+screen.availWidth+',height='+screen.availHeight)"--}}
-                {{--onclick="openPDF()"--}}
-               {{--class="btn btn-default" style="width: 100%;">--}}
-              {{--{{ $file->name}}--}}
-            {{--</a>--}}
+
               @if($file->url == null)
                   <a
                           class="btn btn-default btn-block btn-lg"
-                          {{--onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',--}}
-                                  {{--height='+screen.availHeight')"--}}
                           style="cursor:pointer; text-decoration: none; color:red;"
 
                   >
                       {{$file->name}} -- Not Found, Please Upload Again The File.<br/>
-                      {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
                   </a>
                   @else
               <a
@@ -40,11 +39,11 @@
 
               >
                   {{$file->name}} <br/>
-                  {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
               </a>
                   @endif
           </div>
           @endforeach
+            @endif
 
             @if($is_finish->is_finish == 1)
                 <a
@@ -71,7 +70,8 @@
 </div>
 
 @endsection
-
+@if($chapter['material']['status'] == 'error-file')
+@else
 @section('script')
     <script>
         function openPDF() {
@@ -81,10 +81,6 @@
 
             myWindow.document.getElementById('iframe').textContent().removeChild(document.getElementById('download'));
         }
-//        $('#iframe').ready(function() {
-//            setTimeout(function() {
-//                $('#iframe').contents().find('#download').remove();
-//            }, 100);
-//        });
     </script>
 @endsection
+@endif

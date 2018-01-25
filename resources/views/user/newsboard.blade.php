@@ -46,8 +46,15 @@
                                             <div class="va-middle" style="width:70%;">
                                                 <div style="border-top:1px; border-right:1px; border-bottom:1px; border-left:0px; border-style:solid; border-color:#ccc; background-color:#fff; padding:1em 1.5em; position:relative; border-radius:0px 5px 5px 0px !important; height:150px; max-height:150px;">
                                                     <div><b>{{ str_limit($news->title, $limit = 50, $end = '...') }}</b></div>
-                                                    <div style="margin:5px 0;"><span style="color:#999 !IMPORTANT; font-size:12px;"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{ $news->created_at }}</span></div>
-                                                    <div style="font-size:13px; color:#666 !IMPORTANT;">{{ strip_tags(str_limit($news->content, $limit = 340, $end = '...')) }}</div>
+                                                    <div style="margin:5px 0;">
+                                                        <span style="color:#999 !IMPORTANT; font-size:12px;">
+                                                            <i class="fa fa-clock-o"></i>&nbsp;&nbsp;
+                                                            {{ $news->created_at }}
+                                                        </span>
+                                                    </div>
+                                                    <div style="font-size:13px; color:#666 !IMPORTANT;">
+                                                        {{ strip_tags(str_limit($news->content, $limit = 340, $end = '...')) }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,29 +62,6 @@
                                 </div>
                             </div>
 
-                            <!--<div class="col-md-3" style="margin-bottom:2em;">
-                                <a href="/news/{{$news->id}}" style="text-decoration:none;">
-                                <div style="border:1px solid #ccc; background-image: url('{{$news->image or 'Elegantic/images/ALS.jpg'}}'); background-position:center center; height:150px; position:relative; border-radius:5px 5px 0px 0px !important;">
-                                </div>
-                                <div style="border-top:0px; border-right:1px; border-bottom:1px; border-left:1px; border-style:solid; border-color:#ccc; background-color:#f2f2f2; padding:1em 1.5em; position:relative; border-radius:0px 0px 5px 5px !important; height:150px; max-height:150px;">
-                                    <div><b>{{ str_limit($news->title, $limit = 50, $end = '...') }}</b></div>
-                                    <div style="margin:5px 0;"><span style="color:#999 !IMPORTANT; font-size:12px;"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{ $news->created_at }}</span></div>
-                                    <div style="font-size:13px; color:#666 !IMPORTANT;">{{ strip_tags(str_limit($news->content, $limit = 340, $end = '...')) }}</div>
-
-                                </div>
-                            </a>
-                            </div>-->
-                            <!--<div class="col-lg-4 col-sm-6 portfolio-item" style="height: 400px;">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top img-fluid" src="{{$news->image or 'Elegantic/images/ALS.jpg'}}" alt="" style="border: 1px solid green; border-radius:5%; "></a>
-                                <div class="card-block">
-                                    <h4 class="card-title"><a href="/news/{{$news->id}}">{{ str_limit($news->title, $limit = 20, $end = '...') }}</a></h4>
-                                    <p class="card-text" align="justify">{{ strip_tags(str_limit($news->content, $limit = 360, $end = '...')) }}</p>
-                                    <p class="text-right"><a href="/news/{{$news->id}}">Read more </a></p>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>-->
                             @endforeach
                         </div>
                         @endif
@@ -91,25 +75,6 @@
 
                     </div>
                 </div>
-
-                <!--<div class="row">
-                    <div class="col-md-12" style="margin-bottom:2em;">
-                        <a href="/news/{{$news->id}}" style="text-decoration:none;">
-                            <div class="va-table" style="width:100%;">
-                                <div class="va-middle" style="width:30%;">
-                                    <div style="border:1px solid #ccc; background-image: url('{{$news->image or 'Elegantic/images/ALS.jpg'}}'); background-position:center center; height:150px; position:relative; border-radius:5px 0px 0px 5px !important;"></div>
-                                </div>
-                                <div class="va-middle" style="width:70%;">
-                                    <div style="border-top:1px; border-right:1px; border-bottom:1px; border-left:0px; border-style:solid; border-color:#ccc; background-color:#f2f2f2; padding:1em 1.5em; position:relative; border-radius:0px 5px 5px 0px !important; height:150px; max-height:150px;">
-                                        <div><b>JUDUL</b></div>
-                                        <div style="margin:5px 0;"><span style="color:#999 !IMPORTANT; font-size:12px;"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;TGL</span></div>
-                                        <div style="font-size:13px; color:#666 !IMPORTANT;">ISI</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>-->
 
             </main>
         </div>

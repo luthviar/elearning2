@@ -77,7 +77,7 @@
             // Display pop-up
             ifvisible.on("blur", function(){
                 // example code here..
-                alert('anda tidak aktif');
+                alert('Tidak diperbolehkan membuka yang lain.');
 //                animations.pause();
             });
 
@@ -154,6 +154,30 @@
 
           <form  id="test_form" action="{{ url('/test_submit') }}" method="post">
             {{ csrf_field() }}
+
+            <div class="question-list-item">
+
+              <input type="hidden" name="id_chapter" value="{{ $chapter->id }}">
+
+
+              <div>
+                <h3>
+                  <b>
+                    <span class="text-blue">Description</span>
+                    <div class="question-number-circle bg-red text-center" style="position: relative;top: -4px;">
+                      <span class="v-align-sub text-white">*</span>
+                    </div>&nbsp;&nbsp;&nbsp;
+                    <span class="text-capitalize"></span>
+                  </b>
+                </h3>
+                <input type="hidden" name="question_id" value="127">
+                <div class="question"><h3>{{ $test->description }}</h3></div>
+                <br>
+              </div>
+
+            </div>
+            <hr>
+
           @foreach( $test['questions'] as $key => $question)
           <div class="question-list-item">
 
@@ -311,9 +335,9 @@
 
   <script>
 //    this script prevent user from close page
-      window.onbeforeunload = function () {
-          return "Apakah Anda yakin?";
-      };
+//      window.onbeforeunload = function () {
+//          return "Apakah Anda yakin?";
+//      };
 
 //      this function is prevent user from back page
       (function (global) {
@@ -359,6 +383,7 @@
       setInterval(submit_me, '{{ $test->time }}' * 60 * 1000); // (1000 * 60 * 10 = 600000)
 
       function submit_me() {
+          alert('Waktu sudah habis, test ini akan di-submit secara otomatis.')
           $('#test_form').submit();
 
       }
