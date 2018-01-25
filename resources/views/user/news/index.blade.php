@@ -63,9 +63,9 @@
 
                                         <div style="font-size:13px; color:#666 !IMPORTANT;">
                                             @if($news->content_clean == null)
-                                                {!! strip_tags(str_limit($news->content, $limit = 300, $end = '...')) !!}
+                                                {!! strip_tags(str_limit($news->content, $limit = 200, $end = '...')) !!}
                                             @else
-                                                {!! strip_tags(str_limit($news->content_clean, $limit = 300, $end = '...')) !!}
+                                                {!! strip_tags(str_limit($news->content_clean, $limit = 200, $end = '...')) !!}
                                             @endif
                                         </div>
 
