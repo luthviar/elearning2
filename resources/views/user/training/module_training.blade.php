@@ -2,28 +2,24 @@
 
 @section('content')
 
-
-  <div class="container" style="padding-top: 100px;">
+<div style="margin-top:60px; border:none;">
+    <img src="{{url('Elegantic/images/head_banner_'.$trainings->id.'.jpg')}}" width="100%" style="border:none; margin:0; padding:0;">
+</div>
+  <div class="container" style="padding-top: 30px;">
     <div class="row">
-      <div class="text-center">
-        <h3>{{$trainings->modul_name}}</h3>
-        <p>{{$trainings->description}}</p>
-      </div>
+      
       <div class='col-md-12'>
         <div class='panel panel-success'>
           <div class='panel-body' style='background-color: #13B795 !important; color: white;'>
-            <span class='pull-left'>
-                <strong>{{$trainings->modul_name}}</strong>
-            </span>
-            <span class='pull-right'>
-                <i class='glyphicon glyphicon-chevron-down'></i>
+            <span class='text-center'>
+                <p>{{$trainings->description}}</p>
             </span>
           </div>
         </div>
       </div>
 
       @if(count($trainings['children']) == 0)
-        <div class='col-md-11 col-md-offset-1'>
+        <div class='col-md-10 col-md-offset-1'>
           <div class='panel panel-default'>
             <div class='panel-body'>
               <span class='pull-left'>
@@ -44,7 +40,7 @@
 
         @foreach($job_family as $jobs)
 
-          <div class='col-md-11 col-md-offset-1'>
+          <div class='col-md-10 col-md-offset-1'>
             <div class='panel panel-warning'>
               <div class='panel-body' style='background-color: lightgreen !important; color: white;'>
 					<span class='pull-left'>
@@ -58,7 +54,7 @@
           @foreach($trainings['children'] as $children)
             @if($children->id_job_family == $jobs->id)
 
-              <div class='col-md-10 col-md-offset-2 hidden {{$jobs->id}}'>
+              <div class='col-md-10 col-md-offset-1 hidden {{$jobs->id}}'>
                 <div class='panel panel-default'>
                   <div class='panel-body'>
 					<span class='pull-left'>
@@ -87,7 +83,7 @@
       @else
         @foreach($trainings['children'] as $children)
 
-          <div class='col-md-11 col-md-offset-1'>
+          <div class='col-md-10 col-md-offset-1'>
             <div class='panel panel-default'>
               <div class='panel-body'>
 					<span class='pull-left'>
