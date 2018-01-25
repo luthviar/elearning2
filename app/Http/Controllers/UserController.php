@@ -121,6 +121,17 @@ class UserController extends Controller
     	return redirect('/profile');
     }
 
+    public function change_email (Request $request){
+        $email = $request->new_email;
+        $user = User::find(\Auth::user()->id);
+        if($user == null){
+            return redirect("/");
+        }
+        $user->email = $email;
+        $user->save();
+        return redirect()->back();
+    }
+
     public function change_photo(Request $request) {
         $user = User::find($request->id_user);
         if ($user == null) {

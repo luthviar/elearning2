@@ -22,6 +22,8 @@ Route::get('/view-file/{id}', 'TrainingController@view_file');
 
 Route::post('change_password', 'UserController@change_password');
 
+Route::post('change_email', 'UserController@change_email');
+
 Route::get('cobapdf','UserController@cobapdf');
 
 Route::post('storepdf','UserController@storepdf');

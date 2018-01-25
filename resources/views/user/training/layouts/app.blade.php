@@ -8,7 +8,7 @@
             {{--INTRO TRAINING--}}
             <div class="text-center">
                 <h1><strong>{{ Session::get('training')->modul_name}}</strong></h1>
-                <h5>Contain {{count(Session::get('training')['chapter'])}} chapter . 1271 user finish this course</h5>
+                <h5>Contain {{count(Session::get('training')['chapter'])}} chapter</h5>
                 <p>{!! Session::get('training')['description'] !!} </p>
             </div>
 
