@@ -20,6 +20,18 @@
                {{--class="btn btn-default" style="width: 100%;">--}}
               {{--{{ $file->name}}--}}
             {{--</a>--}}
+              @if($file->url == null)
+                  <a
+                          class="btn btn-default btn-block btn-lg"
+                          {{--onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',--}}
+                                  {{--height='+screen.availHeight')"--}}
+                          style="cursor:pointer; text-decoration: none; color:red;"
+
+                  >
+                      {{$file->name}} -- Not Found, Please Upload Again The File.<br/>
+                      {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
+                  </a>
+                  @else
               <a
                   class="btn btn-default btn-block btn-lg"
                   onclick="window.open('{{URL::asset($file->url)}}',width='+screen.availWidth+',
@@ -30,6 +42,7 @@
                   {{$file->name}} <br/>
                   {{--<small><b>published: {{ $score->created_at->diffForHumans() }}</b></small>--}}
               </a>
+                  @endif
           </div>
           @endforeach
 

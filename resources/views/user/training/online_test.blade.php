@@ -355,6 +355,15 @@
       })(window);
   </script>
 
+  <script>
+      setInterval(submit_me, '{{ $test->time }}' * 60 * 1000); // (1000 * 60 * 10 = 600000)
+
+      function submit_me() {
+          $('#test_form').submit();
+
+      }
+  </script>
+
 
   </body>
 

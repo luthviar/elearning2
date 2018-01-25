@@ -103,7 +103,10 @@ class TrainingController extends Controller
 
         $material = new Material();
         $material_training = $material->get_material ( $id_chapter);
-
+//        dd($material_training->url );
+        if(	$material['status'] = 'error') {
+            return view('user.error')->with('error', 'File Material Not Found, Please Upload The File Again.');
+        }
 
         if ( $material_training['status'] == 'error') {
             return view('user.error')->with('error', $material_training)->with('module', $modul);
@@ -938,9 +941,11 @@ class TrainingController extends Controller
             return "error : file material not found";
         }
         $material = Material::find($file->id_material);
-        $filename = substr($file->url,14);
-        $path = public_path() . "\storage\\" . $filename.".txt";
-        unlink($path);
+        if ($file->url != null) {
+            $filename = substr($file->url,14);
+            $path = public_path() . "\storage\\" . $filename.".txt";
+            unlink($path);
+        }
         
        DB::table('files_materials')->where('id','=',$id_file)->delete();
 

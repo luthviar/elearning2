@@ -16,11 +16,13 @@ class Material extends Model
 			return $material;
 		}
 		$file_materials = FilesMaterial::where( "id_material" , $material->id )->get();
-		if ( $file_materials == null ) {
+
+		if ( count($file_materials) == 0 ) {
 			$material['status'] = 'error';
 			$material['message'] = 'error: no file material found';
 			return $material;
-		} 
+		}
+
 		$material["files_material"] = $file_materials;
 		$material['status'] = 'success';
 

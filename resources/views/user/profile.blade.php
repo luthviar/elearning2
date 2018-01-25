@@ -138,7 +138,7 @@
                   <table class="table">
                     <tbody>
                     <tr>
-                      <td width="50%">Email</td>
+                      <td width="50%">Current Email</td>
                       <td>{{ $profile['personal_data']->email }}</td>
                     </tr>
 
