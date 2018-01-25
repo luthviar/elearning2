@@ -6,7 +6,6 @@
     <div style="width:80%; margin:0 auto;">
         <div class="list-group" style="position:relative;">
          <?php $n = 0?>
-             @if(empty(Session::get('schedule')) == false)
           @foreach(Session::get('schedule') as $sched)
            <?php $n++; ?>
             <a href="{{ url(action('TrainingController@get_trainings',$sched->id)) }}" target="_blank" class="list-group-item">
@@ -24,9 +23,6 @@
             </a>
             
           @endforeach
-            @else
-                 <h4 class="text-center">You Should Login First</h4>
-                 @endif
         </div>
     </div>
 </div>
@@ -38,7 +34,6 @@
 <div class="row">
     <div class="col-md-12 clearfix">
         <div class="list-group">
-        @if(empty(Session::get('schedule')) == false)
           @foreach(Session::get('schedule') as $sched)
             <a href="{{ url(action('TrainingController@get_trainings',$sched->id)) }}" target="_blank" class="list-group-item">
                 <h4 class="list-group-item-heading">
@@ -51,7 +46,6 @@
                 </p>
             </a>
           @endforeach
-        @endif
         </div>
 
     </div>

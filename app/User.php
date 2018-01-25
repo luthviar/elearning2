@@ -56,8 +56,10 @@ class User extends Authenticatable
             if ($org_structure != null) {
                 if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
+                    $data['job_family'] = JobFamily::find($data['department']->id_job_family);
                 } else {
                     $data['department'] = null;
+                    $data['job_family'] = null;
                 }
                 if ($org_structure->id_unit != 0) {
                     $data['unit'] = OsUnit::find($org_structure->id_unit);
@@ -117,8 +119,10 @@ class User extends Authenticatable
             if ($org_structure != null) {
                 if ($org_structure->id_department != 0) {
                     $data['department'] = OsDepartment::find($org_structure->id_department);
+                    $data['job_family'] = JobFamily::find($data['department']->id_job_family);
                 } else {
                     $data['department'] = null;
+                    $data['job_family'] = null;
                 }
                 if ($org_structure->id_unit != 0) {
                     $data['unit'] = OsUnit::find($org_structure->id_unit);
@@ -142,6 +146,7 @@ class User extends Authenticatable
                 }
             } else {
                 $data['department'] = null;
+                $data['job_family'] = null;
                 $data['unit'] = null;
                 $data['section'] = null;
                 $data['division'] = null;

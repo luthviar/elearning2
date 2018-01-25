@@ -6,7 +6,6 @@
     <div class="carousel carousel-showtwomoveone slide" id="carou-link">
         <div class="carousel-inner">
             <?php $n = 0?>
-                @if(empty(Session::get('link')) == false)
             @foreach(Session::get('link') as $aero_link)
                 @IF($n == 0)
                 <?php $n = 1 ?>
@@ -43,9 +42,6 @@
                     </div>
                 </div>
             @endforeach
-                  @else
-                      <h4 class="text-center">You Should Login First</h4>
-                    @endif
             </div>
 
             <a class="left carousel-control" href="#carou-link" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
@@ -61,7 +57,6 @@
 </p>
 <div class="row">
     <div class="col-md-12 clearfix">
-    @if(empty(Session::get('schedule')) == false)
         @foreach(Session::get('link') as $aero_link)
         <a href="http://{{ $aero_link->url}}" class="btn btn-lg {{$aero_link->color}}" style="margin:5px 1px" data-toggle="tooltip" data-placement="top" title="{{$aero_link->detail_url}}
                    ({{$aero_link->url}})
@@ -69,7 +64,6 @@
 
             {{$aero_link->name}}
         </a> @endforeach
-@endif
 
     </div>
 </div>-->

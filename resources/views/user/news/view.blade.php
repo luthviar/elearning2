@@ -60,7 +60,6 @@
                             @foreach($replies as $key=>$reply)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    @if(empty(Auth::user()) == false)
                                     @if($reply->created_by == Auth::user()->id)
                                         <div class="pull-right">
                                             <a
@@ -104,10 +103,8 @@
 
                                         </div>
                                     @endif
-                                    @endif
 
                                     <strong>{{ $reply['title'] }}
-                                        @if(empty(Auth::user()) == false)
                                         @if($reply->created_by == Auth::user()->id)
                                             <a href="{{ url(action('NewsController@editCommentByUser',$reply->id)) }}">
                                                 <i class="fa fa-pencil-square-o"
@@ -116,7 +113,6 @@
                                                    title="Edit this comment."
                                                    aria-hidden="true"></i>
                                             </a>
-                                        @endif
                                         @endif
                                     </strong><br>
                                     {{$reply['user']->name}} ,
@@ -165,7 +161,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="content" class="col-md-12 text-muted" style="text-align:left">Content*</label>
+                                        <label for="content" class="col-md-12 text-muted" style="text-align:left">Content <span class="required">*</span></label>
                                         <div class="col-md-12">
                                             {{--<textarea title="content" id="content" id="summernote" name="content" required></textarea>--}}
                                             <textarea class="form-control" rows="5" id="comment" name="content" required style="width:100%;"></textarea>
@@ -177,16 +173,16 @@
 
                                         <div class="col-md-12">
                                             <div class="input-group">
-													<span class="input-group-btn">
-														<span class="btn btn-default btn-file">
-															Browse..
-															<input type="file"
+                                                    <span class="input-group-btn">
+                                                        <span class="btn btn-default btn-file">
+                                                            Browse..
+                                                            <input type="file"
                                                                    id="file"
                                                                    onchange="javascript:updateList()"
                                                                    name="file_pendukung[]"
                                                                    multiple/>
-															</span>
-													</span>
+                                                            </span>
+                                                    </span>
                                                 <input type="text" class="form-control" value="select file(s)" readonly>
                                             </div>
                                             <div class='file-uploaded'>
@@ -220,7 +216,12 @@
                         <!--<div class ="fixedpositiion">-->
                         <div>
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active">Recent News</a>
+                                <div class="list-group-item list-group-item-action active">
+                                    <div style="display: table; width:100%;">
+                                    <div style="float:left;">RECENT NEWS</div>
+                                    <div style="float:right;"><i class="fa fa-newspaper-o"></i></div>
+                                    </div>
+                                </div>
                                 @foreach($beritas as $brt)
                                 <a href="{{ url(action('NewsController@get_news',$brt->id)) }}" class="list-group-item list-group-item-action"><span class="text-muted" style="font-size:11px;">{{ \Carbon\Carbon::parse($news->create_at)->format('l jS \\of F Y')}}</span><br>{{$brt->title}}</a>
                                 @endforeach
@@ -236,9 +237,85 @@
                                 <br>
                             </div>-->
                             <!--Recent Schedule -->
-                            @include('user.layouts.schedule')
+                            <div class="list-group" style="position:relative;">
+                                <div class="list-group-item list-group-item-action active">
+                                    <div style="display: table; width:100%;">
+                                    <div style="float:left;">RECENT TRAINING SCHEDULE</div>
+                                    <div style="float:right;"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                             <?php $n = 0?>
+                              @foreach(Session::get('schedule') as $sched)
+                               <?php $n++; ?>
+                                <a href="{{ url(action('TrainingController@get_trainings',$sched->id)) }}" target="_blank" class="list-group-item">
+                                    <h4 class="list-group-item-heading">
+                                        {{$sched->modul_name}}
+                                    </h4>
+                                    <p class="list-group-item-text">
+                                        <strong>Start at:</strong> {{date('j M Y',strtotime($sched->date))}}
+                                        -
+                                        {{date('H:i',strtotime($sched->time))}}
+                                    </p>
+                                    <div style="position: absolute; top:0; right:0;">
+                                    <div style="margin:0; color:#FFF; padding:3px 7px; font-size:12px; background-color:#fcb322; font-weight:bold;">{{$n}}</div>
+                                </div>
+                                </a>
+                              @endforeach
+                            </div>
                             <!--Links -->
-                            @include('user.layouts.aerofood_links')
+                            <div class="list-group" style="position:relative;">
+                                <div class="list-group-item list-group-item-action active">
+                                    <div style="display: table; width:100%;">
+                                    <div style="float:left;">LINK OUR PROJECT</div>
+                                    <div style="float:right;"><i class="fa fa-link"></i></div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="carousel carousel-showonemoveone slide" id="carou-one">
+                                <div class="carousel-inner">
+                                    <?php $n = 0?>
+                                    @foreach(Session::get('link') as $aero_link)
+                                        @IF($n == 0)
+                                        <?php $n = 1 ?>
+                                        <div class="item active">
+                                        @ELSE
+                                        <?php $n++; ?>
+                                        <div class="item">
+                                        @ENDIF
+                                            <div class="col-md-12">
+                                                <a href="http://{{ $aero_link->url}}" style="text-decoration:none;" target="_blank">
+                                                    <div style="border-top:1px; border-right:1px; border-bottom:1px; border-left:1px; border-style:solid; border-color:#ccc; background-color:#ffffff; padding:1em 1.5em; position:relative; border-radius:5px !important; height:140px; max-height:140px; position: relative;">
+                                                        <div class="va-table">
+                                                            <div class="va-middle">
+                                                                <h3 style="margin:0; color:#ccc; text-transform:uppercase;"><b>{{$aero_link->name}}</b></h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="va-table">
+                                                            <div class="va-middle" style="height:40px;">
+                                                                <h5 style="margin:0; color:#000;">{{$aero_link->detail_url}}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="va-table">
+                                                            <div class="va-middle"><i class="fa fa-link"></i>&nbsp;&nbsp;</div>
+                                                            <div class="va-middle">{{$aero_link->url}}</div>
+                                                        </div>
+                                                        <div style="position: absolute; bottom:1em; left:1.5em;">
+                                                            <h5 style="margin:0; color:#000;"><div class="badge badge-primary">&nbsp;&nbsp;{{$aero_link->status}}&nbsp;&nbsp;</div></h5>
+                                                        </div>
+                                                        <div style="position: absolute; top:-1px; right:-1px;">
+                                                            <div style="margin:0; color:#FFF; padding:3px 7px; font-size:12px; background-color:#fcb322; font-weight:bold; border-radius:0px 5px 0px 0px !important;">{{$n}}</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    </div>
+
+                                    <a class="left carousel-control" href="#carou-one" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+                                    <a class="right carousel-control" href="#carou-one" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+
+                            </div>
                         </div>
                     </nav>
                 </div>
@@ -277,7 +354,7 @@
             if (y > startPosition) {
                 nav.addClass('sticky');
                 if (y > stopPosition) {
-					nav.css('top', stopPosition - y);
+                    nav.css('top', stopPosition - y);
                 } else {
                     nav.css('top', 0);
                 }

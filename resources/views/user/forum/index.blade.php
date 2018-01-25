@@ -2,9 +2,9 @@
 
 @section('content')
 
-        <div style="margin-top:60px; border:none;">
-            <img src="http://localhost/svn_commit/public/Elegantic/images/head_banner_forum.jpg" width="100%" style="border:none; margin:0; padding:0;">
-        </div>
+<div style="margin-top:60px; border:none;">
+    <img src="{{url('Elegantic/images/head_banner_forum.jpg')}}" width="100%" style="border:none; margin:0; padding:0;">
+</div>
 
     <div class="page-container" id="wrapper">
         <div class="page-content-wrapper">
@@ -14,16 +14,22 @@
                         <div id="exTab1">
                             <ul  class="nav nav-tabs nav-justified" style="margin-bottom: 0px;">
                                 <li class="active">
-                                    <a  href="#umum" data-toggle="tab">Forum Umum</a>
+                                    <a  href="#umum" data-toggle="tab">
+                                        <div><i class="fa fa-comments"></i>&nbsp;&nbsp;FORUM UMUM</div>
+                                    </a>
                                 </li>
                                 @if(!empty($job_family))
                                     <li>
-                                        <a href="#jobfamily" data-toggle="tab">Forum Job Family</a>
+                                        <a href="#jobfamily" data-toggle="tab">
+                                            <div><i class="fa fa-users"></i>&nbsp;&nbsp;FORUM JOB FAMILY</div>
+                                        </a>
                                     </li>
                                 @endif
                                 @if(!empty($unit))
                                     <li>
-                                        <a href="#unit" data-toggle="tab">Forum Unit</a>
+                                        <a href="#unit" data-toggle="tab">
+                                            <div><i class="fa fa-comments-o"></i>&nbsp;&nbsp;FORUM UNIT</div> 
+                                        </a>
                                     </li>
                                 @endif
                             </ul>
