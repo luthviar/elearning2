@@ -42,14 +42,14 @@
                                             <p>Forum ini ditujukan untuk seluruh karyawan PT Aerofood Indonesia</p>
                                         </div>
                                         <div class="va-middle" style="text-align:right;">
-                                            <button  class="btn btn-info" data-toggle="modal" data-target="#modal_umum">New Thread</button>
+                                            <button  class="btn btn-info" data-toggle="modal" data-target="#modal_umum">New Post</button>
                                         </div>
                                     </div>
                                     <hr/>
                                     {{--<h1>Forum Umum</h1>--}}
                                     {{--<p>Forum ini ditujukan untuk seluruh karyawan PT Aerofood Indonesia</p>--}}
                                     {{--<button  class="btn btn-info" data-toggle="modal" data-target="#modal_umum">--}}
-                                        {{--New Thread--}}
+                                        {{--New Post--}}
                                     {{--</button><br><br>--}}
 
                                     @if(empty(Session::get('failed_umum')) == false)
@@ -90,7 +90,7 @@
                                                     @if($forum->created_by == Auth::user()->id)
                                                         <a
                                                                 href="{{ url(action('ForumController@editByUser',$forum->id)) }}"
-                                                                data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
+                                                                data-toggle="tooltip" data-placement="top" title="Edit Your Post"
                                                         >
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </a>
@@ -125,7 +125,7 @@
                                                 <p>Forum ini ditujukan untuk karyawan {{$job_family->name}} PT Aerofood Indonesia.</p>
                                             </div>
                                             <div class="va-middle" style="text-align:right;">
-                                                <button  class="btn btn-info" data-toggle="modal" data-target="#modal_job_family">New Thread</button>
+                                                <button  class="btn btn-info" data-toggle="modal" data-target="#modal_job_family">New Post</button>
                                             </div>
                                         </div>
                                         <hr/>
@@ -166,7 +166,7 @@
                                                         @if($forum->created_by === Auth::user()->id)
                                                             <a
                                                                     href="{{ url('forum/user/edit/'.$forum->id) }}"
-                                                                    data-toggle="tooltip" data-placement="top" title="Edit Your Thread"
+                                                                    data-toggle="tooltip" data-placement="top" title="Edit Your Post"
                                                             >
 
                                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -208,7 +208,7 @@
                                                     PT Aerofood Indonesia</p>
                                             </div>
                                             <div class="va-middle" style="text-align:right;">
-                                                <button  class="btn btn-info" data-toggle="modal" data-target="#modal_department">New Thread</button>
+                                                <button  class="btn btn-info" data-toggle="modal" data-target="#modal_department">New Post</button>
                                             </div>
                                         </div>
                                         <hr/>
@@ -253,7 +253,7 @@
                                                             <a
                                                                     href="{{ url('forum/user/edit/'.$forum->id) }}"
                                                                     data-toggle="tooltip" data-placement="top"
-                                                                    title="Edit Your Thread">
+                                                                    title="Edit Your Post">
                                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
                                                             </a>
@@ -305,7 +305,7 @@
 
 
 
-    <!-- New Thread Umum -->
+    <!-- New Post Umum -->
     <div class="modal fade" id="modal_umum" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
@@ -316,7 +316,7 @@
                     <div class="modal-header">
                         <button type="button" class="btn btn-danger btn-lg pull-right"
                                 data-dismiss="modal">X</button>
-                        <h1 class="modal-title text-center">New Thread -  Forum Umum</h1>
+                        <h1 class="modal-title text-center">New Post -  Forum Umum</h1>
                     </div>
 
                     <div class="modal-body">
@@ -401,7 +401,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Submit New Thread
+                                    Submit New Post
                                 </button>
                             </div>
                         </div>
@@ -412,7 +412,7 @@
     </div>
 
     @if($department != null)
-        <!-- New Thread Department -->
+        <!-- New Post Department -->
         <div class="modal fade" id="modal_department" role="dialog">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
@@ -423,7 +423,7 @@
 
                             <button type="button" class="btn btn-danger btn-lg pull-right"
                                     data-dismiss="modal">X</button>
-                            <h1 class="modal-title text-center">New Thread - Forum Unit</h1>
+                            <h1 class="modal-title text-center">New Post - Forum Unit</h1>
                         </div>
 
                         <div class="modal-body">
@@ -508,7 +508,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Submit New Thread
+                                        Submit New Post
                                     </button>
                                 </div>
                             </div>
@@ -520,7 +520,7 @@
     @endif
 
     @if($job_family != null)
-        <!-- New Thread Job Family -->
+        <!-- New Post Job Family -->
         <div class="modal fade" id="modal_job_family" role="dialog">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
@@ -532,7 +532,7 @@
                                     data-dismiss="modal">X</button>
 
 
-                            <h1 class="modal-title text-center">New Thread - Forum Job Family</h1>
+                            <h1 class="modal-title text-center">New Post - Forum Job Family</h1>
                         </div>
 
                         <div class="modal-body">
@@ -616,7 +616,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Submit New Thread
+                                        Submit New Post
                                     </button>
                                 </div>
                             </div>

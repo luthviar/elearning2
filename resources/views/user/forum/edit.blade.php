@@ -21,7 +21,7 @@
                                     <h4 class="modal-title">
 
                                         <a href="{{url()->previous()}}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
-                                        Edit Your Thread</h4>
+                                        Edit Your Post</h4>
                                     @if(empty(Session::get('success')) == false)
                                         <div class="alert alert-success text-center" role="alert">
                                             <h3>Success!</h3>

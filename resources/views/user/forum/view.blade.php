@@ -28,7 +28,7 @@
                                 <i class="fa fa-pencil-square-o"
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   title="Edit this Thread."
+                                   title="Edit this Post."
                                    aria-hidden="true"></i>
                             </a></b>
                         @endif

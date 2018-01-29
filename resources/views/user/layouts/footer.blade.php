@@ -52,7 +52,7 @@
             <div class="col-md-12">
                 <div class="text-muted">Head Office: <b>Aerowisata Park</b>. Jl. Prof. DR. Soepomo No. 45 Tebet, Jakarta 12810.</div>
                 <div class="text-muted"><i class="fa fa-phone"></i>&nbsp;+62 21 8370 5076 / F: +62 21 8370 5012</div>
-                <div class="text-muted"><i class="fa fa-envelope"></i>&nbsp;<a href="mailto:info@aerofood.co.id" style="color:#999;"> info@aerofood.co.id</a></div>
+                <div class="text-muted"><i class="fa fa-envelope"></i>&nbsp;<a href="mailto:info@aerowisatafood.com" style="color:#999;"> info@aerowisatafood.com</a></div>
             </div>
         </div>
         <br>
@@ -63,7 +63,7 @@
                     <li class="fbsf"><a href="https://www.facebook.com/AerofoodIndonesiaPT/"><i class="fa fa-facebook-square fa-3x" style="color:#999;"></i></a></li>
                     <li class="gpsf"><a href="#"><i class="fa fa-google-plus-square fa-3x" style="color:#999;"></i></a></li>
                     <li class="tssf"><a href="#"><i class="fa fa-twitter-square fa-3x" style="color:#999;"></i></a></li>
-                    <li class="igsf"><a href="#"><i class="fa fa-instagram fa-3x" style="color:#999;"></i></a></li>
+                    <li class="igsf"><a href="https://www.instagram.com/aerofoodacsofficial/"><i class="fa fa-instagram fa-3x" style="color:#999;"></i></a></li>
                 </ul>
             </div>
         </div>
